@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGetRegionQuery } from '../../redux/region/RegionApiSlice';
-import MainLoading from "../Loading/MainLoading";
+import MainLoading from '../Resource/Loading/MainLoading';
+
 
 export const View = () => {
   const {data: region, isLoading,isSuccess} = useGetRegionQuery();

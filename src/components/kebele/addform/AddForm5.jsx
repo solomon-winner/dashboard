@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { AddCircleOutline, Delete, Forest, Grass } from "@mui/icons-material";
 import { FormField } from "../../wereda/AddWereda";
 import { useSelector } from "react-redux";
-import Loading from "../../Loading/Loading";
-
+import Loadings from "../../Resource/Loading/Loadings";
 export const AddForm5 = ({handleChange,formData,setFormData}) => {
   const {crop,fruit,tree,isLoadingCrop,isLoadingFruit,isLoadingTree}=useSelector((state)=>state.resource)
   const [additionalFields, setAdditionalFields] = useState([
@@ -99,7 +98,7 @@ export const AddForm5 = ({handleChange,formData,setFormData}) => {
                             value: "loading",
                             label: (
                               <div className="flex justify-center">
-                                <Loading />
+                                <Loadings />
                               </div>
                             ),
                           },
@@ -154,7 +153,7 @@ export const AddForm5 = ({handleChange,formData,setFormData}) => {
                             value: "loading",
                             label: (
                               <div className="flex justify-center">
-                                <Loading />
+                                <Loadings />
                               </div>
                             ),
                           },
@@ -210,7 +209,7 @@ export const AddForm5 = ({handleChange,formData,setFormData}) => {
                           value: "loading",
                           label: (
                             <div className="flex justify-center">
-                              <Loading />
+                              <Loadings />
                             </div>
                           ),
                         },
@@ -263,7 +262,7 @@ export const AddForm5 = ({handleChange,formData,setFormData}) => {
                           value: "loading",
                           label: (
                             <div className="flex justify-center">
-                              <Loading />
+                              <Loadings />
                             </div>
                           ),
                         },

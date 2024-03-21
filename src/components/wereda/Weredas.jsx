@@ -2,16 +2,12 @@ import React, { useState } from "react";
 import { FormField } from "./AddWereda";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import {
-  useGetRegionQuery,
-  useGetWeredaByRegionQuery,
-} from "../../redux/region/RegionApiSlice";
 import { useAddWoredaMutation } from "../../redux/wereda/WeredaApiSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import { useSelector } from "react-redux";
-import Loading from "../Loading/Loading";
+import Loadings from '../Resource/Loading/Loadings';
 const validationSchema = Yup.object().shape({
   woreda_name: Yup.string().required("Wereda name is required"),
   status: Yup.string().required("Status is required"),
@@ -87,7 +83,7 @@ export const Weredas = () => {
                                   value: "loading",
                                   label: (
                                     <div className="flex justify-center">
-                                      <Loading />
+                                      <Loadings />
                                     </div>
                                   ),
                                 },

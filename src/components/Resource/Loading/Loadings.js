@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Loading = () => {
+const Loadings = () => {
  return (
     <div aria-label="Loading..." role="status" className="flex items-center space-x-2">
       <svg className="h-4 w-4 animate-spin stroke-green-500" viewBox="0 0 256 256">
@@ -18,4 +18,4 @@ const Loading = () => {
  );
 };
 
-export default Loading;
+export default Loadings;

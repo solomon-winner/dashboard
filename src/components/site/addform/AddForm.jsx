@@ -6,7 +6,7 @@ import { FormField } from "../../wereda/AddWereda";
 import { weredas } from "../../wereda/addform/AddForm";
 import Select from "react-select";
 import { useSelector } from "react-redux";
-import Loading from "../../Loading/Loading";
+import Loadings from '../../Resource/Loading/Loadings';
 import { useGetWeredaByRegionQuery } from "../../../redux/region/RegionApiSlice";
 import { useGetKebeleByWeredaQuery } from "../../../redux/kebele/KebeleApiSlice";
 import { useGetSiteByKebeleQuery } from "../../../redux/site/SiteApiSlice";
@@ -103,7 +103,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
           value: "loading",
           label: (
             <div className="flex justify-center">
-              <Loading />
+              <Loadings />
             </div>
           ),
         },
@@ -132,7 +132,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings/>
                           </div>
                         ),
                       },
@@ -231,7 +231,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },
@@ -287,7 +287,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },
@@ -349,7 +349,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
                           value: "loading",
                           label: (
                             <div className="flex justify-center">
-                              <Loading />
+                              <Loadings />
                             </div>
                           ),
                         },
@@ -402,7 +402,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
                           value: "loading",
                           label: (
                             <div className="flex justify-center">
-                              <Loading />
+                              <Loadings />
                             </div>
                           ),
                         },

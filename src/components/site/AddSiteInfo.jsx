@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import { useSelector } from "react-redux";
-import Loading from "../Loading/Loading";
+import Loadings from '../Resource/Loading/Loadings'
 const validationSchema = Yup.object().shape({
   region_id: Yup.string().required("Region is required"),
   woreda_id: Yup.string().required("Wereda is required"),
@@ -88,7 +88,7 @@ export const AddSiteInfo = () => {
           value: "loading",
           label: (
             <div className="flex justify-center">
-              <Loading />
+              <Loadings />
             </div>
           ),
         },
@@ -127,7 +127,7 @@ export const AddSiteInfo = () => {
                                   value: "loading",
                                   label: (
                                     <div className="flex justify-center">
-                                      <Loading />
+                                      <Loadings />
                                     </div>
                                   ),
                                 },
@@ -225,7 +225,7 @@ export const AddSiteInfo = () => {
                                   value: "loading",
                                   label: (
                                     <div className="flex justify-center">
-                                      <Loading />
+                                      <Loadings />
                                     </div>
                                   ),
                                 },

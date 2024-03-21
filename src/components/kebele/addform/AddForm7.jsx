@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { RadioButtonGroup } from "../../site/AddSite";
 import { useSelector } from "react-redux";
-import Loading from "../../Loading/Loading";
+import Loadings from "../../Resource/Loading/Loadings";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
 import { FormField } from "../../wereda/AddWereda";
 
@@ -52,7 +52,7 @@ export const AddForm7 = ({ handleChange, formData, setFormData }) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },

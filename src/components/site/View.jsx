@@ -2,7 +2,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGetSiteQuery } from '../../redux/site/SiteApiSlice';
-import MainLoading from "../Loading/MainLoading";
+import MainLoading from '../Resource/Loading/MainLoading';
+
 
 export const View = () => {
   const {data: site, isLoading,isSuccess} = useGetSiteQuery();

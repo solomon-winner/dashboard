@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
 import { RadioButtonGroup } from "../AddSite";
 import { FormField } from "../../wereda/AddWereda";
-import Loading from "../../Loading/Loading";
+import Loadings from '../../Resource/Loading/Loadings';
 import { useSelector } from "react-redux";
 
 
@@ -84,7 +84,7 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },
@@ -133,7 +133,7 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },
@@ -181,7 +181,7 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },
