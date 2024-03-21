@@ -8,7 +8,7 @@ import {
 import React, { useState } from "react";
 import { FormField } from "../../wereda/AddWereda";
 import { useSelector } from "react-redux";
-import Loading from "../../Loading/Loading";
+import Loadings from "../../Resource/Loading/Loadings";
 
 const option = [
   "Grass",
@@ -82,7 +82,7 @@ export const AddForm4 = ({handleChange,formData,setFormData}) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },
@@ -140,7 +140,7 @@ export const AddForm4 = ({handleChange,formData,setFormData}) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },

@@ -11,7 +11,7 @@ import {
 } from "@mui/icons-material";
 import { FormField } from "../AddWereda";
 import { useSelector } from "react-redux";
-import Loading from "../../Loading/Loading";
+import Loadings from "../../Resource/Loading/Loadings";
 
 export const AddForm3 = ({ handleChange, formData, setFormData }) => {
   const { school, healthFacility, isLoadingInstitutions } = useSelector(
@@ -76,7 +76,7 @@ export const AddForm3 = ({ handleChange, formData, setFormData }) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },
@@ -134,7 +134,7 @@ export const AddForm3 = ({ handleChange, formData, setFormData }) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },

@@ -13,9 +13,10 @@ import { weredas } from "../../wereda/addform/AddForm";
 import Select from "react-select";
 import { LandUse } from "../../wereda/addform/AddForm2";
 import { useSelector } from "react-redux";
-import Loading from "../../Loading/Loading";
+
 import { useGetWeredaByRegionQuery } from "../../../redux/region/RegionApiSlice";
 import { useGetKebeleByWeredaQuery } from "../../../redux/kebele/KebeleApiSlice";
+import Loadings from "../../Resource/Loading/Loadings";
 
 export const AddForm = ({handleChange, formData, setFormData}) => {
   const [selectedRegion, setSelectedRegion] = useState("");
@@ -63,7 +64,7 @@ export const AddForm = ({handleChange, formData, setFormData}) => {
           value: "loading",
           label: (
             <div className="flex justify-center">
-              <Loading />
+              <Loadings />
             </div>
           ),
         },
@@ -92,7 +93,7 @@ export const AddForm = ({handleChange, formData, setFormData}) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },
@@ -191,7 +192,7 @@ export const AddForm = ({handleChange, formData, setFormData}) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },
@@ -297,7 +298,7 @@ export const AddForm = ({handleChange, formData, setFormData}) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },

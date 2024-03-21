@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AddCircleOutline, Delete, Grass, Landslide, Medication } from "@mui/icons-material";
 import { FormField } from "../../wereda/AddWereda";
 import { useSelector } from "react-redux";
-import Loading from "../../Loading/Loading";
+import Loadings from "../../Resource/Loading/Loadings";
 
 const option = [
   "Fuel wood", "Farm land expansion", "Free grazing"
@@ -62,7 +62,7 @@ export const AddForm6 = ({handleChange,formData,setFormData}) => {
                             value: "loading",
                             label: (
                               <div className="flex justify-center">
-                                <Loading />
+                                <Loadings />
                               </div>
                             ),
                           },
@@ -130,7 +130,7 @@ export const AddForm6 = ({handleChange,formData,setFormData}) => {
                             value: "loading",
                             label: (
                               <div className="flex justify-center">
-                                <Loading />
+                                <Loadings />
                               </div>
                             ),
                           },

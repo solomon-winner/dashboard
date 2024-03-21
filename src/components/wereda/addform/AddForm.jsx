@@ -8,7 +8,7 @@ import {
 } from "../../../redux/region/RegionApiSlice";
 import Select from "react-select";
 import { useSelector } from "react-redux";
-import Loading from "../../Loading/Loading";
+import Loadings from "../../Resource/Loading/Loadings";
 export const weredas = {
   "Addis Ababa": [""],
   Afar: [""],
@@ -59,7 +59,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
           value: "loading",
           label: (
             <div className="flex justify-center">
-              <Loading />
+              <Loadings />
             </div>
           ),
         },
@@ -95,7 +95,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },

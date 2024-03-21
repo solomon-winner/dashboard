@@ -10,7 +10,7 @@ import {
 } from "@mui/icons-material";
 import { FormField } from "../AddWereda";
 import { useDispatch, useSelector } from "react-redux";
-import Loading from "../../Loading/Loading";
+import Loadings from "../../Resource/Loading/Loadings";
 
 export const LandUse = ["Residential", "Commercial", "Industrial"];
 export const AddForm2 = ({ handleChange, formData, setFormData }) => {
@@ -76,7 +76,7 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },
@@ -133,7 +133,7 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
                         value: "loading",
                         label: (
                           <div className="flex justify-center">
-                            <Loading />
+                            <Loadings />
                           </div>
                         ),
                       },

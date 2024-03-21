@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import { useSelector } from "react-redux";
-import Loading from "../Loading/Loading";
+import Loadings from '../Resource/Loading/Loadings'
 const validationSchema = Yup.object().shape({
   kebele_name: Yup.string().required("Kebele name is required"),
   woreda_id: Yup.number().required("Wereda ID is required"),
@@ -66,7 +66,7 @@ const Kebeles = () => {
           value: "loading",
           label: (
             <div className="flex justify-center">
-              <Loading />
+              <Loadings />
             </div>
           ),
         },
@@ -106,7 +106,7 @@ const Kebeles = () => {
                                   value: "loading",
                                   label: (
                                     <div className="flex justify-center">
-                                      <Loading />
+                                      <Loadings />
                                     </div>
                                   ),
                                 },

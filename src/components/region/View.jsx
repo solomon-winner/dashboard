@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGetRegionQuery } from '../../redux/region/RegionApiSlice';
+import MainLoading from '../Resource/Loading/MainLoading';
 
 
 export const View = () => {
@@ -16,7 +17,11 @@ export const View = () => {
   let content;
   let filteredData; 
   if (isLoading){
-    content = <h1>Is loading</h1>
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <MainLoading />
+      </div>
+    );
   }
   else if (isSuccess) {
     let filteredData = region.data.filter((d) =>
