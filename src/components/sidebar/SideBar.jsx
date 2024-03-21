@@ -9,12 +9,15 @@
  import GpsFixedRoundedIcon from '@mui/icons-material/GpsFixedRounded';
  import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
  import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
- import { useDispatch } from 'react-redux';
+ import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../redux/auth/authSlice';
 import { MeetingRoom } from '@mui/icons-material';
  
  export const SideBar = () => {
   const dispatch = useDispatch();
+  const Avatar = useSelector((state) => state.user.UserData.avatar)
+  const Email = useSelector((state) => state.user.UserData.email)
+
   const [showSidebar, setShowSidebar] = useState(false);
   const handleButtonClick = () => {
     setShowSidebar(!showSidebar);
@@ -51,9 +54,9 @@ import { MeetingRoom } from '@mui/icons-material';
             
           </div>
           <div className="flex gap-2 justify-center items-center">
-              <img src="https://media.istockphoto.com/id/1352025984/photo/headshot-of-cheerful-young-businessman.jpg?s=612x612&w=0&k=20&c=6LxOFkwfu3XYgfySJfI1uTpP1JUX4ZIgl_1CdpQBk3s=" alt="img" className="w-12 h-12 bg-red-400 object-fill rounded-full" />
+              <img src={`https://tbrr.echnoserve.com/storage/app/public/${Avatar}`}  alt="img" className="w-12 h-12 bg-red-400 object-fill rounded-full" />
               <div className="flex flex-col">
-                <span className="text-sm font-medium text-gray-900">Admin@glr.gv.et</span>
+                <span className="text-sm font-medium text-gray-900">{Email}</span>
                 <span className="text-xs font-medium text-gray-500">Admin</span>
               </div>
             </div>
