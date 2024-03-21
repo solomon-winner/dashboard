@@ -1,82 +1,215 @@
-import React from 'react';
+import React from "react";
+import { Formik, Form, Field } from "formik";
 import { Link } from 'react-router-dom';
-import { Formik, Field, Form } from 'formik';
 import { useAddAccountMutation } from '../../redux/account/AccountApiSlice';
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from "react-redux";
 
-const NewUser = () => {
-  const [getAccounts] = useAddAccountMutation();
+ const NewUser = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [AddUser, { isLoading }] = useAddAccountMutation();
+
+  const formatFormData = (formData) => {
+    return {
+      name: `${formData.FirstName} ${formData.LastName}`,
+      birthday: formData.birthday,
+      mobile: formData.mobile,
+      organization: formData.organization,
+      position: formData.position,
+      roles: formData.roles
+    };
+  };
+
+ 
+  
   return (
-    <div className="relative">
-      <Link className="absolute top-16 left-5 bg-mainColor text-white active:bg-mainColor font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="button">
-        back 
-      </Link>
-      <section className="py-1 bg-blueGray-50">
-        <div className="w-full lg:w-8/12 px-4 mx-auto mt-6">
-          <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
-            <div className="rounded-t bg-white mb-0 px-6 py-6">
-              <div className="text-center flex justify-between">
-                <h6 className="text-blueGray-700 text-xl font-bold">
-                  My account
-                </h6>
-                <button className="bg-mainColor text-white active:bg-mainColor font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="button">
-                  Save user 
-                </button>
+    <div className="flex items-center justify-center p-12">
+      {}
+      <div className="mx-auto w-full max-w-[550px]">
+        <Formik
+          initialValues={{
+            FirstName: '',
+            LastName: '',
+            birthday: '',
+            mobile: '',
+            organization: '',
+            position: '',
+            roles:''
+          }}
+          onSubmit={async (values, { setSubmitting }) => {
+                            try {
+                             const formattedData = formatFormData(values);
+                                const NewUser = await AddUser(formattedData);
+                                console.log(NewUser);
+                                 // Optionally, display success message
+                               } catch (error) {
+                                 console.error('Error adding account:', error);
+                                 // Optionally, display error message to the user
+                               } finally {
+                                 setSubmitting(false);
+                               }
+                             }}
+                           >
+                             {({ isSubmitting }) => (
+            <Form>
+              <div className="-mx-3 flex flex-wrap">
+                <div className="w-full px-3 sm:w-1/2">
+                  <div className="mb-5">
+                    <label
+                      htmlFor="FirstName"
+                      className="mb-3 block text-base font-medium text-[#07074D]"
+                    >
+                      First Name
+                    </label>
+                    <Field
+                      type="text"
+                      name="FirstName"
+                      id="FirstName"
+                      placeholder="First Name"
+                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                    />
+                  </div>
+                </div>
+                <div className="mb-5">
+                  <label
+                    htmlFor="LastName"
+                    className="mb-3 block text-base font-medium text-[#07074D]"
+                  >
+                    Last Name
+                  </label>
+                  <Field
+                    type="text"
+                    name="LastName"
+                    id="LastName"
+                    placeholder="Last Name"
+                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                  />
+                </div>
+                <div className="w-full px-3 sm:w-1/2">
+                  <div className="mb-5">
+                    <label
+                      htmlFor="birthday"
+                      className="mb-3 block text-base font-medium text-[#07074D]"
+                    >
+                      Your Birth day?
+                    </label>
+                    <Field
+                      type="date"
+                      name="birthday"
+                      id="date"
+                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                    />
+                  </div>
+                </div>
+                <div className="w-full px-3 sm:w-1/2">
+                  <div className="mb-5">
+                    
+                    
+                  </div>
+                </div>
+                <div className="w-full px-3 sm:w-1/2">
+                  <div className="mb-5">
+                    <label
+                      htmlFor="mobile"
+                      className="mb-3 block text-base font-medium text-[#07074D]"
+                    >
+                      Phone number
+                    </label>
+                    <Field
+                      type="tel"
+                      name="mobile"
+                      id="phone"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      pattern="^09\d{8}$"
+                    />
+                  </div>
+                </div>
+                
+                <div className="w-full px-3 sm:w-1/2">
+                  <div className="mb-5">
+                    <label
+                      htmlFor="organization"
+                      className="mb-3 block text-base font-medium text-[#07074D]"
+                    >
+                      Organization
+                    </label>
+                    <Field
+                      type="text"
+                      name="organization"
+                      id="organization"
+                      placeholder="organization"
+                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                    />
+                  </div>
+                </div>
+                <div className="w-full px-3 sm:w-1/2">
+                  <div className="mb-5">
+                    <label
+                      htmlFor="position"
+                      className="mb-3 block text-base font-medium text-[#07074D]"
+                    >
+                      Position
+                    </label>
+                    <Field
+                      type="text"
+                      name="position"
+                      id="Position"
+                      placeholder="Position"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-green-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-              <Formik
-                initialValues={{
-                  email: 'jesse@gmail.com',
-                  name: 'Lucky',
-                  password: ''
-                }}
-                onSubmit={(values) => {
-                  getAccounts(values);
-                  console.log({name: values.name, email: values.email, password: values.password});
-                }}
+              <div className="w-full px-3 sm:w-1/2">
+                  <div className="mb-5">
+                       <label 
+                       htmlFor="Roles"
+                       className="mb-3 block text-base font-medium text-[#07074D]">
+                         Roles
+                       </label>
+                       <Field
+                         as="select"
+                         id="roles"
+                         name="roles"
+                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-green-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       >
+                      <option value="">Select a role</option>
+                      <option value="Admin">Admin</option>
+                        <option value="User">User</option>
+                      
+                       </Field>
+                       <div className="flex justify-between items-center mt-4 px-6">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="bg-mainColor text-white active:bg-mainColor font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
               >
-                {({ isSubmitting }) => (
-                  <Form>
-                    <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                      User Information
-                    </h6>
-                    <div className="flex flex-wrap">
-                      <div className="w-full lg:w-6/12 px-4">
-                        <div className="relative w-full mb-3">
-                          <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="email">
-                            Email address
-                          </label>
-                          <Field type="email" name="email" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
-                        </div>
-                      </div>
-                      <div className="w-full lg:w-6/12 px-4">
-                        <div className="relative w-full mb-3">
-                          <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="name">
-                            User Name
-                          </label>
-                          <Field type="text" name="name" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
-                        </div>
-                      </div>
-
-                      <div className="w-full lg:w-6/12 px-4">
-                        <div className="relative w-full mb-3">
-                          <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="password">
-                            Password
-                          </label>
-                          <Field type="password" name="password" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
-                        </div>
-                      </div>
-                    </div>
-                    <button type="submit" disabled={isSubmitting} className="bg-mainColor text-white active:bg-mainColor font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
-                      Submit
-                    </button>
-                  </Form>
-                )}
-              </Formik>
+                {isSubmitting ? 'Submitting...' : 'Submit'}
+              </button>
+              <Link to="/admin/Accounts" className='bg-mainColor text-white h-8 w-40 text-center rounded ml-4'> Back</Link>
             </div>
-          </div>
-        </div>
-      </section>
+                     </div>
+                     </div>
+                     {/* <div className="w-full px-4 mb-3">
+                       <button
+                         type="submit"
+                         disabled={isSubmitting}
+                         className="bg-mainColor text-white active:bg-mainColor font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                       >
+                         {isSubmitting ? 'Submitting...' : 'Submit'}
+                         
+                       </button>
+                       
+                     </div>
+                      */}
+             
+                     
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 };
