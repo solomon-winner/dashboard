@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetWoredaQuery } from "../../redux/wereda/WeredaApiSlice";
-import MainLoading from "../Loading/MainLoading";
+import MainLoading from "../Resource/Loading/MainLoading";
+import Pagination from "../Resource/Pagination/Pagination";
 
 export const View = () => {
-  const { data: wereda, isLoading, isSuccess } = useGetWoredaQuery();
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data: wereda, isLoading, isSuccess } = useGetWoredaQuery(currentPage);
   const [searchInput, setSearchInput] = useState("");
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
   };
-
+  const totalPages =
+    isSuccess && wereda.data.length < 20 ? currentPage : currentPage + 1;
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -86,28 +91,7 @@ export const View = () => {
                 >
                   <Link
                     to={`/admin/wereda/1`}
-                    className="
-        p-4
-        pt-9
-        h-full
-        md:px-7
-        xl:px-10
-        bg-white
-        shadow-md
-        border
-        border-custumBlue
-        hover:shadow-lg
-        hover:bg-mainColor
-        hover:text-white
-        transition duration-300 ease-in-out
-        flex
-        flex-col
-        justify-center
-        relative
-        group
-        overflow-hidden
-        rounded
-      "
+                    className="p-4 pt-9 h-full md:px-7 xl:px-10 bg-white shadow-md  border border-custumBlue hover:shadow-lg hover:bg-mainColor hover:text-white transition duration-300 ease-in-out flex flex-col justify-center relative group  overflow-hidden rounded "
                   >
                     <h4 className="relative z-10 font-semibold font-raleway text-2xl text-dark mb-3">
                       {item.woreda_name}
@@ -133,6 +117,11 @@ export const View = () => {
             </div>
           </div>
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          handlePageChange={handlePageChange}
+          />
       </div>
     );
   }
