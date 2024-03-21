@@ -1,21 +1,24 @@
- 
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useGetWoredaQuery } from '../../redux/wereda/WeredaApiSlice';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useGetWoredaQuery } from "../../redux/wereda/WeredaApiSlice";
+import MainLoading from "../Loading/MainLoading";
 
 export const View = () => {
-  const {data: wereda, isLoading,isSuccess} = useGetWoredaQuery();
+  const { data: wereda, isLoading, isSuccess } = useGetWoredaQuery();
 
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
 
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
   };
 
-  if (isLoading){
-    return <h1>Is loading</h1>
-  }
-  else if (isSuccess) {
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <MainLoading />
+      </div>
+    );
+  } else if (isSuccess) {
     let filteredData = wereda.data.filter((d) =>
       d.woreda_name.toLowerCase().includes(searchInput.toLowerCase())
     );
@@ -56,7 +59,7 @@ export const View = () => {
             </form>
           </div>
           <div>
-          <Link
+            <Link
               to="/admin/add-weredas"
               className="bg-mainColor py-2 px-6 rounded text-white font-semibold hover:bg-customDark"
             >
@@ -133,5 +136,4 @@ export const View = () => {
       </div>
     );
   }
-}
-
+};

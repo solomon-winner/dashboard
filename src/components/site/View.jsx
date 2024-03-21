@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGetSiteQuery } from '../../redux/site/SiteApiSlice';
-
+import MainLoading from "../Loading/MainLoading";
 
 export const View = () => {
   const {data: site, isLoading,isSuccess} = useGetSiteQuery();
@@ -13,7 +13,11 @@ export const View = () => {
   };
 
   if (isLoading){
-    return <h1>Is loading</h1>
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <MainLoading />
+      </div>
+    );
   }
   else if (isSuccess) {
     let filteredData = site.data.filter((d) =>

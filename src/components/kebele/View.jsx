@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGetKebeleQuery } from '../../redux/kebele/KebeleApiSlice';
-
+import MainLoading from "../Loading/MainLoading";
 export const View = () => {
   const { data, error, isLoading } = useGetKebeleQuery();
 console.log(data)
@@ -13,7 +13,11 @@ console.log(data)
   let content;
   let filteredData; 
   if (isLoading === true){
-    content = <h1>Is loading</h1>
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <MainLoading />
+      </div>
+    );
   }
   else if(isLoading === false && data.length != 0){
     filteredData = data.data.filter((d) => d.kebele_name && d.kebele_name.toLowerCase().includes(searchInput.toLowerCase()));
