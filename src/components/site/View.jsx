@@ -3,12 +3,18 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGetSiteQuery } from '../../redux/site/SiteApiSlice';
 import MainLoading from '../Resource/Loading/MainLoading';
+import Pagination from '../Resource/Pagination/Pagination';
 
 
 export const View = () => {
-  const {data: site, isLoading,isSuccess} = useGetSiteQuery();
+  const [currentPage, setCurrentPage] = useState(1);
+  const {data: site, isLoading,isSuccess} = useGetSiteQuery(currentPage);
   const [searchInput, setSearchInput] = useState('');
-
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+  const totalPages =
+  isSuccess && site.data.length < 20 ? currentPage : currentPage + 1;
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
   };
@@ -135,6 +141,11 @@ export const View = () => {
             </div>
           </div>
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          handlePageChange={handlePageChange}
+          />
       </div>
     );
   }
