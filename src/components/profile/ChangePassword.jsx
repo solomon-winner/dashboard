@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SetPasswordData } from '../../redux/password/changePasswordSlice';
 import { useNavigate } from 'react-router-dom';
 import { useChangePasswordMutation } from '../../redux/password/passwordApi';
@@ -17,7 +17,8 @@ const validationSchema = Yup.object().shape({
 });
 
 const ChangePassword = () => {
-    
+    const Avatar = useSelector((state) => state.user.UserData.avatar)
+    console.log(Avatar);
     const navigate = useNavigate();
     const [changePassword, { isLoading }] = useChangePasswordMutation();
     const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const ChangePassword = () => {
         <div className="bg-gray-100 flex items-center justify-center h-screen">
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
                 <div className="flex items-center space-x-2 mb-6">
-                    <img src="https://unsplash.it/40/40?image=883" alt="Lock Icon" className="rounded-full" />
+                    <img src={`https://tbrr.echnoserve.com/storage/app/public/${Avatar}`}  alt="Lock Icon" className="rounded-full w-10 h-10" />
                     <h1 className="text-xl font-semibold">Change Password</h1>
                 </div>
                 <p className="text-sm text-gray-600 mb-6">Update password for enhanced account security.</p>

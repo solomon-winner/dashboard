@@ -4,9 +4,6 @@ import { dateFormat } from '../../redux/DateFormat/dateFormat';
 
 export const Activity = () => {
 const [count, setCount] = useState(1);
-const [disablePrevious,setdisablePrevious] = useState(false)
-const [disableNext,setdisableNext] = useState(false)
-
     const {
         data: user,
         isLoading: userLoading,
@@ -15,18 +12,13 @@ const [disableNext,setdisableNext] = useState(false)
         error
     } = useActivityQuery(count); 
     const History = userSuccess && user.data;
+    console.log(History.length)
 const seeNext = () => {
-    if(History.length !== 10) {
-        setdisableNext(true);
-        return;
-    }
     setCount(count+1);
-    setdisablePrevious(false);
 }
 const seePrevious = () => {
 
     setCount(count - 1);
-    setdisableNext(false);
 }
     return (
         <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
@@ -55,7 +47,7 @@ const seePrevious = () => {
            <div className="flex justify-around w-full">
 { count !== 1 && <button className="bg-green-400 text-white font-bold py-2 px-4 hover:bg-darkMain rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold outline-none"  onClick={seePrevious}>Previous</button>} 
 <span>page: {count}</span>
-{!disableNext && <button className="bg-green-400 text-white font-bold py-2 px-4 hover:bg-darkMain rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold outline-none"  onClick={seeNext}>Next</button>}
+{History.length === 10 && <button className="bg-green-400 text-white font-bold py-2 px-4 hover:bg-darkMain rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold outline-none"  onClick={seeNext}>Next</button>}
 </div>
 
 
