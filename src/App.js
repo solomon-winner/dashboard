@@ -62,18 +62,18 @@ function App() {
         <Route path='/admin/site' element={<Site />} />
         <Route path='/admin/accounts' element={<Accounts />} />
         <Route path='/admin/profile' element={<Profile />} />
-        <Route path='/admin/kebele/1' element={ <Details />} />
+        <Route path='/admin/kebele/:id' element={ <Details />} />
         <Route path='/admin/new-kebele' element={<AddKebele />} />
         <Route path='/admin/new-site' element={ <AddSite />} />
         <Route path='/admin/new-region' element={<AddRegion />} />
         <Route path='/admin/new-wereda' element={<Addwereda/>} />
-        <Route path='/admin/update-wereda' element={<Updatewereda/>} />
-        <Route path='/admin/update-region' element={<UpdateRegion />} />
-        <Route path='/admin/update-site' element={ <UpdateSite />} />
-        <Route path='/admin/update-kebele' element={<UpdateKebele />} />
-        <Route path='/admin/wereda/1' element={<WeredaDetails />} />
-        <Route path='/admin/site/1' element={<SiteDetails />} />
-        <Route path='/admin/region/1' element={<RegionDetails />} />
+        <Route path='/admin/update-wereda/:id' element={<Updatewereda/>} />
+        <Route path='/admin/update-region/:id' element={<UpdateRegion />} />
+        <Route path='/admin/update-site/:id' element={ <UpdateSite />} />
+        <Route path='/admin/update-kebele/:id' element={<UpdateKebele />} />
+        <Route path='/admin/wereda/:id' element={<WeredaDetails />} />
+        <Route path='/admin/site/:id' element={<SiteDetails />} />
+        <Route path='/admin/region/:id' element={<RegionDetails />} />
         <Route path='/admin/new-user' element={<NewUser />} />
         <Route path = '/admin/ChangePassword' element = {<ChangePassword/>}/>
         <Route path = '/admin/UpdatePersonalInfo' element = {<UpdatePersonalInfo/>} />

@@ -25,8 +25,14 @@ export const weredaApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body: data     
             })
-        })
+        }),
+        getWeredaById: builder.query({
+            query: (id) => ({
+                url: `/woredas/${id}`,
+                method: "GET",
+            })
+        }),
     }),
 })
 
-export const { useGetWoredaQuery, useAddWoredaMutation, useAddWoredaDataMutation } = weredaApiSlice
+export const { useGetWoredaQuery, useAddWoredaMutation, useAddWoredaDataMutation, useGetWeredaByIdQuery } = weredaApiSlice

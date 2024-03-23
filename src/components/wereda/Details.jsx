@@ -1,21 +1,29 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+
+import { useGetWeredaByIdQuery } from '../../redux/wereda/WeredaApiSlice'
 
 
 export const WeredaDetails = () => {
+  const { id } = useParams(); 
+  const {data: weredadata, isSuccess,isFetching}=useGetWeredaByIdQuery(id)
+  if(!isSuccess || isFetching){
+    return <div>Loading...</div>
+  }
+  const {woreda_name, woreda_data  } = weredadata.data
   return (
     <div>
       <div className='flex justify-between p-10'>
         <Link to="/admin/wereda" className='py-1 px-4 rounded-md bg-mainColor text-white hover:bg-customDark font-semibold'>back</Link>
         <div className='flex gap-4'>
         <button  className='py-1 px-4 rounded-md bg-red-600 hover:bg-red-400 text-white font-semibold'>Delete Wereda</button>
-        <Link to="/admin/update-wereda" className='py-1 px-4 rounded-md bg-blue-500 hover:bg-blue-400 text-white font-semibold'>Update Wereda</Link>
+        <Link to={`/admin/update-wereda/${id}`}className='py-1 px-4 rounded-md bg-blue-500 hover:bg-blue-400 text-white font-semibold'>Update Wereda</Link>
         </div>
       </div>
       <div className="bg-white py-12 sm:py-12">
   <div className="mx-auto max-w-7xl px-6 lg:px-8">
     <div className="mx-auto max-w-2xl sm:text-center">
-      <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Wereda Name: Dera</h2>
+      <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Wereda Name: {woreda_name}</h2>
       {/* <p className="mt-6 text-lg leading-8 text-gray-600">Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas in. Explicabo id ut laborum.</p> */}
     </div>
     <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
@@ -25,14 +33,14 @@ export const WeredaDetails = () => {
 
         <div className='flex flex-col gap-2'> 
          <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Total number of Kebele per Wereda</h1>
-           <p className='font-semibold'>Urban Kebeles: <span className='font-normal'>164586</span></p>
-           <p className='font-semibold'>Rural Kebeles: <span className='font-normal'>151711</span></p>
+           <p className='font-semibold'>Urban Kebeles: <span className='font-normal'>{woreda_data?.urban_kebeles}</span></p>
+           <p className='font-semibold'>Rural Kebeles: <span className='font-normal'>{woreda_data?.rural_kebeles}</span></p>
         </div>
 
         <div className='flex flex-col gap-2'> 
          <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Demographic Information and Data </h1>
-           <p className='font-semibold'>Male: <span className='font-normal'>164586</span></p>
-           <p className='font-semibold'>Female: <span className='font-normal'>151711</span></p>
+           <p className='font-semibold'>Male: <span className='font-normal'>{woreda_data.male_population}</span></p>
+           <p className='font-semibold'>Female: <span className='font-normal'>{woreda_data.female_population}</span></p>
            <p className='font-semibold'>Total Population: <span className='font-normal'>316297</span></p>
         </div>
 
