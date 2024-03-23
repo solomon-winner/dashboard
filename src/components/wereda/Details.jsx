@@ -39,8 +39,8 @@ export const WeredaDetails = () => {
 
         <div className='flex flex-col gap-2'> 
          <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Demographic Information and Data </h1>
-           <p className='font-semibold'>Male: <span className='font-normal'>{woreda_data.male_population}</span></p>
-           <p className='font-semibold'>Female: <span className='font-normal'>{woreda_data.female_population}</span></p>
+           <p className='font-semibold'>Male: <span className='font-normal'>{woreda_data?.male_population}</span></p>
+           <p className='font-semibold'>Female: <span className='font-normal'>{woreda_data?.female_population}</span></p>
            <p className='font-semibold'>Total Population: <span className='font-normal'>316297</span></p>
         </div>
 
