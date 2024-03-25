@@ -28,4 +28,7 @@ export const RegionGeoJsonApi = apiSlice.injectEndpoints({
     })
 })
 
-export const { useGetRegionGeojsons, useGetRegionWoredasGeojsons, useGetRegionKebelesGeojsons, useGetRegionSitesGeojsons } = RegionGeoJsonApi
+export const { useGetRegionGeojsons,
+     useGetRegionWoredasGeojsons,
+      useGetRegionKebelesGeojsons,
+       useGetRegionSitesGeojsons } = RegionGeoJsonApi
