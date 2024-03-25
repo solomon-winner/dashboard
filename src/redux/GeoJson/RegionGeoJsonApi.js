@@ -1,4 +1,5 @@
 import { apiSlice } from '../app/api/apiSlice';
+
 export const RegionGeoJsonApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getRegionGeojsons: builder.query({
@@ -9,26 +10,28 @@ export const RegionGeoJsonApi = apiSlice.injectEndpoints({
         }),
         getRegionWoredasGeojsons: builder.query({
             query: (id) => ({
-                url: `/api/geojson/regions/${id}/woredas`,
+                url: `/geojson/regions/${id}/woredas`,
                 method: "GET",
             })
         }),
-        getRegionKebelesGeojsons: builder.mutation({
+        getRegionKebelesGeojsons: builder.query({
             query: (id) => ({
                 url: `geojson/regions/${id}/kebeles`,
                 method: "GET",
             })
         }),
-        getRegionSitesGeojsons: builder.mutation({
+        getRegionSitesGeojsons: builder.query({
             query: (id) => ({
-                url: `/api/geojson/regions/${id}/sites`,
+                url: `/geojson/regions/${id}/sites`,
                 method: "GET",
             })
         }),
     })
 })
 
-export const { useGetRegionGeojsons,
-     useGetRegionWoredasGeojsons,
-      useGetRegionKebelesGeojsons,
-       useGetRegionSitesGeojsons } = RegionGeoJsonApi
+export const { useGetRegionGeojsonsQuery,
+     useGetRegionWoredasGeojsonsQuery,
+      useGetRegionKebelesGeojsonsQuery,
+       useGetRegionSitesGeojsonsQuery } = RegionGeoJsonApi
+
+

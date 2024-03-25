@@ -26,10 +26,10 @@
 import React, { useEffect } from 'react';
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer } from 'react-leaflet';
-import { useGetRegionGeojsons } from '../../redux/GeoJson/RegionGeoJsonApi';
+import { useGetRegionGeojsonsQuery } from '../../redux/GeoJson/RegionGeoJsonApi';
 
 export const Map = () => {
-  const { data: Regions, isLoading, isSuccess, isError, error } = useGetRegionGeojsons()
+  const { data: Regions, isLoading, isSuccess, isError, error } = useGetRegionGeojsonsQuery()
   console.log(isSuccess && Regions);
   useEffect(() => {
     const ethiopia = { lat: 9.145, lng: 40.4897 };
