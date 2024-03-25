@@ -8,13 +8,13 @@ export const WoredaGeoJsonApi = apiSlice.injectEndpoints({
                 method: "GET",
             })
         }),
-        getKebeleGeojsons: builder.query({
+        getWoredaKebeleGeojsons: builder.query({
             query: (id) => ({
                 url: `/geojson/woredas/${id}/kebeles`,
                 method: "GET",
             })
         }),
-        getSiteGeojsons: builder.mutation({
+        getWoredaSiteGeojsons: builder.mutation({
             query: (id) => ({
                 url: `/geojson/woredas/${id}/sites`,
                 method: "GET",
@@ -23,4 +23,4 @@ export const WoredaGeoJsonApi = apiSlice.injectEndpoints({
     })
 })
 
-export const { useGetWoredaGeojsons, useGetKebeleGeojsons, useGetSiteGeojsons } = WoredaGeoJsonApi
+export const { useGetWoredaGeojsons, useGetWoredaKebeleGeojsons, useGetWoredaSiteGeojsons } = WoredaGeoJsonApi
