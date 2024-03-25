@@ -1,6 +1,6 @@
 import { apiSlice } from '../app/api/apiSlice';
 
-export const GeoJsonApi = apiSlice.injectEndpoints({
+export const WoredaGeoJsonApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getWoredaGeojsons: builder.query({
             query: () => ({
@@ -23,4 +23,4 @@ export const GeoJsonApi = apiSlice.injectEndpoints({
     })
 })
 
-export const { useGetWoredaGeojsons, useGetKebeleGeojsons, useGetSiteGeojsons } = GeoJsonApi
+export const { useGetWoredaGeojsons, useGetKebeleGeojsons, useGetSiteGeojsons } = WoredaGeoJsonApi
