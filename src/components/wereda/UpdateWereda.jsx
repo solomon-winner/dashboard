@@ -65,21 +65,25 @@ export const Updatewereda = () => {
 
   // Use useEffect to update formData when woredadata is successfully fetched
   useEffect(() => {
-    if (isSuccess && woredadata) {
-      const resource = [
-        ...woredadata.data.woreda_resource.LAND.map(item => ({ id: item.id, value: item.amount, type: 'LAND' })),
-        ...woredadata.data.woreda_resource.ROAD.map(item => ({ id: item.id, value: item.amount, type: 'ROAD' }))
-       ];
-       
-      const institution = [
-        ...woredadata.data.woreda_institution.SCHOOL.map(item => ({ id: item.id, value: item.amount, type: 'SCHOOL' })),
-        ...woredadata.data.woreda_institution.HEALTH_FACILITY.map(item => ({ id: item.id, value: item.amount, type: 'HEALTH_FACILITY'}))       
-      ]
-      const value = { data: woredadata.data.woreda_data, resource: resource, institution: institution };
-      setFormData({...value,id:woredadata.data.id});
-      console.log({...value,id:woredadata.data.id});
+    if (isSuccess && woredadata) {// Combine resources and institutions into a single array
+      const combined = [
+       ...(woredadata.data.woreda_resource.LAND ?? []).map(item => ({ id: item.id, value: item.amount, name: item.value, type: 'LAND' })),
+       ...(woredadata.data.woreda_resource.ROAD ?? []).map(item => ({ id: item.id, value: item.amount, name: item.value, type: 'ROAD' })),
+       ...(woredadata.data.woreda_institution.SCHOOL ?? []).map(item => ({ id: item.id, value: item.amount, name: item.value, type: 'SCHOOL' })),
+       ...(woredadata.data.woreda_institution.HEALTH_FACILITY ?? []).map(item => ({ id: item.id, value: item.amount, name: item.value, type: 'HEALTH_FACILITY' }))
+      ];
+      
+      // Add uniqueId to each item in the combined array
+      const combinedWithUniqueId = combined.map((item, index) => ({ uniqeId: index, ...item }));
+      
+      // Split the combined array back into separate resource and institution arrays
+      const resource = combinedWithUniqueId.filter(item => item.type === 'LAND' || item.type === 'ROAD');
+      const institution = combinedWithUniqueId.filter(item => item.type === 'SCHOOL' || item.type === 'HEALTH_FACILITY');
+       const value = { data: woredadata.data.woreda_data, resource: resource, institution: institution };
+       setFormData({...value,id:woredadata.data.id});
+       console.log({...value,id:woredadata.data.id});
     }
-  }, [isSuccess, woredadata]);
+   }, [isSuccess, woredadata]);
 
   const handleNext = (e) => {
     e.preventDefault();
