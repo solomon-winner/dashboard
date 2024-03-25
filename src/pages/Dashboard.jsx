@@ -6,12 +6,13 @@ import { useGetRegion } from '../redux/InitialState/GetRegion'
 import { useGetInstitution } from '../redux/InitialState/GetInstitution'
 import { useGetResource } from '../redux/InitialState/GetResource'
 import { GetRoles } from '../redux/InitialState/GetRoles';
-
+import {ProfileInfo} from "../redux/InitialState/ProfileInfo"
 export const Dashboard = () => {
   useGetRegion();
   GetRoles();
   useGetInstitution();
   useGetResource();
+  ProfileInfo()
   return (
     <div className='flex flex-col h-screen gap-6'> 
       <Cards />
