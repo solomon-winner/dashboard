@@ -32,7 +32,13 @@ export const SiteApiSlice = apiSlice.injectEndpoints({
                 body: data     
             })
         }),
+        getSiteById: builder.query({
+            query: (id) => ({
+                url: `/sites/${id}`,
+                method: "GET"
+            })
+        })
     }),
 })
 
-export const { useGetSiteQuery, useAddSiteMutation, useGetSiteByKebeleQuery, useAddSiteDataMutation } = SiteApiSlice
+export const { useGetSiteQuery, useAddSiteMutation, useGetSiteByKebeleQuery, useAddSiteDataMutation, useGetSiteByIdQuery } = SiteApiSlice

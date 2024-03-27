@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AddCircleOutline,
   AspectRatio,
@@ -10,20 +10,29 @@ import { weredadata } from "../UpdateWereda";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
 
+export const extractAdditionalFieldsData = (prefix, formData, prefix2) => {
+  const fields = [];
+  let index = 1;
+  while (formData[`${prefix}${index}`]) {
+    fields.push({
+      id: index - 1, // Adjusting index to start from 0
+      [prefix]: formData[`${prefix}${index}`],
+      [prefix2]: formData[`${prefix2}${index}`],
+    });
+    index++;
+  }
+  return fields;
+};
 export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
   const { road, landuse, isLoadingLanduse,isLoadingRoad } = useSelector(
     (state) => state.resource
   );
-  console.log(formData.woreda_resource?.LAND)
-  const initialLandUseFields = formData.woreda_resource?.LAND.map((land, index) => ({
-    id: land.id, // Use index as id for simplicity, ensure it's unique if necessary
-    type: land.value,
-    area: land.amount,
- }));
-  const [additionalFields, setAdditionalFields] = useState(initialLandUseFields);
-  const [additionalFields2, setAdditionalFields2] = useState([
-    { id: 0, roadtype: "", distance: "" },
-  ]);
+// Extracting additionalFields and additionalFields2 from formData
+const initialAdditionalFields = extractAdditionalFieldsData('type', formData, 'area');
+const initialAdditionalFields2 = extractAdditionalFieldsData('roadtype', formData, 'distance');
+
+const [additionalFields, setAdditionalFields] = useState(initialAdditionalFields);
+const [additionalFields2, setAdditionalFields2] = useState(initialAdditionalFields2);
   const addField = () => {
     const highestId = additionalFields.reduce(
       (highest, field) => Math.max(highest, field.id),
@@ -36,7 +45,25 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
   };
   const removeField = (id) => {
     setAdditionalFields(additionalFields.filter((field) => field.id !== id));
-  };
+    const updatedFormData = { ...formData };
+    delete updatedFormData[`type${id + 1}`];
+    delete updatedFormData[`area${id + 1}`];
+    let newFormData = {};
+    let typeIndex = 1;
+    let areaIndex = 1;
+    for (let key in updatedFormData) {
+       if (key.startsWith('type') && key !== `type${id + 1}`) {
+         newFormData[`type${typeIndex}`] = updatedFormData[key];
+         typeIndex++;
+       } else if (key.startsWith('area') && key !== `area${id + 1}`) {
+         newFormData[`area${areaIndex}`] = updatedFormData[key];
+         areaIndex++;
+       } else {
+         newFormData[key] = updatedFormData[key];
+       }
+    }
+    setFormData(newFormData);
+   };
   const addField2 = () => {
     const highestId = additionalFields2.reduce(
       (highest, field) => Math.max(highest, field.id),
@@ -49,14 +76,35 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
   };
   const removeField2 = (id) => {
     setAdditionalFields2(additionalFields2.filter((field) => field.id !== id));
-  };
+    const updatedFormData = { ...formData };
+    delete updatedFormData[`roadtype${id + 1}`];
+    delete updatedFormData[`distance${id + 1}`];
+    let newFormData = {};
+    let roadtypeIndex = 1;
+    let distanceIndex = 1;
+    for (let key in updatedFormData) {
+       if (key.startsWith('roadtype') && key !== `roadtype${id + 1}`) {
+         newFormData[`roadtype${roadtypeIndex}`] = updatedFormData[key];
+         roadtypeIndex++;
+       } else if (key.startsWith('distance') && key !== `distance${id + 1}`) {
+         newFormData[`distance${distanceIndex}`] = updatedFormData[key];
+         distanceIndex++;
+       } else {
+         newFormData[key] = updatedFormData[key];
+       }
+    }
+    setFormData(newFormData);
+   };
   const handleChanges = (e) => {
+    const { name, value } = e.target;
+    // Check if the name is 'area' or 'distance' and parse the value as a number
+    const parsedValue = (name.includes('area') || name.includes('distance')) ? parseFloat(value) : value;
     setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+       ...formData,
+       [name]: parsedValue,
     });
     handleChange(e);
-  };
+};
   return (
     <div>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
@@ -89,7 +137,7 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
               }
               value={
                 landuse.find(
-                  (landuse) => landuse.id === field.id
+                  (landuse) => landuse.id === formData[`type${index + 1}`]
                 )?.name || ""
               }
               handleChange={handleChanges}
@@ -107,7 +155,7 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
               name={`area${index + 1}`}
               type="number"
               placeholder="Area"
-              value={field.area || ""}
+              value={formData[`area${index + 1}`] || ""}
               handleChange={handleChanges}
             />
             <Delete onClick={() => removeField(field.id)} className="lg:mt-8" />
