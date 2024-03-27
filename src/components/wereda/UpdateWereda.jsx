@@ -65,25 +65,66 @@ export const Updatewereda = () => {
 
   // Use useEffect to update formData when woredadata is successfully fetched
   useEffect(() => {
-    if (isSuccess && woredadata) {// Combine resources and institutions into a single array
-      const combined = [
-       ...(woredadata.data.woreda_resource.LAND ?? []).map(item => ({ id: item.id, value: item.amount, name: item.value, type: 'LAND' })),
-       ...(woredadata.data.woreda_resource.ROAD ?? []).map(item => ({ id: item.id, value: item.amount, name: item.value, type: 'ROAD' })),
-       ...(woredadata.data.woreda_institution.SCHOOL ?? []).map(item => ({ id: item.id, value: item.amount, name: item.value, type: 'SCHOOL' })),
-       ...(woredadata.data.woreda_institution.HEALTH_FACILITY ?? []).map(item => ({ id: item.id, value: item.amount, name: item.value, type: 'HEALTH_FACILITY' }))
-      ];
+    if (isSuccess && woredadata) {
+      const woredaData = woredadata?.data;
+      const urban_kebeles = woredaData?.woreda_data?.urban_kebeles;
+      const rural_kebeles = woredaData?.woreda_data?.rural_kebeles;
+      const male_hh = woredaData?.woreda_data?.male_hh;
+      const female_hh = woredaData?.woreda_data?.female_hh;
+      const male_population = woredaData?.woreda_data?.male_population;
+      const female_population = woredaData?.woreda_data?.female_population;
+      const landResource = woredaData?.woreda_resource?.LAND ? woredaData.woreda_resource.LAND.map(
+        (item, index) => ({
+           [`type${index + 1}`]: item.id,
+           [`area${index + 1}`]: item.amount,
+        })
+       ) : [];
+      const roadResource = woredaData?.woreda_resource?.ROAD ? woredaData.woreda_resource.ROAD.map((item, index)=>({
+         [`roadtype${index + 1}`]: item.id,
+         [`distance${index + 1}`]: item.amount
+      })
+      ):[]; 
+      const schoolResource = woredaData?.woreda_institution?.SCHOOL ? woredaData.woreda_institution.SCHOOL.map(
+        (item, index) => ({
+          [`schooltype${index + 1}`]: item.id,
+          [`schoolnumber${index + 1}`]: item.amount,
+        })
+      ):[];
+      const healthResource = woredaData?.woreda_institution?.HEALTH_FACILITY ? woredaData.woreda_institution.HEALTH_FACILITY.map(
+        (item, index) => ({
+          [`healthFacilitytype${index + 1}`]: item.id,
+          [`healthFacilitynumber${index + 1}`]: item.amount,
+        })
+      ):[];
       
-      // Add uniqueId to each item in the combined array
-      const combinedWithUniqueId = combined.map((item, index) => ({ uniqeId: index, ...item }));
-      
-      // Split the combined array back into separate resource and institution arrays
-      const resource = combinedWithUniqueId.filter(item => item.type === 'LAND' || item.type === 'ROAD');
-      const institution = combinedWithUniqueId.filter(item => item.type === 'SCHOOL' || item.type === 'HEALTH_FACILITY');
-       const value = { data: woredadata.data.woreda_data, resource: resource, institution: institution };
-       setFormData({...value,id:woredadata.data.id});
-       console.log({...value,id:woredadata.data.id});
+      setFormData({
+        urban_kebeles,
+        rural_kebeles,
+        male_hh,
+        female_hh,
+        male_population,
+        female_population,
+        ...landResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
+        ...roadResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
+        ...schoolResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
+        ...healthResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
+        id: woredadata.data.id,
+      });
+      console.log({
+        urban_kebeles,
+        rural_kebeles,
+        male_hh,
+        female_hh,
+        male_population,
+        female_population,
+        ...landResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
+        ...roadResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
+        ...schoolResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
+        ...healthResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
+        id: woredadata.data.id,
+      });
     }
-   }, [isSuccess, woredadata]);
+  }, [isSuccess, woredadata]);
 
   const handleNext = (e) => {
     e.preventDefault();
@@ -94,16 +135,120 @@ export const Updatewereda = () => {
     setStep(step - 1);
   };
 
-  const handleSubmit = async (values, { resetForm }) => {
+  const handleSubmit = async (values) => {
     console.log(values);
-    const value = {
-      data: values.woreda_data,
-      resource: values.woreda_resource,
-      institution: values.woreda_institution,
+    const landArray = [];
+    let i = 1;
+    while (true) {
+      const typeKey = `type${i}`;
+      const areaKey = `area${i}`;
+      if (values[typeKey] && values[areaKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addResource({
+            name: values[typeKey],
+            resource_type: "LAND",
+          });
+          if (response.data) {
+            toast.success("Resource added successfully");
+            values[typeKey] = response.data.data.id;
+          } else {
+            toast.error(response.error.data.message);
+          }
+        }
+        landArray.push({
+          resource_id: values[typeKey],
+          amount: values[areaKey],
+        });
+        i++;
+      } else {
+        break;
+      }
+    }
+    const roadArray = [];
+    let j = 1;
+    while (true) {
+      const typeKey = `roadtype${j}`;
+      const areaKey = `distance${j}`;
+      if (values[typeKey] && values[areaKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addResource({
+            name: values[typeKey],
+            resource_type: "ROAD",
+          });
+          if (response.data) {
+            toast.success("Resource added successfully");
+            values[typeKey] = response.data.data.id;
+          } else {
+            toast.error(response.error.data.message);
+          }
+        }
+        roadArray.push({
+          resource_id: values[typeKey],
+          amount: values[areaKey],
+        });
+        j++;
+      } else {
+        break;
+      }
+    }
+    const schoolArray = [];
+    let k = 1;
+    while (true) {
+      const typeKey = `schooltype${k}`;
+      const areaKey = `schoolnumber${k}`;
+      if (values[typeKey] && values[areaKey]) {
+        schoolArray.push({
+          institution_id: values[typeKey],
+          amount: values[areaKey],
+        });
+        k++;
+      } else {
+        break;
+      }
+    }
+    const healthArray = [];
+    let l = 1;
+    while (true) {
+      const typeKey = `healthFacilitytype${l}`;
+      const areaKey = `healthFacilitynumber${l}`;
+      if (values[typeKey] && values[areaKey]) {
+        healthArray.push({
+          institution_id: values[typeKey],
+          amount: values[areaKey],
+        });
+        l++;
+      } else {
+        break;
+      }
+    }
+
+    const institution = [...schoolArray, ...healthArray];
+    const resource = [...landArray, ...roadArray];
+    const urban_kebeles = values.urban_kebeles;
+    const rural_kebeles = values.rural_kebeles;
+    const male_hh = values.male_hh;
+    const female_hh = values.female_hh;
+    const male_population = values.male_population;
+    const female_population = values.female_population;
+
+    // Create a new object to store these values
+    const data = {
+      urban_kebeles,
+      rural_kebeles,
+      male_hh,
+      female_hh,
+      male_population,
+      female_population,
     };
+    const value = {
+      resource,
+      data,
+      institution,
+    };
+
     console.log(value);
-    // Check if it's the last step before submitting
-    const response = await addweredadata({ ...value, id: values.id });
+  
+    const response = await addweredadata({ ...value, id });
     console.log(response);
     if (response.data) {
       toast.success("Data Added Successfully");
