@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { Link } from 'react-router-dom';
-import { useAddAccountMutation } from '../../redux/account/AccountApiSlice';
+import { Link, useParams } from "react-router-dom";
+import { useGetRolesQuery } from "../../redux/roles/RolesApiSlice";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-
- const NewUser = () => {
+import {useAddAccountMutation} from "../../redux/account/AccountApiSlice"
+const NewUser = () => {
+  const { id } = useParams(); // Get the role ID from URL parameter
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [AddUser, { isLoading }] = useAddAccountMutation();
+  const { data: role, isSuccess, isError } = useGetRolesQuery(); // Fetch role details by ID
 
+  const Roles = useSelector((state) => state.roles.roles)
+  Roles.map((role) => {
+      console.log(role.name);
+
+  })
   const formatFormData = (formData) => {
     return {
       name: `${formData.FirstName} ${formData.LastName}`,
@@ -18,41 +25,42 @@ import { useDispatch, useSelector } from "react-redux";
       mobile: formData.mobile,
       organization: formData.organization,
       position: formData.position,
-      roles: formData.roles
+      roles: formData.roles,
     };
   };
 
- 
-  
+  useEffect(() => {
+    if (isError) {
+      toast.error("Error fetching role details");
+    }
+  }, [isError]);
+
   return (
     <div className="flex items-center justify-center p-12">
-      {}
       <div className="mx-auto w-full max-w-[550px]">
         <Formik
           initialValues={{
-            FirstName: '',
-            LastName: '',
-            birthday: '',
-            mobile: '',
-            organization: '',
-            position: '',
-            roles:''
+            FirstName: "",
+            LastName: "",
+            birthday: "",
+            mobile: "",
+            organization: "",
+            position: "",
+            roles: "",
           }}
           onSubmit={async (values, { setSubmitting }) => {
-                            try {
-                             const formattedData = formatFormData(values);
-                                const NewUser = await AddUser(formattedData);
-                                console.log(NewUser);
-                                 // Optionally, display success message
-                               } catch (error) {
-                                 console.error('Error adding account:', error);
-                                 // Optionally, display error message to the user
-                               } finally {
-                                 setSubmitting(false);
-                               }
-                             }}
-                           >
-                             {({ isSubmitting }) => (
+            try {
+              const formattedData = formatFormData(values);
+              const NewUser = await AddUser(formattedData);
+              console.log(NewUser);
+            } catch (error) {
+              console.error("Error adding account:", error);
+            } finally {
+              setSubmitting(false);
+            }
+          }}
+        >
+          {({ isSubmitting }) => (
             <Form>
               <div className="-mx-3 flex flex-wrap">
                 <div className="w-full px-3 sm:w-1/2">
@@ -105,26 +113,21 @@ import { useDispatch, useSelector } from "react-redux";
                 </div>
                 <div className="w-full px-3 sm:w-1/2">
                   <div className="mb-5">
-                    
-                    
                   </div>
                 </div>
                 <div className="w-full px-3 sm:w-1/2">
-                  <div className="mb-5">
-                    <label
-                      htmlFor="mobile"
-                      className="mb-3 block text-base font-medium text-[#07074D]"
-                    >
-                      Phone number
-                    </label>
-                    <Field
-                      type="tel"
-                      name="mobile"
-                      id="phone"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      pattern="^09\d{8}$"
-                    />
-                  </div>
+                <div className="mb-5">
+  <label htmlFor="mobile" className="mb-3 block text-base font-medium text-[#07074D]">
+    Phone number
+  </label>
+  <Field
+    type="tel"
+    name="mobile"
+    id="phone"
+    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+    pattern="^09\d{8}$"
+  />
+</div>
                 </div>
                 
                 <div className="w-full px-3 sm:w-1/2">
@@ -145,22 +148,20 @@ import { useDispatch, useSelector } from "react-redux";
                   </div>
                 </div>
                 <div className="w-full px-3 sm:w-1/2">
-                  <div className="mb-5">
-                    <label
-                      htmlFor="position"
-                      className="mb-3 block text-base font-medium text-[#07074D]"
-                    >
-                      Position
-                    </label>
-                    <Field
-                      type="text"
-                      name="position"
-                      id="Position"
-                      placeholder="Position"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-green-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    />
-                  </div>
-                </div>
+  <div className="mb-5">
+    <label htmlFor="position" className="mb-3 block text-base font-medium text-[#07074D]">
+      Position
+    </label>
+    <Field
+      type="text"
+      name="position"
+      id="Position"
+      placeholder="Position"
+      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+    />
+    
+  </div>
+</div>
               </div>
               <div className="w-full px-3 sm:w-1/2">
                   <div className="mb-5">
@@ -170,26 +171,39 @@ import { useDispatch, useSelector } from "react-redux";
                          Roles
                        </label>
                        <Field
-                         as="select"
-                         id="roles"
-                         name="roles"
-                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-green-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                       >
-                      <option value="">Select a role</option>
-                      <option value="Admin">Admin</option>
-                        <option value="User">User</option>
-                      
-                       </Field>
+  as="div" // Render as a div container
+  className="flex flex-wrap p-5 w-100" // Apply flex layout
+  name="roles" // Set the field name
+>
+
+{Roles.map ((role,index) => (
+  <label key={index}>
+  <Field
+    type="checkbox"
+    name="roles"
+    value= {role.name}
+    className="mr-2"
+  />
+  {role.name}
+</label>
+))}
+
+  
+ 
+  {/* Add more checkboxes as needed */}
+</Field>
+
+
                        <div className="flex justify-between items-center mt-4 px-6">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="bg-mainColor text-white active:bg-mainColor font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit'}
-              </button>
-              <Link to="/admin/Accounts" className='bg-mainColor text-white h-8 w-40 text-center rounded ml-4'> Back</Link>
-            </div>
+  <button
+    type="submit"
+    disabled={isSubmitting}
+    className="bg-green-500 text-white active:bg-green-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+  >
+    {isSubmitting ? 'Submitting...' : 'Submit'}
+  </button>
+  <Link to="/admin/Accounts" className="bg-green-500 text-white active:bg-green-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"> Back</Link>
+</div>
                      </div>
                      </div>
                      {/* <div className="w-full px-4 mb-3">

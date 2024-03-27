@@ -24,8 +24,19 @@ export const accountApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body: data
             })
-        })
+        }),
+        getRoleById: builder.query({
+            query: (id) => ({
+                url: `/roles/${id}`,
+                method: "GET",
+            })
+        }),
     })
 })
 
-export const { useGetAccountsQuery, useGetUserQuery, useAddAccountMutation } = accountApiSlice
+export const { 
+    useGetAccountsQuery, 
+    useGetUserQuery, 
+    useAddAccountMutation,
+    useGetRoleByIdQuery, // Add the useGetRoleByIdQuery hook
+} = accountApiSlice;

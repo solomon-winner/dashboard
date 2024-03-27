@@ -26,7 +26,8 @@ export const UserAccount = () => {
         <h2 className='text-xl font-medium mb-4'>Accounts List</h2>
         <p>Acconts are pepople that enter and check the given datas. View and manage your members here </p>
         </div>
-        <Link to="/admin/new-user" className='bg-mainColor text-white  h-8 w-60 text-center rounded-2xl ml-4'>Add Account</Link>
+        <Link to="/admin/new-user" className="bg-green-500 text-white active:bg-green-500 font-bold uppercase text-xs px-2 py-1 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150">Add Account</Link>
+
       </div>
 
       <div className='rounded-md bg-white mt-4'>
