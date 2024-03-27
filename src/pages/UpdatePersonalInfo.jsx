@@ -1,11 +1,10 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import { useUpdateProfileMutation } from "../redux/Profile/UpdateProfileApi";
-import { useGetAccountsQuery } from '../redux/account/AccountApiSlice'
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
-import { SetProfileData ,setAvaterUrl} from "../redux/Profile/ProfileSlice";
+import { SetProfileData } from "../redux/Profile/ProfileSlice";
 
 export const UpdatePersonalInfo = () => {
   const navigate = useNavigate();
@@ -13,6 +12,13 @@ export const UpdatePersonalInfo = () => {
   const [UpdateProfile, { isLoading }] = useUpdateProfileMutation();
   const UserData = useSelector((state) => state.user.UserData);
 
+  const splitName = (fullName) => {
+    const [firstName, ...lastName] = fullName.split(" ");
+    return {
+      firstName: firstName,
+      lastName: lastName.join(" "),
+    };
+  };
   const formatFormData = (formData) => {
     return {
       name: `${formData.FirstName} ${formData.LastName}`,
@@ -24,26 +30,22 @@ export const UpdatePersonalInfo = () => {
     };
   };
 
-  const Avatar = () => {
-      const { data: user, isSuccess, isError, error } = useGetAccountsQuery()
-      console.log(user.data.avatar);
-  }
+ 
   
   return (
     <div className="flex items-center justify-center p-12">
       <div className="mx-auto w-full max-w-[550px]">
         <Formik
           initialValues={{
-            FirstName: '',
-            LastName: '',
+            FirstName:  UserData.name ? splitName(UserData.name).firstName : '',
+            LastName: UserData.name ? splitName(UserData.name).lastName : '',
             birthday: UserData.birthday,
             mobile: UserData.mobile,
             organization: UserData.organization,
             position: UserData.position,
-            avatar: null,
+            avatar: UserData.avatar,
           }}
           onSubmit={async (values, { setSubmitting }) => {
-            console.log(values);
             try {
               const formattedData = formatFormData(values);
 
