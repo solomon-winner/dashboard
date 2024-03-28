@@ -66,26 +66,6 @@ const validationSchema = Yup.object().shape({
       ]
     }
   ]
-  // export const RadioButtonGroup = ({ name, label, options }) => {
-  //   const numColumns = Math.ceil(options.length);
-  //   return (
-  //     <div className=" ml-8">
-  //       <h6 className="text-blueGray-400 text-xs mt-3 mb-4 font-semibold uppercase">
-  //         {label}
-  //       </h6>
-  //       <div className={`grid grid-cols-${numColumns} gap-2 rounded-xl bg-gray-100 p-2`}>
-  //         {options.map((option, index) => (
-  //           <React.Fragment key={index}>
-  //             <div>
-  //               <input type="radio" name={name} id={`${name}-${option}`} value={option} className="peer hidden"  />
-  //               <label for={`${name}-${option}`} className="block  w-20 cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-green-400 peer-checked:font-bold peer-checked:text-white">{option}</label>
-  //             </div>
-  //           </React.Fragment>
-  //         ))}
-  //       </div>
-  //     </div>
-  //   );
-  // };
   export const UpdateSite = () => {
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState(sitedata[0]);

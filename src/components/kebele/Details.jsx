@@ -1,16 +1,18 @@
 import React from 'react'
 import { Table } from './Table'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 
 export const Details = () => {
+  const {id} = useParams();
   return (
     <div>
       <div className='flex justify-between p-10'>
         <Link to="/admin/kebele" className='py-1 px-4 rounded-md bg-mainColor text-white hover:bg-customDark font-semibold'>back</Link>
         <div className='flex gap-4'>
         <button  className='py-1 px-4 rounded-md bg-red-600 hover:bg-red-400 text-white font-semibold'>Delete Kebele</button>
-        <Link to="/admin/update-kebele" className='py-1 px-4 rounded-md bg-blue-500 hover:bg-blue-400 text-white font-semibold'>Update kebele</Link>
+        <Link to={`/admin/update-kebeleData/${id}`}className='py-1 px-4 rounded-md bg-blue-500 hover:bg-blue-400 text-white font-semibold'>Update kebele Data</Link>
+        <Link to={`/admin/update-kebele/${id}`}className='py-1 px-4 rounded-md bg-blue-500 hover:bg-blue-400 text-white font-semibold'>Update kebele</Link>
         </div>
       </div>
       <div className="bg-white py-12 sm:py-12">
