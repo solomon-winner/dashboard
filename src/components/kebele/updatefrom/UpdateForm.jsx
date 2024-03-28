@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AddCircleOutline,
   Delete,
@@ -9,16 +9,33 @@ import { FormField } from "../../wereda/AddWereda";
 import { kebeledata } from "../UpdateKebele";
 import { regions } from "../../region/addform/AddForm";
 import { Field } from "formik";
+import { useSelector } from "react-redux";
+import Loadings from "../../Resource/Loading/Loadings";
 
-export const UpdateForm = ({handleChange}) => {
-  const [updateData, setUpdateData] = useState(kebeledata[0]);
-  const [additionalFields, setAdditionalFields] = useState(
-    updateData.types.map((type, index) => ({
-      id: index,
-      type: type.type,
-      area: type.area,
-    }))
-  );
+export const extractAdditionalFieldsData = (prefix, formData, prefix2) => {
+  const fields = [];
+  let index = 1;
+  while (formData[`${prefix}${index}`]) {
+    fields.push({
+      id: index - 1, // Adjusting index to start from 0
+      [prefix]: formData[`${prefix}${index}`],
+      [prefix2]: formData[`${prefix2}${index}`],
+    });
+    index++;
+  }
+  return fields;
+};
+export const UpdateForm = ({handleChange, formData,setFormData}) => {
+  const { landuse, isLoadingLanduse} = useSelector( (state) => state.resource );
+  const [additionalFields, setAdditionalFields] = useState([]);
+  
+  useEffect(() => {
+    if (Object.keys(formData).length > 0) {
+      const initialAdditionalFields = extractAdditionalFieldsData('type', formData, 'area');
+      setAdditionalFields(initialAdditionalFields);
+    }
+ }, [formData]); 
+
   const addField = () => {
     const highestId = additionalFields.reduce(
       (highest, field) => Math.max(highest, field.id),
@@ -31,143 +48,136 @@ export const UpdateForm = ({handleChange}) => {
   };
   const removeField = (id) => {
     setAdditionalFields(additionalFields.filter((field) => field.id !== id));
-  };
-
-  const handleChanges = (event) => {
-    const { name, value } = event.target;
-
-    if (name.startsWith("type") || name.startsWith("area")) {
-      const [, index] = name.split("-");
-      setAdditionalFields(
-        additionalFields.map((field) =>
-          field.id === parseInt(index)
-            ? { ...field, [name.split("-")[0]]: value }
-            : field
-        )
-      );
-    } else {
-      setUpdateData({ ...updateData, [name]: value });
+    const updatedFormData = { ...formData };
+    delete updatedFormData[`type${id + 1}`];
+    delete updatedFormData[`area${id + 1}`];
+    delete updatedFormData[`name${id + 1}`];
+    let newFormData = {};
+    let typeIndex = 1;
+    let areaIndex = 1;
+    let nameIndex = 1;
+    for (let key in updatedFormData) {
+       if (key.startsWith('type') && key !== `type${id + 1}`) {
+         newFormData[`type${typeIndex}`] = updatedFormData[key];
+         typeIndex++;
+       } else if (key.startsWith('area') && key !== `area${id + 1}`) {
+         newFormData[`area${areaIndex}`] = updatedFormData[key];
+         areaIndex++;
+       } else if (key.startsWith('name') && key !== `name${id + 1}`) {
+        newFormData[`name${nameIndex}`] = updatedFormData[key];
+        nameIndex++;
+       }
+        else {
+         newFormData[key] = updatedFormData[key];
+       }
     }
-    handleChange(event)
+    setFormData(newFormData);
+    console.log(formData)
+   };
+  const handleChanges = (e) => {
+      setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+      [e.target.label]: e.target.labelName
+    });
+    handleChange(e);
   };
   return (
     <div>
-      <div class="flex flex-wrap">
-        <div class="w-full lg:w-2/5 px-4">
-          <div className="relative w-full mb-3">
-            <label
-              className="block uppercase text-gray-500 text-xs font-bold mb-2"
-              htmlFor="region"
-            >
-              Region
-            </label>
-            <div className="flex items-center border border-gray-300 rounded px-3 py-2">
-              <Field
-                as="select"
-                name="region"
-                className="border-0 px-3 py-1 text-sm focus:outline-none w-full bg-transparent"
-                value={updateData.region} // Ensure selected value is set
-                onChange={handleChanges}
-              >
-                <option value="">Select a Region</option>
-                {regions.map((region, index) => (
-                  <option key={index} value={region}>
-                    {region}
-                  </option>
-                ))}
-              </Field>
-            </div>
-          </div>
-        </div>
-        <FormField
-          label="Wereda"
-          name="wereda"
-          type="text"
-          placeholder="Enter Wereda"
-          value={updateData.wereda}
-          handleChange={handleChanges}
-        />
-        <FormField
-          label="Kebele"
-          name="kebele"
-          type="text"
-          placeholder="Name of the Kebele"
-          value={updateData.kebele}
-          handleChange={handleChanges}
-        />
-        <FormField label="Kebele GeoJSON" type="file" name="file" />
-      </div>
-
-      <h6 class="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
+      <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
         Population
       </h6>
-      <div class="flex flex-wrap">
+      <div className="flex flex-wrap">
         <FormField
           label="Male"
-          name="male"
+          name="populationmale"
           type="text"
           placeholder="Total Number of Male"
           icon={FamilyRestroom}
-          value={updateData.male}
+          value={formData.populationmale}
           handleChange={handleChanges}
         />
         <FormField
           label="Female"
-          name="female"
+          name="populationfemale"
           type="text"
           placeholder="Total Number of Female"
           icon={FamilyRestroom}
-          value={updateData.female}
+          value={formData.populationfemale}
           handleChange={handleChanges}
         />
       </div>
 
-      <h6 class="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
+      <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
         Household
       </h6>
-      <div class="flex flex-wrap">
+      <div className="flex flex-wrap">
         <FormField
           label="Male"
-          name="male2"
+          name="householdmale2"
           type="text"
           placeholder="Total Number of Male"
           icon={FamilyRestroom}
-          value={updateData.male2}
+          value={formData.householdmale2}
           handleChange={handleChanges}
         />
         <FormField
           label="Female"
-          name="female2"
+          name="householdfemale2"
           type="text"
           placeholder="Total Number of Female"
           icon={FamilyRestroom}
-          value={updateData.female2}
+          value={formData.householdfemale2}
           handleChange={handleChanges}
         />
       </div>
-      <h6 class="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
+      <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
         LandUse
       </h6>
-      <div class="flex flex-wrap">
+      <div className="flex flex-wrap">
         {additionalFields.map((field, index) => (
           <React.Fragment key={field.id}>
             <FormField
               label="Type"
-              name={`type-${field.id}`}
+              name={`type${index + 1}`}
               type="dropdown"
-              placeholder="Land use Type"
-              icon={Landscape}
-              value={field.type}
-              onChange={handleChanges}
-              list="landuse"
-              options={["Settlement", "Communal Grazing"]}
+              placeholder="Select Land Type"
+              options={
+                isLoadingLanduse
+                  ? [
+                      {
+                        value: "loading",
+                        label: (
+                          <div className="flex justify-center">
+                            <Loadings />
+                          </div>
+                        ),
+                      },
+                    ]
+                  : landuse.map((landuse, index) => ({
+                      label: landuse.name,
+                      value: landuse.id,
+                    }))
+              }
+              value={formData[`name${index + 1}`]  || ""}
+              handleChange={handleChanges}
+              onChange={(option) => {
+                handleChanges({
+                  target: {
+                    name: `type${index + 1}`,
+                    value: option.target.value.value,
+                    label: `name${index + 1}`,
+                    labelName: option.target.value.label
+                  },
+                });
+              }}
             />
             <FormField
               label="Area"
-              name={`area-${field.id}`}
-              type="text"
+              name={`area${index + 1}`}
+              type="number"
               placeholder="Area"
-              value={field.area}
+              value={formData[`area${index + 1}`] || ""}
               handleChange={handleChanges}
             />
             <Delete onClick={() => removeField(field.id)} className="lg:mt-8" />
@@ -175,6 +185,7 @@ export const UpdateForm = ({handleChange}) => {
         ))}
         <AddCircleOutline onClick={addField} className="lg:mt-8" />
       </div>
+
     </div>
   );
 };

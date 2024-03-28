@@ -39,6 +39,10 @@ import { useGetRegion } from './redux/InitialState/GetRegion';
 import { GetRoles } from './redux/InitialState/GetRoles';
 import { useGetInstitution } from './redux/InitialState/GetInstitution';
 import { useGetResource } from './redux/InitialState/GetResource';
+import { UpdateWeredaForm } from './components/wereda/UpdateWeredaForm';
+import { UpdateSiteForm } from './components/site/UpdateSiteForm';
+import { GetWereda } from './redux/InitialState/GetWereda';
+import UpdateKebeleForm from './components/kebele/UpdateKebeleForm';
 
 function App() {
 
@@ -67,10 +71,13 @@ function App() {
         <Route path='/admin/new-site' element={ <AddSite />} />
         <Route path='/admin/new-region' element={<AddRegion />} />
         <Route path='/admin/new-wereda' element={<Addwereda/>} />
-        <Route path='/admin/update-wereda/:id' element={<Updatewereda/>} />
+        <Route path='/admin/update-weredaData/:id' element={<Updatewereda/>} />
+        <Route path='/admin/update-wereda/:id' element={<UpdateWeredaForm/>} />
         <Route path='/admin/update-region/:id' element={<UpdateRegion />} />
-        <Route path='/admin/update-site/:id' element={ <UpdateSite />} />
-        <Route path='/admin/update-kebele/:id' element={<UpdateKebele />} />
+        <Route path='/admin/update-siteData/:id' element={ <UpdateSite />} />
+        <Route path='/admin/update-site/:id' element={ <UpdateSiteForm />} />
+        <Route path='/admin/update-kebeleData/:id' element={<UpdateKebele />} />
+        <Route path='/admin/update-kebele/:id' element={<UpdateKebeleForm />} />
         <Route path='/admin/wereda/:id' element={<WeredaDetails />} />
         <Route path='/admin/site/:id' element={<SiteDetails />} />
         <Route path='/admin/region/:id' element={<RegionDetails />} />
