@@ -2,15 +2,19 @@ import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import { useGetWeredaByIdQuery } from '../../redux/wereda/WeredaApiSlice'
+import MainLoading from "../Resource/Loading/MainLoading";
 
 
 export const WeredaDetails = () => {
   const { id } = useParams(); 
   const {data: weredadata, isSuccess,isFetching}=useGetWeredaByIdQuery(id)
   if(!isSuccess || isFetching){
-    return <div>Loading...</div>
+    return <div className="flex justify-center items-center h-screen">
+    <MainLoading />
+  </div>
   }
   const {woreda_name, woreda_data  } = weredadata.data
+  // console.log(weredadata)
   return (
     <div>
       <div className='flex justify-between p-10'>
