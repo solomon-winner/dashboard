@@ -34,15 +34,15 @@ export const Details = () => {
         <h3 className="text-2xl font-bold tracking-tight text-customDark ">Woroda ID: {data.data.woreda_id}</h3>
         <div className='flex flex-col gap-2'> 
          <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Demographic Information and Data </h1>
-           <p className='font-semibold'>Male: <span className='font-normal'>{data.data.kebele_data.male_population}</span></p>
-           <p className='font-semibold'>Female: <span className='font-normal'>{data.data.kebele_data.female_population}</span></p>
-           <p className='font-semibold'>Total Population: <span className='font-normal'>{data.data.kebele_data.female_population + data.data.kebele_data.male_population}</span></p>
+           <p className='font-semibold'>Male: <span className='font-normal'>{data.data.kebele_data?.male_population}</span></p>
+           <p className='font-semibold'>Female: <span className='font-normal'>{data.data.kebele_data?.female_population}</span></p>
+           <p className='font-semibold'>Total Population: <span className='font-normal'>{data.data.kebele_data?.female_population + data.data.kebele_data?.male_population}</span></p>
 
         </div>
 
         <div className='flex text-gray-600 flex-col gap-2'> 
          <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Current land use with area</h1>
-         {data.data.resources[3].LAND.map((item, index) => (
+         {data.data.resources[3]?.LAND?.map((item, index) => (
            <p key={index} className='font-semibold'>{item.value}: <span className='font-normal'>{item.amount}</span></p>
          ))}
         </div>
@@ -50,16 +50,16 @@ export const Details = () => {
         <div className='flex text-gray-600 flex-col gap-2'> 
          <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Land Ownership</h1>
            <p className='font-bold'>Male headed family:</p>
-           <span className='font-normal'>Own land: {data.data.kebele_data.mhf_land_owners} </span>
-           <span className='font-normal'>Does'nt Own land: {data.data.kebele_data.fhf_land_lease}</span>
+           <span className='font-normal'>Own land: {data.data.kebele_data?.mhf_land_owners} </span>
+           <span className='font-normal'>Does'nt Own land: {data.data.kebele_data?.fhf_land_lease}</span>
            <p className='font-bold'>Female headed family:</p>
-           <span className='font-normal'>Own land: {data.data.kebele_data.fhf_land_owners} </span>
-           <span className='font-normal'>Does'nt Own land: {data.data.kebele_data.fhf_land_lease} </span>
+           <span className='font-normal'>Own land: {data.data.kebele_data?.fhf_land_owners} </span>
+           <span className='font-normal'>Does'nt Own land: {data.data.kebele_data?.fhf_land_lease} </span>
         </div>
 
         <div className='flex text-gray-600 flex-col gap-2'> 
         <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Major livelihood activities</h1>
-          <Table data = {data.data.livelihoods}/>
+          <Table data = {data.data?.livelihoods}/>
         </div>
 
         <div className="mt-10 flex items-center gap-x-4">
@@ -69,7 +69,7 @@ export const Details = () => {
         </div>
        
         <ul role="list" className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6">
-        {data.data.resources[4].TREE.filter(tree => tree.indigenous === 1).map((tree, index) => (
+        {data.data.resources[4]?.TREE?.filter(tree => tree.indigenous === 1).map((tree, index) => (
            <li key={index} className="flex gap-x-3">
         <svg className="h-6 w-5 flex-none text-customDark" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
           <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
@@ -90,7 +90,7 @@ export const Details = () => {
 
         <ul role="list" className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6">
          
-        { data.data.resources[4].TREE.filter(tree => !tree.hasOwnProperty('indigenous')).map((tree, index) => (
+        { data.data.resources[4]?.TREE?.filter(tree => !tree.hasOwnProperty('indigenous')).map((tree, index) => (
            <li  key={index} className="flex gap-x-3">
            <svg className="h-6 w-5 flex-none text-customDark" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
@@ -108,15 +108,15 @@ export const Details = () => {
         <div className='flex text-gray-600 flex-col gap-2'> 
          <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Employment Status</h1>
            <p className='font-bold'>Not employed/ jobless:</p>
-           <p className='font-semibold'>Male: <span className='font-normal'>{data.data.kebele_data.male_non_employed}</span></p>
-           <p className='font-semibold'>Female: <span className='font-normal'>{data.data.kebele_data.female_non_employed}</span></p>
+           <p className='font-semibold'>Male: <span className='font-normal'>{data.data.kebele_data?.male_non_employed}</span></p>
+           <p className='font-semibold'>Female: <span className='font-normal'>{data.data.kebele_data?.female_non_employed}</span></p>
         </div>
 
 
   
         <div className='flex text-gray-600 flex-col gap-2'> 
          <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Number Livestock</h1>
-         {data.data.resources[2].LIVESTOCK.map((item, index) => (
+         {data.data.resources[2]?.LIVESTOCK?.map((item, index) => (
            <p key={index} className='font-semibold'>{item.value}: <span className='font-normal'>{item.amount}</span></p>
          ))}
         </div>
@@ -130,7 +130,7 @@ export const Details = () => {
 
         <div className='flex text-gray-600 flex-col gap-2'> 
          <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Crop grown</h1>
-         {data.data.resources[0].CROP.map((item, index) => (
+         {data.data.resources[0]?.CROP?.map((item, index) => (
            <p key={index} className='font-semibold'>{item.value}: <span className='font-normal'>{item.amount}</span></p>
          ))}
          
@@ -138,14 +138,14 @@ export const Details = () => {
 
         <div className='flex text-gray-600 flex-col gap-2'> 
          <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Fruit grown</h1>
-         {data.data.resources[1].FRUIT.map((item, index) => (
+         {data.data.resources[1]?.FRUIT?.map((item, index) => (
            <p key={index} className='font-semibold'>{item.value}: <span className='font-normal'>{item.amount}</span></p>
          ))}
         </div>
 
         <div className='flex text-gray-600 flex-col gap-2'> 
          <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Nursery Availability</h1>
-         {data.data.resources[5].NURSERY.map((item, index) => (
+         {data.data.resources[5]?.NURSERY?.map((item, index) => (
            <p key={index}className='font-semibold'>{item.value}: <span className='font-normal'>number: {item.amount} capacity: {item.capacity}</span></p>
          ))} 
         </div>
@@ -159,7 +159,7 @@ export const Details = () => {
 
         <div className='flex w-full flex-col gap-2 '>
          <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Major cause of deforestation</h1>
-         {data.data.energy_sources.map((item, index) => (
+         {data.data.energy_sources?.map((item, index) => (
         <p className='font-semibold'>{item.value}: <span className='font-normal'>{item.access_level}</span></p>
          ))} 
         </div>
