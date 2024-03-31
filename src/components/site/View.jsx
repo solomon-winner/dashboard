@@ -93,7 +93,7 @@ export const View = () => {
                   className="w-full md:w-1/2 md:mt-4 lg:w-1/3 h-auto px-4"
                 >
                   <Link
-                    to={`/admin/site/1`}
+                    to={`/admin/site/${item.id}`}
                     className="
         p-4
         pt-9

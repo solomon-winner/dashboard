@@ -23,11 +23,12 @@ export const View = () => {
       </div>
     );
   }
+ 
   else if (isSuccess) {
     let filteredData = region.data.filter((d) =>
       d.region_name.toLowerCase().includes(searchInput.toLowerCase())
     );  
-  
+    console.log(region);
   return (
     <div className='flex flex-col gap-4 py-6 px-10'> 
     <div className='flex justify-start items-center'> 
@@ -59,7 +60,7 @@ export const View = () => {
     className="w-full md:w-1/2 md:mt-4 lg:w-1/3 h-auto px-4"
   >
     <Link
-      to={`/admin/region/1`}
+      to={`/admin/region/${item.id}`}
       className="
         p-4
         pt-9
