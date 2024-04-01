@@ -27,7 +27,9 @@ export const UpdateForm6 = ({handleChange,formData,setFormData}) => {
   useEffect(() => {
     if (Object.keys(formData).length > 0) {
       const initialAdditionalFields = extractAdditionalFieldsData('nurserytype', formData, 'amount','capacity');
+      const initialAdditionalFields2 = extractAdditionalFieldsData('causeofdeforestiontype', formData);
       setAdditionalFields(initialAdditionalFields);
+      setAdditionalFields2(initialAdditionalFields2);
       const updatedFormData = { ...formData };
       const type = initialAdditionalFields.map((item) => item.livestock) 
       type.forEach((item,index)=>{
@@ -36,10 +38,18 @@ export const UpdateForm6 = ({handleChange,formData,setFormData}) => {
         )?.name || ""
         updatedFormData[`nurseryname${index + 1}`] = name;
       })
+
+      const type2 = initialAdditionalFields2.map((item) => item.causeofdeforestiontype)
+      type2.forEach((item,index)=>{
+         const name = causeofdeforestation.find(
+          (causeofdeforestation) => causeofdeforestation.id === item
+        )?.name || ""
+        updatedFormData[`causeofdeforestionname${index + 1}`] = name;
+      })
       setFormData(updatedFormData);
       
     }
- }, [nursery]); 
+ }, [nursery,causeofdeforestation]); 
   const addField = () => {
     const highestId = additionalFields.reduce((highest, field) => Math.max(highest, field.id),  0);
     setAdditionalFields([...additionalFields, { id: highestId +  1, nurserytype: "",numberofnursery:"" }]);
@@ -88,6 +98,24 @@ export const UpdateForm6 = ({handleChange,formData,setFormData}) => {
   };
   const removeField2 = (id) => {
     setAdditionalFields2(additionalFields2.filter((field) => field.id !== id));
+    const updatedFormData = { ...formData };
+    delete updatedFormData[`causeofdeforestiontype${id + 1}`];
+    delete updatedFormData[`causeofdeforestionname${id + 1}`];
+    let newFormData = {};
+    let causeofdeforestiontypeIndex = 1;
+    let causeofdeforestionnameIndex = 1
+    for (let key in updatedFormData) {
+      if (key.startsWith('causeofdeforestiontype') && key !== `causeofdeforestiontype${id + 1}`) {
+        newFormData[`causeofdeforestiontype${causeofdeforestiontypeIndex}`] = updatedFormData[key];
+        causeofdeforestiontypeIndex++;
+      } else if (key.startsWith('causeofdeforestionname') && key !== `causeofdeforestionname${id + 1}`) {
+        newFormData[`causeofdeforestionname${causeofdeforestionnameIndex}`] = updatedFormData[key];
+        causeofdeforestionnameIndex++;
+      } else {
+        newFormData[key] = updatedFormData[key];
+      }
+    }
+    setFormData(newFormData);
   };
   const handleChanges = (e) => {
     setFormData({
@@ -174,7 +202,7 @@ export const UpdateForm6 = ({handleChange,formData,setFormData}) => {
               <React.Fragment key={field.id}>
                 <FormField
                   label="Type"
-                  name={`causeofdeforestation${index +  1}`}
+                  name={`causeofdeforestationtype${index +  1}`}
                   type="dropdown"
                   placeholder="Cause of deforestation"
                   icon={Medication}
@@ -196,16 +224,14 @@ export const UpdateForm6 = ({handleChange,formData,setFormData}) => {
                         }))
                   }
                   handleChange={handleChanges}
-                  value={
-                    causeofdeforestation.find(
-                      (causeofdeforestation) => causeofdeforestation.id === formData[`causeofdeforestation${index + 1}`]
-                    )?.name || ""
-                  }
+                  value={formData[`causeofdeforestionname${index + 1}`]  || formData[`causeofdeforestiontype${index + 1}`]}
                   onChange={(option) => {
                     handleChanges({
                       target: {
-                        name: `causeofdeforestation${index + 1}`,
+                        name: `causeofdeforestationtype${index + 1}`,
                         value: option.target.value.value,
+                        label: `causeofdeforestionname${index + 1}`,
+                        labelName: option.target.value.label
                       },
                     });
                   }}

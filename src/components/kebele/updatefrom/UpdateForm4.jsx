@@ -28,7 +28,9 @@ export const UpdateForm4 = ({handleChange,formData,setFormData}) => {
   useEffect(() => {
     if (Object.keys(formData).length > 0) {
       const initialAdditionalFields = extractAdditionalFieldsData('livestock', formData, 'numberlivestock');
+      const initialAdditionalFields2 = extractAdditionalFieldsData('foragetype', formData, 'foragearea');
       setAdditionalFields(initialAdditionalFields);
+      setAdditionalFields2(initialAdditionalFields2);
       const updatedFormData = { ...formData };
       const type = initialAdditionalFields.map((item) => item.livestock) 
       type.forEach((item,index)=>{
@@ -36,6 +38,13 @@ export const UpdateForm4 = ({handleChange,formData,setFormData}) => {
           (livestock) => livestock.id === item
         )?.name || ""
         updatedFormData[`namelivestock${index + 1}`] = name;
+      })
+      const type2 = initialAdditionalFields2.map((item) => item.foragetype)
+      type2.forEach((item,index)=>{
+         const name = forage.find(
+          (forage) => forage.id === item
+        )?.name || ""
+        updatedFormData[`foragename${index + 1}`] = name;
       })
       setFormData(updatedFormData);
       
@@ -90,6 +99,30 @@ export const UpdateForm4 = ({handleChange,formData,setFormData}) => {
   };
   const removeField2 = (id) => {
     setAdditionalFields2(additionalFields2.filter((field) => field.id !== id));
+    const updatedFormData = { ...formData };
+    delete updatedFormData[`foragetype${id + 1}`];
+    delete updatedFormData[`foragearea${id + 1}`];
+    delete updatedFormData[`foragename${id + 1}`];
+    let newFormData = {};
+    let foragetypeIndex = 1;
+    let forageareaIndex = 1;
+    let foragenameIndex = 1;
+    for (let key in updatedFormData) {
+       if (key.startsWith('foragetype') && key !== `foragetype${id + 1}`) {
+         newFormData[`foragetype${foragetypeIndex}`] = updatedFormData[key];
+         foragetypeIndex++;
+       } else if (key.startsWith('foragearea') && key !== `foragearea${id + 1}`) {
+         newFormData[`foragearea${forageareaIndex}`] = updatedFormData[key];
+         forageareaIndex++;
+       } else if (key.startsWith('foragename') && key !== `foragename${id + 1}`) {
+        newFormData[`foragename${foragenameIndex}`] = updatedFormData[key];
+        foragenameIndex++;
+       }
+        else {
+         newFormData[key] = updatedFormData[key];
+       }
+    }
+    setFormData(newFormData);
   };
   const handleChanges = (e) => {
     setFormData({
@@ -186,16 +219,14 @@ export const UpdateForm4 = ({handleChange,formData,setFormData}) => {
                     }))
               }
               handleChange={handleChanges}
-              value={
-                forage.find(
-                  (forgetype) => forgetype.id === formData[`forgetype${index + 1}`]
-                )?.name || ""
-              }
+              value={formData[`foragename${index + 1}`]  || formData[`forgetype${index + 1}`]}
               onChange={(option) => {
                 handleChanges({
                   target: {
                     name: `forgetype${index + 1}`,
                     value: option.target.value.value,
+                    label: `foragename${index + 1}`,
+                    labelName: option.target.value.label
                   },
                 });
               }}

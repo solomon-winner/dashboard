@@ -51,10 +51,18 @@ export const useInitialValueSite = (id) => {
                [`foragename${index + 1}`]: item.value
             })
            ) : [];
+           const livelihood = data.resources.find(resource => resource.hasOwnProperty('LIVELIHOOD'));
+          const livelihoodResource = livelihood?.LIVELIHOOD ? livelihood.LIVELIHOOD.map(
+            (item, index) => ({
+               [`livelihoodtype${index + 1}`]: item.id,
+               [`livelihoodname${index + 1}`]: item.value
+            })
+          ) : [];
       const siteData = {
         ...treeResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
         ...landResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
         ...forageResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
+        ...livelihoodResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
       };
       dispatch(setSiteById(siteData));
     }

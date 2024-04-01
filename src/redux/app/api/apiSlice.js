@@ -21,7 +21,7 @@ export const baseQueryWithReauth = async (args, api, extraOptions) => {
   } else if (result.error?.originalStatus
     === 403) {
     // send a refresh token to new access token
-    const refreshResult = await baseQuery('/refresh', api, extraOptions);
+    const refreshResult = await baseQuery('/refresh-token', api, extraOptions);
   //  const UserData = await baseQuery('/')
     if (refreshResult?.data) {
       const { user } = api.getState().auth;

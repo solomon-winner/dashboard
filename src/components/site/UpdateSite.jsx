@@ -95,7 +95,7 @@ export const UpdateSite = () => {
     const currentlanduseArray = [];
     let k = 1;
     while (true) {
-      const typeKey = `currentlanduse${k}`;
+      const typeKey = `currentlandusetype${k}`;
       if (values[typeKey]) {
         if (isNaN(values[typeKey])) {
           const response = await addResource({
@@ -121,7 +121,7 @@ export const UpdateSite = () => {
     const forageArray = [];
     let l = 1;
     while (true) {
-      const typeKey = `forage${l}`;
+      const typeKey = `foragetype${l}`;
       if (values[typeKey]) {
         if (isNaN(values[typeKey])) {
           const response = await addResource({
@@ -147,7 +147,7 @@ export const UpdateSite = () => {
     const livelihoodArray = [];
     let m = 1;
     while (true) {
-      const typeKey = `livelihood${m}`;
+      const typeKey = `livelihoodtype${m}`;
       if (values[typeKey]) {
         if (isNaN(values[typeKey])) {
           const response = await addResource({
@@ -180,7 +180,7 @@ export const UpdateSite = () => {
     ];
     const value = { resource };
     console.log(value);
-    const response = await addSiteData({ ...value, id: values.site_id });
+    const response = await addSiteData({ ...value, id });
     console.log(response);
     if (response.data) {
       toast.success("Site added successfully");

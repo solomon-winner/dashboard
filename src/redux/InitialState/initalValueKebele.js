@@ -36,12 +36,21 @@ export const useInitialValueKebele  = (id) => {
               [`livelihoodname${index + 1}`]: item.value
             })
            ):[];
+           
            const livestock = data.resources.find(resource => resource.hasOwnProperty('LIVESTOCK'));
            const livestockResource = livestock?.LIVESTOCK ? livestock.LIVESTOCK.map(
             (item, index) => ({
                [`livestock${index + 1}`]: item.id,
                [`numberlivestock${index + 1}`]: item.amount,
                [`namelivestock${index + 1}`]: item.value
+            })
+           ) : [];
+           const forage = data.resources.find(resource => resource.hasOwnProperty('FORAGE'));
+           const forageResource = forage?.FORAGE ? forage.FORAGE.map(
+            (item, index) => ({
+               [`foragetype${index + 1}`]: item.id,
+               [`foragearea${index + 1}`]: item.amount,
+               [`foragename${index + 1}`]: item.value
             })
            ) : [];
            const crop = data.resources.find(resource => resource.hasOwnProperty('CROP'));
@@ -94,7 +103,20 @@ export const useInitialValueKebele  = (id) => {
                [`nurseryname${index + 1}`]: item.value
             })
            ) : [];
-           console.log(nurseryResource)
+           const causeofdeforestation = data.resources.find(resource => resource.hasOwnProperty('CAUSE_OF_DEFORRESTION'));
+           const causeofdeforestationResource = causeofdeforestation?.CAUSE_OF_DEFORRESTION ? causeofdeforestation.CAUSE_OF_DEFORRESTION.map(
+            (item, index) => ({
+               [`causeofdeforestiontype${index + 1}`]: item.id,
+               [`causeofdeforestionname${index + 1}`]: item.value
+            })
+           ) : [];
+           const energy_source = data?.energy_sources ? data.energy_sources.map(
+            (item, index) => ({
+               [`energy_sourcetype${index + 1}`]: item.id,
+               [`energy_sourcelevel${index + 1}`]: item.access_level,
+               [`energy_sourcename${index + 1}`]: item.value
+            })
+           ) : [];
           const kebeleData = {
             populationmale,
             populationfemale,
@@ -113,6 +135,9 @@ export const useInitialValueKebele  = (id) => {
             ...fruitResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
             ...treeResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
             ...nurseryResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
+            ...forageResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
+            ...causeofdeforestationResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
+            ...energy_source.reduce((acc, item) => ({ ...acc, ...item}),{})
            }
            dispatch(setKebeleById(kebeleData))
           console.log(kebeleData)
