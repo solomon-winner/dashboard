@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createRoles } from "../../redux/roles/RolesState";
-
+import MainLoading from "../Resource/Loading/MainLoading";
 const CreateRole = () => {
   const [addRole] = useAddRoleMutation();
   const { data: permissions, isSuccess, isFetching } = useGetPermissionsQuery();
@@ -49,9 +49,9 @@ const CreateRole = () => {
   const handleSubmit = async (values, { resetForm }) => {
     const response = await addRole(values);
     if (response?.data) {
+      console.log(response.data);
       toast.success("Role added successfully");
-      console.log(response.data.data.name);
-      dispatch(createRoles(response.data.data.name));
+      dispatch(createRoles(response.data.data));
       resetForm();
       navigate("/admin/roles");
 
@@ -73,7 +73,7 @@ const CreateRole = () => {
               handleChange={handleChange}
             />
             {isFetching ? (
-              <div>Loading permissions...</div>
+             <div className='flex justify-center items-center h-screen'><MainLoading /></div>
             ) : isSuccess ? (
               <div className="flex flex-wrap justify-between">
                 {Object.entries(groupedPermissions).map(([groupName, permissions], index) => (

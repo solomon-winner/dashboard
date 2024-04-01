@@ -12,6 +12,7 @@ import {
   setLoadingRoles,
   setRoles,
 } from "../../redux/roles/RolesState";
+import MainLoading from "../Resource/Loading/MainLoading";
 
 const View = () => {
   const [deleteRole, { isLoading: isDeleting }] = useDeleteRoleMutation();
@@ -20,7 +21,7 @@ const View = () => {
   const dispatch = useDispatch();
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [deleteRoleId, setDeleteRoleId] = useState(null);
-
+console.log(rolesData)
   const handleDeleteConfirmation = (roleId) => {
     setDeleteRoleId(roleId);
     setShowConfirmation(true);
@@ -70,7 +71,7 @@ const View = () => {
               <tbody>
                 {isLoadingRoles ? (
                   <tr className="bg-white border-b">
-                    <td className="py-4 px-6 text-gray-800">Loading...</td>
+                    <td className="py-4 px-6 text-gray-800"><MainLoading/></td>
                     <td className="py-4 px-6 text-right"></td>
                   </tr>
                 ) : (
