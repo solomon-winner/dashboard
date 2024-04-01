@@ -19,6 +19,7 @@ export const View = () => {
   isSuccess && data.data.length < 20 ? currentPage : currentPage + 1;
   let content;
   let filteredData;
+  console.log(data, 'kebele view')
   if (isLoading === true) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -40,7 +41,7 @@ export const View = () => {
             className="w-full md:w-1/2 md:mt-4 lg:w-1/3 h-auto px-4"
           >
             <Link
-              to={`/admin/kebele/1`}
+              to={`/admin/kebele/${item.id}`}
               className="
           p-4
           pt-9

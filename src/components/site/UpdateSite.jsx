@@ -1,102 +1,224 @@
-import React, { useState } from "react";
-import { Formik, Form } from "formik";
+import React, { useEffect, useState } from "react";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { UpdateForm } from "./updateform/UpdateForm";
+import { AddForm } from "./addform/AddForm";
+import { AddForm2 } from "./addform/AddForm2";
+import { AddForm3 } from "./addform/AddForm3";
+import { useAddSiteDataMutation } from "../../redux/site/SiteApiSlice";
+import { toast } from "react-toastify";
+import { useAddResourceMutation } from "../../redux/resource/ResourceApiSlice";
+import { useParams } from "react-router-dom";
+import { useInitialValueSite } from "../../redux/InitialState/initalValueSite";
+import { useDispatch, useSelector } from "react-redux";
+import MainLoading from "../Resource/Loading/MainLoading";
 import { UpdateForm2 } from "./updateform/UpdateForm2";
-import { UpdateForm3 } from "./updateform/UpdateForm3";
-
+import {UpdateForm} from "./updateform/UpdateForm"
+import { setLoadingFalse, setLoadingTrue } from "../../redux/site/SiteByIdState";
 const validationSchema = Yup.object().shape({
-    // Define your validation schema here if needed
-  });
-  export const sitedata = [
-    {
-      region: "Amhara",
-      wereda: "Dera",
-      kebele: "Agar",
-      microwatershed: "Agar Wenz",
-      site: "Agar Jefefa",
-      sizeofsite: 9.6,
-      typeindegeneous: [
-        { type: "C. africana" },
-        { type: "O. africana" },
-        { type: "R. prinoides"},
-        { type: "C. macrstachyus" },
-        { type: "C. tomentosa" },
-        { type: "M. ferruginea (Birbira)" },
-        { type: "J. procera" },
-      ],
-      typeexotic: [
-        { type: "A. decurrens" },
-        { type: "G. robusta" },
-        { type: "C. lustanica"},
-        { type: "C. equisetifolia" },
-        { type: "S. sesban" },
-      ],
-      settlement: "No",
-      communalgrazing: "Yes",
-      forest: "No",
-      agriculturalfarmland: "No",
-      shrubland: "No",
-      bushland: "No",
-      pastorlandgrazing: "No",
-      wetland: "No",
-      degradedlandbadland: "Yes",
-      irrigationland: "No",
-      bareland: "No",
-      other: "No",
-      forage: [
-        { forage: "Grass" },
-        { forage: "Trulucern" },
-        { forage: "Suspania" },
-        { forage: "Elephant grass" },
-      ],
-      livestockSupport: [
-        { cropproduction: "No" },
-        { livestockproduction: "No" },
-        { dairyproduction: "No" },
-        { beekeeping: "No" },
-        { livestockandcropproduction: "No" },
-        { nonfarmactivities: "No" },
-        { forestseeding: "No" },
-        { pettytrade: "No" },
-        { smallruminant: "No" },
-        { poultry: "No" },
-        { foragegrowing: "Yes" },
-        { other: "No"}
-      ]
+  // Define your validation schema here if needed
+});
+export const UpdateSite = () => {
+  const { id } = useParams();
+  useInitialValueSite(id);
+  const { siteData, loading } = useSelector((state) => state.siteById);
+  const [addSiteData] = useAddSiteDataMutation();
+  const [addResource] = useAddResourceMutation();
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState(siteData);
+  useEffect(()=>{
+    if(!loading && siteData){
+      setFormData(siteData);
     }
-  ]
-  export const UpdateSite = () => {
-    const [step, setStep] = useState(1);
-    const [formData, setFormData] = useState(sitedata[0]);
-    const handleNext = () => {
-        setStep(step + 1);
-      };
-    
-      const handleBack = () => {
-        setStep(step - 1);
-      };
-    
-      const handleSubmit = (values) => {
-        // Handle form submission here
-        console.log(values);
-      };
-      return (
-        <div>
-          <div className="p-6 flex items-center justify-center">
-            <div className="w-4/5">
-              <h1 className="text-3xl font-bold mb-5">Update Site</h1>
-              <Formik
-                initialValues={formData}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-              >
-                 {({ handleChange }) => (
+  },[!loading])
+  const handleNext = (e) => {
+    e.preventDefault();
+    setStep(step + 1);
+  };
+
+  const handleBack = () => {
+    setStep(step - 1);
+  };
+  const handleSubmit = async (values) => {
+    console.log(values);
+    const indegeneoustreeArray = [];
+    let i = 1;
+    while (true) {
+      const typeKey = `indegeneoustype${i}`;
+      if (values[typeKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addResource({
+            name: values[typeKey],
+            resource_type: "TREE",
+          });
+          if (response.data) {
+            toast.success("Resource added successfully");
+            values[typeKey] = response.data.data.id;
+          } else {
+            toast.error(response.error.data.message);
+          }
+        }
+        indegeneoustreeArray.push({
+          resource_id: values[typeKey],
+          indigenous: 1,
+        });
+        i++;
+      } else {
+        break;
+      }
+    }
+    const exotictreeArray = [];
+    let j = 1;
+    while (true) {
+      const typeKey = `exotictype${j}`;
+      if (values[typeKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addResource({
+            name: values[typeKey],
+            resource_type: "TREE",
+          });
+          if (response.data) {
+            toast.success("Resource added successfully");
+            values[typeKey] = response.data.data.id;
+          } else {
+            toast.error(response.error.data.message);
+          }
+        }
+        exotictreeArray.push({
+          resource_id: values[typeKey],
+          indigenous: 0,
+        });
+        j++;
+      } else {
+        break;
+      }
+    }
+    const currentlanduseArray = [];
+    let k = 1;
+    while (true) {
+      const typeKey = `currentlanduse${k}`;
+      if (values[typeKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addResource({
+            name: values[typeKey],
+            resource_type: "LAND",
+          });
+          if (response.data) {
+            toast.success("Resource added successfully");
+            values[typeKey] = response.data.data.id;
+          } else {
+            toast.error(response.error.data.message);
+          }
+        }
+        currentlanduseArray.push({
+          resource_id: values[typeKey],
+          indigenous: 0,
+        });
+        k++;
+      } else {
+        break;
+      }
+    }
+    const forageArray = [];
+    let l = 1;
+    while (true) {
+      const typeKey = `forage${l}`;
+      if (values[typeKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addResource({
+            name: values[typeKey],
+            resource_type: "FORAGE",
+          });
+          if (response.data) {
+            toast.success("Resource added successfully");
+            values[typeKey] = response.data.data.id;
+          } else {
+            toast.error(response.error.data.message);
+          }
+        }
+        forageArray.push({
+          resource_id: values[typeKey],
+          indigenous: 0,
+        });
+        l++;
+      } else {
+        break;
+      }
+    }
+    const livelihoodArray = [];
+    let m = 1;
+    while (true) {
+      const typeKey = `livelihood${m}`;
+      if (values[typeKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addResource({
+            name: values[typeKey],
+            resource_type: "FORAGE",
+          });
+          if (response.data) {
+            toast.success("Resource added successfully");
+            values[typeKey] = response.data.data.id;
+          } else {
+            toast.error(response.error.data.message);
+          }
+        }
+        livelihoodArray.push({
+          resource_id: values[typeKey],
+          indigenous: 0,
+        });
+        m++;
+      } else {
+        break;
+      }
+    }
+
+    const resource = [
+      ...indegeneoustreeArray,
+      ...exotictreeArray,
+      ...currentlanduseArray,
+      ...forageArray,
+      ...livelihoodArray,
+    ];
+    const value = { resource };
+    console.log(value);
+    const response = await addSiteData({ ...value, id: values.site_id });
+    console.log(response);
+    if (response.data) {
+      toast.success("Site added successfully");
+    } else {
+      toast.error(response.error.data.message);
+    }
+  };
+  return (
+    <div>
+      <div className="p-6 flex items-center justify-center">
+        <div className="w-4/5">
+          <h1 className="text-3xl font-bold mb-5">Update Site</h1>
+          {loading === true ? (
+            <MainLoading />
+          ) : (
+            <Formik
+              initialValues={formData}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+              enableReinitialize={true}
+            >
+              {({ handleChange }) => (
                 <Form>
-                  {step === 1 && <UpdateForm handleChange={handleChange} />}
-                  {step === 2 && <UpdateForm2 handleChange={handleChange} />}
-                  {step === 3 && <UpdateForm3 handleChange={handleChange} />}
-                  <div className="mt-4 flex justify-between w-10/12">
+                  {step === 1 && (
+                    <UpdateForm
+                      handleChange={handleChange}
+                      formData={formData}
+                      setFormData={setFormData}
+                    />
+                  )}
+                  {step === 2 && (
+                    <UpdateForm2
+                      handleChange={handleChange}
+                      formData={formData}
+                      setFormData={setFormData}
+                    />
+                  )}
+                  <div className="mt-20 flex justify-between w-10/12 ">
                     {step > 1 && (
                       <button
                         type="button"
@@ -106,8 +228,10 @@ const validationSchema = Yup.object().shape({
                         Back
                       </button>
                     )}
-                     <div className="text-gray-500 text-sm">Page {step} of 3</div>
-                    {step < 3 ? (
+                    <div className="text-gray-500 text-sm">
+                      Page {step} of 2
+                    </div>
+                    {step < 2 ? (
                       <button
                         type="button"
                         onClick={handleNext}
@@ -120,16 +244,16 @@ const validationSchema = Yup.object().shape({
                         type="submit"
                         className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
                       >
-                        Update
+                        Submit
                       </button>
                     )}
                   </div>
                 </Form>
-                 )}
-              </Formik>
-            </div>
-          </div>
+              )}
+            </Formik>
+          )}
         </div>
-      );
-    };
-        
+      </div>
+    </div>
+  );
+};

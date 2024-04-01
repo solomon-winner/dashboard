@@ -10,30 +10,6 @@ import Loadings from '../../Resource/Loading/Loadings';
 import { useGetWeredaByRegionQuery } from "../../../redux/region/RegionApiSlice";
 import { useGetKebeleByWeredaQuery } from "../../../redux/kebele/KebeleApiSlice";
 import { useGetSiteByKebeleQuery } from "../../../redux/site/SiteApiSlice";
-export const kebeles = {
-  Dera: ["Agar", "Emashenkoro"],
-  Habru: ["Goshuwa", "Srinka"],
-  // Add more regions here
-};
-const option = {
-  indegeneous: [
-    "C. africana",
-    " O. africana",
-    "R. prinoides",
-    "C. macrstachyus",
-    "C. tomentosa",
-    "M. ferruginea (Birbira)",
-    "J. procera",
-  ],
-  exotic: [
-    "A. decurrens",
-    "G. robusta",
-    "C. lustanica",
-    "C. equisetifolia",
-    "S. sesban",
-  ],
-};
-
 export const AddForm = ({ handleChange, formData, setFormData }) => {
 
   const [selectedRegion, setSelectedRegion] = useState("");

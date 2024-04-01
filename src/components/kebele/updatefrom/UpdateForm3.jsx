@@ -1,231 +1,173 @@
 
-import { FamilyRestroom } from "@mui/icons-material";
+import { AddCircleOutline, Delete, FamilyRestroom } from "@mui/icons-material";
 import { FormField } from "../../wereda/AddWereda";
 import { kebeledata } from "../UpdateKebele";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Loadings from "../../Resource/Loading/Loadings";
+import { useSelector } from "react-redux";
 
-
-export const UpdateForm3 = ({handleChange}) => {
-  const [updateData, setUpdateData] = useState(kebeledata[0]);
-  
-  const handleChanges = (event) => {
-    const { name, value } = event.target;
-    setUpdateData({...updateData, [name]: value});
-    handleChange(event);
+export const extractAdditionalFieldsData = (prefix, formData, prefix2,prefix3) => {
+  const fields = [];
+  let index = 1;
+  while (formData[`${prefix}${index}`]) {
+    fields.push({
+      id: index - 1, // Adjusting index to start from 0
+      [prefix]: formData[`${prefix}${index}`],
+      [prefix2]: formData[`${prefix2}${index}`],
+      [prefix3]: formData[`${prefix3}${index}`],
+    });
+    index++;
   }
-  
+  return fields;
+};
+export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
+  const { livelihood, isLoadingLivelihood } = useSelector(
+    (state) => state.resource
+  );
+  const [additionalFields1, setAdditionalFields1] = useState([]);
+  useEffect(() => {
+    if (Object.keys(formData).length > 0) {
+      const initialAdditionalFields = extractAdditionalFieldsData('livelihoodtype', formData, 'livelihoodmale','livelihoodfemale');
+      setAdditionalFields1(initialAdditionalFields);
+      const updatedFormData = { ...formData };
+      const type = initialAdditionalFields.map((item) => item.livelihoodtype) 
+      type.forEach((item,index)=>{
+         const name = livelihood.find(
+          (livelihood) => livelihood.id === item
+        )?.name || ""
+        updatedFormData[`livelihoodname${index + 1}`] = name;
+      })
+      setFormData(updatedFormData);
+      
+    }
+ }, [livelihood]); 
+
+  const addField1 = () => {
+    const highestId = additionalFields1.reduce(
+      (highest, field) => Math.max(highest, field.id),
+      0
+    );
+    setAdditionalFields1([
+      ...additionalFields1,
+      { id: highestId + 1, livelihood: "" },
+    ]);
+  };
+  const removeField1 = (id) => {
+    setAdditionalFields1(additionalFields1.filter((field) => field.id !== id));
+    const updatedFormData = { ...formData };
+    delete updatedFormData[`livelihoodtype${id + 1}`];
+    delete updatedFormData[`livelihoodmale${id + 1}`];
+    delete updatedFormData[`livelihoodfemale${id + 1}`];
+    delete updatedFormData[`livelihoodname${id + 1}`];
+    let newFormData = {};
+    let livelihoodtypeIndex = 1;
+    let livelihoodmaleIndex = 1;
+    let livelihoodfemaleIndex = 1;
+    let livelihoodnameIndex = 1;
+    for (let key in updatedFormData) {
+       if (key.startsWith('livelihoodtype') && key !== `livelihoodtype${id + 1}`) {
+         newFormData[`livelihoodtype${livelihoodtypeIndex}`] = updatedFormData[key];
+         livelihoodtypeIndex++;
+       } else if (key.startsWith('livelihoodmale') && key !== `livelihoodmale${id + 1}`) {
+         newFormData[`livelihoodmale${livelihoodmaleIndex}`] = updatedFormData[key];
+         livelihoodmaleIndex++;
+       } else if (key.startsWith('livelihoodfemale') && key !== `livelihoodfemale${id + 1}`) {
+        newFormData[`livelihoodfemale${livelihoodfemaleIndex}`] = updatedFormData[key];
+        livelihoodfemaleIndex++;
+       }else if (key.startsWith('livelihoodname') && key !== `livelihoodname${id + 1}`) {
+        newFormData[`livelihoodname${livelihoodnameIndex}`] = updatedFormData[key];
+        livelihoodnameIndex++;
+       }
+        else {
+         newFormData[key] = updatedFormData[key];
+       }
+    }
+    setFormData(newFormData);
+   };
+   useEffect(() => {
+    console.log(formData);
+   }, [formData]);
+  const handleChanges = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+      [e.target.label]: e.target.labelName
+    });
+    handleChange(e);
+  };
   return (
-            <div>
-            <h6 class="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
-            Livelihood
-            </h6>
-            <h6 className="text-blueGray-400 text-xs mt-3 mb-4 font-semibold uppercase">
-            Crop production
-            </h6>
-            <div class="flex flex-wrap">
+    <div>
+      <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
+        Livelihood
+      </h6>
+      <div>
+        {additionalFields1.map((field, index) => (        
+          <React.Fragment key={field.id} >
+            <div className="flex flex-wrap lg:w-full">
+            <FormField
+              label="Type"
+              name={`livelihoodtype${index + 1}`}
+              type="dropdown"
+              placeholder="LiveHood site can support"
+              options={
+                isLoadingLivelihood
+                  ? [
+                      {
+                        value: "loading",
+                        label: (
+                          <div className="flex justify-center">
+                            <Loadings />
+                          </div>
+                        ),
+                      },
+                    ]
+                  : livelihood.map((livelihood, index) => ({
+                      label: livelihood.name,
+                      value: livelihood.id,
+                    }))
+              }
+              handleChange={handleChanges}
+              value={formData[`livelihoodname${index + 1}`]  || formData[`livelihoodtype${index + 1}`]}
+              onChange={(option) => {
+                handleChanges({
+                  target: {
+                    name: `livelihood${index + 1}`,
+                    value: option.target.value.value,
+                    label: `livelihoodname${index + 1}`,
+                    labelName: option.target.value.label
+                  },
+                });
+              }}
+            />
+            </div>
+            <div className="flex flex-wrap">
               <FormField
                 label="Male"
-                name="malecropproduction"
-                type="text"
+                name={`livelihoodmale${index + 1}`}
+                type="number"
                 placeholder="Total Number of Male headed house holds"
                 icon={FamilyRestroom}
-                value={updateData.malecropproduction}
+                value={formData[`livelihoodmale${index + 1}`] || ""}
                 handleChange={handleChanges}
               />
               <FormField
                 label="Female"
-                name="femalecropproduction"
-                type="text"
+                name={`livelihoodfemale${index + 1}`}
+                type="number"
                 placeholder="Total Number of Female headed house holds"
                 icon={FamilyRestroom}
-                value={updateData.femalecropproduction}    
-                handleChange={handleChanges}      
-              />
-            </div>
-            <h6 className="text-blueGray-400 text-xs mt-3 mb-4 font-semibold uppercase">
-            Livestock production
-            </h6>
-            <div class="flex flex-wrap">
-              <FormField
-                label="Male"
-                name="malelivestockproduction"
-                type="text"
-                placeholder="Total Number of Male headed house holds"
-                icon={FamilyRestroom}
-               value={updateData.malelivestockproduction}
-               handleChange={handleChanges}
-              />
-              <FormField
-                label="Female"
-                name="femalelivestockproduction"
-                type="text"
-                placeholder="Total Number of Female headed house holds"
-                icon={FamilyRestroom}
-               value={updateData.femalelivestockproduction}
-               handleChange={handleChanges}
-              />
-            </div>
-            <h6 className="text-blueGray-400 text-xs mt-3 mb-4 font-semibold uppercase">
-            Dairy + poultry +shoats
-            </h6>
-            <div class="flex flex-wrap">
-              <FormField
-                label="Male"
-                name="maledairyproduction"
-                type="text"
-                placeholder="Total Number of Male headed house holds"
-                icon={FamilyRestroom}
-                value={updateData.maledairyproduction}
-                handleChange={handleChanges}
-              />
-              <FormField
-                label="Female"
-                name="femaledairyproduction"
-                type="text"
-                placeholder="Total Number of Female headed house holds"
-                icon={FamilyRestroom}
-                value={updateData.femaledairyproduction}
+                value={formData[`livelihoodfemale${index + 1}`] || ""}
                 handleChange={handleChanges}
               />
             </div>
-            <h6 className="text-blueGray-400 text-xs mt-3 mb-4 font-semibold uppercase">
-            Beekeeping
-            </h6>
-            <div class="flex flex-wrap">
-              <FormField
-                label="Male"
-                name="malebeekeeping"
-                type="text"
-                placeholder="Total Number of Male headed house holds"
-                icon={FamilyRestroom}
-                value={updateData.malebeekeeping}
-                handleChange={handleChanges}
-              />
-              <FormField
-                label="Female"
-                name="femalebeekeeping"
-                type="text"
-                placeholder="Total Number of Female headed house holds"
-                icon={FamilyRestroom}
-                value={updateData.femalebeekeeping}
-                handleChange={handleChanges}
-              />
-            </div>
-            <h6 className="text-blueGray-400 text-xs mt-3 mb-4 font-semibold uppercase">
-            Livestock and Crop production
-            </h6>
-            <div class="flex flex-wrap">
-              <FormField
-                label="Male"
-                name="malelivestockandcropproduction"
-                type="text"
-                placeholder="Total Number of Male headed house holds"
-                icon={FamilyRestroom}
-                value={updateData.malelivestockandcropproduction}
-                handleChange={handleChanges}
-              />
-              <FormField
-                label="Female"
-                name="femalelivestockandcropproduction"
-                type="text"
-                placeholder="Total Number of Female headed house holds"
-                icon={FamilyRestroom}
-                value={updateData.femalelivestockandcropproduction}
-                handleChange={handleChanges}
-              />
-            </div>
-            <h6 className="text-blueGray-400 text-xs mt-3 mb-4 font-semibold uppercase">
-            Non-farm activites
-            </h6>
-            <div class="flex flex-wrap">
-              <FormField
-                label="Male"
-                name="malenonfarmactivites"
-                type="text"
-                placeholder="Total Number of Male headed house holds"
-                icon={FamilyRestroom}
-                value={updateData.malenonfarmactivites}
-                handleChange={handleChanges}
-              />
-              <FormField
-                label="Female"
-                name="femalenonfarmactivites"
-                type="text"
-                placeholder="Total Number of Female headed house holds"
-                icon={FamilyRestroom}
-                value={updateData.femalenonfarmactivites}
-                handleChange={handleChanges}
-              />
-            </div>
-            <h6 className="text-blueGray-400 text-xs mt-3 mb-4 font-semibold uppercase">
-            Forest seeding
-            </h6>
-            <div class="flex flex-wrap">
-              <FormField
-                label="Male"
-                name="maleforestseeding"
-                type="text"
-                placeholder="Total Number of Male headed house holds"
-                icon={FamilyRestroom}
-                value={updateData.maleforestseeding}
-                handleChange={handleChanges}
-              />
-              <FormField
-                label="Female"
-                name="femaleforestseeding"
-                type="text"
-                placeholder="Total Number of Female headed house holds"
-                icon={FamilyRestroom}
-                value={updateData.femaleforestseeding}
-                handleChange={handleChanges}
-              />
-            </div>
-            <h6 className="text-blueGray-400 text-xs mt-3 mb-4 font-semibold uppercase">
-            petty trade
-            </h6>
-            <div class="flex flex-wrap">
-              <FormField
-                label="Male"
-                name="malepettytrade"
-                type="text"
-                placeholder="Total Number of Male headed house holds"
-                icon={FamilyRestroom}
-                value={updateData.malepettytrade}
-                handleChange={handleChanges}
-              />
-              <FormField
-                label="Female"
-                name="femalepettytrade"
-                type="text"
-                placeholder="Total Number of Female headed house holds"
-                icon={FamilyRestroom}
-                value={updateData.femalepettytrade}
-                handleChange={handleChanges}
-              />
-            </div>
-            <h6 className="text-blueGray-400 text-xs mt-3 mb-4 font-semibold uppercase">
-            other
-            </h6>
-            <div class="flex flex-wrap">
-              <FormField
-                label="Male"
-                name="maleothers"
-                type="text"
-                placeholder="Total Number of Male headed house holds"
-                icon={FamilyRestroom}
-                value={updateData.maleothers}
-                handleChange={handleChanges}
-              />
-              <FormField
-                label="Female"
-                name="femaleothers"
-                type="text"
-                placeholder="Total Number of Female headed house holds"
-                icon={FamilyRestroom}
-                value={updateData.femaleothers}
-                handleChange={handleChanges}
-              />
-            </div>
+            <Delete
+              onClick={() => removeField1(field.id)}
+              className="lg:mt-8"
+            />
+          </React.Fragment>
+        ))}
+        <AddCircleOutline onClick={addField1} className="lg:mt-8" />
+      </div>
     </div>
   );
 };

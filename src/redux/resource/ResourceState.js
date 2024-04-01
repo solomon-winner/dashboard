@@ -14,19 +14,32 @@ export const resourceSlice = createSlice({
         nursery: [],
         causeofdeforestation: [],
         energy_source: [],
-        isLoadingLanduse: true,
-        isLoadingRoad: true,
-        isLoadingTree: true,
-        isLoadingForage: true,
-        isLoadingLivelihood: true,
-        isLoadingLiveStock: true,
-        isLoadingCrop: true,
-        isLoadingFruit: true,
-        isLoadingNursery: true,
-        isLoadingCauseofdeforestation: true,
-        isLoadingEnergy_source: true,
+        isLoadingLanduse: false,
+        isLoadingRoad: false,
+        isLoadingTree: false,
+        isLoadingForage: false,
+        isLoadingLivelihood: false,
+        isLoadingLiveStock: false,
+        isLoadingCrop: false,
+        isLoadingFruit: false,
+        isLoadingNursery: false,
+        isLoadingCauseofdeforestation: false,
+        isLoadingEnergy_source: false,
     },
     reducers: {
+        setLoadingtrue: (state) => {
+            state.isLoadingLanduse = true;
+            state.isLoadingRoad = true;
+            state.isLoadingTree = true;
+            state.isLoadingForage = true;
+            state.isLoadingLivelihood = true;
+            state.isLoadingLiveStock = true;
+            state.isLoadingCrop = true;
+            state.isLoadingFruit = true;
+            state.isLoadingNursery = true;
+            state.isLoadingCauseofdeforestation = true;
+            state.isLoadingEnergy_source = true;
+        },
         setLandUse: (state, action) => {
             state.landuse = action.payload;
             state.isLoadingLanduse = false;
@@ -102,6 +115,7 @@ export const resourceSlice = createSlice({
 });
 
 export const {
+    setLoadingtrue,
     setLandUse,
     createLandUse,
     deleteResources,

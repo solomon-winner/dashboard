@@ -1,35 +1,34 @@
- 
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useGetSiteQuery } from '../../redux/site/SiteApiSlice';
-import MainLoading from '../Resource/Loading/MainLoading';
-import Pagination from '../Resource/Pagination/Pagination';
-
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useGetSiteQuery } from "../../redux/site/SiteApiSlice";
+import MainLoading from "../Resource/Loading/MainLoading";
+import Pagination from "../Resource/Pagination/Pagination";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const {data: site, isLoading,isSuccess} = useGetSiteQuery(currentPage);
-  const [searchInput, setSearchInput] = useState('');
+  const { data: site, isLoading, isSuccess } = useGetSiteQuery(currentPage);
+  const [searchInput, setSearchInput] = useState("");
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
   const totalPages =
-  isSuccess && site.data.length < 20 ? currentPage : currentPage + 1;
+    isSuccess && site.data.length < 20 ? currentPage : currentPage + 1;
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
   };
 
-  if (isLoading){
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <MainLoading />
       </div>
     );
-  }
-  else if (isSuccess) {
-    let filteredData = site.data.filter((d) =>
-    d.site_name && d.site_name.toLowerCase().includes(searchInput.toLowerCase())
-   );
+  } else if (isSuccess) {
+    let filteredData = site.data.filter(
+      (d) =>
+        d.site_name &&
+        d.site_name.toLowerCase().includes(searchInput.toLowerCase())
+    );
 
     return (
       <div className="flex flex-col gap-4 py-6 px-10">
@@ -67,7 +66,7 @@ export const View = () => {
             </form>
           </div>
           <div>
-            <Link 
+            <Link
               to="/admin/add-sites"
               className="bg-mainColor py-2 px-6 rounded text-white font-semibold hover:bg-customDark"
             >
@@ -93,7 +92,7 @@ export const View = () => {
                   className="w-full md:w-1/2 md:mt-4 lg:w-1/3 h-auto px-4"
                 >
                   <Link
-                    to={`/admin/site/1`}
+                    to={`/admin/site/${item.id}`}
                     className="
         p-4
         pt-9
@@ -122,13 +121,13 @@ export const View = () => {
                     </h4>
                     <div className="relative z-10 w-1/3 h-1 bg-black mb-4" />
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                      Total Population:  nodata
+                      Total Population: nodata
                     </p>
                     <p className="relative z-10 text-body-color text-sm font-poppins">
                       Degraded Land: no data
                     </p>
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                      Farm Land:  no data
+                      Farm Land: no data
                     </p>
                     <img
                       className="absolute z-0 top-0 left-0 object-center object-cover h-full w-full transition duration-200 ease-in-out group-hover:brightness-50 group-hover:opacity-80 group-hover:scale-110"
@@ -145,9 +144,8 @@ export const View = () => {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={handlePageChange}
-          />
+        />
       </div>
     );
   }
-}
-
+};
