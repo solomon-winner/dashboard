@@ -49,7 +49,7 @@ export const UpdateKebele = () => {
     let i = 1;
     while (true) {
        const typeKey = `energy_sourcetype${i}`;
-       const energyKey = `energy_source${i}`;
+       const energyKey = `energy_sourcelevel${i}`;
        if (values[typeKey]&& values[energyKey]) {
          if (isNaN(values[typeKey])) {
            const response = await addResource({ name:values[typeKey],resource_type:"ENERGY_SOURCE" });
@@ -315,7 +315,7 @@ export const UpdateKebele = () => {
     const causeofdeforestationArray = [];
     let c = 1;
     while (true) {
-       const typeKey = `causeofdeforestation${c}`;
+       const typeKey = `causeofdeforestiontype${c}`;
        if (values[typeKey] ) {
          if (isNaN(values[typeKey])) {
            const response = await addResource({ name:values[typeKey],resource_type:"CAUSE_OF_DEFORESTATION" });
