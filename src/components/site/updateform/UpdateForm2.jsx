@@ -34,8 +34,13 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
             "foragetype",
             formData
           );
+          const initialAdditionalFields3 = extractAdditionalFieldsData(
+            "livelihoodtype",
+            formData
+          );
           setAdditionalFields(initialAdditionalFields);
           setAdditionalFields2(initialAdditionalFields2);
+          setAdditionalFields3(initialAdditionalFields3);
           const updatedFormData = { ...formData };
           const type = initialAdditionalFields.map((item) => item.currentlandusetype);
           type.forEach((item, index) => {
@@ -47,8 +52,12 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
             const name = forage.find((forage) => forage.id === item)?.name || "";
             updatedFormData[`foragename${index + 1}`] = name;
           });
+          const type3 = initialAdditionalFields3.map((item) => item.livelihoodtype);
+          type3.forEach((item, index) => {
+            const name = livelihood.find((livelihood) => livelihood.id === item)?.name || "";
+            updatedFormData[`livelihoodname${index + 1}`] = name;
+          });
           setFormData(updatedFormData);
-          console.log(initialAdditionalFields);
         }
       }, [livelihood,landuse, forage]);
     
@@ -211,7 +220,7 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
             <React.Fragment key={field.id}>
               <FormField
                 label="Type"
-                name={`livelihood${index + 1}`}
+                name={`livelihoodtype${index + 1}`}
                 type="dropdown"
                 placeholder="LiveHood site can support"
                 options={
@@ -232,16 +241,14 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
                       }))
                 }
                 handleChange={handleChanges}
-                value={
-                  livelihood.find(
-                    (livelihood) => livelihood.id === formData[`livelihood${index + 1}`]
-                  )?.name || ""
-                }
+                value={formData[`livelihoodname${index + 1}`] || formData[`livelihoodtype${index + 1}`] || ""}
                 onChange={(option) => {
                   handleChanges({
                     target: {
-                      name: `livelihood${index + 1}`,
+                      name: `livelihoodtype${index + 1}`,
                       value: option.target.value.value,
+                      label: `livelihoodname${index + 1}`,
+                      labelName: option.target.value.label,
                     },
                   });
                 }}
