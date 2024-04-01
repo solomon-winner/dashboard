@@ -13,168 +13,26 @@ import { useAddKebeleDataMutation, useGetKebeleByIdQuery } from "../../redux/keb
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import MainLoading from "../Resource/Loading/MainLoading";
+import {useInitialValueKebele} from "../../redux/InitialState/initalValueKebele"
+import { useSelector } from "react-redux";
 
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
-export const kebeledata = [
-  {
-    region: "Amhara",
-    wereda: "Dera",
-    kebele: "Agar",
-    male: 3808,
-    female: 3515,
-    male2: 100,
-    female2: 100,
-    types: [
-      { type: "Settlement", area: 2.2 },
-      { type: "Comminal Grazing", area: 234.6 },
-      { type: "Forest", area: 324.96 },
-      { type: "Agriculture/Farm land", area: 3148.09 },
-      { type: "Bush land", area: 519.36 },
-      { type: "Degraded land/Bad land", area: 520 },
-    ],
-    maleownland: 985,
-    femaleownland: 562,
-    maledontownland: 0,
-    femaledontownland: 0,
-    unemployedmale: 0,
-    unemployedfemale: 0,
-    malecropproduction: 153,
-    femalecropproduction: 31,
-    malelivestockproduction: 0,
-    femalelivestockproduction: 0,
-    maledairyproduction: 52,
-    femaledairyproduction: 10,
-    malebeekeeping: 0,
-    femalebeekeeping: 0,
-    malelivestockandcropproduction: 760,
-    femalelivestockandcropproduction: 153,
-    malenonfarmactivites: 20,
-    femalenonfarmactivites: 4,
-    maleforestseeding: 0,
-    femaleforestseeding: 0,
-    malepettytrade: 13,
-    femalepettytrade: 3,
-    maleothers: 23,
-    femaleothers: 5,
-    oxen: 2627,
-    cows: 2789,
-    goat: 1305,
-    sheep: 2362,
-    camel: 0,
-    donkey: 1136,
-    horse: 35,
-    poultry: 4735,
-    other: 64,
-    Forage: [
-      {
-        type: "",
-        area: 0,
-      },
-    ],
-    crop: [
-      {type: "Teff", area: 1101},
-      {type: "Maize", area: 472},
-      {type: "Dagusa", area: 1574},
-
-    ],
-    fruit: [
-      {fruittype: "Mango", fruitarea: 14},
-      {fruittype: "Avocado", fruitarea: 2},
-      {fruittype: "Zeytun", fruitarea: 5},
-      {fruittype: "Orange", fruitarea: 3},
-      {fruittype: "Banana", fruitarea: 9},
-    ],
-    typeindegeneous: [
-      { typeindegeneous: "Cordia africana" },
-      { typeindegeneous: "Croton macrostachyus" },
-    ],
-    typeexotic: [
-      { typeexotic: "Eucalyptus globules" },
-      { typeexotic: "Acacia decurrens" },
-      { typeexotic: "Cupressus Iusitanica"},
-      { typeexotic: "Eucalyptus camaldulensis" },
-    ],
-    localamount: 0,
-    localcap:0,
-    communityamt: 0,
-    communitycap: 0,
-    individualamt: 5,
-    individualcap: 150000,
-    Cause: [
-      {deforestation: "Fuel wood"},
-      {deforestation: "Farm land expanstion"},
-      {deforestation: "Free grazing"},
-    ],
-    sourceofenergy: [
-      {electricity: "low"},
-      {firewood: "high"},
-      {animaldung: "high"},
-      {cropresidue: "medium"},
-      {charcoal: "low"},
-      {biogas: "low"},
-      {solar: "low"},
-    ]
-  }, 
-];
 export const UpdateKebele = () => {
   const {id} = useParams();
-  const {data: kebeledata, isFetching,isSuccess } = useGetKebeleByIdQuery(id);
+  useInitialValueKebele(id);
+  const {kebeleData,loading}=useSelector((state)=>state.kebeleById)
   const [addResource] = useAddResourceMutation();
   const [AddKebeleData] = useAddKebeleDataMutation();
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState(kebeleData);
 
   useEffect(()=>{
-    if(isSuccess && kebeledata) {
-      const data = kebeledata?.data
-      const populationmale = data?.kebele_data?.male_population;
-      const populationfemale = data?.kebele_data?.female_population;
-      const householdmale2 = data?.kebele_data?.male_hh;
-      const householdfemale2 = data?.kebele_data?.female_hh;
-      const ownsmale = data?.kebele_data?.mhf_land_owners;
-      const ownsfemale = data?.kebele_data?.fhf_land_owners;
-      const doesnotownmale2 = data?.kebele_data?.mhf_land_lease;
-      const doesnotownfemale2 = data?.kebele_data?.fhf_land_lease;
-      const unemployedmale3 = data?.kebele_data?.male_non_employed;
-      const unemployedfemale3 = data?.kebele_data?.female_non_employed;
-      const land = data.resources.find(resource => resource.hasOwnProperty('LAND'));
-      const landResource = land?.LAND ? land.LAND.map(
-        (item, index) => ({
-           [`type${index + 1}`]: item.id,
-           [`area${index + 1}`]: item.amount,
-           [`name${index + 1}`]: item.value
-        })
-       ) : [];
-       setFormData({
-        populationmale,
-        populationfemale,
-        householdmale2,
-        householdfemale2,
-        ownsmale,
-        ownsfemale,
-        doesnotownmale2,
-        doesnotownfemale2,
-        unemployedmale3,
-        unemployedfemale3,
-        ...landResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
-       })
-      console.log({
-        populationmale,
-        populationfemale,
-        householdmale2,
-        householdfemale2,
-        ownsmale,
-        ownsfemale,
-        doesnotownmale2,
-        doesnotownfemale2,
-        unemployedmale3,
-        unemployedfemale3,
-        ...landResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
-       })
+    if(!loading && kebeleData){
+      setFormData(kebeleData)
     }
-  },[isSuccess,kebeledata])
+  },[kebeleData])
   const handleNext = (e) => {
     e.preventDefault();
     setStep(step + 1);
@@ -186,6 +44,7 @@ export const UpdateKebele = () => {
   };
 
   const handleSubmit = async(values) => {
+    
     const energy_sourceArray = [];
     let i = 1;
     while (true) {
@@ -213,7 +72,7 @@ export const UpdateKebele = () => {
     const livelihoodArray = [];
     let j = 1;
     while (true) {
-       const typeKey = `livelihood${j}`;
+       const typeKey = `livelihoodtype${j}`;
        const maleKey = `livelihoodmale${j}`;
        const femalKey = `livelihoodfemale${j}`;
 
@@ -495,14 +354,14 @@ export const UpdateKebele = () => {
     female_non_employed: values.unemployedfemale3
     }
     const value = {energy_source, data, livelihood,resource }
-    // const response = await AddKebeleData({...value,id:values.kebele_id});
-    // console.log(response);
-    // if (response.data) {
-    //   toast.success("Kebele added successfully");
-    // } else {
-    //   toast.error(response.error.data.message);
-    // }
-    console.log({...value,id:values.kebele_id});
+    const response = await AddKebeleData({...value,id:id});
+    console.log(response);
+    if (response.data) {
+      toast.success("Kebele added successfully");
+    } else {
+      toast.error(response.error.data.message);
+    }
+    console.log({...value, id: Number(id)});
   };
 
   return (
@@ -510,11 +369,12 @@ export const UpdateKebele = () => {
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
           <h1 className="text-3xl font-bold mb-5">Update Kebele</h1>
-          {isFetching ? ( <MainLoading/>):
+          {loading ? ( <MainLoading/>):
           <Formik
             initialValues={formData}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
+            enableReinitialize={true}
           >
              {({ handleChange }) => (
             <Form>

@@ -12,119 +12,32 @@ import {
 import { toast } from "react-toastify";
 import { useAddResourceMutation } from "../../redux/resource/ResourceApiSlice";
 import MainLoading from "../Resource/Loading/MainLoading";
+import { useSelector } from "react-redux";
+import { useInitalValueworeda } from "../../redux/InitialState/initalValueWoreda";
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
-export const weredadata = [
-  {
-    region: "Amhara",
-    wereda: "Dera",
-    urban: 2,
-    rural: 35,
-    male: 164586,
-    female: 151711,
-    male2: 0,
-    female2: 0,
-    types: [
-      { type: "Settlement/Residential", area: 575.6 },
-      { type: "Forest", area: 7670.6 },
-      { type: "Agriculture/Farm land", area: 107274.7 },
-      { type: "Shrub land", area: 23827.8 },
-      { type: "Pastor land/Grazing", area: 9763 },
-      { type: "Wetland", area: 50.9 },
-      { type: "Degraded land/Bad land", area: 12184.7 },
-    ],
-    asphalt: 59,
-    allseasongravel: 113,
-    seasonalgravel: 42,
-    college: 0,
-    tvet: 1,
-    highschool: 0,
-    secoundschool: 5,
-    primaryschool: 112,
-    primary: 1,
-    general: 0,
-    referral: 0,
-    healthcenter: 11,
-    clinic: 42,
-    vetclinic: 32,
-  },
-];
 export const Updatewereda = () => {
   const { id } = useParams();
+  useInitalValueworeda(id);
   const {
     data: woredadata,
     isSuccess,
     isFetching,
     refetch,
   } = useGetWeredaByIdQuery(id);
+  const {weredas,isLoadingWeredas} = useSelector((state) => state.wereda)
   const [addResource] = useAddResourceMutation();
   const [addweredadata] = useAddWoredaDataMutation();
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({}); // Initialize formData as an empty object
+  const [formData, setFormData] = useState(weredas); // Initialize formData as an empty object
 
   // Use useEffect to update formData when woredadata is successfully fetched
   useEffect(() => {
-    if (isSuccess && woredadata) {
-      const woredaData = woredadata?.data;
-      const urban_kebeles = woredaData?.woreda_data?.urban_kebeles;
-      const rural_kebeles = woredaData?.woreda_data?.rural_kebeles;
-      const male_hh = woredaData?.woreda_data?.male_hh;
-      const female_hh = woredaData?.woreda_data?.female_hh;
-      const male_population = woredaData?.woreda_data?.male_population;
-      const female_population = woredaData?.woreda_data?.female_population;
-      const landResource = woredaData?.woreda_resource?.LAND ? woredaData.woreda_resource.LAND.map(
-        (item, index) => ({
-           [`type${index + 1}`]: item.id,
-           [`area${index + 1}`]: item.amount,
-        })
-       ) : [];
-      const roadResource = woredaData?.woreda_resource?.ROAD ? woredaData.woreda_resource.ROAD.map((item, index)=>({
-         [`roadtype${index + 1}`]: item.id,
-         [`distance${index + 1}`]: item.amount
-      })
-      ):[]; 
-      const schoolResource = woredaData?.woreda_institution?.SCHOOL ? woredaData.woreda_institution.SCHOOL.map(
-        (item, index) => ({
-          [`schooltype${index + 1}`]: item.id,
-          [`schoolnumber${index + 1}`]: item.amount,
-        })
-      ):[];
-      const healthResource = woredaData?.woreda_institution?.HEALTH_FACILITY ? woredaData.woreda_institution.HEALTH_FACILITY.map(
-        (item, index) => ({
-          [`healthFacilitytype${index + 1}`]: item.id,
-          [`healthFacilitynumber${index + 1}`]: item.amount,
-        })
-      ):[];
-      
-      setFormData({
-        urban_kebeles,
-        rural_kebeles,
-        male_hh,
-        female_hh,
-        male_population,
-        female_population,
-        ...landResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
-        ...roadResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
-        ...schoolResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
-        ...healthResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
-        id: woredadata.data.id,
-      });
-      console.log({
-        urban_kebeles,
-        rural_kebeles,
-        male_hh,
-        female_hh,
-        male_population,
-        female_population,
-        ...landResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
-        ...roadResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
-        ...schoolResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
-        ...healthResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
-        id: woredadata.data.id,
-      });
+    if(!isLoadingWeredas && weredas){
+      setFormData(weredas)
     }
-  }, [isSuccess, woredadata]);
+  }, [!isLoadingWeredas]);
 
   const handleNext = (e) => {
     e.preventDefault();

@@ -1,155 +1,256 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
 import { RadioButtonGroup } from '../AddSite'
 import { FormField } from "../../wereda/AddWereda";
 import { sitedata } from "../UpdateSite";
+import Loadings from "../../Resource/Loading/Loadings";
+import { useSelector } from "react-redux";
 
-
-export const UpdateForm2 = ({handleChange}) => {
-  const [updateData, setUpdateData] = useState(sitedata[0])
-  const [additionalFields, setAdditionalFields] = useState(
-    updateData.forage.map((type, index) => ({ id: index, forage: type.forage}))
-);
-const addField = () => {
-    const highestId = additionalFields.reduce((highest, field) => Math.max(highest, field.id),   0);
-    setAdditionalFields([...additionalFields, { id: highestId +   1, forage: ""}]);
-};
-const removeField = (id) => {
-    setAdditionalFields(additionalFields.filter(field => field.id !== id));
-};
-const handleChanges = (event) => {
-    const { name, value } = event.target;
-    if (name.startsWith("forage")) {
-        const [, index] = name.split("-");
-        setAdditionalFields(additionalFields.map(field =>
-            field.id === parseInt(index) ? { ...field, [name.split("-")[0]]: value } : field
-        ));
-    } else {
-        setUpdateData({ ...updateData, [name]: value });
+export const extractAdditionalFieldsData = (prefix, formData) => {
+    const fields = [];
+    let index = 1;
+    while (formData[`${prefix}${index}`]) {
+      fields.push({
+        id: index - 1, // Adjusting index to start from 0
+        [prefix]: formData[`${prefix}${index}`],
+      });
+      index++;
     }
-    handleChange(event);
-};
-const handleRadioChange = (name, selectedValue) => {
-  setUpdateData(prevData => ({
-    ...prevData,
-    [name]: selectedValue
-  }));
-  handleChange(selectedValue);
-};
-  return (
-          <div>
-            <h6 class="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
-              LandUse
-            </h6>
-            <div class="flex flex-wrap lg:w-2/3">
-              <RadioButtonGroup
-                name="settlement"
-                label="Settlement"
-                value={updateData.settlement}
-                options={["Yes", "No"]}
-                handleChange={(value) => handleRadioChange("settlement", value)}
+    return fields;
+  };
+export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
+    const { livelihood,landuse, forage, isLoadingForage, isLoadingLanduse, isLoadingLivelihood } = useSelector((state) => state.resource);
+   
+    const [additionalFields, setAdditionalFields] = useState([]);
+    const [additionalFields2, setAdditionalFields2] = useState([]);
+    const [additionalFields3, setAdditionalFields3] = useState([]);
+    useEffect(() => {
+        if (Object.keys(formData).length > 0) {
+          const initialAdditionalFields = extractAdditionalFieldsData(
+            "currentlandusetype",
+            formData
+          );
+          const initialAdditionalFields2 = extractAdditionalFieldsData(
+            "foragetype",
+            formData
+          );
+          setAdditionalFields(initialAdditionalFields);
+          setAdditionalFields2(initialAdditionalFields2);
+          const updatedFormData = { ...formData };
+          const type = initialAdditionalFields.map((item) => item.currentlandusetype);
+          type.forEach((item, index) => {
+            const name = landuse.find((landuse) => landuse.id === item)?.name || "";
+            updatedFormData[`currentlandusename${index + 1}`] = name;
+          });
+          const type2 = initialAdditionalFields2.map((item) => item.foragetype);
+          type2.forEach((item, index) => {
+            const name = forage.find((forage) => forage.id === item)?.name || "";
+            updatedFormData[`foragename${index + 1}`] = name;
+          });
+          setFormData(updatedFormData);
+          console.log(initialAdditionalFields);
+        }
+      }, [livelihood,landuse, forage]);
+    
+    const addField = () => {
+      const highestId = additionalFields.reduce(
+        (highest, field) => Math.max(highest, field.id),
+        0
+      );
+      setAdditionalFields([
+        ...additionalFields,
+        { id: highestId + 1, type: "", area: "" },
+      ]);
+    };
+    const removeField = (id) => {
+      setAdditionalFields(additionalFields.filter((field) => field.id !== id));
+    };
+    const addField2 = () => {
+      const highestId = additionalFields2.reduce(
+        (highest, field) => Math.max(highest, field.id),
+        0
+      );
+      setAdditionalFields2([
+        ...additionalFields2,
+        { id: highestId + 1, currentlanduse: "" },
+      ]);
+    };
+    const removeField2 = (id) => {
+      setAdditionalFields2(additionalFields2.filter((field) => field.id !== id));
+    };
+    const addField3 = () => {
+      const highestId = additionalFields3.reduce(
+        (highest, field) => Math.max(highest, field.id),
+        0
+      );
+      setAdditionalFields3([
+        ...additionalFields3,
+        { id: highestId + 1, livelihood: "" },
+      ]);
+    };
+    const removeField3 = (id) => {
+      setAdditionalFields3(additionalFields3.filter((field) => field.id !== id));
+    };
+  
+    const handleChanges = (e) => {
+        setFormData({
+          ...formData,
+          [e.target.name]: e.target.value,
+          [e.target.label]: e.target.labelName,
+        });
+        handleChange(e);
+      };
+    return (
+      <div>
+        <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
+         Current LandUse
+        </h6>
+        <div className="flex flex-wrap lg:w-2/3">
+          {additionalFields.map((field, index) => (
+            <React.Fragment key={field.id}>
+              <FormField
+                label="Type"
+                name={`currentlandusetype${index + 1}`}
+                type="dropdown"
+                placeholder="Current LandUse"
+                options={
+                  isLoadingLanduse
+                    ? [
+                        {
+                          value: "loading",
+                          label: (
+                            <div className="flex justify-center">
+                              <Loadings />
+                            </div>
+                          ),
+                        },
+                      ]
+                    : landuse.map((currentlanduse, index) => ({
+                        label: currentlanduse.name,
+                        value: currentlanduse.id,
+                      }))
+                }
+                handleChange={handleChanges}
+                value={
+                  landuse.find(
+                    (currentlanduse) => currentlanduse.id === formData[`currentlandusetype${index + 1}`]
+                  )?.name || ""
+                }
+                onChange={(option) => {
+                  handleChanges({
+                    target: {
+                      name: `currentlandusetype${index + 1}`,
+                      value: option.target.value.value,
+                      label: `currentlandusename${index + 1}`,
+                      labelName: option.target.value.label,
+                    },
+                  });
+                }}
               />
-              <RadioButtonGroup
-                name="communalgrazing"
-                label="Communal Grazing"
-                value={updateData.communalgrazing}
-                options={["Yes", "No"]}
-                handleChange={(value) => handleRadioChange("communalgrazing", value)}
+              <Delete onClick={() => removeField(field.id)} className="lg:mt-8" />
+            </React.Fragment>
+          ))}
+          <AddCircleOutline onClick={addField} className="lg:mt-8" />
+        </div>
+       
+        <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
+          Forage
+        </h6>
+        <div className="flex flex-wrap lg:w-2/3">
+          {additionalFields2.map((field, index) => (
+            <React.Fragment key={field.id}>
+              <FormField
+                label="Type"
+                name={`foragetype${index + 1}`}
+                type="dropdown"
+                placeholder="Name of Forage"
+                options={
+                  isLoadingForage
+                    ? [
+                        {
+                          value: "loading",
+                          label: (
+                            <div className="flex justify-center">
+                              <Loadings />
+                            </div>
+                          ),
+                        },
+                      ]
+                    : forage.map((exotic, index) => ({
+                        label: exotic.name,
+                        value: exotic.id,
+                      }))
+                }
+                handleChange={handleChanges}
+                value={
+                  forage.find(
+                    (forage) => forage.id === formData[`foragetype${index + 1}`]
+                  )?.name || ""
+                }
+                onChange={(option) => {
+                  handleChanges({
+                    target: {
+                      name: `foragetype${index + 1}`,
+                      value: option.target.value.value,
+                      label: `foragename${index + 1}`,
+                      labelName: option.target.value.label,
+                    },
+                  });
+                }}
               />
-              <RadioButtonGroup
-                name="forest"
-                label="Forest"
-                value={updateData.forest}
-                options={["Yes", "No"]}
-                handleChange={(value) => handleRadioChange("forest", value)}
+              <Delete onClick={() => removeField2(field.id)} className="lg:mt-8" />
+            </React.Fragment>
+          ))}
+          <AddCircleOutline onClick={addField2} className="lg:mt-8" />
+        </div>
+        <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
+        Livelihood site can support
+        </h6>
+        <div className="flex flex-wrap lg:w-2/3">
+          {additionalFields3.map((field, index) => (
+            <React.Fragment key={field.id}>
+              <FormField
+                label="Type"
+                name={`livelihood${index + 1}`}
+                type="dropdown"
+                placeholder="LiveHood site can support"
+                options={
+                  isLoadingLivelihood
+                    ? [
+                        {
+                          value: "loading",
+                          label: (
+                            <div className="flex justify-center">
+                              <Loadings />
+                            </div>
+                          ),
+                        },
+                      ]
+                    : livelihood.map((livelihood, index) => ({
+                        label: livelihood.name,
+                        value: livelihood.id,
+                      }))
+                }
+                handleChange={handleChanges}
+                value={
+                  livelihood.find(
+                    (livelihood) => livelihood.id === formData[`livelihood${index + 1}`]
+                  )?.name || ""
+                }
+                onChange={(option) => {
+                  handleChanges({
+                    target: {
+                      name: `livelihood${index + 1}`,
+                      value: option.target.value.value,
+                    },
+                  });
+                }}
               />
-              <RadioButtonGroup
-                name="agriculturalfarmland"
-                label="Agricultural/farm land"
-                value={updateData.agriculturalfarmland}
-                options={["Yes", "No"]}
-                handleChange={(value) => handleRadioChange("agriculturalfarmland", value)}
-              />
-              <RadioButtonGroup
-                name="shrubland"
-                label="Shrub land"
-                value={updateData.shrubland}
-                options={["Yes", "No"]}
-                handleChange={(value) => handleRadioChange("shrubland", value)}
-              />
-              <RadioButtonGroup
-                name="bushland"
-                label="Bush land"
-                value={updateData.bushland}
-                options={["Yes", "No"]}
-                handleChange={(value) => handleRadioChange("bushland", value)}
-              />
-              <RadioButtonGroup
-                name="pastorlandgrazing"
-                label="Pastor land/Grazing"
-                value={updateData.pastorlandgrazing}
-                options={["Yes", "No"]}
-                handleChange={(value) => handleRadioChange("pastorlandgrazing", value)}
-              />
-              <RadioButtonGroup
-                name="wetland"
-                label="Wetland"
-                value={updateData.wetland}
-                options={["Yes", "No"]}
-                handleChange={(value) => handleRadioChange("wetland", value)}
-              />
-              <RadioButtonGroup
-                name="degradedlandbadland"
-                label="Degraded land/bad land"
-                value={updateData.degradedlandbadland}
-                options={["Yes", "No"]}
-                handleChange={(value) => handleRadioChange("degradedlandbadland", value)}
-              />
-              <RadioButtonGroup
-                name="irrigationland"
-                label="Irrigation land"
-                value={updateData.irrigationland}
-                options={["Yes", "No"]}
-                handleChange={(value) => handleRadioChange("irrigationland", value)}
-              />
-              <RadioButtonGroup
-                name="bareland"
-                label="Bare land"
-                value={updateData.bareland}
-                options={["Yes", "No"]}
-                handleChange={(value) => handleRadioChange("bareland", value)}
-              />
-              <RadioButtonGroup
-                name="other"
-                label="Other"
-                value={updateData.other}
-                options={["Yes", "No"]}
-                handleChange={(value) => handleRadioChange("other", value)}
-              />
-            </div>
-            <h6 class="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
-            Forage
-            </h6>
-            <div class="flex flex-wrap lg:w-2/3">
-              {additionalFields.map((field, index) => (
-                <React.Fragment key={field.id}>
-                  <FormField
-                    label="Forage"
-                    name={`forage-${field.id}`}
-                    type="dropdown"
-                    placeholder="Name of Forage"
-                    value={field.forage}
-                    list="forage"
-                    options={["Settlement", "Communal Grazing"]}
-                    handleChange={handleChange}
-                    onChange={handleChanges}
-                  />
-                  <Delete onClick={() => removeField(index)} className="lg:mt-8"/>
-                </React.Fragment>
-              ))}
-              <AddCircleOutline onClick={addField} className="lg:mt-8" />
-            </div>
-            
-          </div>
-  );
+              <Delete onClick={() => removeField3(field.id)} className="lg:mt-8" />
+            </React.Fragment>
+          ))}
+          <AddCircleOutline onClick={addField3} className="lg:mt-8" />
+        </div>
+      </div>
+    );
 };

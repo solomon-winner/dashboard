@@ -1,87 +1,98 @@
 import React, { useState } from "react";
 import { RadioButtonGroup } from "../../site/AddSite";
 import { kebeledata } from "../UpdateKebele";
+import { AddCircleOutline, Delete } from "@mui/icons-material";
+import Loadings from "../../Resource/Loading/Loadings";
+import { FormField } from "../../wereda/AddWereda";
+import { useSelector } from "react-redux";
 
 
-export const UpdateForm7 = ({ handleChange }) => {
-  const [updateData, setUpdateData] = useState(kebeledata[0]);
-  const handleRadioChange = (name, value) => {
-    const indexMap = {
-      electricity: 0,
-      firewood: 1,
-      animaldung: 2,
-      cropresidue: 3,
-      charcoal: 4,
-      biogas: 5,
-      solar: 6
-    };
-  
-    setUpdateData(prevState => ({
-      ...prevState,
-      sourceofenergy: prevState.sourceofenergy.map((item, index) =>
-        index === indexMap[name] ? { ...item, [name]: value } : item
-      )
-    }));
-    handleChange(value)
+export const UpdateForm7 = ({ handleChange, formData, setFormData }) => {
+  const { energy_source, isLoadingEnergy_source } = useSelector(
+    (state) => state.resource
+  );
+  const [additionalFields, setAdditionalFields] = useState([
+    { id: 0, energy_sourcetype: "", energy_source: "" },
+  ]);
+  const addField = () => {
+    const highestId = additionalFields.reduce(
+      (highest, field) => Math.max(highest, field.id),
+      0
+    );
+    setAdditionalFields([
+      ...additionalFields,
+      { id: highestId + 1, energy_sourcetype: "", energy_source: "" },
+    ]);
   };
-  
+  const removeField = (id) => {
+    setAdditionalFields(additionalFields.filter((field) => field.id !== id));
+  };
+  const handleChanges = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+    handleChange(e);
+  };
   return (
-          <div>
-            <h6 class="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
-            Sources of Energy
-            </h6>
-            <div class="flex flex-wrap lg:w-2/3">
-              <RadioButtonGroup
-                name="type"
-                label="Electricity"
-                value={updateData.sourceofenergy[0].electricity}
-                options={["high", "medium", "low"]}
-                handleChange={(value) => handleRadioChange("electricity", value)}
-              />
-              <RadioButtonGroup
-                name="type2"
-                label="Firewood"
-                value={updateData.sourceofenergy[1].firewood}
-                options={["high", "medium", "low"]}
-                handleChange={(value) => handleRadioChange("firewood", value)}
-              />
-              <RadioButtonGroup
-                name="type3"
-                label="Animal dung"
-                value={updateData.sourceofenergy[2].animaldung}
-                options={["high", "medium", "low"]}
-                handleChange={(value) => handleRadioChange("animaldung", value)}
-              />
-              <RadioButtonGroup
-                name="type4"
-                label="Crop residue"
-                value={updateData.sourceofenergy[3].cropresidue}
-                options={["high", "medium", "low"]}
-                handleChange={(value) => handleRadioChange("cropresidue", value)}
-              />
-              <RadioButtonGroup
-                name="type5"
-                label="Charcoal"
-                value={updateData.sourceofenergy[4].charcoal}
-                options={["high", "medium", "low"]}
-                handleChange={(value) => handleRadioChange("charcoal", value)}
-              />
-              <RadioButtonGroup
-                name="type6"
-                label="Biogas/Crosin"
-                value={updateData.sourceofenergy[5].biogas}
-                options={["high", "medium", "low"]}
-                handleChange={(value) => handleRadioChange("biogas", value)}
-              />
-              <RadioButtonGroup
-                name="type7"
-                label="Solar"
-                value={updateData.sourceofenergy[6].solar}
-                options={["high", "medium", "low"]}
-                handleChange={(value) => handleRadioChange("solar", value)}
-              />
-            </div>
-
+    <div>
+      <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
+        Sources of Energy
+      </h6>
+      <div className="flex flex-wrap lg:w-2/3">
+        {additionalFields.map((field, index) => (
+          <React.Fragment key={field.id}>
+            <FormField
+              label="Type"
+              name={`energy_sourcetype${index + 1}`}
+              type="dropdown"
+              placeholder={`Type of Energy Source`}
+              options={
+                isLoadingEnergy_source
+                  ? [
+                      {
+                        value: "loading",
+                        label: (
+                          <div className="flex justify-center">
+                            <Loadings />
+                          </div>
+                        ),
+                      },
+                    ]
+                  : energy_source.map((energy_sourcetype, index) => ({
+                      label: energy_sourcetype.name,
+                      value: energy_sourcetype.id,
+                    }))
+              }
+              handleChange={handleChanges}
+              value={
+                energy_source.find(
+                  (energy_sourcetype) =>
+                    energy_sourcetype.id ===
+                    formData[`energy_sourcetype${index + 1}`]
+                )?.name || ""
+              }
+              onChange={(option) => {
+                handleChanges({
+                  target: {
+                    name: `energy_sourcetype${index + 1}`,
+                    value: option.target.value.value,
+                  },
+                });
+              }}
+            />
+            <RadioButtonGroup
+              name={`energy_source${index + 1}`}
+              type="text"
+              placeholder="Area"
+              options={["HIGH", "MEDIUM", "LOW"]}
+              handleChange={handleChanges}
+            />
+            <Delete onClick={() => removeField(field.id)} className="lg:mt-8" />
+          </React.Fragment>
+        ))}
+        <AddCircleOutline onClick={addField} className="lg:mt-8" />
+      </div>
     </div>
   );
 };

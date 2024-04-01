@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useGetResourceByTypeQuery } from "../resource/ResourceApiSlice";
-import { setCauseofdeforestation, setCrop, setEnergy_source, setForage, setFruit, setLandUse, setLiveStock, setLivelihood, setNursery, setRoad, setTree } from "../resource/ResourceState";
+import { setCauseofdeforestation, setCrop, setEnergy_source, setForage, setFruit, setLandUse, setLiveStock, setLivelihood, setLoadingtrue, setNursery, setRoad, setTree } from "../resource/ResourceState";
 import { useEffect } from "react";
 
 export const useGetResource = () => {
@@ -18,6 +18,7 @@ export const useGetResource = () => {
  const dispatch = useDispatch();
 
  useEffect(() => {
+  dispatch(setLoadingtrue());
     if (isSuccess) {
       dispatch(setLandUse(landUse.data));
     }

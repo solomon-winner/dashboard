@@ -41,9 +41,9 @@ export const FormField = ({
     if (type === "dropdown") {
       setFilteredOptions(
         options.filter((option) =>
-          option.label.toLowerCase().includes(value.toLowerCase())
+           typeof option.label === 'string' && option.label.toLowerCase().includes(value.toLowerCase())
         )
-      );
+       );
     }
     handleChange(e);
   };

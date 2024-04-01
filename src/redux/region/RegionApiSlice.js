@@ -19,13 +19,25 @@ export const RegionApiSlice = apiSlice.injectEndpoints({
                 body: data     
             })
         }),
+        getRegionById: builder.query({
+            query: (id) => ({
+                url: `/regions/${id}`,
+                method: "GET"
+            })
+        }),
         getWeredaByRegion: builder.query({
             query: (id) => ({
                 url: `/regions/${id}/woredas`,
+                method: "GET",
+            })
+        }),
+        getSiteByRegion: builder.query({
+            query: (id) => ({
+                url: `/regions/${id}/sites`,
                 method: "GET",
             })
         })
     }),
 })
 
-export const { useGetRegionQuery, useAddRegionMutation, useGetWeredaByRegionQuery } = RegionApiSlice
+export const { useGetRegionQuery, useAddRegionMutation, useGetWeredaByRegionQuery,useGetSiteByRegionQuery, useGetRegionByIdQuery } = RegionApiSlice

@@ -11,6 +11,7 @@ import { regions } from "../../region/addform/AddForm";
 import { Field } from "formik";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
+import MainLoading from "../../Resource/Loading/MainLoading";
 
 export const extractAdditionalFieldsData = (prefix, formData, prefix2) => {
   const fields = [];
@@ -28,13 +29,21 @@ export const extractAdditionalFieldsData = (prefix, formData, prefix2) => {
 export const UpdateForm = ({handleChange, formData,setFormData}) => {
   const { landuse, isLoadingLanduse} = useSelector( (state) => state.resource );
   const [additionalFields, setAdditionalFields] = useState([]);
-  
   useEffect(() => {
     if (Object.keys(formData).length > 0) {
       const initialAdditionalFields = extractAdditionalFieldsData('type', formData, 'area');
       setAdditionalFields(initialAdditionalFields);
+      const updatedFormData = { ...formData };
+      const type = initialAdditionalFields.map((item) => item.type) 
+      type.forEach((item,index)=>{
+         const name = landuse.find(
+          (landuse) => landuse.id === item
+        )?.name || ""
+        updatedFormData[`name${index + 1}`] = name;
+      })
+      setFormData(updatedFormData);
     }
- }, [formData]); 
+ }, [landuse]); 
 
   const addField = () => {
     const highestId = additionalFields.reduce(
@@ -72,8 +81,8 @@ export const UpdateForm = ({handleChange, formData,setFormData}) => {
        }
     }
     setFormData(newFormData);
-    console.log(formData)
    };
+
   const handleChanges = (e) => {
       setFormData({
       ...formData,
@@ -84,6 +93,8 @@ export const UpdateForm = ({handleChange, formData,setFormData}) => {
   };
   return (
     <div>
+      {isLoadingLanduse ? (<MainLoading/>):(
+        <div>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
         Population
       </h6>
@@ -159,7 +170,7 @@ export const UpdateForm = ({handleChange, formData,setFormData}) => {
                       value: landuse.id,
                     }))
               }
-              value={formData[`name${index + 1}`]  || ""}
+              value={formData[`name${index + 1}`]  || formData[`type${index + 1}`]}
               handleChange={handleChanges}
               onChange={(option) => {
                 handleChanges({
@@ -185,7 +196,8 @@ export const UpdateForm = ({handleChange, formData,setFormData}) => {
         ))}
         <AddCircleOutline onClick={addField} className="lg:mt-8" />
       </div>
-
+      </div>
+      )}
     </div>
   );
 };

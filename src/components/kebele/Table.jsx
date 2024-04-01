@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Table = () => {
+export const Table = ({data}) => {
   return (
     <div> 
     <table className="border-collapse pt-2 w-full">
@@ -12,101 +12,19 @@ export const Table = () => {
         </tr>
     </thead>
     <tbody>
-        <tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>Crop production</span>
-            </td>
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>555</span>
-            </td>
-          	<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-              <span className='text-sm'>999</span>
-          	</td>
-        </tr>
-
-        <tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>Livestock production</span>
-            </td>
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>555</span>
-            </td>
-          	<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-              <span className='text-sm'>999</span>
-          	</td>
-        </tr>
-
-        <tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>Dairy, Poultry, Shoats</span>
-            </td>
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>555</span>
-            </td>
-          	<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-              <span className='text-sm'>999</span>
-          	</td>
-        </tr>
-
-        <tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>Beekeeping</span>
-            </td>
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>555</span>
-            </td>
-          	<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-              <span className='text-sm'>999</span>
-          	</td>
-        </tr>
-
-        <tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>Livestock & Crop production</span>
-            </td>
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>555</span>
-            </td>
-          	<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-              <span className='text-sm'>999</span>
-          	</td>
-        </tr>
-
-        <tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>Non Farm</span>
-            </td>
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>555</span>
-            </td>
-          	<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-              <span className='text-sm'>999</span>
-          	</td>
-        </tr>
-
-        <tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>Forest seeding</span>
-            </td>
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>555</span>
-            </td>
-          	<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-              <span className='text-sm'>999</span>
-          	</td>
-        </tr>
-
-        <tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>Pretty Trade</span>
-            </td>
-            <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                <span className='text-sm'>555</span>
-            </td>
-          	<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-              <span className='text-sm'>999</span>
-          	</td>
-        </tr> 
+        {data.map((item, index) => (
+ <tr  key={index} className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+ <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+     <span className='text-sm'>{item.value}</span>
+ </td>
+ <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+     <span className='text-sm'>{item.male_headed_hh}</span>
+ </td>
+   <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+   <span className='text-sm'>{item.female_headed_hh}</span>
+   </td>
+</tr>
+        ))}
     </tbody>
 </table>
     </div>
