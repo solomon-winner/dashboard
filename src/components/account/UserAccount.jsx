@@ -44,6 +44,7 @@ export const UserAccount = () => {
             <th>Name</th>
             <th>Email</th>
             <th>Roles</th>
+            <th>Actions</th>
             <th></th>
             </tr>
             {accounts?.data?.data.map((account, index) => (

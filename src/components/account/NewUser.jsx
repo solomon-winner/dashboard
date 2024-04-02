@@ -6,6 +6,17 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {useAddAccountMutation} from "../../redux/account/AccountApiSlice"
+// import { MultiSelect } from 'primereact/multiselect';
+// const [password, setPassword] = ('');
+
+// const handleChange = (e) => {
+//     setPassword(e.target.value);
+// };
+// const [email, setEmail] = ('');
+
+//     setEmail(e.target.value);
+// ;
+        
 const NewUser = () => {
   const { id } = useParams(); // Get the role ID from URL parameter
   const navigate = useNavigate();
@@ -21,6 +32,8 @@ const NewUser = () => {
   const formatFormData = (formData) => {
     return {
       name: `${formData.FirstName} ${formData.LastName}`,
+      password:formData.password,
+      email:formData.email,
       birthday: formData.birthday,
       mobile: formData.mobile,
       organization: formData.organization,
@@ -40,17 +53,22 @@ const NewUser = () => {
       <div className="mx-auto w-full max-w-[550px]">
         <Formik
           initialValues={{
-            FirstName: "",
-            LastName: "",
-            birthday: "",
-            mobile: "",
-            organization: "",
-            position: "",
-            roles: "",
+            name:"",
+            password:"",
+            email:"",
+         
           }}
           onSubmit={async (values, { setSubmitting }) => {
+            console.log(values)
             try {
-              const formattedData = formatFormData(values);
+              const name = `${values.FirstName} ${values.LastName}`;
+              const updatedValues = {
+                ...values,
+                name: name,
+            };
+            console.log(updatedValues.roles)
+            console.log(updatedValues)
+              const formattedData = formatFormData(updatedValues);
               const NewUser = await AddUser(formattedData);
               console.log(NewUser);
             } catch (error) {
@@ -95,13 +113,35 @@ const NewUser = () => {
                     className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                   />
                 </div>
+                <div className="mb-5">
+            <label htmlFor="password" className="mb-3 block text-base font-medium text-[#07074D]">
+                Password
+            </label>
+            <Field
+                type="password"
+                id="password"
+                name="password"
+                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+            />
+        </div>
+        <div className="mb-5">
+            <label htmlFor="email" className="mb-3 block text-base font-medium text-[#07074D]">
+                Email
+            </label>
+            <Field
+                type="email"
+                id="email"
+                name="email"
+                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+            />
+        </div>
                 <div className="w-full px-3 sm:w-1/2">
                   <div className="mb-5">
                     <label
                       htmlFor="birthday"
                       className="mb-3 block text-base font-medium text-[#07074D]"
                     >
-                      Your Birth day?
+                      Birth day
                     </label>
                     <Field
                       type="date"
