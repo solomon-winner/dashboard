@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useGetAccountsQuery } from '../../redux/account/AccountApiSlice';
 import { Delete, Edit } from '@mui/icons-material';
+import MainLoading from '../Resource/Loading/MainLoading';
 
 const UserAccount = () => {
-  const { data: accounts, refetch } = useGetAccountsQuery();
+  const { data: accounts,isFetching,isSuccess,refetch } = useGetAccountsQuery();
   const [sortedAccounts, setSortedAccounts] = useState([]);
   const [sortOrder, setSortOrder] = useState('asc');
 
@@ -15,7 +16,7 @@ const UserAccount = () => {
 
   // Sort accounts by name
   useEffect(() => {
-    if (accounts?.data?.data) {
+    if (isSuccess && accounts?.data?.data) {
       const sorted = [...accounts.data.data].sort((a, b) => {
         if (sortOrder === 'asc') {
           return a.name.localeCompare(b.name);
@@ -31,7 +32,6 @@ const UserAccount = () => {
   const toggleSortOrder = () => {
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
-console.log(accounts.data.data)
   return (
     <div className="container mx-auto">
       <div className="flex justify-between items-center bg-green-50 p-4 mb-4 rounded-md">
@@ -65,7 +65,7 @@ console.log(accounts.data.data)
               </tr>
             </thead>
             <tbody>
-              {sortedAccounts.map((account, index) => (
+              {isFetching ? <MainLoading/> : sortedAccounts.map((account, index) => (
                 <tr key={index}>
                   <td className="py-4 px-6 text-gray-800"><img src={`https://tbrr.echnoserve.com/storage/app/public/${account.avatar}`} alt='' className="w-12 h-12 rounded-full" /></td>
                   <td className="py-4 px-6 text-gray-800">{account.name}</td>
