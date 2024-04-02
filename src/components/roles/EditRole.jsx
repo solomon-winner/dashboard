@@ -7,6 +7,7 @@ import { Check } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 import { FormField } from '../wereda/AddWereda';
 import { useNavigate } from "react-router-dom";
+import MainLoading from '../Resource/Loading/MainLoading';
 const EditRole = () => {
  const { id } = useParams(); // Assuming the role ID is passed as a URL parameter
  const [editRole] = useEditRoleMutation();
@@ -20,7 +21,7 @@ const EditRole = () => {
     // Add validation for other fields as necessary
  });
  if(!roleSuccess || roleFetching){
-  return <div>Loading...</div>
+  return <div className='flex justify-center items-center h-screen'><MainLoading /></div>
  }
  const initialValues = {
   name: role.data.role.name,

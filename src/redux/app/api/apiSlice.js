@@ -16,25 +16,36 @@ export const baseQuery = fetchBaseQuery({
 
 export const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-  if (result.error?.status === 'FETCH_ERROR') {
-    toast.error('No internet connection');
-  } else if (result.error?.originalStatus
-    === 403) {
-    // send a refresh token to new access token
-    const refreshResult = await baseQuery('/refresh-token', api, extraOptions);
-  //  const UserData = await baseQuery('/')
-    if (refreshResult?.data) {
-      const { user } = api.getState().auth;
-      // store the new token
-      api.dispatch(setCredentials({ ...refreshResult.data, user }));
-      // retry original query with new access token
-      result = await baseQuery(args, api, extraOptions);
-    } else {
-      api.dispatch(logOut());
+  const { error } = result;
+
+  if (error) {
+    if (error.status === 'FETCH_ERROR') {
+      toast.error('No internet connection');
+    } else if (error.originalStatus === 401) {
+      // Token expired
+      const refreshToken = localStorage.getItem('refreshToken');
+      if (refreshToken) {
+        // Attempt to refresh token
+        const refreshResult = await baseQuery('/refresh-token', api, extraOptions);
+        if (refreshResult?.data) {
+          // Refresh successful, update token
+          const { user } = api.getState().auth;
+          api.dispatch(setCredentials({ ...refreshResult.data, user }));
+          // Retry original query with new access token
+          result = await baseQuery(args, api, extraOptions);
+        } else {
+          // Refresh failed, log out
+          api.dispatch(logOut());
+        }
+      } else {
+        // No refresh token available, log out
+        api.dispatch(logOut());
+      }
     }
   }
   return result;
 };
+
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
