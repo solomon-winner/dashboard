@@ -15,6 +15,7 @@ const {data: siteData, isSuccess: siteFeteche} = useGetSiteByRegionQuery(id)
     <MainLoading />
   </div>
     }
+    console.log(regionData)
   return (
     <div>
       <div className='flex justify-between p-10'>
