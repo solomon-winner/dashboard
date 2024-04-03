@@ -18,7 +18,7 @@ const {data: siteData, isSuccess: siteFeteche} = useGetSiteByRegionQuery(id)
   return (
     <div>
       <div className='flex justify-between p-10'>
-        <Link to="/admin/region" className='py-1 px-4 rounded-md bg-mainColor text-white hover:bg-customDark font-semibold'>back</Link>
+        {/* <Link to="/admin/region" className='py-1 px-4 rounded-md bg-mainColor text-white hover:bg-customDark font-semibold'>back</Link> */}
         <div className='flex gap-4'>
         <button  className='py-1 px-4 rounded-md bg-red-600 hover:bg-red-400 text-white font-semibold'>Delete Region</button>
         <Link to={`/admin/update-region/${id}`} className='py-1 px-4 rounded-md bg-blue-500 hover:bg-blue-400 text-white font-semibold'>Update Region</Link>
