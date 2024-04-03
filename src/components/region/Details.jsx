@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useHistory} from 'react-router-dom'
 import { Table } from './Table'
 import { useGetRegionByIdQuery, useGetSiteByRegionQuery, useGetWeredaByRegionQuery } from '../../redux/region/RegionApiSlice';
 import MainLoading from '../Resource/Loading/MainLoading';
@@ -10,6 +10,13 @@ export const RegionDetails = () => {
   const {data: regionData, isSuccess,isFetching}=useGetRegionByIdQuery(id)
 const {data: woredaData, isSuccess: werdaFetched} = useGetWeredaByRegionQuery(id)
 const {data: siteData, isSuccess: siteFeteche} = useGetSiteByRegionQuery(id)
+const goBack = () => {
+  const history = useHistory();
+
+history.goBack();
+}
+
+
   if(!isSuccess || isFetching || !werdaFetched || !siteFeteche){
     return <div className="flex justify-center items-center h-screen">
     <MainLoading />
@@ -18,7 +25,7 @@ const {data: siteData, isSuccess: siteFeteche} = useGetSiteByRegionQuery(id)
   return (
     <div>
       <div className='flex justify-between p-10'>
-        {/* <Link to="/admin/region" className='py-1 px-4 rounded-md bg-mainColor text-white hover:bg-customDark font-semibold'>back</Link> */}
+        <button onClick={goBack} className='py-1 px-4 rounded-md bg-mainColor text-white hover:bg-customDark font-semibold'>back</button>
         <div className='flex gap-4'>
         <button  className='py-1 px-4 rounded-md bg-red-600 hover:bg-red-400 text-white font-semibold'>Delete Region</button>
         <Link to={`/admin/update-region/${id}`} className='py-1 px-4 rounded-md bg-blue-500 hover:bg-blue-400 text-white font-semibold'>Update Region</Link>

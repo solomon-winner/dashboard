@@ -1,19 +1,15 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-function MyComponent() {
-  const history = useHistory();
 
-  function goBack() {
-    // Go back to the previous page
+ function goBack() {
+      const history = useHistory();
+
     history.goBack();
   }
 
-  return (
-    <div>
-      <button onClick={goBack}>Go Back</button>
-    </div>
-  );
-}
+  
 
-export default MyComponent;
+
+
+export default goBack;
