@@ -4,7 +4,10 @@ import { SetProfileData } from "../Profile/ProfileSlice";
 
 export const ProfileInfo = () =>{
     const { data: user, isLoading, isSuccess, isError, error } = useGetUserQuery()
-
+  console.log(isSuccess && user.data.birthday);
+if (isSuccess) {
+  
+}
     const  UserData= {
       name: isSuccess && user.data.name,
       email: isSuccess && user.data.email,
@@ -17,5 +20,4 @@ export const ProfileInfo = () =>{
       updated_at: isSuccess && user.data.updated_at}
   const dispatch = useDispatch();
    dispatch(SetProfileData(UserData));
-  
 }
