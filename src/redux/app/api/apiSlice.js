@@ -14,39 +14,25 @@ export const baseQuery = fetchBaseQuery({
   },
 });
 
-export const baseQueryWithReauth = async (args, api, extraOptions) => {
-  let result = await baseQuery(args, api, extraOptions);
-  const { error } = result;
+const baseQueryWithReauth = async (args, api, extraOptions) => {
+  const { signal, ...otherOptions } = extraOptions || {}; // Destructure signal from extraOptions
 
-  if (error) {
-    if (error.status === 'FETCH_ERROR') {
-      toast.error('No internet connection');
-    } else if (error.originalStatus === 401) {
-      // Token expired
-      const refreshToken = localStorage.getItem('refreshToken');
-      if (refreshToken) {
-        // Attempt to refresh token
-        const refreshResult = await baseQuery('/refresh-token', api, extraOptions);
-        if (refreshResult?.data) {
-          // Refresh successful, update token
-          const { user } = api.getState().auth;
-          api.dispatch(setCredentials({ ...refreshResult.data, user }));
-          // Retry original query with new access token
-          result = await baseQuery(args, api, extraOptions);
-        } else {
-          // Refresh failed, log out
-          api.dispatch(logOut());
-        }
-      } else {
-        // No refresh token available, log out
-        api.dispatch(logOut());
-      }
+  let result = await baseQuery(args, api, { ...otherOptions, signal }); // Pass signal in the options
+
+  if (result.error?.status === 'FETCH_ERROR') {
+    toast.error('No internet connection');
+  } else if (result.error?.originalStatus === 403) {
+    const refreshResult = await baseQuery('/refresh', api, extraOptions);
+    if (refreshResult?.data) {
+      const { user } = api.getState().auth;
+      api.dispatch(setCredentials({ ...refreshResult.data, user }));
+      result = await baseQuery(args, api, { ...otherOptions, signal }); // Retry with new access token
+    } else {
+      api.dispatch(logOut());
     }
   }
   return result;
 };
-
-
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({}),

@@ -13,7 +13,7 @@ const AuthApiSlice = apiSlice.injectEndpoints({
       query: (refeshtoken) => ({
         url: '/refresh-token',
         method: 'POST',
-        body: { ...refeshtoken },
+        body: refeshtoken,
       })
     })
     
