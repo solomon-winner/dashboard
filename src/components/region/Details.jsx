@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useParams, useHistory} from 'react-router-dom'
+import { Link, useParams} from 'react-router-dom'
 import { Table } from './Table'
 import { useGetRegionByIdQuery, useGetSiteByRegionQuery, useGetWeredaByRegionQuery } from '../../redux/region/RegionApiSlice';
 import MainLoading from '../Resource/Loading/MainLoading';
@@ -11,9 +11,8 @@ export const RegionDetails = () => {
 const {data: woredaData, isSuccess: werdaFetched} = useGetWeredaByRegionQuery(id)
 const {data: siteData, isSuccess: siteFeteche} = useGetSiteByRegionQuery(id)
 const goBack = () => {
-  const history = useHistory();
 
-history.goBack();
+  window.history.back();
 }
 
 
