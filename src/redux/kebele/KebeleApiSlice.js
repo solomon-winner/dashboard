@@ -20,8 +20,8 @@ export const KebeleApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     getKebeleByWereda: builder.query({
-      query: (id) => ({
-        url: `woredas/${id}/kebeles`,
+      query: ({id, with_sites = false}) => ({
+        url: `woredas/${id}/kebeles?with_sites=${with_sites}`,
         method: "GET",
       }),
     }),

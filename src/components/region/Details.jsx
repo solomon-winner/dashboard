@@ -7,19 +7,18 @@ import {
   useGetWeredaByRegionQuery,
 } from "../../redux/region/RegionApiSlice";
 import MainLoading from "../Resource/Loading/MainLoading";
+import { Delete, Edit } from "@mui/icons-material";
 
 export const RegionDetails = () => {
   const { id } = useParams();
   const { data: regionData, isSuccess, isFetching } = useGetRegionByIdQuery(id);
   const { data: woredaData, isSuccess: werdaFetched } =
-    useGetWeredaByRegionQuery(id);
-  const { data: siteData, isSuccess: siteFeteche } =
-    useGetSiteByRegionQuery(id);
+    useGetWeredaByRegionQuery({id, with_sites: true});
   const goBack = () => {
     window.history.back();
   };
 
-  if (!isSuccess || isFetching || !werdaFetched || !siteFeteche) {
+  if (!isSuccess || isFetching || !werdaFetched) {
     return (
       <div className="flex justify-center items-center h-screen">
         <MainLoading />
@@ -38,12 +37,14 @@ export const RegionDetails = () => {
         </button>
         <div className="flex gap-4">
           <button className="text-sm py-1 px-4 rounded-md bg-deletecolor hover:bg-customDark text-white font-semibold">
+            <Delete/>
             Delete Region
           </button>
           <Link
             to={`/admin/update-region/${id}`}
             className=" text-sm py-1 px-4 rounded-md bg-updatecolor hover:bg-customDark text-white font-semibold"
           >
+            <Edit/>
             Update Region
           </Link>
         </div>

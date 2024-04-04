@@ -2,27 +2,34 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import MainLoading from "../Resource/Loading/MainLoading";
-import { useGetSiteByIdQuery } from "../../redux/site/SiteApiSlice";
+import { useGetSiteByIdQuery, useGetSiteQuery } from "../../redux/site/SiteApiSlice";
 import { useInitialValueSite } from "../../redux/InitialState/initalValueSite";
-import { Check } from "@mui/icons-material";
+import { Check, Delete, Edit } from "@mui/icons-material";
+import Select from "react-select";
 
 export const SiteDetails = () => {
   const { id } = useParams();
   useInitialValueSite(id);
   const { data, isSuccess, isFetching } = useGetSiteByIdQuery(id);
-
+  const { data: site } = useGetSiteQuery(1);
   const goBack = () => {
 
     window.history.back();
   }
-  if (!isSuccess || isFetching) {
+  if (!isSuccess || isFetching || !data || !site) {
     return (
       <div className="flex justify-center items-center h-screen">
         <MainLoading />
       </div>
     );
   }
-  console.log(data.data);
+  const siteOptions = site.data && site.data?.map(site => ({
+    value: site.id,
+    label: site.site_name, // Assuming the name property exists
+ }));
+ const handleWeredaSelect = (selectedOption) => {
+  window.location.href = `/admin/site/${selectedOption.value}`;
+};
   return (
     <div>
       <div className="flex justify-between p-10">
@@ -32,20 +39,28 @@ export const SiteDetails = () => {
         >
           back
         </button>
+        <Select
+          options={siteOptions}
+          onChange={handleWeredaSelect}
+          placeholder="Select a Site"
+        />
         <div className="flex gap-4">
-          <button className=" text-sm py-1 px-4 rounded-md bg-deletecolor hover:bg-customDark text-white font-semibold">
+          <button className=" p-2 rounded-md text-sm bg-deletecolor hover:bg-customDark text-white font-semibold">
+          <Delete style={{ fontSize: "large" }} className="mr-2"/>
             Delete Site
           </button>
           <Link
             to={`/admin/update-siteData/${id}`}
-            className=" text-sm py-1 px-4 rounded-md bg-updatecolor hover:bg-customDark text-white font-semibold"
+            className=" p-2 rounded-md text-sm bg-updatecolor hover:bg-customDark text-white font-semibold"
           >
+            <Edit style={{ fontSize: "large" }} className="mr-2"/>
             Update Site Data
           </Link>
           <Link
             to={`/admin/update-site/${id}`}
-            className="text-sm py-1 px-4 rounded-md bg-updatecolor hover:bg-customDark text-white font-semibold"
+            className="p-2 rounded-md text-sm bg-updatecolor hover:bg-customDark text-white font-semibold"
           >
+            <Edit style={{ fontSize: "large" }} className="mr-2"/>
             Update Site
           </Link>
         </div>

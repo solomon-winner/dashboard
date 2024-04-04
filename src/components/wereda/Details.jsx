@@ -1,11 +1,13 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { useGetWeredaByIdQuery } from "../../redux/wereda/WeredaApiSlice";
+import { useGetWeredaByIdQuery, useGetWoredaQuery } from "../../redux/wereda/WeredaApiSlice";
 import MainLoading from "../Resource/Loading/MainLoading";
 import { useInitalValueworeda } from "../../redux/InitialState/initalValueWoreda";
 import { Table } from "./Table";
 import { useGetKebeleByWeredaQuery } from "../../redux/kebele/KebeleApiSlice";
+import Select from "react-select";
+import { Delete, Edit } from "@mui/icons-material";
 
 export const WeredaDetails = () => {
   const { id } = useParams();
@@ -13,19 +15,26 @@ export const WeredaDetails = () => {
 
   const { data: weredadata, isSuccess, isFetching } = useGetWeredaByIdQuery(id);
   const { data: KebeleData, isSuccess: kebeleFetched } =
-    useGetKebeleByWeredaQuery(id);
+    useGetKebeleByWeredaQuery({id, with_sites: true});
+    const { data: wereda, isLoading, isSuccess:weredaSuccess } = useGetWoredaQuery(1);
   const goBack = () => {
     window.history.back();
   };
 
-  if (!isSuccess || isFetching || !weredadata || !KebeleData) {
+  if (!isSuccess || isFetching || !weredadata || !KebeleData || !wereda) {
     return (
       <div className="flex justify-center items-center h-screen">
         <MainLoading />
       </div>
     );
   }
-
+  const weredaOptions = wereda.data && wereda.data?.map(wereda => ({
+    value: wereda.id,
+    label: wereda.woreda_name, // Assuming the name property exists
+ }));
+ const handleWeredaSelect = (selectedOption) => {
+  window.location.href = `/admin/wereda/${selectedOption.value}`;
+};
   const { woreda_name, woreda_data, region_name } = weredadata.data;
   return (
     <div>
@@ -36,20 +45,28 @@ export const WeredaDetails = () => {
         >
           back
         </button>
+        <Select
+          options={weredaOptions}
+          onChange={handleWeredaSelect}
+          placeholder="Select a Wereda"
+        />
         <div className="flex gap-4">
-          <button className=" text-sm py-1 px-4 rounded-md bg-deletecolor hover:bg-customDark text-white font-semibold">
+          <button className=" p-2 rounded-md text-sm bg-deletecolor hover:bg-customDark text-white font-semibold">
+            <Delete style={{ fontSize: "large" }} className="mr-2"/>
             Delete Wereda
           </button>
           <Link
             to={`/admin/update-weredaData/${id}`}
-            className=" text-sm py-1 px-4 rounded-md bg-updatecolor hover:bg-customDark text-white font-semibold"
+            className=" p-2 rounded-md text-sm bg-updatecolor hover:bg-customDark text-white font-semibold"
           >
+            <Edit style={{ fontSize: "large" }} className="mr-2"/>
             Update WeredaData
           </Link>
           <Link
             to={`/admin/update-wereda/${id}`}
-            className=" text-sm py-1 px-4 rounded-md bg-updatecolor hover:bg-customDark text-white font-semibold"
+            className=" p-2 rounded-md text-sm bg-updatecolor hover:bg-customDark text-white font-semibold"
           >
+            <Edit style={{ fontSize: "large" }} className="mr-2"/>
             Update Wereda
           </Link>
         </div>
@@ -161,6 +178,7 @@ export const WeredaDetails = () => {
                   )
                 )}
               </div>
+              <img src="/wereda.jpg" alt="Wereda" />
             </div>
             <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0 pt-10">
               <h1 className="text-base font-bold tracking-tight text-customDark my-1">

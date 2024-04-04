@@ -4,6 +4,7 @@ import { useGetSiteQuery } from "../../redux/site/SiteApiSlice";
 import MainLoading from "../Resource/Loading/MainLoading";
 import Pagination from "../Resource/Pagination/Pagination";
 import { numberWithCommas } from "../region/View";
+import { Add } from "@mui/icons-material";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -69,14 +70,16 @@ export const View = () => {
           <div>
             <Link
               to="/admin/add-sites"
-              className="bg-mainColor py-2 px-6 rounded text-white font-semibold hover:bg-customDark"
+              className="bg-mainColor p-2 rounded-md text-sm text-white font-semibold hover:bg-customDark mr-4"
             >
+              <Add style={{ fontSize: "large" }} className="mr-2"/>
               Add Site
             </Link>
             <Link
               to="/admin/new-site"
-              className="bg-mainColor py-2 px-6 rounded text-white font-semibold hover:bg-customDark"
+              className="bg-mainColor p-2 rounded-md text-sm text-white font-semibold hover:bg-customDark"
             >
+              <Add style={{ fontSize: "large" }} className="mr-2"/>
               Add Site Data
             </Link>
           </div>
