@@ -56,7 +56,7 @@ export const Map = () => {
 
   return (
     <div id="map" className='h-full'>
-      <MapContainer center={[9.145, 40.4897]} zoom={6}>
+      <MapContainer center={[9.145, 40.4897]} zoom={6.3}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url='https://tile.openstreetmap.org/{z}/{x}/{y}.png'

@@ -16,18 +16,35 @@ export const Dashboard = () => {
   return (
     <div className='flex flex-col h-screen gap-6'> 
       <Cards />
-      <div className='flex w-full gap-6 sm:px-6 h-full lg:px-8'>
-        <div className='w-6/12 h-full'>
+      <div className='flex w-full gap-6 sm:px-6 h-12 lg:px-8'>
+        <div className='w-8/12 h-12'>
           <h1 className='text-xl font-semibold'>Degraded sites Map</h1>
-          <div className='p-6'>
+          <div className='p-3'>
             <Map />
           </div>
           </div>
-        <div className='w-6/12 h-full'>
+
+
+          <div className="d-flex">
+      <div className="w-50" style={{ border: '1px solid gray' }}>
+        <div className="container project-container">
+          <div className="card">
+          <div className="bg-gray-200">
+              <h1 className="card-title">Detailed location Information</h1>
+            </div>
+            <div className="card-body" id="projectInfo">
+              Select a region to view detailed location information.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      </div>
+              {/* <div className='w-6/12 h-full'>
         <h1 className='text-xl font-semibold'>Recently Added</h1>
           <RecentlyAdded />
-          </div>
-      </div>
+          </div> */}
     </div>
   )
 }
