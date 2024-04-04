@@ -1,10 +1,13 @@
 import React from "react";
 import { Table } from "./Table";
 import { Link, useParams } from "react-router-dom";
-import { useGetKebeleByIdQuery } from "../../redux/kebele/KebeleApiSlice";
+import { useGetKebeleByIdQuery, useGetKebeleQuery } from "../../redux/kebele/KebeleApiSlice";
 import MainLoading from "../Resource/Loading/MainLoading";
 import { useInitialValueKebele } from "../../redux/InitialState/initalValueKebele";
-import { Check } from "@mui/icons-material";
+import { Check, Delete, Edit } from "@mui/icons-material";
+import { useGetSiteByKebeleQuery } from "../../redux/site/SiteApiSlice";
+import { Table2 } from "./Table2";
+import Select from "react-select";
 
 export const Details = () => {
   const { id } = useParams();
@@ -14,13 +17,22 @@ export const Details = () => {
   };
 
   const { data, isSuccess, isFetching } = useGetKebeleByIdQuery(id);
-  if (!isSuccess || isFetching) {
+  const {data: site} = useGetSiteByKebeleQuery(id)
+  const { data: kebele } = useGetKebeleQuery(1);
+  if (!isSuccess || isFetching || !data || !kebele || !site) {
     return (
       <div className="flex justify-center items-center h-screen">
         <MainLoading />
       </div>
     );
   }
+  const kebeleOptions = kebele.data && kebele.data?.map(kebele => ({
+    value: kebele.id,
+    label: kebele.kebele_name, // Assuming the name property exists
+ }));
+ const handleWeredaSelect = (selectedOption) => {
+  window.location.href = `/admin/kebele/${selectedOption.value}`;
+};
   return (
     <div>
       <div className="flex justify-between p-10">
@@ -30,20 +42,28 @@ export const Details = () => {
         >
           back
         </button>
+        <Select
+          options={kebeleOptions}
+          onChange={handleWeredaSelect}
+          placeholder="Select a Kebele"
+        />
         <div className="flex gap-4">
-          <button className=" text-sm py-1 px-4 rounded-md bg-deletecolor hover:bg-customDark text-white font-semibold">
+          <button className=" p-2 rounded-md text-sm bg-deletecolor hover:bg-customDark text-white font-semibold">
+          <Delete style={{ fontSize: "large" }} className="mr-2"/>
             Delete Kebele
           </button>
           <Link
             to={`/admin/update-kebeleData/${id}`}
-            className=" text-sm py-1 px-4 rounded-md bg-updatecolor hover:bg-customDark text-white font-semibold"
+            className=" p-2 rounded-md text-sm bg-updatecolor hover:bg-customDark text-white font-semibold"
           >
+            <Edit style={{ fontSize: "large" }} className="mr-2"/>
             Update kebele Data
           </Link>
           <Link
             to={`/admin/update-kebele/${id}`}
-            className=" text-sm py-1 px-4 rounded-md bg-updatecolor hover:bg-customDark text-white font-semibold"
+            className=" p-2 rounded-md text-sm bg-updatecolor hover:bg-customDark text-white font-semibold"
           >
+            <Edit style={{ fontSize: "large" }} className="mr-2"/>
             Update kebele
           </Link>
         </div>
@@ -266,13 +286,13 @@ export const Details = () => {
                 ))}
               </div>
             </div>
-            {/* <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0 pt-10">
+            <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0 pt-10">
               <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                 Site
               </h1>
-              <Table woreda={woredaData.data.data} />
+              <Table2 site={site.data.data} />
             </div>
-             */}
+            
           </div>
         </div>
       </div>

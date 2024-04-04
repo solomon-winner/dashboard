@@ -45,7 +45,13 @@ export const SiteApiSlice = apiSlice.injectEndpoints({
                 body: data,
             })
         }),
+        getSitebyKebele: builder.query({
+            query: (kebele) => ({
+                url: `/kebeles/${kebele}/sites`,
+                method: "GET",
+            })
+        }),
     }),
 })
 
-export const { useGetSiteQuery, useAddSiteMutation, useGetSiteByKebeleQuery, useAddSiteDataMutation, useGetSiteByIdQuery,useUpdateSiteByIdMutation } = SiteApiSlice
+export const { useGetSiteQuery, useAddSiteMutation, useGetSiteByKebeleQuery, useAddSiteDataMutation, useGetSiteByIdQuery,useUpdateSiteByIdMutation, useGetSitebyKebeleQuery } = SiteApiSlice
