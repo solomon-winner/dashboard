@@ -4,7 +4,7 @@ import { AddRegion } from '../components/region/AddRegion'
 import { UpdateRegion } from '../components/region/UpdateRegion'
 export const Region = () => {
   return (
-    <div>
+    <div className='bg-dashbordColor'>
       
       <View />
      

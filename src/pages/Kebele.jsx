@@ -4,7 +4,7 @@ import { AddKebele } from '../components/kebele/AddKebele'
 import { UpdateKebele } from '../components/kebele/UpdateKebele'
 export const Kebele = () => {
   return (
-    <div>
+    <div className='bg-dashbordColor'>
       <View />  
     </div>
   )

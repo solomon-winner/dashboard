@@ -84,7 +84,7 @@ export const AddForm3 = ({ handleChange, formData, setFormData }) => {
               <FormField
                 label="Male"
                 name={`livelihoodmale${index + 1}`}
-                type="text"
+                type="number"
                 placeholder="Total Number of Male headed house holds"
                 icon={FamilyRestroom}
                 value={formData[`livelihoodmale${index + 1}`] || ""}
@@ -93,7 +93,7 @@ export const AddForm3 = ({ handleChange, formData, setFormData }) => {
               <FormField
                 label="Female"
                 name={`livelihoodfemale${index + 1}`}
-                type="text"
+                type="number"
                 placeholder="Total Number of Female headed house holds"
                 icon={FamilyRestroom}
                 value={formData[`livelihoodfemale${index + 1}`] || ""}

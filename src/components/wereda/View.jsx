@@ -29,7 +29,7 @@ export const View = () => {
     );
 
     return (
-      <div className="flex flex-col gap-4 py-6 px-10">
+      <div className="flex flex-col gap-4 py-6 px-10 bg-dashbordColor">
         <div className="flex justify-between items-center">
           <div>
             <form action="#" method="GET" className="hidden lg:block">

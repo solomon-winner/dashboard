@@ -10,7 +10,7 @@ export const Profile = () => {
     const UserData = useSelector((state) => state.user.UserData)
     console.log(UserData);
   return (       
-<div className ="bg-gray-100 h-screen justify-center p-3 overflow-y-auto overflow-hidden scrollbar-none scrollbar-track-transparent">
+<div className ="bg-dashbordColor h-screen justify-center p-3 overflow-y-auto overflow-hidden scrollbar-none scrollbar-track-transparent">
 	<div className ="bg-white rounded-lg shadow-md max-w-full w-full scrollbar-none bg-transparent">
 
 		<div className ="relative">
