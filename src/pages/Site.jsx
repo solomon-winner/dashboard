@@ -5,7 +5,7 @@ import { UpdateSite} from '../components/site/UpdateSite'
 
 export const Site = () => {
   return (
-    <div>
+    <div className='bg-dashbordColor'>
       <View />
     </div>
   )

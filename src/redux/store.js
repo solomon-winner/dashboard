@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from './app/api/apiSlice';
-import authReducer from './auth/authSlice';
+import authReducer, { updateToken } from './auth/authSlice';
 import userReducer from './Profile/ProfileSlice';
 import roleReducer from './roles/RolesState';
 import resourceReducer from './resource/ResourceState';
@@ -9,6 +9,12 @@ import weredaReducer from './wereda/WeredaState';
 import regionReducer from './region/RegionState';
 import KebeleByIdReducer from './kebele/KebeleByIdState'
 import SiteByIdReducer from './site/SiteByIdState'
+import { isRejected, isRejectedWithValue } from "@reduxjs/toolkit";
+import { useRefreshMutation } from './auth/AuthApiSlice';
+import { useDispatch } from 'react-redux';
+import { rtkQueryErrorLogger } from '../components/Resource/hooks/rtkQueryErrorLogger';
+
+
 const store = configureStore({
     reducer: {
       [apiSlice.reducerPath]: apiSlice.reducer,
@@ -22,8 +28,9 @@ const store = configureStore({
       kebeleById: KebeleByIdReducer,
       siteById: SiteByIdReducer
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
-    devTools: true,
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware, rtkQueryErrorLogger), // Use the middleware
+ devTools: true,
 });
 
 export const authSelector = (state) => state.auth;

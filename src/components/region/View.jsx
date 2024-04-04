@@ -21,6 +21,7 @@ export const View = () => {
       </div>
     );
   } else if (isSuccess) {
+    console.log(region.data);
     let filteredData = region.data.filter((d) =>
       d.region_name.toLowerCase().includes(searchInput.toLowerCase())
     );
@@ -102,13 +103,16 @@ export const View = () => {
                     </h4>
                     <div className="relative z-10 w-1/3 h-1 bg-black mb-4" />
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                      Total Population: no data
+                     Number of Wereda: {item.sites}
                     </p>
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                      Degraded Land: no data
+                    Number of Kebele: {item.sites}  
                     </p>
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                      Farm Land: nodata
+                    Number of Sites: {item.sites}
+                    </p>
+                    <p className="relative z-10 text-body-color text-sm font-poppins">
+                    Degraded Land: 65,000
                     </p>
                     <img
                       className="absolute z-0 top-0 left-0 object-center object-cover h-full w-full transition duration-200 ease-in-out group-hover:brightness-50 group-hover:opacity-80 group-hover:scale-110"

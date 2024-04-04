@@ -20,7 +20,6 @@ export const Details = () => {
     <MainLoading />
   </div>
     }
-
   return (
     <div>
       <div className='flex justify-between p-10'>
@@ -38,7 +37,8 @@ export const Details = () => {
     </div>
     <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
       <div className="p-8 text-gray-600 sm:p-10 lg:flex-auto">
-        <h3 className="text-2xl font-bold tracking-tight text-customDark ">Woroda ID: {data.data.woreda_id}</h3>
+        <h3 className="text-2xl font-bold tracking-tight text-customDark ">Region: {data.data.region_name}</h3>
+        <h3 className="text-2xl font-bold tracking-tight text-customDark ">Woreda: {data.data.woreda_name}</h3>
         <div className='flex flex-col gap-2'> 
          <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Demographic Information and Data </h1>
            <p className='font-semibold'>Male: <span className='font-normal'>{data.data.kebele_data?.male_population}</span></p>

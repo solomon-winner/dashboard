@@ -13,8 +13,5 @@ useEffect(() => {
   if (isSuccess) {
      dispatch(setRoles(roles.data));
   } 
-  // else if (error?.status === 401) {
-  //   refresh();
-  // }
  }, [isSuccess, roles, dispatch, error, refresh]);
 };

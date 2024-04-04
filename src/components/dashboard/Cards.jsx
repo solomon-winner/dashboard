@@ -12,13 +12,13 @@ export const Cards = () => {
         <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0">
 
             <div className="w-full lg:w-1/4">
-                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border-l-4 border-mainColor">
+                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border-l-4 border-green-900">
                     <div className="flex items-center">
-                        <div className="icon w-14 p-4 bg-mainColor text-white flex justify-center items-center rounded-full mr-3">
+                        <div className="icon w-14 p-4 bg-green-900 text-white flex justify-center items-center rounded-full mr-3">
                              <MapsHomeWorkIcon />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <div className="text-lg">11</div>
+                            <div className="text-lg">12</div>
                             <div className="text-sm text-gray-400">Regions</div>
                         </div>
                     </div>
@@ -26,13 +26,13 @@ export const Cards = () => {
             </div>
 
             <div className="w-full lg:w-1/4">
-                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border-l-4 border-blue-400">
+                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border-l-4 border-green-700">
                     <div className="flex items-center">
-                        <div className="icon w-14 p-4 flex justify-center items-center bg-blue-400 text-white rounded-full mr-3">
+                        <div className="icon w-14 p-4 flex justify-center items-center bg-green-700 text-white rounded-full mr-3">
                              <StreetviewIcon />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <div className="text-lg">1,000</div>
+                            <div className="text-lg">27</div>
                             <div className="text-sm text-gray-400">Weredas</div>
                         </div>
                     </div>
@@ -40,13 +40,13 @@ export const Cards = () => {
             </div>
 
             <div className="w-full lg:w-1/4">
-                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border-l-4 border-yellow-400">
+                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border-l-4 border-green-500">
                     <div className="flex items-center">
-                        <div className="icon w-14 p-4 flex justify-center items-center bg-yellow-400 text-white rounded-full mr-3">
+                        <div className="icon w-14 p-4 flex justify-center items-center bg-green-500 text-white rounded-full mr-3">
                             <GpsFixedRoundedIcon />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <div className="text-lg">20,000</div>
+                            <div className="text-lg">153</div>
                             <div className="text-sm text-gray-400">Kebeles</div>
                         </div>
                     </div>
@@ -54,13 +54,13 @@ export const Cards = () => {
             </div>
 
             <div className="w-full lg:w-1/4">
-                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border-l-4 border-red-400">
+                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border-l-4 border-lightgreen">
                     <div className="flex items-center">
-                        <div className="icon w-14 p-4 bg-red-400 text-white flex justify-center items-center rounded-full mr-3">
+                        <div className="icon w-14 p-4 bg-lightgreen text-white flex justify-center items-center rounded-full mr-3">
                         <LocationOnIcon />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <div className="text-lg">20,000</div>
+                            <div className="text-lg">211</div>
                             <div className="text-sm text-gray-400">Sites</div>
                         </div>
                     </div>

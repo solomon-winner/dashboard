@@ -33,7 +33,7 @@ export const UpdatePersonalInfo = () => {
  
   
   return (
-    <div className="flex items-center justify-center p-12">
+    <div className="flex items-center justify-center p-12 bg-dashbordColor">
       <div className="mx-auto w-full max-w-[550px]">
         <Formik
           initialValues={{

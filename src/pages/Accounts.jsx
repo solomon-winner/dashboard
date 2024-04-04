@@ -3,7 +3,7 @@ import UserAccount from '../components/account/UserAccount'
 
 const Accounts = () => {
   return (
-    <div>
+    <div className='bg-dashbordColor'>
       <UserAccount />
     </div>
   )

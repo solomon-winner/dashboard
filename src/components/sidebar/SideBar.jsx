@@ -71,9 +71,9 @@ import { MeetingRoom } from '@mui/icons-material';
         }`}
         aria-label="Sidebar"
       >
-        <div className="relative flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-customDark pt-0">
+        <div className="relative flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-green-900 pt-0">
           <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-            <div className="flex-1 px-3 bg-customDark divide-y space-y-1">
+            <div className="flex-1 px-3 bg-green-900 divide-y space-y-1">
               <ul className="space-y-2 pb-2">
                 <li>
                   <NavLink to="/admin" className="text-base text-white font-normal rounded-lg flex items-center p-2 hover:bg-rbgSecond group">
