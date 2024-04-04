@@ -69,7 +69,7 @@ export const FormField = ({
   };
 
   return (
-    <div className="w-full lg:w-2/5 px-4">
+    <div className="w-full lg:w-2/5 px-4 bg-dashbordColor">
       <div className="relative w-full mb-3">
         <label
           className="block uppercase text-gray-500 text-xs font-bold mb-2"
