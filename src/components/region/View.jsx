@@ -111,13 +111,11 @@ export const View = () => {
                       Number of Sites: {item.sites}
                     </p>
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                      Degraded Land: {item.area_ha ? item.area_ha + "ha" : "N/A"}
+                      Degraded Land:{" "}
+                      {item.area_ha
+                        ? numberWithCommas(item.area_ha) + " Ha"
+                        : "N/A"}
                     </p>
-                    <img
-                      className="absolute z-0 top-0 left-0 object-center object-cover h-full w-full transition duration-200 ease-in-out group-hover:brightness-50 group-hover:opacity-80 group-hover:scale-110"
-                      src="https://i.ibb.co/KjrPCyW/map.png"
-                      alt="img"
-                    />
                   </Link>
                 </div>
               ))}
@@ -128,3 +126,6 @@ export const View = () => {
     );
   }
 };
+export function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

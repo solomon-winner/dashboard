@@ -69,7 +69,7 @@ export const FormField = ({
   };
 
   return (
-    <div className="w-full lg:w-2/5 px-4 bg-dashbordColor">
+    <div className="w-full lg:w-2/5 px-4 ">
       <div className="relative w-full mb-3">
         <label
           className="block uppercase text-gray-500 text-xs font-bold mb-2"
@@ -300,7 +300,7 @@ console.log(value)
  };
 
   return (
-    <div>
+    <div className="bg-dashbordColor">
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
           <h1 className="text-3xl font-bold mb-5">Add Wereda Data</h1>
