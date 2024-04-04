@@ -9,6 +9,11 @@ export const SiteDetails = () => {
   const { id } = useParams();
   useInitialValueSite(id);
   const { data, isSuccess, isFetching } = useGetSiteByIdQuery(id);
+
+  const goBack = () => {
+
+    window.history.back();
+  }
   if (!isSuccess || isFetching) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -20,12 +25,12 @@ export const SiteDetails = () => {
   return (
     <div>
       <div className="flex justify-between p-10">
-        <Link
-          to="/admin/site"
+        <button
+          onClick={goBack}
           className="py-1 px-4 rounded-md bg-mainColor text-white hover:bg-customDark font-semibold"
         >
           back
-        </Link>
+        </button>
         <div className="flex gap-4">
           <button className="py-1 px-4 rounded-md bg-red-600 hover:bg-red-400 text-white font-semibold">
             Delete Site

@@ -9,7 +9,14 @@ import { useInitalValueworeda } from '../../redux/InitialState/initalValueWoreda
 export const WeredaDetails = () => {
   const { id } = useParams(); 
   useInitalValueworeda(id);
+
   const {data: weredadata, isSuccess,isFetching}=useGetWeredaByIdQuery(id)
+
+  const goBack = () => {
+
+    window.history.back();
+  }
+  
   if(!isSuccess || isFetching){
     return <div className="flex justify-center items-center h-screen">
     <MainLoading />
@@ -20,7 +27,7 @@ export const WeredaDetails = () => {
   return (
     <div>
       <div className='flex justify-between p-10'>
-        <Link to="/admin/wereda" className='py-1 px-4 rounded-md bg-mainColor text-white hover:bg-customDark font-semibold'>back</Link>
+        <button onClick={goBack} className='py-1 px-4 rounded-md bg-mainColor text-white hover:bg-customDark font-semibold'>back</button>
         <div className='flex gap-4'>
         <button  className='py-1 px-4 rounded-md bg-red-600 hover:bg-red-400 text-white font-semibold'>Delete Wereda</button>
         <Link to={`/admin/update-weredaData/${id}`}className='py-1 px-4 rounded-md bg-blue-500 hover:bg-blue-400 text-white font-semibold'>Update WeredaData</Link>

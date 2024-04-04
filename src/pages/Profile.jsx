@@ -51,7 +51,7 @@ export const Profile = () => {
                         </li>
                         <li className ="flex border-b py-2">
                             <span className ="font-bold w-24">Birthday:</span>
-                            <span className ="text-gray-700">{dateFormat(UserData.birthday)}</span>
+                            <span className ="text-gray-700">{dateFormat(UserData.birthday, "dd MMMM, yyyy")}</span>
                         </li>
                         <li className ="flex border-b py-2">
                             <span className ="font-bold w-24">Joined:</span>
