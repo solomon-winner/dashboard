@@ -25,7 +25,6 @@ export const View = () => {
     let filteredData = region.data.filter((d) =>
       d.region_name.toLowerCase().includes(searchInput.toLowerCase())
     );
-    console.log(region);
     return (
       <div className="flex flex-col gap-4 py-6 px-10">
         <div className="flex justify-start items-center">
@@ -103,22 +102,20 @@ export const View = () => {
                     </h4>
                     <div className="relative z-10 w-1/3 h-1 bg-black mb-4" />
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                     Number of Wereda: {item.sites}
+                      Number of Wereda: {item.woredas}
                     </p>
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                    Number of Kebele: {item.sites}  
+                      Number of Kebele: {item.kebeles}
                     </p>
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                    Number of Sites: {item.sites}
+                      Number of Sites: {item.sites}
                     </p>
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                    Degraded Land: 65,000
+                      Degraded Land:{" "}
+                      {item.area_ha
+                        ? numberWithCommas(item.area_ha) + " Ha"
+                        : "N/A"}
                     </p>
-                    <img
-                      className="absolute z-0 top-0 left-0 object-center object-cover h-full w-full transition duration-200 ease-in-out group-hover:brightness-50 group-hover:opacity-80 group-hover:scale-110"
-                      src="https://i.ibb.co/KjrPCyW/map.png"
-                      alt="img"
-                    />
                   </Link>
                 </div>
               ))}
@@ -129,3 +126,6 @@ export const View = () => {
     );
   }
 };
+export function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

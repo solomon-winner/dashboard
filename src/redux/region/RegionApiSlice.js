@@ -26,8 +26,8 @@ export const RegionApiSlice = apiSlice.injectEndpoints({
             })
         }),
         getWeredaByRegion: builder.query({
-            query: (id) => ({
-                url: `/regions/${id}/woredas`,
+            query: (id,with_sites= false) => ({
+                url: `/regions/${id}/woredas?with_sites=${with_sites}`,
                 method: "GET",
             })
         }),

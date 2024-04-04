@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useGetWoredaQuery } from "../../redux/wereda/WeredaApiSlice";
 import MainLoading from "../Resource/Loading/MainLoading";
 import Pagination from "../Resource/Pagination/Pagination";
+import { numberWithCommas } from "../region/View";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,7 +28,6 @@ export const View = () => {
     let filteredData = wereda.data.filter((d) =>
       d.woreda_name.toLowerCase().includes(searchInput.toLowerCase())
     );
-
     return (
       <div className="flex flex-col gap-4 py-6 px-10 bg-dashbordColor">
         <div className="flex justify-between items-center">
@@ -98,19 +98,17 @@ export const View = () => {
                     </h4>
                     <div className="relative z-10 w-1/3 h-1 bg-black mb-4" />
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                      Number of kebele: {item.kebele}
+                      Number of kebele: {item.kebeles}
                     </p>
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                       Number of Sites: {item.sites}
+                      Number of Sites: {item.sites}
                     </p>
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                      Degraded Land: {item.degradedLand}
+                      Degraded Land:{" "}
+                      {item.area_ha
+                        ? numberWithCommas(item.area_ha) + " Ha"
+                        : "N/A"}
                     </p>
-                    <img
-                      className="absolute z-0 top-0 left-0 object-center object-cover h-full w-full transition duration-200 ease-in-out group-hover:brightness-50 group-hover:opacity-80 group-hover:scale-110"
-                      src="https://i.ibb.co/KjrPCyW/map.png"
-                      alt="img"
-                    />
                   </Link>
                 </div>
               ))}
@@ -121,7 +119,7 @@ export const View = () => {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={handlePageChange}
-          />
+        />
       </div>
     );
   }

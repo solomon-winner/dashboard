@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useGetKebeleQuery } from "../../redux/kebele/KebeleApiSlice";
 import MainLoading from "../Resource/Loading/MainLoading";
 import Pagination from "../Resource/Pagination/Pagination";
+import { numberWithCommas } from "../region/View";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,10 +17,10 @@ export const View = () => {
     setCurrentPage(newPage);
   };
   const totalPages =
-  isSuccess && data.data.length < 20 ? currentPage : currentPage + 1;
+    isSuccess && data.data.length < 20 ? currentPage : currentPage + 1;
   let content;
   let filteredData;
-  console.log(data, 'kebele view')
+  console.log(data, "kebele view");
   if (isLoading === true) {
     return (
       <div className="flex justify-center items-center h-screen ">
@@ -34,15 +35,15 @@ export const View = () => {
     );
     content = (
       <div>
-      <div className="flex flex-wrap gap-6 md:gap-0 -mx-2 mb-10">
-        {filteredData.map((item, index) => (
-          <div
-            key={index}
-            className="w-full md:w-1/2 md:mt-4 lg:w-1/3 h-auto px-4"
-          >
-            <Link
-              to={`/admin/kebele/${item.id}`}
-              className="
+        <div className="flex flex-wrap gap-6 md:gap-0 -mx-2 mb-10">
+          {filteredData.map((item, index) => (
+            <div
+              key={index}
+              className="w-full md:w-1/2 md:mt-4 lg:w-1/3 h-auto px-4"
+            >
+              <Link
+                to={`/admin/kebele/${item.id}`}
+                className="
           p-4
           pt-9
           h-full
@@ -64,34 +65,30 @@ export const View = () => {
           overflow-hidden
           rounded
         "
-            >
-              <h4 className="relative z-10 font-semibold font-raleway text-2xl text-dark mb-3">
-                {item.kebele_name}
-              </h4>
-              <div className="relative z-10 w-1/3 h-1 bg-black mb-4" />
-              <p className="relative z-10 text-body-color text-sm font-poppins">
-               Number of Sites: {item.sites}
-              </p>
-              <p className="relative z-10 text-body-color text-sm font-poppins">
-              Degraded Land: {item.degradedland}
-              </p>
-              <img
-                className="absolute z-0 top-0 left-0 object-center object-cover h-full w-full transition duration-200 ease-in-out group-hover:brightness-50 group-hover:opacity-80 group-hover:scale-110"
-                src="https://i.ibb.co/KjrPCyW/map.png"
-                alt="img"
-              />
-            </Link>
-          </div>
-        ))}
-        
-      </div>
-      <Pagination
+              >
+                <h4 className="relative z-10 font-semibold font-raleway text-2xl text-dark mb-3">
+                  {item.kebele_name}
+                </h4>
+                <div className="relative z-10 w-1/3 h-1 bg-black mb-4" />
+                <p className="relative z-10 text-body-color text-sm font-poppins">
+                  Number of Sites: {item.sites}
+                </p>
+                <p className="relative z-10 text-body-color text-sm font-poppins">
+                  Degraded Land:{" "}
+                  {item.area_ha
+                    ? numberWithCommas(item.area_ha) + " Ha"
+                    : "N/A"}
+                </p>
+              </Link>
+            </div>
+          ))}
+        </div>
+        <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={handlePageChange}
-          />
+        />
       </div>
-      
     );
   }
 

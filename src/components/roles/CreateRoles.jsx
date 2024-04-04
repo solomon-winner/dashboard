@@ -61,7 +61,7 @@ const CreateRole = () => {
   };
 
   return (
-    <div className="container mx-auto p-14 flex-grow justify-center items-center">
+    <div className="container mx-auto p-14 flex-grow justify-center items-center bg-dashbordColor">
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {({ handleChange, values, isSubmitting }) => (
           <Form className="bg-white shadow-md rounded p-8 pt-6 pb-8 mb-4 w-full">

@@ -53,7 +53,7 @@ export const Weredas = () => {
     setFile(selectedFile);
   };
   return (
-    <div className="h-screen">
+    <div className="h-screen bg-dashbordColor">
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
           <h1 className="text-3xl font-bold mb-5">Add Wereda Data</h1>
