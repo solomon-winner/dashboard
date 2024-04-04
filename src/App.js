@@ -82,8 +82,8 @@ function App() {
         <Route path='/admin/site/:id' element={<SiteDetails />} />
         <Route path='/admin/region/:id' element={<RegionDetails />} />
         <Route path='/admin/new-user' element={<NewUser />} />
-        <Route path = '/admin/ChangePassword' element = {<ChangePassword/>}/>
-        <Route path = '/admin/UpdatePersonalInfo' element = {<UpdatePersonalInfo/>} />
+        <Route path= '/admin/ChangePassword' element = {<ChangePassword/>}/>
+        <Route path= '/admin/UpdatePersonalInfo' element = {<UpdatePersonalInfo/>} />
         <Route path='/admin/add-sites' element={<AddSiteInfo />} />
         <Route path='/admin/add-weredas' element={<Weredas/>}/>
         <Route path='/admin/add-kebele' element={<Kebeles />} />
