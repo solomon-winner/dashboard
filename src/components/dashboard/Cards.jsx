@@ -18,7 +18,7 @@ export const Cards = () => {
                              <MapsHomeWorkIcon />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <div className="text-lg">11</div>
+                            <div className="text-lg">12</div>
                             <div className="text-sm text-gray-400">Regions</div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@ export const Cards = () => {
                              <StreetviewIcon />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <div className="text-lg">1,000</div>
+                            <div className="text-lg">27</div>
                             <div className="text-sm text-gray-400">Weredas</div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@ export const Cards = () => {
                             <GpsFixedRoundedIcon />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <div className="text-lg">20,000</div>
+                            <div className="text-lg">153</div>
                             <div className="text-sm text-gray-400">Kebeles</div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@ export const Cards = () => {
                         <LocationOnIcon />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <div className="text-lg">20,000</div>
+                            <div className="text-lg">211</div>
                             <div className="text-sm text-gray-400">Sites</div>
                         </div>
                     </div>

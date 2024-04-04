@@ -23,10 +23,10 @@ export const Dashboard = () => {
             <Map />
           </div>
           </div>
-        <div className='w-6/12 h-full'>
+        {/* <div className='w-6/12 h-full'>
         <h1 className='text-xl font-semibold'>Recently Added</h1>
           <RecentlyAdded />
-          </div>
+          </div> */}
       </div>
     </div>
   )

@@ -15,7 +15,8 @@ export const WeredaDetails = () => {
     <MainLoading />
   </div>
   }
-  const {woreda_name, woreda_data, region_id  } = weredadata.data
+ 
+  const {woreda_name, woreda_data, region_name  } = weredadata.data
   return (
     <div>
       <div className='flex justify-between p-10'>
@@ -33,7 +34,7 @@ export const WeredaDetails = () => {
     </div>
     <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
       <div className="p-8 text-gray-600 sm:p-10 lg:flex-auto">
-        <h3 className="text-2xl font-bold tracking-tight text-customDark ">Region ID: {region_id}</h3>
+        <h3 className="text-2xl font-bold tracking-tight text-customDark ">Region: {region_name}</h3>
 
         <div className='flex flex-col gap-2'> 
          <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Total number of Kebele per Wereda</h1>

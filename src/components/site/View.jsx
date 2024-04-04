@@ -121,13 +121,7 @@ export const View = () => {
                     </h4>
                     <div className="relative z-10 w-1/3 h-1 bg-black mb-4" />
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                      Total Population: nodata
-                    </p>
-                    <p className="relative z-10 text-body-color text-sm font-poppins">
-                      Degraded Land: no data
-                    </p>
-                    <p className="relative z-10 text-body-color text-sm font-poppins">
-                      Farm Land: no data
+                      Degraded Land: {item.deraded_land}
                     </p>
                     <img
                       className="absolute z-0 top-0 left-0 object-center object-cover h-full w-full transition duration-200 ease-in-out group-hover:brightness-50 group-hover:opacity-80 group-hover:scale-110"
