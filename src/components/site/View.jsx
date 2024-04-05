@@ -38,6 +38,7 @@ export const View = () => {
               <label htmlFor="topbar-search" className="sr-only">
                 Search
               </label>
+              
               <div className="mt-1 relative lg:w-64">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <svg
