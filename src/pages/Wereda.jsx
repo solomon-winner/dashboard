@@ -5,10 +5,8 @@ import { View } from '../components/wereda/View'
 export const Wereda = () => {
   
   return (
-    <div> 
-      <View />
-  
-    
+    <div className='bg-dashbordColor'> 
+      <View />  
     </div>
   )
 }

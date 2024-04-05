@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import { useGetSiteQuery } from "../../redux/site/SiteApiSlice";
 import MainLoading from "../Resource/Loading/MainLoading";
 import Pagination from "../Resource/Pagination/Pagination";
+import { numberWithCommas } from "../region/View";
+import { Add } from "@mui/icons-material";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: site, isLoading, isSuccess } = useGetSiteQuery(currentPage);
+  const { data: site, isLoading, isSuccess } = useGetSiteQuery({ pagenumber : currentPage, perpage: 20 });
   const [searchInput, setSearchInput] = useState("");
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -29,7 +31,7 @@ export const View = () => {
         d.site_name &&
         d.site_name.toLowerCase().includes(searchInput.toLowerCase())
     );
-
+    console.log(site.data);
     return (
       <div className="flex flex-col gap-4 py-6 px-10">
         <div className="flex justify-between items-center">
@@ -68,14 +70,16 @@ export const View = () => {
           <div>
             <Link
               to="/admin/add-sites"
-              className="bg-mainColor py-2 px-6 rounded text-white font-semibold hover:bg-customDark"
+              className="bg-mainColor p-2 rounded-md text-sm text-white font-semibold hover:bg-customDark mr-4"
             >
+              <Add style={{ fontSize: "large" }} className="mr-2"/>
               Add Site
             </Link>
             <Link
               to="/admin/new-site"
-              className="bg-mainColor py-2 px-6 rounded text-white font-semibold hover:bg-customDark"
+              className="bg-mainColor p-2 rounded-md text-sm text-white font-semibold hover:bg-customDark"
             >
+              <Add style={{ fontSize: "large" }} className="mr-2"/>
               Add Site Data
             </Link>
           </div>
@@ -121,19 +125,11 @@ export const View = () => {
                     </h4>
                     <div className="relative z-10 w-1/3 h-1 bg-black mb-4" />
                     <p className="relative z-10 text-body-color text-sm font-poppins">
-                      Total Population: nodata
+                      Degraded Land:{" "}
+                      {item.size_ha
+                        ? numberWithCommas(item.size_ha) + " Ha"
+                        : "N/A"}
                     </p>
-                    <p className="relative z-10 text-body-color text-sm font-poppins">
-                      Degraded Land: no data
-                    </p>
-                    <p className="relative z-10 text-body-color text-sm font-poppins">
-                      Farm Land: no data
-                    </p>
-                    <img
-                      className="absolute z-0 top-0 left-0 object-center object-cover h-full w-full transition duration-200 ease-in-out group-hover:brightness-50 group-hover:opacity-80 group-hover:scale-110"
-                      src="https://i.ibb.co/KjrPCyW/map.png"
-                      alt="img"
-                    />
                   </Link>
                 </div>
               ))}

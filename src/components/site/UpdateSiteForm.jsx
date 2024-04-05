@@ -71,12 +71,12 @@ export const UpdateSiteForm = () => {
     data: getweredaByRegion,
     isSuccess: weredaSuccess,
     isFetching,
-  } = useGetWeredaByRegionQuery(selectedRegion, { skip: !selectedRegion });
+  } = useGetWeredaByRegionQuery({ id: selectedRegion, with_sites: true }, { skip: !selectedRegion });
   const {
     data: getkebeleByWereda,
     isSuccess: kebeleSuccess,
     isFetching: kebeleFetching,
-  } = useGetKebeleByWeredaQuery(selectedWereda, { skip: !selectedWereda });
+  } = useGetKebeleByWeredaQuery({id: selectedWereda, with_sites: true}, { skip: !selectedWereda });
   const [formData, setFormData] = useState({
     watershed_name: "",
     site_name: "",
@@ -87,7 +87,6 @@ export const UpdateSiteForm = () => {
     woreda_id: "",
     region_id: "",
   });
-  const [initialGeojson, setInitialGeojson] = useState(null);
 
   useEffect(() => {
     if (isSuccess && sites) {
@@ -152,7 +151,6 @@ export const UpdateSiteForm = () => {
   }, [weredaDataSuccess, weredas, kebeleDataSuccess, kebeles]);
 
   const handleSubmit = async (values) => {
-    // Parse the values to integers
     const updatedValues = {
       ...values,
       kebele_id: parseInt(values.kebele_id, 10),
@@ -165,7 +163,7 @@ export const UpdateSiteForm = () => {
         formData.append(key, updatedValues[key]);
       }
     }
-    if (initialGeojson && initialGeojson !== updatedValues.geojson) {
+    if (updatedValues.geojson instanceof File) {
       formData.append("geojson", updatedValues.geojson);
     }
     console.log({ id: id, updatedValues });
@@ -201,7 +199,7 @@ export const UpdateSiteForm = () => {
     });
   };
   return (
-    <div>
+    <div className="bg-dashbordColor">
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
           <h1 className="text-3xl font-bold mb-5">Update Site</h1>
@@ -401,6 +399,7 @@ export const UpdateSiteForm = () => {
                     />
                   </div>
                   <div className="flex justify-between flex-grow">
+                  {formData.geojson && (
                       <div className="mb-4 w-full lg:w-2/5 px-4">
                         <a
                           href={`https://tbrr.echnoserve.com/storage/app/public/${formData.geojson}`}
@@ -410,10 +409,11 @@ export const UpdateSiteForm = () => {
                         >
                           View Current GeoJSON
                         </a>
-                        <p className="mt-2 text-sm text-gray-600">
-                          Selected file: {formData.geojson}
-                        </p>
+                        {/* <p className="mt-2 text-sm text-gray-600">
+                          Selected file: {formData.geojsonName}
+                        </p> */}
                       </div>
+                      )}
                       <div className="w-full lg:w-2/5 mt-5">
                         <input
                           id="geojsonFile"
@@ -424,10 +424,7 @@ export const UpdateSiteForm = () => {
                           onChange={(event) => {
                             const file = event.currentTarget.files[0];
                             setFieldValue("geojson", file);
-                            setFormData({
-                              ...formData,
-                              geojson: file.name,
-                            });
+                            setFieldValue("geojsonName", file.name);
                           }}
                         />
                         <label
@@ -440,7 +437,7 @@ export const UpdateSiteForm = () => {
                     </div>
                   <button
                     type="submit"
-                    className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
+                    className="mt-4 bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
                   >
                     Submit
                   </button>

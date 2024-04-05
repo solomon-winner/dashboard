@@ -3,12 +3,13 @@ import { apiSlice } from "../app/api/apiSlice";
 export const KebeleApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getKebele: builder.query({
-      query: (pagenumber) => ({
+      query: ({pagenumber,perpage, all = false}) => ({
         url: "/kebeles",
         method: "GET",
         params: {
           page: pagenumber,
-          per_page: 20,
+          per_page: perpage,
+          all: all
         },
       }),
     }),
@@ -20,8 +21,8 @@ export const KebeleApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     getKebeleByWereda: builder.query({
-      query: (id) => ({
-        url: `woredas/${id}/kebeles`,
+      query: ({id, with_sites = false}) => ({
+        url: `woredas/${id}/kebeles?all=${with_sites}`,
         method: "GET",
       }),
     }),

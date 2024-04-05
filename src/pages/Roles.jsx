@@ -4,7 +4,7 @@ import View from '../components/roles/View'
 const Roles = () => {
 
   return (
-    <div>
+    <div className='bg-dashbordColor'>
         <View/>
     </div>
   )

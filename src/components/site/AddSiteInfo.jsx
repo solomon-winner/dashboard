@@ -39,12 +39,12 @@ export const AddSiteInfo = () => {
     data: getweredaByRegion,
     isSuccess: weredaSuccess,
     isFetching,
-  } = useGetWeredaByRegionQuery(selectedRegion, { skip: !selectedRegion });
+  } = useGetWeredaByRegionQuery({ id: selectedRegion, with_sites: true }, { skip: !selectedRegion });
   const {
     data: getkebeleByWereda,
     isSuccess: kebeleSuccess,
     isFetching: kebeleFetching,
-  } = useGetKebeleByWeredaQuery(selectedWereda, { skip: !selectedWereda });
+  } = useGetKebeleByWeredaQuery({id: selectedWereda, with_sites: true}, { skip: !selectedWereda });
   const [addSite] = useAddSiteMutation();
   const [formData, setFormData] = useState({
     watershed_name: "",
@@ -98,7 +98,7 @@ export const AddSiteInfo = () => {
         label: wereda.woreda_name,
       }));
   return (
-    <div>
+    <div className="bg-dashbordColor">
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
           <h1 className="text-3xl font-bold mb-5">Add Site</h1>

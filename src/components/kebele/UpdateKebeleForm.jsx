@@ -43,7 +43,7 @@ const UpdateKebeleForm = () => {
     data: getweredaByRegion,
     isSuccess: weredaSuccess,
     isFetching,
-  } = useGetWeredaByRegionQuery(selectedRegion, { skip: !selectedRegion });
+  } = useGetWeredaByRegionQuery({ id: selectedRegion, with_sites: true }, { skip: !selectedRegion });
   const [addKebele] = useAddKebeleMutation();
   const [formData, setFormData] = useState({
     kebele_name: "",
@@ -148,7 +148,7 @@ const UpdateKebeleForm = () => {
     });
   };
   return (
-    <div className="h-screen">
+    <div className="h-screen bg-dashbordColor">
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
           <h1 className="text-3xl font-bold mb-5">Add Kebele</h1>

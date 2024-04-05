@@ -20,7 +20,7 @@ const onSubmit = async (values, { setSubmitting, setErrors }) => {
 
 export const ForgotPassword = () => {
     return (
-        <div className="flex w-full h-screen justify-center items-center">
+        <div className="flex w-full h-screen justify-center items-center bg-dashbordColor">
             <div className="w-full max-w-md mx-auto p-6">
                 <div className=" border bg-white rounded-xl shadow-lg">
                     <div className="p-4 sm:p-7">

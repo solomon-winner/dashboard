@@ -14,7 +14,7 @@ export const Dashboard = () => {
   useGetResource();
   ProfileInfo()
   return (
-    <div className='flex flex-col h-screen gap-6'> 
+    <div className='flex flex-col h-screen gap-6 bg-dashbordColor'> 
       <Cards />
       <div className='flex w-full gap-6 sm:px-6 h-12 lg:px-8'>
         <div className='w-8/12 h-12'>
@@ -41,10 +41,7 @@ export const Dashboard = () => {
     </div>
 
       </div>
-              {/* <div className='w-6/12 h-full'>
-        <h1 className='text-xl font-semibold'>Recently Added</h1>
-          <RecentlyAdded />
-          </div> */}
+
     </div>
   )
 }

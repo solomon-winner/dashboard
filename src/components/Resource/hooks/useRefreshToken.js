@@ -2,12 +2,11 @@ import { useDispatch } from "react-redux";
 import { useRefreshMutation } from "../../../redux/auth/AuthApiSlice";
 import { updateToken } from "../../../redux/auth/authSlice";
 
-
 export const useRefreshToken = () => {
- const dispatch = useDispatch();
- const [refreshToken] = useRefreshMutation();
+  const dispatch = useDispatch();
+  const [refreshToken] = useRefreshMutation();
 
- const refresh = async () => {
+  const refresh = async () => {
     const refreshTokenFromLocalStorage = localStorage.getItem('refreshToken');
     if (refreshTokenFromLocalStorage) {
       try {
@@ -22,7 +21,9 @@ export const useRefreshToken = () => {
       }
     }
     return false;
- };
+  };
 
- return { refresh };
+  return { refresh };
 };
+
+export default useRefreshToken; // Export the hook

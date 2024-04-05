@@ -28,7 +28,7 @@ export const AddForm = ({handleChange, formData, setFormData}) => {
     data: getweredaByRegion,
     isSuccess: weredaSuccess,
     isFetching,
-  } = useGetWeredaByRegionQuery(selectedRegion, { skip: !selectedRegion });
+  } = useGetWeredaByRegionQuery({ id: selectedRegion, with_sites: true }, { skip: !selectedRegion });
   const {
     data: getkebeleByWereda,
     isSuccess: kebeleSuccess,
@@ -240,7 +240,7 @@ export const AddForm = ({handleChange, formData, setFormData}) => {
         <FormField
           label="Male"
           name="populationmale"
-          type="text"
+          type="number"
           placeholder="Total Number of Male"
           icon={FamilyRestroom}
           value={formData.populationmale}
@@ -249,7 +249,7 @@ export const AddForm = ({handleChange, formData, setFormData}) => {
         <FormField
           label="Female"
           name="populationfemale"
-          type="text"
+          type="number"
           placeholder="Total Number of Female"
           icon={FamilyRestroom}
           value={formData.populationfemale}
@@ -264,7 +264,7 @@ export const AddForm = ({handleChange, formData, setFormData}) => {
         <FormField
           label="Male"
           name="householdmale2"
-          type="text"
+          type="number"
           placeholder="Total Number of Male"
           icon={FamilyRestroom}
           value={formData.householdmale2}
@@ -273,7 +273,7 @@ export const AddForm = ({handleChange, formData, setFormData}) => {
         <FormField
           label="Female"
           name="householdfemale2"
-          type="text"
+          type="number"
           placeholder="Total Number of Female"
           icon={FamilyRestroom}
           value={formData.householdfemale2}

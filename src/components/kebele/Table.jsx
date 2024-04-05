@@ -12,7 +12,7 @@ export const Table = ({data}) => {
         </tr>
     </thead>
     <tbody>
-        {data.map((item, index) => (
+        {data && data.map((item, index) => (
  <tr  key={index} className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
  <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
      <span className='text-sm'>{item.value}</span>

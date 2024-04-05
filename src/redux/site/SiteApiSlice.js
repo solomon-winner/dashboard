@@ -3,12 +3,13 @@ import { apiSlice } from '../app/api/apiSlice';
 export const SiteApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getSite: builder.query({
-            query: (pagenumber) => ({
+            query: ({pagenumber,perpage, all = false}) => ({
                 url: "/sites",
                 method: "GET",
                 params: {
                     page: pagenumber,
-                    per_page: 20,
+                    per_page: perpage,
+                    all: all
                 }
             })
         }),
@@ -45,7 +46,13 @@ export const SiteApiSlice = apiSlice.injectEndpoints({
                 body: data,
             })
         }),
+        getSitebyKebele: builder.query({
+            query: (kebele) => ({
+                url: `/kebeles/${kebele}/sites`,
+                method: "GET",
+            })
+        }),
     }),
 })
 
-export const { useGetSiteQuery, useAddSiteMutation, useGetSiteByKebeleQuery, useAddSiteDataMutation, useGetSiteByIdQuery,useUpdateSiteByIdMutation } = SiteApiSlice
+export const { useGetSiteQuery, useAddSiteMutation, useGetSiteByKebeleQuery, useAddSiteDataMutation, useGetSiteByIdQuery,useUpdateSiteByIdMutation, useGetSitebyKebeleQuery } = SiteApiSlice

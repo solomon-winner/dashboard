@@ -3,12 +3,13 @@ import { apiSlice } from '../app/api/apiSlice';
 export const weredaApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getWoreda: builder.query({
-            query: (pagenumber) => ({
+            query: ({pagenumber,perpage, all = false}) => ({
                 url: "/woredas",
                 method: "GET",
                 params: {
                     page: pagenumber,
-                    per_page: 20,
+                    per_page: perpage,
+                    all: all
                 }
             })
         }),
@@ -38,9 +39,15 @@ export const weredaApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body: data,
             })
-        })
+        }),
+        deleteWeredaById: builder.mutation({
+            query: (id) => ({
+                url: `/woredas/${id}`,
+                method: "DELETE",
+            })
+        }),
         
     }),
 })
 
-export const { useGetWoredaQuery, useAddWoredaMutation, useAddWoredaDataMutation, useGetWeredaByIdQuery, useUpdateWeredaByIdMutation } = weredaApiSlice
+export const { useGetWoredaQuery, useAddWoredaMutation, useAddWoredaDataMutation, useGetWeredaByIdQuery, useUpdateWeredaByIdMutation, useDeleteWeredaByIdMutation } = weredaApiSlice
