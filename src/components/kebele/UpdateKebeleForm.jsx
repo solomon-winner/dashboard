@@ -43,7 +43,7 @@ const UpdateKebeleForm = () => {
     data: getweredaByRegion,
     isSuccess: weredaSuccess,
     isFetching,
-  } = useGetWeredaByRegionQuery(selectedRegion, { skip: !selectedRegion });
+  } = useGetWeredaByRegionQuery({ id: selectedRegion, with_sites: true }, { skip: !selectedRegion });
   const [addKebele] = useAddKebeleMutation();
   const [formData, setFormData] = useState({
     kebele_name: "",

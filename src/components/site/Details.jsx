@@ -11,7 +11,7 @@ export const SiteDetails = () => {
   const { id } = useParams();
   useInitialValueSite(id);
   const { data, isSuccess, isFetching } = useGetSiteByIdQuery(id);
-  const { data: site } = useGetSiteQuery(1);
+  const { data: site } = useGetSiteQuery({all: true});
   const goBack = () => {
 
     window.history.back();
@@ -22,6 +22,18 @@ export const SiteDetails = () => {
         <MainLoading />
       </div>
     );
+  }
+  console.log(data.data);
+  const siteData = data.data;
+  if (!siteData || !siteData.resources) {
+     return (
+       <div className="flex flex-col items-center justify-center h-screen">
+         <p>No Data Available</p>
+         <button className="mt-4 p-2 rounded-md text-sm bg-mainColor text-white hover:bg-customDark font-semibold">
+           Add Data
+         </button>
+       </div>
+     );
   }
   const siteOptions = site.data && site.data?.map(site => ({
     value: site.id,
@@ -100,7 +112,7 @@ export const SiteDetails = () => {
                 role="list"
                 className="mt-8 grid grid-cols-1 gap-4 text-xs leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6"
               >
-                {data.data?.resources[0]?.LAND?.map((item, index) => (
+                {data?.data?.resources[0]?.LAND?.map((item, index) => (
                   <li className="flex gap-x-3">
                     <Check style={{fontSize: 'large'}}/>
                     {item.value}
@@ -118,7 +130,7 @@ export const SiteDetails = () => {
                 role="list"
                 className="mt-8 grid grid-cols-1 gap-4 text-xs leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6"
               >
-                {data.data?.resources[1]?.TREE?.filter(
+                {data?.data?.resources[1]?.TREE?.filter(
                   (tree) => tree.indigenous === 1
                 ).map((tree, index) => (
                   <li key={index} className="flex gap-x-3">
@@ -139,7 +151,7 @@ export const SiteDetails = () => {
                 role="list"
                 className="mt-8 grid grid-cols-1 gap-4 text-xs leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6"
               >
-                {data.data?.resources[1]?.TREE?.filter(
+                {data?.data?.resources[1]?.TREE?.filter(
                   (tree) => !tree.hasOwnProperty("indigenous")
                 ).map((tree, index) => (
                   <li key={index} className="flex gap-x-3">
@@ -160,7 +172,7 @@ export const SiteDetails = () => {
                 role="list"
                 className="mt-8 grid grid-cols-1 gap-4 text-xs leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6"
               >
-                {data.data?.resources[2]?.LIVESTOCK?.map((item, index) => (
+                {data?.data?.resources[2]?.LIVESTOCK?.map((item, index) => (
                   <li className="flex gap-x-3">
                     <Check style={{fontSize: 'large'}}/>
                     {item.value}
@@ -179,7 +191,7 @@ export const SiteDetails = () => {
                 role="list"
                 className="mt-8 grid grid-cols-1 gap-4 text-xs leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6"
               >
-                {data.data?.resources[3]?.FORAGE?.map((item, index) => (
+                {data?.data?.resources[3]?.FORAGE?.map((item, index) => (
                   <li className="flex gap-x-3">
                     <Check style={{fontSize: 'large'}}/>
                     {item.value}

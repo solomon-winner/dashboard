@@ -8,7 +8,7 @@ import { Add } from "@mui/icons-material";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: site, isLoading, isSuccess } = useGetSiteQuery(currentPage);
+  const { data: site, isLoading, isSuccess } = useGetSiteQuery({ pagenumber : currentPage, perpage: 20 });
   const [searchInput, setSearchInput] = useState("");
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);

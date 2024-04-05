@@ -13,7 +13,7 @@ export const RegionDetails = () => {
   const { id } = useParams();
   const { data: regionData, isSuccess, isFetching } = useGetRegionByIdQuery(id);
   const { data: woredaData, isSuccess: werdaFetched } =
-    useGetWeredaByRegionQuery({id, with_sites: true});
+    useGetWeredaByRegionQuery({id, with_sites: false});
   const goBack = () => {
     window.history.back();
   };

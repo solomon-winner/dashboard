@@ -9,39 +9,7 @@ import {
 import Select from "react-select";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
-export const weredas = {
-  "Addis Ababa": [""],
-  Afar: [""],
-  Amhara: [
-    "Dera",
-    "Habru",
-    "Kalu",
-    "Kewot",
-    "Libo Kemkem",
-    "Tarmaber",
-    "Worebabo",
-    "Gubalafto",
-  ],
-  "Benishangul-Gumuz": [""],
-  "Dire Dawa": [""],
-  Gambela: [""],
-  Harari: [""],
-  Oromia: ["Arsi Robe"],
-  Sidama: [""],
-  Somali: [""],
-  "Southern Nations, Nationalities, and Peoples' Region (SNNPR)": [
-    "Semen Bench",
-    "Zaba Gazo",
-  ],
-  Tigray: [
-    "Deguatembien",
-    "Adwa",
-    "Enderta",
-    "Ganta Afshum",
-    "Ahferom",
-    "Alaje",
-  ],
-};
+
 export const AddForm = ({ handleChange, formData, setFormData }) => {
 
   const [selectedRegion, setSelectedRegion] = useState("");
@@ -52,7 +20,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
     data: getweredaByRegion,
     isSuccess: weredaSuccess,
     isFetching,
-  } = useGetWeredaByRegionQuery(selectedRegion, { skip: !selectedRegion });
+   } = useGetWeredaByRegionQuery({ id: selectedRegion, with_sites: true }, { skip: !selectedRegion });
   const weredaOptions = isFetching
     ? [
         {

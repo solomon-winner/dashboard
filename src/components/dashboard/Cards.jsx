@@ -3,8 +3,12 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import StreetviewIcon from '@mui/icons-material/Streetview';
 import GpsFixedRoundedIcon from '@mui/icons-material/GpsFixedRounded';
-
+import { useGetStatsQuery } from '../../redux/Stats/StatsApiSlice';
+import MainLoading from '../Resource/Loading/MainLoading';
 export const Cards = () => {
+    const {data,isFetching, isSuccess} = useGetStatsQuery();
+   const stats = isSuccess && data?.data;
+   
   return (
     <div>
         <div className="min-w-screen flex items-center justify-center">
@@ -18,7 +22,7 @@ export const Cards = () => {
                              <MapsHomeWorkIcon />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <div className="text-lg">12</div>
+                            <div className="text-lg">{isFetching ? 0 : stats.total_regions}</div>
                             <div className="text-sm text-gray-400">Regions</div>
                         </div>
                     </div>
@@ -32,7 +36,7 @@ export const Cards = () => {
                              <StreetviewIcon />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <div className="text-lg">27</div>
+                            <div className="text-lg">{isFetching ? 0 : stats.total_woredas}</div>
                             <div className="text-sm text-gray-400">Weredas</div>
                         </div>
                     </div>
@@ -46,7 +50,7 @@ export const Cards = () => {
                             <GpsFixedRoundedIcon />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <div className="text-lg">153</div>
+                            <div className="text-lg">{isFetching ? 0 : stats.total_kebeles}</div>
                             <div className="text-sm text-gray-400">Kebeles</div>
                         </div>
                     </div>
@@ -60,7 +64,7 @@ export const Cards = () => {
                         <LocationOnIcon />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <div className="text-lg">211</div>
+                            <div className="text-lg">{isFetching ? 0 : stats.total_sites}</div>
                             <div className="text-sm text-gray-400">Sites</div>
                         </div>
                     </div>
