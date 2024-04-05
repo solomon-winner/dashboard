@@ -46,7 +46,7 @@ export const Map = () => {
 
   const fetchData = async (url) => {
     try {
-      const response = await fetch(`https://tbrr.echnoserve.com/storage/app/public/${url}`);
+      const response = await fetch(`https://tbrr.echnoserve.com/public/storage/${url}`);
       return await response.json();
     } catch (error) {
       console.error("Error fetching data:", error);

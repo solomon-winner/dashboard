@@ -29,8 +29,8 @@ export const Dashboard = () => {
       <div className="w-50" style={{ border: '1px solid gray' }}>
         <div className="container project-container">
           <div className="card">
-          <div className="bg-gray-200">
-              <h1 className="card-title">Detailed location Information</h1>
+          <div className="bg-gray-200 border-gray-400 ">
+              <p className="text-lg font-bold">Detailed location Information</p>
             </div>
             <div className="card-body" id="projectInfo">
               Select a region to view detailed location information.
