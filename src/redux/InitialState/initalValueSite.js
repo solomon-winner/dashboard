@@ -9,8 +9,10 @@ export const useInitialValueSite = (id) => {
   useEffect(() => {
     if (isSuccess && sitedata) {
       const data = sitedata?.data;
-      console.log(data);
-      const tree = data.resources.find((resource) =>
+      if(!data.resources){
+        return
+      }
+      const tree = data?.resources.find((resource) =>
         resource.hasOwnProperty("TREE")
       );
       let indegeneousIndex = 1;

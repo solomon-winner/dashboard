@@ -21,12 +21,12 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
     data: getweredaByRegion,
     isSuccess: weredaSuccess,
     isFetching,
-  } = useGetWeredaByRegionQuery(selectedRegion, { skip: !selectedRegion });
+  } = useGetWeredaByRegionQuery({ id: selectedRegion, with_sites: true }, { skip: !selectedRegion });
   const {
     data: getkebeleByWereda,
     isSuccess: kebeleSuccess,
     isFetching: kebeleFetching,
-  } = useGetKebeleByWeredaQuery(selectedWereda, { skip: !selectedWereda });
+  } = useGetKebeleByWeredaQuery({id: selectedWereda, with_sites: true}, { skip: !selectedWereda });
   const {
     data: getsitesByKebele,
     isSuccess: siteSuccess,
