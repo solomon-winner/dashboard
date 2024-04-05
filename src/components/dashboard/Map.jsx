@@ -7,6 +7,7 @@ import { useGetRegionGeojsonsQuery } from '../../redux/GeoJson/RegionGeoJsonApi'
 export const Map = () => {
   const { data: geojsonUrls, isSuccess } = useGetRegionGeojsonsQuery();
   const GeoJSONUrl = isSuccess && geojsonUrls.data;
+  console.log("GeoJSONUrl",GeoJSONUrl)
   useEffect(() => {
     const ethiopia = { lat: 9.145, lng: 40.4897 };
     const map = L.map("map", {
@@ -27,9 +28,9 @@ export const Map = () => {
         fetchData(url).then((data) => {
           L.geoJSON(data, {
             style: {
-              fillColor: "#fff",
+              fillColor: "green",
               fillOpacity: 1,
-              color: "blue",
+              color: "green",
               weight: 1,
             },
           }).addTo(map);
@@ -46,7 +47,7 @@ export const Map = () => {
 
   const fetchData = async (url) => {
     try {
-      const response = await fetch(`https://tbrr.echnoserve.com/storage/app/public/${url}`);
+      const response = await fetch(`https://tbrr.echnoserve.com/${url}`);
       return await response.json();
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -56,7 +57,7 @@ export const Map = () => {
 
   return (
     <div id="map" className='h-full'>
-      <MapContainer center={[9.145, 40.4897]} zoom={6}>
+      <MapContainer center={[9.145, 40.4897]} zoom={6.3}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url='https://tile.openstreetmap.org/{z}/{x}/{y}.png'
