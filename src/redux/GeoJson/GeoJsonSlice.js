@@ -11,7 +11,7 @@ export const GeoJsonSlice = createSlice({
 
     reducers: {
         SetAllSiteData: (state,action) => {
-            state.GeoJson = {...state.UserData,...action.payload};
+            state.GeoJson = action.payload;
         },
 
     }

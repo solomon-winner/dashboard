@@ -6,8 +6,8 @@ import { useGetRegionGeojsonsQuery } from '../../redux/GeoJson/RegionGeoJsonApi'
 import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
 
 export const Map = () => {
-  const { data: RegiongeojsonUrls, isRegionSuccess } = useGetRegionGeojsonsQuery();
-  const { data: SitegeojsonUrls, isSiteSuccess } = useGetSiteGeojsonsQuery();
+  const { data: RegiongeojsonUrls, isSuccess:isRegionSuccess } = useGetRegionGeojsonsQuery();
+  const { data: SitegeojsonUrls, isSuccess:isSiteSuccess } = useGetSiteGeojsonsQuery();
 
   const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
   console.log("all regions are here ....", isRegionSuccess && RegionGeoJSONUrl)
