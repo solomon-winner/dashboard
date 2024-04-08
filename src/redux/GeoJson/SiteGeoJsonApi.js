@@ -4,11 +4,11 @@ export const SiteGeoJsonApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getSiteGeojsons: builder.query({
             query: () => ({
-                url: "/geojson/Sites",
+                url: "/geojson/sites",
                 method: "GET",
             })
         })
     })
 })
 
-export const { getSiteGeojsons } = SiteGeoJsonApi
+export const { useGetSiteGeojsonsQuery } = SiteGeoJsonApi

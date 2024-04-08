@@ -3,11 +3,15 @@ import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer } from 'react-leaflet';
 import L from 'leaflet'; // Import Leaflet library
 import { useGetRegionGeojsonsQuery } from '../../redux/GeoJson/RegionGeoJsonApi';
+import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
 
 export const Map = () => {
-  const { data: geojsonUrls, isSuccess } = useGetRegionGeojsonsQuery();
-  const GeoJSONUrl = isSuccess && geojsonUrls.data;
- 
+  const { data: RegiongeojsonUrls, isRegionSuccess } = useGetRegionGeojsonsQuery();
+  const { data: SitegeojsonUrls, isSiteSuccess } = useGetSiteGeojsonsQuery();
+
+  const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
+  console.log("all regions are here ....", isRegionSuccess && RegionGeoJSONUrl)
+ console.log("all site are here ....", isSiteSuccess && SitegeojsonUrls)
   useEffect(() => {
     const ethiopia = { lat: 9.145, lng: 40.4897 };
     const map = L.map("map", {
@@ -23,8 +27,8 @@ export const Map = () => {
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(map);
 
-    if (isSuccess && GeoJSONUrl) {
-      GeoJSONUrl.forEach(url => {
+    if (isRegionSuccess && RegionGeoJSONUrl) {
+      RegionGeoJSONUrl.forEach(url => {
         fetchData(url).then((data) => {
           console.log(data);
           L.geoJSON(data, {
@@ -44,7 +48,7 @@ export const Map = () => {
     return () => {
       map.remove();
     };
-  }, [isSuccess && GeoJSONUrl]);
+  }, [isRegionSuccess && RegionGeoJSONUrl]);
 
   const fetchData = async (url) => {
     try {
