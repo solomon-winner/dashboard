@@ -10,6 +10,8 @@ export const Map = () => {
   const { data: SitegeojsonUrls, isSuccess:isSiteSuccess } = useGetSiteGeojsonsQuery();
 
   const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
+  const SitegeojsonUrl = isSiteSuccess && SitegeojsonUrls.data;
+
   console.log("all regions are here ....", isRegionSuccess && RegionGeoJSONUrl)
  console.log("all site are here ....", isSiteSuccess && SitegeojsonUrls)
   useEffect(() => {
@@ -44,6 +46,26 @@ export const Map = () => {
         });
       });
     }
+
+    if (isSiteSuccess && SitegeojsonUrl) {
+      SitegeojsonUrl.forEach(url => {
+       const SSS = fetchData(url).then((data) => {
+          console.log(data);
+          L.geoJSON(data, {
+            style: {
+              fillColor: "red",
+              fillOpacity: 0.3,
+              color: "green",
+              weight: 1,
+            },
+          }).addTo(map);
+        }).catch(error => {
+          console.error("Error fetching data for URL:", url, error);
+        });
+        console.log("..................;lojujhyug", SSS)
+      });
+    }
+
 
     return () => {
       map.remove();
