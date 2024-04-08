@@ -4,7 +4,7 @@ export const RegionGeoJsonApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getRegionGeojsons: builder.query({
             query: () => ({
-                url: "",
+                url: "geojson/regions",
                 method: "GET",
             })
         }),

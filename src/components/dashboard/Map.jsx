@@ -7,7 +7,7 @@ import { useGetRegionGeojsonsQuery } from '../../redux/GeoJson/RegionGeoJsonApi'
 export const Map = () => {
   const { data: geojsonUrls, isSuccess } = useGetRegionGeojsonsQuery();
   const GeoJSONUrl = isSuccess && geojsonUrls.data;
-  console.log("GeoJSONUrl",GeoJSONUrl)
+ 
   useEffect(() => {
     const ethiopia = { lat: 9.145, lng: 40.4897 };
     const map = L.map("map", {
@@ -26,10 +26,11 @@ export const Map = () => {
     if (isSuccess && GeoJSONUrl) {
       GeoJSONUrl.forEach(url => {
         fetchData(url).then((data) => {
+          console.log(data);
           L.geoJSON(data, {
             style: {
               fillColor: "green",
-              fillOpacity: 1,
+              fillOpacity: 0.3,
               color: "green",
               weight: 1,
             },
@@ -43,7 +44,7 @@ export const Map = () => {
     return () => {
       map.remove();
     };
-  }, [isSuccess, GeoJSONUrl]);
+  }, [isSuccess && GeoJSONUrl]);
 
   const fetchData = async (url) => {
     try {
