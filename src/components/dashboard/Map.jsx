@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer } from 'react-leaflet';
-import L from 'leaflet'; // Import Leaflet library
+import L from 'leaflet'; 
 import { useGetRegionGeojsonsQuery } from '../../redux/GeoJson/RegionGeoJsonApi';
 import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
 import fetchData from '../Maps/FetchGeoJsonMap';
