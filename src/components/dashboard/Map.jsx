@@ -4,6 +4,12 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import L from 'leaflet'; // Import Leaflet library
 import { useGetRegionGeojsonsQuery } from '../../redux/GeoJson/RegionGeoJsonApi';
 import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
+import fetchData from '../Maps/FetchGeoJsonMap';
+
+// Define custom icon for site marker
+const siteIcon = L.icon({
+
+});
 
 export const Map = () => {
   const { data: RegiongeojsonUrls, isSuccess:isRegionSuccess } = useGetRegionGeojsonsQuery();
@@ -13,7 +19,7 @@ export const Map = () => {
   const SitegeojsonUrl = isSiteSuccess && SitegeojsonUrls.data;
 
   console.log("all regions are here ....", isRegionSuccess && RegionGeoJSONUrl)
- console.log("all site are here ....", isSiteSuccess && SitegeojsonUrls)
+  console.log("all site are here ....", isSiteSuccess && SitegeojsonUrls)
   useEffect(() => {
     const ethiopia = { lat: 9.145, lng: 40.4897 };
     const map = L.map("map", {
@@ -49,38 +55,21 @@ export const Map = () => {
 
     if (isSiteSuccess && SitegeojsonUrl) {
       SitegeojsonUrl.forEach(url => {
-       const SSS = fetchData(url).then((data) => {
-          console.log(data);
-          L.geoJSON(data, {
-            style: {
-              fillColor: "red",
-              fillOpacity: 0.3,
-              color: "green",
-              weight: 1,
-            },
-          }).addTo(map);
+        fetchData(url).then((data) => {
+
+          L.geoJSON(data).addTo(map).eachLayer((layer) => {
+            L.marker(layer.getLatLng(), { icon: siteIcon }).addTo(map);
+          });
         }).catch(error => {
           console.error("Error fetching data for URL:", url, error);
         });
-        console.log("..................;lojujhyug", SSS)
       });
     }
-
 
     return () => {
       map.remove();
     };
-  }, [isRegionSuccess && RegionGeoJSONUrl]);
-
-  const fetchData = async (url) => {
-    try {
-      const response = await fetch(`https://tbrr.echnoserve.com/${url}`);
-      return await response.json();
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error;
-    }
-  };
+  }, [isRegionSuccess && RegionGeoJSONUrl, isSiteSuccess && SitegeojsonUrl]);
 
   return (
     <div id="map" className='h-full'>
