@@ -4,22 +4,30 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import L from 'leaflet'; 
 import { useGetRegionGeojsonsQuery } from '../../redux/GeoJson/RegionGeoJsonApi';
 import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
-import fetchData from '../Maps/FetchGeoJsonMap';
+import {fetchRegionData, fetchSiteData} from '../Maps/FetchGeoJsonMap';
+import {SetAllSiteData} from '../../redux/GeoJson/GeoJsonSlice'
+import { useDispatch, useSelector } from 'react-redux';
 
 // Define custom icon for site marker
-const siteIcon = L.icon({
+  var siteIcon = L.icon({
+        iconUrl: '/Marker.svg',
+        iconSize: [20, 20], 
+        iconAnchor: [16, 16], 
+    });
 
-});
 
 export const Map = () => {
   const { data: RegiongeojsonUrls, isSuccess:isRegionSuccess } = useGetRegionGeojsonsQuery();
   const { data: SitegeojsonUrls, isSuccess:isSiteSuccess } = useGetSiteGeojsonsQuery();
+  const dispatch = useDispatch();
+  const AllSite = useSelector((state) => state.geoJson.AllSite);
+  console.log(AllSite,"All Site...***");
 
   const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
   const SitegeojsonUrl = isSiteSuccess && SitegeojsonUrls.data;
 
   console.log("all regions are here ....", isRegionSuccess && RegionGeoJSONUrl)
-  console.log("all site are here ....", isSiteSuccess && SitegeojsonUrls)
+  console.log("all site are here ....", isSiteSuccess && SitegeojsonUrl)
   useEffect(() => {
     const ethiopia = { lat: 9.145, lng: 40.4897 };
     const map = L.map("map", {
@@ -37,7 +45,7 @@ export const Map = () => {
 
     if (isRegionSuccess && RegionGeoJSONUrl) {
       RegionGeoJSONUrl.forEach(url => {
-        fetchData(url).then((data) => {
+        fetchRegionData(url).then((data) => {
           console.log(data);
           L.geoJSON(data, {
             style: {
@@ -55,10 +63,17 @@ export const Map = () => {
 
     if (isSiteSuccess && SitegeojsonUrl) {
       SitegeojsonUrl.forEach(url => {
-        fetchData(url).then((data) => {
+        fetchSiteData(url).then((data) => {
 
           L.geoJSON(data).addTo(map).eachLayer((layer) => {
-            L.marker(layer.getLatLng(), { icon: siteIcon }).addTo(map);
+            const coordinates = layer.getBounds().getCenter();
+              // dispatch(SetAllSiteData(layer));
+              // console.log(AllSite,"All Site...***");
+
+            const siteMarker = L.marker(coordinates, {icon: siteIcon}).addTo(map);
+  
+            siteMarker.on("click", function(feature, layer) {
+          })
           });
         }).catch(error => {
           console.error("Error fetching data for URL:", url, error);
