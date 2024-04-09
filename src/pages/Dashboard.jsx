@@ -7,6 +7,7 @@ import { useGetInstitution } from '../redux/InitialState/GetInstitution'
 import { useGetResource } from '../redux/InitialState/GetResource'
 import { GetRoles } from '../redux/InitialState/GetRoles';
 import {ProfileInfo} from "../redux/InitialState/ProfileInfo"
+import { LocationInfo } from '../components/Maps/LocationInfo'
 export const Dashboard = () => {
   useGetRegion();
   GetRoles();
@@ -23,22 +24,8 @@ export const Dashboard = () => {
             <Map />
           </div>
           </div>
-
-
-          <div className="d-flex">
-      <div className="w-50" style={{ border: '1px solid gray' }}>
-        <div className="container project-container">
-          <div className="card">
-          <div className="bg-gray-200 border-gray-400 ">
-              <p className="text-lg font-bold">Detailed location Information</p>
-            </div>
-            <div className="card-body" id="projectInfo">
-              Select a region to view detailed location information.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          <LocationInfo/>
+        
 
       </div>
 
