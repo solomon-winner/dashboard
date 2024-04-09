@@ -29,7 +29,7 @@ export const Map = () => {
           L.geoJSON(data, {
             style: {
               fillColor: "green",
-              fillOpacity: 1,
+              fillOpacity: 0.4,
               color: "green",
               weight: 1,
             },

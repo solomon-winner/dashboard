@@ -3,14 +3,10 @@ import { apiSlice } from "../app/api/apiSlice";
 export const KebeleApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getKebele: builder.query({
-      query: ({pagenumber,perpage, all = false}) => ({
+      query: (params) => ({
         url: "/kebeles",
         method: "GET",
-        params: {
-          page: pagenumber,
-          per_page: perpage,
-          all: all
-        },
+        params:params
       }),
     }),
     addKebele: builder.mutation({

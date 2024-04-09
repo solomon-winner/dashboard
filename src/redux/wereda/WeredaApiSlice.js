@@ -3,14 +3,10 @@ import { apiSlice } from '../app/api/apiSlice';
 export const weredaApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getWoreda: builder.query({
-            query: ({pagenumber,perpage, all = false}) => ({
+            query: (params) => ({
                 url: "/woredas",
                 method: "GET",
-                params: {
-                    page: pagenumber,
-                    per_page: perpage,
-                    all: all
-                }
+                params:params
             })
         }),
         addWoreda: builder.mutation({

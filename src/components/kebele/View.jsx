@@ -8,8 +8,9 @@ import { Add } from "@mui/icons-material";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { data, error, isLoading, isSuccess } = useGetKebeleQuery({pagenumber : currentPage, perpage : 20});
   const [searchInput, setSearchInput] = useState("");
+  const { data, error, isLoading, isSuccess } = useGetKebeleQuery({pagenumber : currentPage, perpage : 20, ...(searchInput && { search: searchInput })});
+
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
   };

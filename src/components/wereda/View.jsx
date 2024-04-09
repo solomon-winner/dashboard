@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetWoredaQuery } from "../../redux/wereda/WeredaApiSlice";
 import MainLoading from "../Resource/Loading/MainLoading";
@@ -8,8 +8,8 @@ import { Add } from "@mui/icons-material";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: wereda, isLoading, isSuccess } = useGetWoredaQuery({pagenumber: currentPage,perpage: 20});
   const [searchInput, setSearchInput] = useState("");
+  const { data: wereda, isLoading, isSuccess } = useGetWoredaQuery({pagenumber: currentPage,perpage: 20, ...(searchInput && { search: searchInput })});
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };

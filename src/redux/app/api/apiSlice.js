@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { setCredentials, logOut } from '../../auth/authSlice';
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://tbrr.echnoserve.com/api',
+  baseUrl: 'https://tbrr.echnoserve.com/api',
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const { token } = getState().auth;
