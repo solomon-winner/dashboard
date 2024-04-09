@@ -4,14 +4,14 @@ export const GeoJsonSlice = createSlice({
     name: 'geoJson',
     initialState: {
         GeoJson: {
-            AllSite:[56],
-
+            AllSite:[78],
+            Regions:[]
         },
     },
 
     reducers: {
         SetAllSiteData: (state,action) => {
-            state.GeoJson = action.payload;
+            state.GeoJson.AllSite = action.payload;
         },
 
     }
