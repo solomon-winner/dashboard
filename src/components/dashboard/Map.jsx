@@ -20,14 +20,12 @@ export const Map = () => {
   const { data: RegiongeojsonUrls, isSuccess:isRegionSuccess } = useGetRegionGeojsonsQuery();
   const { data: SitegeojsonUrls, isSuccess:isSiteSuccess } = useGetSiteGeojsonsQuery();
   const dispatch = useDispatch();
-  const AllSite = useSelector((state) => state.geoJson.AllSite);
+  const AllSite = useSelector((state) => state.geoJson.GeoJson.AllSite);
   console.log(AllSite,"All Site...***");
 
   const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
   const SitegeojsonUrl = isSiteSuccess && SitegeojsonUrls.data;
-
-  console.log("all regions are here ....", isRegionSuccess && RegionGeoJSONUrl)
-  console.log("all site are here ....", isSiteSuccess && SitegeojsonUrl)
+dispatch(SetAllSiteData(SitegeojsonUrl));
   useEffect(() => {
     const ethiopia = { lat: 9.145, lng: 40.4897 };
     const map = L.map("map", {
@@ -67,8 +65,8 @@ export const Map = () => {
 
           L.geoJSON(data).addTo(map).eachLayer((layer) => {
             const coordinates = layer.getBounds().getCenter();
-              // dispatch(SetAllSiteData(layer));
-              // console.log(AllSite,"All Site...***");
+              //  dispatch(SetAllSiteData(layer));
+               console.log(AllSite,"All Site...***");
 
             const siteMarker = L.marker(coordinates, {icon: siteIcon}).addTo(map);
   
