@@ -1,4 +1,5 @@
 export const LocationInfo = () => {
+    
     return(
         <div className="d-flex">
         <div className="w-50" style={{ border: '1px solid gray' }}>
@@ -7,8 +8,11 @@ export const LocationInfo = () => {
             <div className="bg-gray-200 border-gray-400 ">
                 <p className="text-lg font-bold">Detailed location Information</p>
               </div>
-              <div className="card-body" id="projectInfo">
+              <div className="card-body">
                 Select a region to view detailed location information.
+              </div>
+              <div>
+
               </div>
             </div>
           </div>
