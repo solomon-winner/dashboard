@@ -44,5 +44,5 @@ export const weredaSelector = (state) => state.wereda;
 export const regionSelector = (state) => state.region;
 export const kebeleByIdSelector = (state) => state.kebeleById;
 export const siteByIdSelector = (state) => state.siteById;
-export const geoJsonSelector = (state) => state.geoJson
+export const geoJsonSelector = (state) => state.GeoJson
 export default store;

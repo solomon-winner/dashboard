@@ -4,7 +4,7 @@ export const GeoJsonSlice = createSlice({
     name: 'geoJson',
     initialState: {
         GeoJson: {
-            AllSite:[],
+            AllSite:[56],
 
         },
     },

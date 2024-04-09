@@ -20,8 +20,7 @@ export const Map = () => {
   const { data: RegiongeojsonUrls, isSuccess:isRegionSuccess } = useGetRegionGeojsonsQuery();
   const { data: SitegeojsonUrls, isSuccess:isSiteSuccess } = useGetSiteGeojsonsQuery();
   const dispatch = useDispatch();
-  const AllSite = useSelector((state) => state.geoJson.GeoJson.AllSite);
-  console.log(AllSite,"All Site...***");
+  const AllSite = useSelector((state) => state.geoJson.AllSite);
 
   const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
   const SitegeojsonUrl = isSiteSuccess && SitegeojsonUrls.data;
@@ -71,6 +70,8 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
             const siteMarker = L.marker(coordinates, {icon: siteIcon}).addTo(map);
   
             siteMarker.on("click", function(feature, layer) {
+              console.log(AllSite,"All Site...***");
+
           })
           });
         }).catch(error => {
