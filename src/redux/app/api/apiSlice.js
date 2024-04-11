@@ -24,21 +24,19 @@ console.log(result);
   } else if (result.error?.status === 401) {
     console.log("unauthorized");
     const refreshToken = api.getState().auth.refresh_token;
-    console.log(refreshToken);
     if(refreshToken){
     const refreshResult = await baseQuery(
-      { url: "/refresh-token", method: "POST", body: { refreshToken } },
+      { url: "/refresh-token", method: "POST", body: { refresh_token: refreshToken } },
       api,
       extraOptions
     );
-    console.log(refreshResult);
-    // if (refreshResult?.data) {
-    //   const { user } = api.getState().auth;
-    //   api.dispatch(setCredentials({ ...refreshResult.data, user }));
-    //   result = await baseQuery(args, api, { ...otherOptions, signal }); // Retry with new access token
-    // } else {
-    //   api.dispatch(logOut());
-    // }
+    if (refreshResult?.data) {
+      const { user } = api.getState().auth;
+      api.dispatch(setCredentials({ ...refreshResult.data, user }));
+      result = await baseQuery(args, api, { ...otherOptions, signal }); // Retry with new access token
+    } else {
+      api.dispatch(logOut());
+    }
     }
   }
   return result;
