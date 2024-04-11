@@ -8,7 +8,6 @@ import {fetchRegionData, fetchSiteData} from '../Maps/FetchGeoJsonMap';
 import {SetAllSiteData} from '../../redux/GeoJson/GeoJsonSlice'
 import { useDispatch, useSelector } from 'react-redux';
 
-// Define custom icon for site marker
   var siteIcon = L.icon({
         iconUrl: '/Marker.svg',
         iconSize: [20, 20], 
@@ -20,7 +19,7 @@ export const Map = () => {
   const { data: RegiongeojsonUrls, isSuccess:isRegionSuccess } = useGetRegionGeojsonsQuery();
   const { data: SitegeojsonUrls, isSuccess:isSiteSuccess } = useGetSiteGeojsonsQuery();
   const dispatch = useDispatch();
-  const AllSite = useSelector((state) => state.geoJson.GeoJson);
+  const AllSite = useSelector((state) => state.geoJson.GeoJson.AllSite);
 
   const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
   const SitegeojsonUrl = isSiteSuccess && SitegeojsonUrls.data;
@@ -64,14 +63,14 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
 
           L.geoJSON(data).addTo(map).eachLayer((layer) => {
             const coordinates = layer.getBounds().getCenter();
-              //  dispatch(SetAllSiteData(layer));
-               console.log(AllSite,"All Site...***");
+                // dispatch(SetAllSiteData(layer));
+               console.log(data,"All data...***");
 
             const siteMarker = L.marker(coordinates, {icon: siteIcon}).addTo(map);
   
-            siteMarker.on("click", function(feature, layer) {
-              console.log(AllSite,"All Site...***");
-
+            siteMarker.on("click", function() {
+              console.log("This is the marked layer that is clicked...",layer);
+              map.fitBounds(layer.getBounds());
           })
           });
         }).catch(error => {

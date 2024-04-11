@@ -1,4 +1,4 @@
-export const LocationInfo = () => {
+export const LocationInfo = (id) => {
     
     return(
         <div className="d-flex">
