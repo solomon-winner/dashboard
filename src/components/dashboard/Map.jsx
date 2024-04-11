@@ -72,7 +72,7 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
             siteMarker.on("click", function() {
               const Site_id = parseInt(url.match(/\d+/)[0], 10); 
               console.log("This is the marked layer that is clicked...",Site_id);
-              LocationInfo(Site_id);
+              LocationInfo(id = Site_id);
               map.fitBounds(layer.getBounds());
           })
           });

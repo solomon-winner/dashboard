@@ -24,7 +24,7 @@ export const Dashboard = () => {
             <Map />
           </div>
           </div>
-          <LocationInfo/>
+          <LocationInfo />
         
 
       </div>
