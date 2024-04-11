@@ -29,7 +29,7 @@ const store = configureStore({
       siteById: SiteByIdReducer
     },
     middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware, rtkQueryErrorLogger), // Use the middleware
+    getDefaultMiddleware().concat(apiSlice.middleware), // Use the middleware
  devTools: true,
 });
 
