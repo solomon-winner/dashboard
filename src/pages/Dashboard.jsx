@@ -31,7 +31,7 @@ export const Dashboard = () => {
         <div className='w-8/12 h-18'>
           <h1 className='text-xl font-semibold'>Degraded sites Map</h1>
           <div className='p-3'>
-            <button className='bg-green-500 text-white font-bold py-2 px-4  hover:bg-darkMain  rounded-md' onClick={Zoom_out}>Zoom Out</button>
+            <button className='border-green-500 text-black font-bold hover:bg-white  rounded-md' onClick={Zoom_out}>Zoom Out</button>
            {  console.log("this is zoom", Zoom)}
             <Map />
           </div>
