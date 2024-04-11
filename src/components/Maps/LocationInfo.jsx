@@ -1,5 +1,11 @@
+import React from "react";
+import { useGetSiteByIdQuery } from "../../redux/site/SiteApiSlice";
+
 export const LocationInfo = (id) => {
     console.log("The id of the location...", id);
+    const { data, isSuccess, isFetching } = useGetSiteByIdQuery(id);
+    console.log("The data of the location...", data);
+
     return(
         <div className="d-flex">
         <div className="w-50" style={{ border: '1px solid gray' }}>

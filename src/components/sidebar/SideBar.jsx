@@ -12,17 +12,20 @@ import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
  import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../redux/auth/authSlice';
 import { MeetingRoom } from '@mui/icons-material';
- 
+import { setProfileDropDown } from '../../redux/Profile/ProfileSlice';
+
  export const SideBar = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const Avatar = useSelector((state) => state.user.UserData.avatar)
   const Email = useSelector((state) => state.user.UserData.email)
-
+  const ProfileDropDown = useSelector((state) => state.user.ProfileDropDown);
   const [showSidebar, setShowSidebar] = useState(false);
+  console.log("profile drop down...",ProfileDropDown);
 
 const ProfileDropdown = () => {
-  navigate('/admin/profile');
+    dispatch(setProfileDropDown(!ProfileDropDown))
+    console.log(ProfileDropDown);
 }
 
   const handleButtonClick = () => {
@@ -65,6 +68,9 @@ const ProfileDropdown = () => {
                 <span className="text-sm font-medium text-gray-900">{Email}</span>
                 <span className="text-xs font-medium text-gray-500">Admin</span>
               </div>
+            </div>
+            <div className="">
+              
             </div>
         </div>
       </div>
