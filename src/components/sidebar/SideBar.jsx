@@ -1,6 +1,6 @@
  import React from 'react'
  import { useState } from 'react';
- import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
  import logo from '../../assests/logo.JPG'
  import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
  import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -12,13 +12,22 @@
  import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../redux/auth/authSlice';
 import { MeetingRoom } from '@mui/icons-material';
- 
+import { setProfileDropDown } from '../../redux/Profile/ProfileSlice';
+
  export const SideBar = () => {
   const dispatch = useDispatch();
+  // const navigate = useNavigate();
   const Avatar = useSelector((state) => state.user.UserData.avatar)
   const Email = useSelector((state) => state.user.UserData.email)
-
+  const ProfileDropDown = useSelector((state) => state.user.ProfileDropDown);
   const [showSidebar, setShowSidebar] = useState(false);
+  console.log("profile drop down...",ProfileDropDown);
+
+const ProfileDropdown = () => {
+    dispatch(setProfileDropDown(!ProfileDropDown))
+    console.log(ProfileDropDown);
+}
+
   const handleButtonClick = () => {
     setShowSidebar(!showSidebar);
     console.log(showSidebar);
@@ -53,13 +62,14 @@ import { MeetingRoom } from '@mui/icons-material';
             </a>
             
           </div>
-          <div className="flex gap-2 justify-center items-center">
+          <div className="flex gap-2 justify-center items-center cursor-pointer" onClick={ProfileDropdown}>
               <img src={`https://tbrr.echnoserve.com/storage/app/public/${Avatar}`}  alt="img" className="w-12 h-12 bg-red-400 object-fill rounded-full" />
               <div className="flex flex-col">
                 <span className="text-sm font-medium text-gray-900">{Email}</span>
                 <span className="text-xs font-medium text-gray-500">Admin</span>
               </div>
             </div>
+           
         </div>
       </div>
     </nav>

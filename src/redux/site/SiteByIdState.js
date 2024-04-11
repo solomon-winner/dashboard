@@ -6,6 +6,7 @@ export const SiteByIdSlice = createSlice({
       siteData: {},
       loading: true,
       error: null,
+      Id: null,
     },
     reducers: {
       setSiteById: (state, action) =>{
@@ -15,8 +16,11 @@ export const SiteByIdSlice = createSlice({
       setLoadingTrue: (state) => {
         state.loading = true;
      },
+     setSiteId: (state, action) => {
+      state.Id = action.payload;
+     }
     }
   });
 
-  export const { setSiteById, setLoadingTrue } = SiteByIdSlice.actions;
+  export const { setSiteById, setLoadingTrue ,setSiteId} = SiteByIdSlice.actions;
   export default SiteByIdSlice.reducer
