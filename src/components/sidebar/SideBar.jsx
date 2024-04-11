@@ -69,9 +69,7 @@ const ProfileDropdown = () => {
                 <span className="text-xs font-medium text-gray-500">Admin</span>
               </div>
             </div>
-            <div className="">
-              
-            </div>
+           
         </div>
       </div>
     </nav>

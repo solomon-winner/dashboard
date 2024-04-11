@@ -8,6 +8,7 @@ import {fetchRegionData, fetchSiteData} from '../Maps/FetchGeoJsonMap';
 import {SetAllSiteData} from '../../redux/GeoJson/GeoJsonSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { LocationInfo } from '../Maps/LocationInfo';
+import { setSiteId } from '../../redux/site/SiteByIdState';
 
   var siteIcon = L.icon({
         iconUrl: '/Marker.svg',
@@ -72,7 +73,7 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
             siteMarker.on("click", function() {
               const Site_id = parseInt(url.match(/\d+/)[0], 10); 
               console.log("This is the marked layer that is clicked...",Site_id);
-              LocationInfo(id);
+              dispatch(setSiteId(Site_id));
               map.fitBounds(layer.getBounds());
           })
           });
