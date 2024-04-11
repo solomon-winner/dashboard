@@ -14,6 +14,7 @@ export const ProfileSlice = createSlice({
             updated_at: "",
             avatar:null
         },
+        ProfileDropDown: false,
     },
 
     reducers: {

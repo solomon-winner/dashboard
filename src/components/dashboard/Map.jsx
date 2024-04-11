@@ -7,6 +7,7 @@ import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
 import {fetchRegionData, fetchSiteData} from '../Maps/FetchGeoJsonMap';
 import {SetAllSiteData} from '../../redux/GeoJson/GeoJsonSlice'
 import { useDispatch, useSelector } from 'react-redux';
+import { LocationInfo } from '../Maps/LocationInfo';
 
   var siteIcon = L.icon({
         iconUrl: '/Marker.svg',
@@ -64,12 +65,14 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
           L.geoJSON(data).addTo(map).eachLayer((layer) => {
             const coordinates = layer.getBounds().getCenter();
                 // dispatch(SetAllSiteData(layer));
-               console.log(data,"All data...***");
+               console.log(url,"All data...***");
 
             const siteMarker = L.marker(coordinates, {icon: siteIcon}).addTo(map);
   
             siteMarker.on("click", function() {
-              console.log("This is the marked layer that is clicked...",layer);
+              const Site_id = parseInt(url.match(/\d+/)[0], 10); 
+              console.log("This is the marked layer that is clicked...",Site_id);
+              LocationInfo(Site_id);
               map.fitBounds(layer.getBounds());
           })
           });

@@ -1,5 +1,5 @@
 export const LocationInfo = (id) => {
-    
+    console.log("The id of the location...", id);
     return(
         <div className="d-flex">
         <div className="w-50" style={{ border: '1px solid gray' }}>
