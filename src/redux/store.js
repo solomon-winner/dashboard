@@ -9,6 +9,7 @@ import weredaReducer from './wereda/WeredaState';
 import regionReducer from './region/RegionState';
 import KebeleByIdReducer from './kebele/KebeleByIdState'
 import SiteByIdReducer from './site/SiteByIdState'
+import GeoJsonReducer from './GeoJson/GeoJsonSlice'
 import { isRejected, isRejectedWithValue } from "@reduxjs/toolkit";
 import { useRefreshMutation } from './auth/AuthApiSlice';
 import { useDispatch } from 'react-redux';
@@ -26,7 +27,8 @@ const store = configureStore({
       wereda: weredaReducer,
       region: regionReducer,
       kebeleById: KebeleByIdReducer,
-      siteById: SiteByIdReducer
+      siteById: SiteByIdReducer,
+      geoJson: GeoJsonReducer,
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware), // Use the middleware
@@ -42,5 +44,5 @@ export const weredaSelector = (state) => state.wereda;
 export const regionSelector = (state) => state.region;
 export const kebeleByIdSelector = (state) => state.kebeleById;
 export const siteByIdSelector = (state) => state.siteById;
-
+export const geoJsonSelector = (state) => state.GeoJson
 export default store;

@@ -29,12 +29,14 @@ export const SiteApiSlice = apiSlice.injectEndpoints({
                 body: data     
             })
         }),
+
         getSiteById: builder.query({
             query: (id) => ({
                 url: `/sites/${id}`,
                 method: "GET"
             })
         }),
+        
         updateSiteById: builder.mutation({
             query: ({id, data}) => ({
                 url: `/sites/${id}?_method=PUT`,

@@ -1,13 +1,31 @@
 import React, { useEffect } from 'react';
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer } from 'react-leaflet';
-import L from 'leaflet'; // Import Leaflet library
+import L from 'leaflet'; 
 import { useGetRegionGeojsonsQuery } from '../../redux/GeoJson/RegionGeoJsonApi';
+import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
+import {fetchRegionData, fetchSiteData} from '../Maps/FetchGeoJsonMap';
+import {SetAllSiteData} from '../../redux/GeoJson/GeoJsonSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { LocationInfo } from '../Maps/LocationInfo';
+import { setSiteId } from '../../redux/site/SiteByIdState';
+
+  var siteIcon = L.icon({
+        iconUrl: '/Marker.svg',
+        iconSize: [20, 20], 
+        iconAnchor: [16, 16], 
+    });
+
 
 export const Map = () => {
-  const { data: geojsonUrls, isSuccess } = useGetRegionGeojsonsQuery();
-  const GeoJSONUrl = isSuccess && geojsonUrls.data;
-  console.log("GeoJSONUrl",GeoJSONUrl)
+  const { data: RegiongeojsonUrls, isSuccess:isRegionSuccess } = useGetRegionGeojsonsQuery();
+  const { data: SitegeojsonUrls, isSuccess:isSiteSuccess } = useGetSiteGeojsonsQuery();
+  const dispatch = useDispatch();
+  const AllSite = useSelector((state) => state.geoJson.GeoJson.AllSite);
+
+  const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
+  const SitegeojsonUrl = isSiteSuccess && SitegeojsonUrls.data;
+dispatch(SetAllSiteData(SitegeojsonUrl));
   useEffect(() => {
     const ethiopia = { lat: 9.145, lng: 40.4897 };
     const map = L.map("map", {
@@ -23,13 +41,16 @@ export const Map = () => {
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(map);
 
-    if (isSuccess && GeoJSONUrl) {
-      GeoJSONUrl.forEach(url => {
-        fetchData(url).then((data) => {
+    if (isRegionSuccess && RegionGeoJSONUrl) {
+      RegionGeoJSONUrl.forEach(url => {
+        fetchRegionData(url).then((data) => {
+          console.log(data);
           L.geoJSON(data, {
             style: {
               fillColor: "green",
-              fillOpacity: 0.4,
+
+              fillOpacity: 0.3,
+
               color: "green",
               weight: 1,
             },
@@ -40,20 +61,34 @@ export const Map = () => {
       });
     }
 
+    if (isSiteSuccess && SitegeojsonUrl) {
+      SitegeojsonUrl.forEach(url => {
+        fetchSiteData(url).then((data) => {
+
+          L.geoJSON(data).addTo(map).eachLayer((layer) => {
+            const coordinates = layer.getBounds().getCenter();
+                // dispatch(SetAllSiteData(layer));
+               console.log(url,"All data...***");
+
+            const siteMarker = L.marker(coordinates, {icon: siteIcon}).addTo(map);
+  
+            siteMarker.on("click", function() {
+              const Site_id = parseInt(url.match(/\d+/)[0], 10); 
+              console.log("This is the marked layer that is clicked...",Site_id);
+              dispatch(setSiteId(Site_id));
+              map.fitBounds(layer.getBounds());
+          })
+          });
+        }).catch(error => {
+          console.error("Error fetching data for URL:", url, error);
+        });
+      });
+    }
+
     return () => {
       map.remove();
     };
-  }, [isSuccess, GeoJSONUrl]);
-
-  const fetchData = async (url) => {
-    try {
-      const response = await fetch(`https://tbrr.echnoserve.com/${url}`);
-      return await response.json();
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error;
-    }
-  };
+  }, [isRegionSuccess && RegionGeoJSONUrl, isSiteSuccess && SitegeojsonUrl]);
 
   return (
     <div id="map" className='h-full'>
