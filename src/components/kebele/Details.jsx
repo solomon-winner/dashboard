@@ -11,6 +11,10 @@ import { Check, Delete, Edit } from "@mui/icons-material";
 import { useGetSiteByKebeleQuery } from "../../redux/site/SiteApiSlice";
 import { Table2 } from "./Table2";
 import Select from "react-select";
+import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
+import { UpdateDataButton } from "../Resource/Utility/UpdateDataButton";
+import { UpdateButton } from "../Resource/Utility/UpdateButton";
+import BackButton from "../Resource/Utility/BackButton";
 
 export const Details = () => {
   const { id } = useParams();
@@ -48,12 +52,7 @@ export const Details = () => {
     return (
       <div>
         <div className="flex justify-between p-10">
-          <button
-            onClick={goBack}
-            className="text-sm py-1 px-4 rounded-md bg-mainColor text-white hover:bg-customDark font-semibold"
-          >
-            back
-          </button>
+          <BackButton />
           <Select
             options={kebeleOptions}
             onChange={handleWeredaSelect}
@@ -61,24 +60,9 @@ export const Details = () => {
             className="w-full sm:w-1/3 lg:w-1/4"
           />
           <div className="flex gap-4">
-            <button className=" p-2 rounded-md text-sm bg-deletecolor hover:bg-customDark text-white font-semibold">
-              <Delete style={{ fontSize: "large" }} className="mr-2" />
-              Delete Kebele
-            </button>
-            <Link
-              to={`/admin/update-kebeleData/${id}`}
-              className=" p-2 rounded-md text-sm bg-updatecolor hover:bg-customDark text-white font-semibold"
-            >
-              <Edit style={{ fontSize: "large" }} className="mr-2" />
-              Update kebele Data
-            </Link>
-            <Link
-              to={`/admin/update-kebele/${id}`}
-              className=" p-2 rounded-md text-sm bg-updatecolor hover:bg-customDark text-white font-semibold"
-            >
-              <Edit style={{ fontSize: "large" }} className="mr-2" />
-              Update kebele
-            </Link>
+            <DeleteButton />
+            <UpdateDataButton id={id} name="Kebele" />
+            <UpdateButton id={id} name="Kebele" />
           </div>
         </div>
         <div className="bg-white py-12 sm:py-12">
@@ -201,15 +185,16 @@ export const Details = () => {
                     >
                       {data.data.resources &&
                         data.data.resources.map((resource, index) =>
-                        resource.TREE?.filter(
-                          (tree) => !tree.hasOwnProperty("indigenous")
-                        ).map((tree, index) => (
-                          <li key={index} className="flex gap-x-3 text-xs">
-                            <Check style={{ fontSize: "large" }} />
+                          resource.TREE?.filter(
+                            (tree) => !tree.hasOwnProperty("indigenous")
+                          ).map((tree, index) => (
+                            <li key={index} className="flex gap-x-3 text-xs">
+                              <Check style={{ fontSize: "large" }} />
 
-                            {tree.value}
-                          </li>
-                        )))}
+                              {tree.value}
+                            </li>
+                          ))
+                        )}
                     </ul>
                   </div>
                   <div className="bg-white shadow-md rounded-md p-4 h-fit">
@@ -237,14 +222,15 @@ export const Details = () => {
                     </h1>
                     {data.data.resources &&
                       data.data.resources.map((resource, index) =>
-                      resource?.LIVESTOCK?.map((item, index) => (
-                        <p key={index} className="font-semibold text-sm">
-                          {item.value}:{" "}
-                          <span className="font-normal text-xs">
-                            {item.amount}
-                          </span>
-                        </p>
-                      )))}
+                        resource?.LIVESTOCK?.map((item, index) => (
+                          <p key={index} className="font-semibold text-sm">
+                            {item.value}:{" "}
+                            <span className="font-normal text-xs">
+                              {item.amount}
+                            </span>
+                          </p>
+                        ))
+                      )}
                   </div>
 
                   {/* <div className='flex text-gray-600 flex-col gap-2'> 
@@ -260,14 +246,15 @@ export const Details = () => {
                     </h1>
                     {data.data.resources &&
                       data.data.resources.map((resource, index) =>
-                      resource?.CROP?.map((item, index) => (
-                        <p key={index} className="font-semibold text-sm">
-                          {item.value}:{" "}
-                          <span className="font-normal text-xs">
-                            {item.amount}
-                          </span>
-                        </p>
-                      )))}
+                        resource?.CROP?.map((item, index) => (
+                          <p key={index} className="font-semibold text-sm">
+                            {item.value}:{" "}
+                            <span className="font-normal text-xs">
+                              {item.amount}
+                            </span>
+                          </p>
+                        ))
+                      )}
                   </div>
 
                   <div className="bg-white shadow-md rounded-md p-4 h-fit">
@@ -276,14 +263,15 @@ export const Details = () => {
                     </h1>
                     {data.data.resources &&
                       data.data.resources.map((resource, index) =>
-                      resource?.FRUIT?.map((item, index) => (
-                        <p key={index} className="font-semibold text-sm">
-                          {item.value}:{" "}
-                          <span className="font-normal text-xs">
-                            {item.amount}
-                          </span>
-                        </p>
-                      )))}
+                        resource?.FRUIT?.map((item, index) => (
+                          <p key={index} className="font-semibold text-sm">
+                            {item.value}:{" "}
+                            <span className="font-normal text-xs">
+                              {item.amount}
+                            </span>
+                          </p>
+                        ))
+                      )}
                   </div>
 
                   <div className="bg-white shadow-md rounded-md p-4 h-fit">
@@ -292,14 +280,15 @@ export const Details = () => {
                     </h1>
                     {data.data.resources &&
                       data.data.resources.map((resource, index) =>
-                      resource?.NURSERY?.map((item, index) => (
-                        <p key={index} className="font-semibold text-sm">
-                          {item.value}:{" "}
-                          <span className="font-normal text-xs">
-                            number: {item.amount} capacity: {item.capacity}
-                          </span>
-                        </p>
-                      )))}
+                        resource?.NURSERY?.map((item, index) => (
+                          <p key={index} className="font-semibold text-sm">
+                            {item.value}:{" "}
+                            <span className="font-normal text-xs">
+                              number: {item.amount} capacity: {item.capacity}
+                            </span>
+                          </p>
+                        ))
+                      )}
                   </div>
 
                   <div className="bg-white shadow-md rounded-md p-4 h-fit">

@@ -7,11 +7,17 @@ import { AddForm3 } from "./addform/AddForm3";
 import { useAddSiteDataMutation } from "../../redux/site/SiteApiSlice";
 import { toast } from "react-toastify";
 import { useAddResourceMutation } from "../../redux/resource/ResourceApiSlice";
-
+import BackButton from "../Resource/Utility/BackButton";
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
-export const RadioButtonGroup = ({ name, label, options, value, handleChange }) => {
+export const RadioButtonGroup = ({
+  name,
+  label,
+  options,
+  value,
+  handleChange,
+}) => {
   return (
     <div className="ml-8">
       <h6 className="text-blueGray-400 text-xs mt-3 mb-4 font-semibold uppercase">
@@ -66,12 +72,12 @@ export const AddSite = () => {
     microwatershed: "",
     site: "",
     sizeofsite: "",
-    file: null, 
-    indegeneoustype: "", 
+    file: null,
+    indegeneoustype: "",
     exotictype: "",
-    landUse: "", 
-    forage: "", 
-    livelihoodSupport: "", 
+    landUse: "",
+    forage: "",
+    livelihoodSupport: "",
   });
   const handleNext = (e) => {
     e.preventDefault();
@@ -81,136 +87,160 @@ export const AddSite = () => {
   const handleBack = () => {
     setStep(step - 1);
   };
-  const handleSubmit = async(values) => {
+  const handleSubmit = async (values) => {
     const indegeneoustreeArray = [];
     let i = 1;
     while (true) {
-       const typeKey = `indegeneoustype${i}`;
-       if (values[typeKey]) {
-         if (isNaN(values[typeKey])) {
-           const response = await addResource({ name:values[typeKey],resource_type:"TREE" });
-           if (response.data) {
-             toast.success("Resource added successfully");
-             values[typeKey] = response.data.data.id;
-           } else {
-             toast.error(response.error.data.message);
-           }
-         }
-         indegeneoustreeArray.push({
-           resource_id: values[typeKey],
-           indigenous: 1,
-         });
-         i++;
-       } else {
-         break;
-       }
+      const typeKey = `indegeneoustype${i}`;
+      if (values[typeKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addResource({
+            name: values[typeKey],
+            resource_type: "TREE",
+          });
+          if (response.data) {
+            toast.success("Resource added successfully");
+            values[typeKey] = response.data.data.id;
+          } else {
+            toast.error(response.error.data.message);
+          }
+        }
+        indegeneoustreeArray.push({
+          resource_id: values[typeKey],
+          indigenous: 1,
+        });
+        i++;
+      } else {
+        break;
+      }
     }
     const exotictreeArray = [];
     let j = 1;
     while (true) {
-       const typeKey = `exotictype${j}`;
-       if (values[typeKey]) {
-         if (isNaN(values[typeKey])) {
-           const response = await addResource({ name:values[typeKey],resource_type:"TREE" });
-           if (response.data) {
-             toast.success("Resource added successfully");
-             values[typeKey] = response.data.data.id;
-           } else {
-             toast.error(response.error.data.message);
-           }
-         }
-         exotictreeArray.push({
-           resource_id: values[typeKey],
-           indigenous: 0,
-         });
-         j++;
-       } else {
-         break;
-       }
+      const typeKey = `exotictype${j}`;
+      if (values[typeKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addResource({
+            name: values[typeKey],
+            resource_type: "TREE",
+          });
+          if (response.data) {
+            toast.success("Resource added successfully");
+            values[typeKey] = response.data.data.id;
+          } else {
+            toast.error(response.error.data.message);
+          }
+        }
+        exotictreeArray.push({
+          resource_id: values[typeKey],
+          indigenous: 0,
+        });
+        j++;
+      } else {
+        break;
+      }
     }
     const currentlanduseArray = [];
     let k = 1;
     while (true) {
-       const typeKey = `currentlanduse${k}`;
-       if (values[typeKey]) {
-         if (isNaN(values[typeKey])) {
-           const response = await addResource({ name:values[typeKey],resource_type:"LAND" });
-           if (response.data) {
-             toast.success("Resource added successfully");
-             values[typeKey] = response.data.data.id;
-           } else {
-             toast.error(response.error.data.message);
-           }
-         }
-         currentlanduseArray.push({
-           resource_id: values[typeKey],
-           indigenous: 0,
-         });
-         k++;
-       } else {
-         break;
-       }
+      const typeKey = `currentlanduse${k}`;
+      if (values[typeKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addResource({
+            name: values[typeKey],
+            resource_type: "LAND",
+          });
+          if (response.data) {
+            toast.success("Resource added successfully");
+            values[typeKey] = response.data.data.id;
+          } else {
+            toast.error(response.error.data.message);
+          }
+        }
+        currentlanduseArray.push({
+          resource_id: values[typeKey],
+          indigenous: 0,
+        });
+        k++;
+      } else {
+        break;
+      }
     }
     const forageArray = [];
     let l = 1;
     while (true) {
-       const typeKey = `forage${l}`;
-       if (values[typeKey]) {
-         if (isNaN(values[typeKey])) {
-           const response = await addResource({ name:values[typeKey],resource_type:"FORAGE" });
-           if (response.data) {
-             toast.success("Resource added successfully");
-             values[typeKey] = response.data.data.id;
-           } else {
-             toast.error(response.error.data.message);
-           }
-         }
-         forageArray.push({
-           resource_id: values[typeKey],
-           indigenous: 0,
-         });
-         l++;
-       } else {
-         break;
-       }
+      const typeKey = `forage${l}`;
+      if (values[typeKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addResource({
+            name: values[typeKey],
+            resource_type: "FORAGE",
+          });
+          if (response.data) {
+            toast.success("Resource added successfully");
+            values[typeKey] = response.data.data.id;
+          } else {
+            toast.error(response.error.data.message);
+          }
+        }
+        forageArray.push({
+          resource_id: values[typeKey],
+          indigenous: 0,
+        });
+        l++;
+      } else {
+        break;
+      }
     }
     const livelihoodArray = [];
     let m = 1;
     while (true) {
-       const typeKey = `livelihood${m}`;
-       if (values[typeKey]) {
-         if (isNaN(values[typeKey])) {
-           const response = await addResource({ name:values[typeKey],resource_type:"FORAGE" });
-           if (response.data) {
-             toast.success("Resource added successfully");
-             values[typeKey] = response.data.data.id;
-           } else {
-             toast.error(response.error.data.message);
-           }
-         }
-         livelihoodArray.push({
-           resource_id: values[typeKey],
-           indigenous: 0,
-         });
-         m++;
-       } else {
-         break;
-       }
+      const typeKey = `livelihood${m}`;
+      if (values[typeKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addResource({
+            name: values[typeKey],
+            resource_type: "FORAGE",
+          });
+          if (response.data) {
+            toast.success("Resource added successfully");
+            values[typeKey] = response.data.data.id;
+          } else {
+            toast.error(response.error.data.message);
+          }
+        }
+        livelihoodArray.push({
+          resource_id: values[typeKey],
+          indigenous: 0,
+        });
+        m++;
+      } else {
+        break;
+      }
     }
-    
-    const resource = [...indegeneoustreeArray,...exotictreeArray,...currentlanduseArray,...forageArray,...livelihoodArray];
-    const value = {resource}
+
+    const resource = [
+      ...indegeneoustreeArray,
+      ...exotictreeArray,
+      ...currentlanduseArray,
+      ...forageArray,
+      ...livelihoodArray,
+    ];
+    const value = { resource };
     console.log(value);
-    const response = await addSiteData({...value,id:values.site_id})
+    const response = await addSiteData({ ...value, id: values.site_id });
     console.log(response);
     if (response.data) {
       toast.success("Site added successfully");
     } else {
       toast.error(response.error.data.message);
     }
-   };
+  };
   return (
     <div className="bg-dashbordColor">
+      <div className="pt-6 pl-4">
+        <BackButton />
+      </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
           <h1 className="text-3xl font-bold mb-5">Add Site Data</h1>
@@ -219,39 +249,51 @@ export const AddSite = () => {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-             {({ handleChange }) => (
-            <Form>
-              {step === 1 && <AddForm handleChange={handleChange} formData={formData} setFormData={setFormData} />}
-              {step === 2 && <AddForm2 handleChange={handleChange} formData={formData} setFormData={setFormData}/>}
-              <div className="mt-20 flex justify-between w-10/12 ">
-                {step > 1 && (
-                  <button
-                    type="button"
-                    onClick={handleBack}
-                    className="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
-                  >
-                    Back
-                  </button>
+            {({ handleChange }) => (
+              <Form>
+                {step === 1 && (
+                  <AddForm
+                    handleChange={handleChange}
+                    formData={formData}
+                    setFormData={setFormData}
+                  />
                 )}
-                <div className="text-gray-500 text-sm">Page {step} of 2</div>
-                {step < 2 ? (
-                  <button
-                    type="button"
-                    onClick={handleNext}
-                    className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
-                  >
-                    Next
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
-                  >
-                    Submit
-                  </button>
+                {step === 2 && (
+                  <AddForm2
+                    handleChange={handleChange}
+                    formData={formData}
+                    setFormData={setFormData}
+                  />
                 )}
-              </div>
-            </Form>
+                <div className="mt-20 flex justify-between w-10/12 ">
+                  {step > 1 && (
+                    <button
+                      type="button"
+                      onClick={handleBack}
+                      className="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
+                    >
+                      Back
+                    </button>
+                  )}
+                  <div className="text-gray-500 text-sm">Page {step} of 2</div>
+                  {step < 2 ? (
+                    <button
+                      type="button"
+                      onClick={handleNext}
+                      className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
+                    >
+                      Next
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
+                    >
+                      Submit
+                    </button>
+                  )}
+                </div>
+              </Form>
             )}
           </Formik>
         </div>

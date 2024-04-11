@@ -25,6 +25,7 @@ export const RegionDetails = () => {
       </div>
     );
   }
+
   return (
     <div className="bg-dashbordColor">
       <div className="flex justify-between p-10">

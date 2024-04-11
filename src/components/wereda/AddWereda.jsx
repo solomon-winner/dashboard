@@ -8,11 +8,10 @@ import { ArrowDropDown } from "@mui/icons-material";
 import { useAddWoredaDataMutation } from "../../redux/wereda/WeredaApiSlice";
 import { toast } from "react-toastify";
 import { useAddResourceMutation } from "../../redux/resource/ResourceApiSlice";
+import BackButton from "../Resource/Utility/BackButton";
 const validationSchema = Yup.object().shape({
-  region_id: Yup.string()
-    .required("Region is required"),
- woreda_id: Yup.string()
-    .required("Wereda is required"),
+  region_id: Yup.string().required("Region is required"),
+  woreda_id: Yup.string().required("Wereda is required"),
 });
 
 export const FormField = ({
@@ -40,21 +39,22 @@ export const FormField = ({
     }
     if (type === "dropdown") {
       setFilteredOptions(
-        options.filter((option) =>
-           typeof option.label === 'string' && option.label.toLowerCase().includes(value.toLowerCase())
+        options.filter(
+          (option) =>
+            typeof option.label === "string" &&
+            option.label.toLowerCase().includes(value.toLowerCase())
         )
-       );
+      );
     }
     handleChange(e);
   };
 
   const handleSelectOption = (value) => {
-
     setInputValue(value.label);
     // Create a mock event object with a name property
     const mockEvent = {
       target: {
-        name: name, 
+        name: name,
         value: value,
       },
     };
@@ -165,12 +165,10 @@ export const Addwereda = () => {
     vetclinic: "",
   });
 
-
   const handleNext = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     setStep(step + 1);
   };
-  
 
   const handleBack = () => {
     setStep(step - 1);
@@ -179,13 +177,16 @@ export const Addwereda = () => {
   const handleSubmit = async (values) => {
     console.log(values);
     const landArray = [];
-       let i = 1;
+    let i = 1;
     while (true) {
       const typeKey = `type${i}`;
       const areaKey = `area${i}`;
       if (values[typeKey] && values[areaKey]) {
         if (isNaN(values[typeKey])) {
-          const response = await addResource({ name:values[typeKey],resource_type:"LAND" });
+          const response = await addResource({
+            name: values[typeKey],
+            resource_type: "LAND",
+          });
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
@@ -209,7 +210,10 @@ export const Addwereda = () => {
       const areaKey = `distance${j}`;
       if (values[typeKey] && values[areaKey]) {
         if (isNaN(values[typeKey])) {
-          const response = await addResource({ name:values[typeKey],resource_type:"ROAD" });
+          const response = await addResource({
+            name: values[typeKey],
+            resource_type: "ROAD",
+          });
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
@@ -257,7 +261,7 @@ export const Addwereda = () => {
       }
     }
 
-    const institution =[...schoolArray, ...healthArray];
+    const institution = [...schoolArray, ...healthArray];
     const resource = [...landArray, ...roadArray];
     const urban_kebeles = values.urban_kebeles;
     const rural_kebeles = values.rural_kebeles;
@@ -265,7 +269,7 @@ export const Addwereda = () => {
     const female_hh = values.female_hh;
     const male_population = values.male_population;
     const female_population = values.female_population;
-  
+
     // Create a new object to store these values
     const data = {
       urban_kebeles,
@@ -281,26 +285,28 @@ export const Addwereda = () => {
       institution,
     };
 
-console.log(value)
+    console.log(value);
     // Check if it's the last step before submitting
-      const response = await addweredadata({ ...value, id: values.woreda_id });
-      console.log(response);
-      if (response.data) {
-        toast.success("Data Added Successfully");
-      } else {
-        toast.error(response.error.data.message);
-      }
-
+    const response = await addweredadata({ ...value, id: values.woreda_id });
+    console.log(response);
+    if (response.data) {
+      toast.success("Data Added Successfully");
+    } else {
+      toast.error(response.error.data.message);
+    }
   };
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
- };
+  };
 
   return (
     <div className="bg-dashbordColor">
+      <div className="pt-6 pl-4">
+        <BackButton />
+      </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
           <h1 className="text-3xl font-bold mb-5">Add Wereda Data</h1>
@@ -311,9 +317,27 @@ console.log(value)
           >
             {({ handleChange }) => (
               <Form>
-                {step === 1 && <AddForm handleChange={handleChange} formData={formData} setFormData={setFormData}/>}
-                {step === 2 && <AddForm2 handleChange={handleChange} formData={formData} setFormData={setFormData}/>}
-                {step === 3 && <AddForm3 handleChange={handleChange} formData={formData} setFormData={setFormData}/>}
+                {step === 1 && (
+                  <AddForm
+                    handleChange={handleChange}
+                    formData={formData}
+                    setFormData={setFormData}
+                  />
+                )}
+                {step === 2 && (
+                  <AddForm2
+                    handleChange={handleChange}
+                    formData={formData}
+                    setFormData={setFormData}
+                  />
+                )}
+                {step === 3 && (
+                  <AddForm3
+                    handleChange={handleChange}
+                    formData={formData}
+                    setFormData={setFormData}
+                  />
+                )}
                 <div className="mt-20 flex justify-between w-10/12">
                   {step > 1 && (
                     <button
@@ -327,7 +351,7 @@ console.log(value)
                   <div className="text-gray-500 text-sm">Page {step} of 3</div>
                   {step < 3 ? (
                     <button
-                      type="button" 
+                      type="button"
                       onClick={handleNext}
                       className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
                     >

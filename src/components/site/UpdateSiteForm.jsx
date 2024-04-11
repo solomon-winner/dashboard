@@ -26,6 +26,9 @@ import {
   useGetWoredaQuery,
 } from "../../redux/wereda/WeredaApiSlice";
 import MainLoading from "../Resource/Loading/MainLoading";
+import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
+import BackButton from "../Resource/Utility/BackButton";
+
 const validationSchema = Yup.object().shape({
   region_id: Yup.string().required("Region is required"),
   woreda_id: Yup.string().required("Wereda is required"),
@@ -71,12 +74,18 @@ export const UpdateSiteForm = () => {
     data: getweredaByRegion,
     isSuccess: weredaSuccess,
     isFetching,
-  } = useGetWeredaByRegionQuery({ id: selectedRegion, with_sites: true }, { skip: !selectedRegion });
+  } = useGetWeredaByRegionQuery(
+    { id: selectedRegion, with_sites: true },
+    { skip: !selectedRegion }
+  );
   const {
     data: getkebeleByWereda,
     isSuccess: kebeleSuccess,
     isFetching: kebeleFetching,
-  } = useGetKebeleByWeredaQuery({id: selectedWereda, with_sites: true}, { skip: !selectedWereda });
+  } = useGetKebeleByWeredaQuery(
+    { id: selectedWereda, with_sites: true },
+    { skip: !selectedWereda }
+  );
   const [formData, setFormData] = useState({
     watershed_name: "",
     site_name: "",
@@ -151,6 +160,7 @@ export const UpdateSiteForm = () => {
   }, [weredaDataSuccess, weredas, kebeleDataSuccess, kebeles]);
 
   const handleSubmit = async (values) => {
+    console.log(values);
     const updatedValues = {
       ...values,
       kebele_id: parseInt(values.kebele_id, 10),
@@ -164,11 +174,16 @@ export const UpdateSiteForm = () => {
       }
     }
     if (updatedValues.geojson instanceof File) {
-      formData.append("geojson", updatedValues.geojson);
+      // Use the GeoJsonConverter component to convert the GeoJSON file
+      const geoJsonConverter = await GeoJsonConverter.convert(
+        updatedValues.geojson
+      );
+      console.log(updatedValues.geojson);
+      console.log(geoJsonConverter);
+      formData.append("geojson", geoJsonConverter);
     }
     console.log({ id: id, updatedValues });
 
-   
     const site = await UpdateSite({ id: id, data: formData });
     console.log(site);
     if (site.data) {
@@ -200,6 +215,9 @@ export const UpdateSiteForm = () => {
   };
   return (
     <div className="bg-dashbordColor">
+      <div className="pt-6 pl-4">
+        <BackButton />
+      </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
           <h1 className="text-3xl font-bold mb-5">Update Site</h1>
@@ -302,7 +320,7 @@ export const UpdateSiteForm = () => {
                             });
                             setFormData({
                               ...formData,
-                              selectedWeredaName: option.label, 
+                              selectedWeredaName: option.label,
                               selectedKebele: "",
                             });
                           }}
@@ -399,7 +417,7 @@ export const UpdateSiteForm = () => {
                     />
                   </div>
                   <div className="flex justify-between flex-grow">
-                  {formData.geojson && (
+                    {formData.geojson && (
                       <div className="mb-4 w-full lg:w-2/5 px-4">
                         <a
                           href={`https://tbrr.echnoserve.com/storage/app/public/${formData.geojson}`}
@@ -413,28 +431,28 @@ export const UpdateSiteForm = () => {
                           Selected file: {formData.geojsonName}
                         </p> */}
                       </div>
-                      )}
-                      <div className="w-full lg:w-2/5 mt-5">
-                        <input
-                          id="geojsonFile"
-                          type="file"
-                          name="geojson"
-                          accept=".geojson"
-                          className="hidden"
-                          onChange={(event) => {
-                            const file = event.currentTarget.files[0];
-                            setFieldValue("geojson", file);
-                            setFieldValue("geojsonName", file.name);
-                          }}
-                        />
-                        <label
-                          htmlFor="geojsonFile"
-                          className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded shadow-md cursor-pointer"
-                        >
-                          Upload GeoJSON
-                        </label>
-                      </div>
+                    )}
+                    <div className="w-full lg:w-2/5 mt-5">
+                      <input
+                        id="geojsonFile"
+                        type="file"
+                        name="geojson"
+                        accept=".geojson"
+                        className="hidden"
+                        onChange={(event) => {
+                          const file = event.currentTarget.files[0];
+                          setFieldValue("geojson", file);
+                          setFieldValue("geojsonName", file.name);
+                        }}
+                      />
+                      <label
+                        htmlFor="geojsonFile"
+                        className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded shadow-md cursor-pointer"
+                      >
+                        Upload GeoJSON
+                      </label>
                     </div>
+                  </div>
                   <button
                     type="submit"
                     className="mt-4 bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"

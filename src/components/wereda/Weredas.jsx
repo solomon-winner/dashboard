@@ -7,7 +7,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import { useSelector } from "react-redux";
-import Loadings from '../Resource/Loading/Loadings';
+import Loadings from "../Resource/Loading/Loadings";
+import BackButton from "../Resource/Utility/BackButton";
 const validationSchema = Yup.object().shape({
   woreda_name: Yup.string().required("Wereda name is required"),
   status: Yup.string().required("Status is required"),
@@ -18,7 +19,7 @@ const validationSchema = Yup.object().shape({
 export const Weredas = () => {
   const [file, setFile] = useState(null);
   const [selectedRegion, setSelectedRegion] = useState("");
-  const { regions,isLoadingRegions } = useSelector((state) => state.region);
+  const { regions, isLoadingRegions } = useSelector((state) => state.region);
   const [AddWereda] = useAddWoredaMutation();
   const [formData, setFormData] = useState({
     woreda_name: "",
@@ -54,6 +55,9 @@ export const Weredas = () => {
   };
   return (
     <div className="h-screen bg-dashbordColor">
+      <div className="pt-6 pl-4">
+        <BackButton />
+      </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
           <h1 className="text-3xl font-bold mb-5">Add Wereda Data</h1>

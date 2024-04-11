@@ -5,11 +5,21 @@ import MainLoading from "../Resource/Loading/MainLoading";
 import Pagination from "../Resource/Pagination/Pagination";
 import { numberWithCommas } from "../region/View";
 import { Add } from "@mui/icons-material";
+import { AddButton } from "../Resource/Utility/AddButton";
+import { AddDataButton } from "../Resource/Utility/AddDataButton";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
-  const { data: site, isLoading, isSuccess } = useGetSiteQuery({ pagenumber : currentPage, perpage: 20, ...(searchInput && { search: searchInput }) });
+  const {
+    data: site,
+    isLoading,
+    isSuccess,
+  } = useGetSiteQuery({
+    pagenumber: currentPage,
+    perpage: 20,
+    ...(searchInput && { search: searchInput }),
+  });
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -69,20 +79,8 @@ export const View = () => {
             </form>
           </div>
           <div>
-            <Link
-              to="/admin/add-sites"
-              className="bg-mainColor p-2 rounded-md text-sm text-white font-semibold hover:bg-customDark mr-4"
-            >
-              <Add style={{ fontSize: "large" }} className="mr-2"/>
-              Add Site
-            </Link>
-            <Link
-              to="/admin/new-site"
-              className="bg-mainColor p-2 rounded-md text-sm text-white font-semibold hover:bg-customDark"
-            >
-              <Add style={{ fontSize: "large" }} className="mr-2"/>
-              Add Site Data
-            </Link>
+            <AddButton name="Site" />
+            <AddDataButton name="Site" />
           </div>
         </div>
         <div className="h-full flex gap-3 flex-col">

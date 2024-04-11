@@ -12,6 +12,10 @@ import { Table } from "./Table";
 import { useGetKebeleByWeredaQuery } from "../../redux/kebele/KebeleApiSlice";
 import Select from "react-select";
 import { Delete, Edit } from "@mui/icons-material";
+import BackButton from "../Resource/Utility/BackButton";
+import { UpdateDataButton } from "../Resource/Utility/UpdateDataButton";
+import { UpdateButton } from "../Resource/Utility/UpdateButton";
+import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
 
 export const WeredaDetails = () => {
   const { id } = useParams();
@@ -31,9 +35,6 @@ export const WeredaDetails = () => {
     isSuccess: weredaSuccess,
   } = useGetWoredaQuery({ all: true });
   const [deleteWereda] = useDeleteWeredaByIdMutation();
-  const goBack = () => {
-    window.history.back();
-  };
 
   if (!isSuccess || isFetching || !weredadata || !KebeleData || !wereda) {
     return (
@@ -60,12 +61,7 @@ export const WeredaDetails = () => {
     return (
       <div className="bg-dashbordColor">
         <div className="flex justify-between p-10">
-          <button
-            onClick={goBack}
-            className="text-sm py-1 px-4 rounded-md bg-mainColor text-white hover:bg-customDark font-semibold"
-          >
-            back
-          </button>
+          <BackButton />
           <Select
             options={weredaOptions}
             onChange={handleWeredaSelect}
@@ -73,27 +69,9 @@ export const WeredaDetails = () => {
             className={`w-full sm:w-1/3 lg:w-1/4`}
           />
           <div className="flex gap-4">
-            <button
-              className=" p-2 rounded-md text-sm bg-deletecolor hover:bg-customDark text-white font-semibold"
-              onClick={() => deleteWereda(id)}
-            >
-              <Delete style={{ fontSize: "large" }} className="mr-2" />
-              Delete Wereda
-            </button>
-            <Link
-              to={`/admin/update-weredaData/${id}`}
-              className=" p-2 rounded-md text-sm bg-updatecolor hover:bg-customDark text-white font-semibold"
-            >
-              <Edit style={{ fontSize: "large" }} className="mr-2" />
-              Update WeredaData
-            </Link>
-            <Link
-              to={`/admin/update-wereda/${id}`}
-              className=" p-2 rounded-md text-sm bg-updatecolor hover:bg-customDark text-white font-semibold"
-            >
-              <Edit style={{ fontSize: "large" }} className="mr-2" />
-              Update Wereda
-            </Link>
+            <DeleteButton />
+            <UpdateDataButton id={id} name="Woreda" />
+            <UpdateButton id={id} name="Woreda" />
           </div>
         </div>
         <div className="py-12 sm:py-12">
@@ -308,4 +286,3 @@ export const WeredaDetails = () => {
     );
   }
 };
-
