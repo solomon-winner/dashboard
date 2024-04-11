@@ -12,8 +12,12 @@ import { useInitialValueSite } from "../../redux/InitialState/initalValueSite";
 import { useDispatch, useSelector } from "react-redux";
 import MainLoading from "../Resource/Loading/MainLoading";
 import { UpdateForm2 } from "./updateform/UpdateForm2";
-import {UpdateForm} from "./updateform/UpdateForm"
-import { setLoadingFalse, setLoadingTrue } from "../../redux/site/SiteByIdState";
+import { UpdateForm } from "./updateform/UpdateForm";
+import {
+  setLoadingFalse,
+  setLoadingTrue,
+} from "../../redux/site/SiteByIdState";
+import BackButton from "../Resource/Utility/BackButton";
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
@@ -25,11 +29,11 @@ export const UpdateSite = () => {
   const [addResource] = useAddResourceMutation();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState(siteData);
-  useEffect(()=>{
-    if(!loading && siteData){
+  useEffect(() => {
+    if (!loading && siteData) {
       setFormData(siteData);
     }
-  },[!loading])
+  }, [!loading]);
   const handleNext = (e) => {
     e.preventDefault();
     setStep(step + 1);
@@ -190,6 +194,9 @@ export const UpdateSite = () => {
   };
   return (
     <div className="bg-dashbordColor">
+      <div className="pt-6 pl-4">
+        <BackButton />
+      </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
           <h1 className="text-3xl font-bold mb-5">Update Site</h1>

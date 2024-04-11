@@ -48,7 +48,9 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
           L.geoJSON(data, {
             style: {
               fillColor: "green",
+
               fillOpacity: 0.3,
+
               color: "green",
               weight: 1,
             },

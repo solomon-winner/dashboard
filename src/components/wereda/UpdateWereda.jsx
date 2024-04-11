@@ -14,6 +14,7 @@ import { useAddResourceMutation } from "../../redux/resource/ResourceApiSlice";
 import MainLoading from "../Resource/Loading/MainLoading";
 import { useSelector } from "react-redux";
 import { useInitalValueworeda } from "../../redux/InitialState/initalValueWoreda";
+import BackButton from "../Resource/Utility/BackButton";
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
@@ -26,7 +27,7 @@ export const Updatewereda = () => {
     isFetching,
     refetch,
   } = useGetWeredaByIdQuery(id);
-  const {weredas,isLoadingWeredas} = useSelector((state) => state.wereda)
+  const { weredas, isLoadingWeredas } = useSelector((state) => state.wereda);
   const [addResource] = useAddResourceMutation();
   const [addweredadata] = useAddWoredaDataMutation();
   const [step, setStep] = useState(1);
@@ -34,8 +35,8 @@ export const Updatewereda = () => {
 
   // Use useEffect to update formData when woredadata is successfully fetched
   useEffect(() => {
-    if(!isLoadingWeredas && weredas){
-      setFormData(weredas)
+    if (!isLoadingWeredas && weredas) {
+      setFormData(weredas);
     }
   }, [!isLoadingWeredas]);
 
@@ -160,7 +161,7 @@ export const Updatewereda = () => {
     };
 
     console.log(value);
-  
+
     const response = await addweredadata({ ...value, id });
     console.log(response);
     if (response.data) {
@@ -171,6 +172,9 @@ export const Updatewereda = () => {
   };
   return (
     <div className="bg-dashbordColor">
+      <div className="pt-6 pl-4">
+        <BackButton />
+      </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
           <h1 className="text-3xl font-bold mb-5">Update Wereda Data</h1>

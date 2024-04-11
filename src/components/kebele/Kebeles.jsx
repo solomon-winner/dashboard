@@ -11,7 +11,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import { useSelector } from "react-redux";
-import Loadings from '../Resource/Loading/Loadings'
+import Loadings from "../Resource/Loading/Loadings";
+import BackButton from "../Resource/Utility/BackButton";
 const validationSchema = Yup.object().shape({
   kebele_name: Yup.string().required("Kebele name is required"),
   woreda_id: Yup.number().required("Wereda ID is required"),
@@ -27,7 +28,10 @@ const Kebeles = () => {
     data: getweredaByRegion,
     isSuccess: weredaSuccess,
     isFetching,
-  } = useGetWeredaByRegionQuery({ id: selectedRegion, with_sites: true }, { skip: !selectedRegion });
+  } = useGetWeredaByRegionQuery(
+    { id: selectedRegion, with_sites: true },
+    { skip: !selectedRegion }
+  );
   const [addKebele] = useAddKebeleMutation();
   const [formData, setFormData] = useState({
     kebele_name: "",
@@ -78,6 +82,9 @@ const Kebeles = () => {
 
   return (
     <div className="h-screen bg-dashbordColor">
+      <div className="pt-6 pl-4">
+        <BackButton />
+      </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
           <h1 className="text-3xl font-bold mb-5">Add Kebele</h1>
@@ -134,7 +141,7 @@ const Kebeles = () => {
                           });
                           setFormData({
                             ...formData,
-                            selectedRegionName: option.label, 
+                            selectedRegionName: option.label,
                             selectedWeredaName: "",
                           });
                         }}

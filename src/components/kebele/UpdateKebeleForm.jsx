@@ -19,11 +19,12 @@ import Loadings from "../Resource/Loading/Loadings";
 import { useParams } from "react-router-dom";
 import { useGetWeredaByIdQuery } from "../../redux/wereda/WeredaApiSlice";
 import MainLoading from "../Resource/Loading/MainLoading";
+import BackButton from "../Resource/Utility/BackButton";
 const validationSchema = Yup.object().shape({
   kebele_name: Yup.string().required("Kebele name is required"),
   woreda_id: Yup.number().required("Wereda ID is required"),
   region_id: Yup.number().required("Region ID is required"),
-// //   geojson: Yup.mixed().required("GeoJSON file is required"),
+  // //   geojson: Yup.mixed().required("GeoJSON file is required"),
   status: Yup.string().required("Status is required"),
 });
 const UpdateKebeleForm = () => {
@@ -43,7 +44,10 @@ const UpdateKebeleForm = () => {
     data: getweredaByRegion,
     isSuccess: weredaSuccess,
     isFetching,
-  } = useGetWeredaByRegionQuery({ id: selectedRegion, with_sites: true }, { skip: !selectedRegion });
+  } = useGetWeredaByRegionQuery(
+    { id: selectedRegion, with_sites: true },
+    { skip: !selectedRegion }
+  );
   const [addKebele] = useAddKebeleMutation();
   const [formData, setFormData] = useState({
     kebele_name: "",
@@ -58,8 +62,14 @@ const UpdateKebeleForm = () => {
   useEffect(() => {
     if (isSuccess && kebeles) {
       const Kebele = kebeles.data;
-      const { kebele_name, region_id, woreda_id, kebele_code, geojson,status } =
-        Kebele;
+      const {
+        kebele_name,
+        region_id,
+        woreda_id,
+        kebele_code,
+        geojson,
+        status,
+      } = Kebele;
       console.log(Kebele);
       const region = regions.find((region) => region.id === region_id);
       const selectedRegionName = region ? region.region_name : "";
@@ -79,7 +89,7 @@ const UpdateKebeleForm = () => {
         kebele_code,
         geojson,
         selectedRegionName,
-        status
+        status,
       });
       setSelectedRegion(region_id);
       setSelectedWereda(woreda_id);
@@ -149,6 +159,9 @@ const UpdateKebeleForm = () => {
   };
   return (
     <div className="h-screen bg-dashbordColor">
+      <div className="pt-6 pl-4">
+        <BackButton />
+      </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
           <h1 className="text-3xl font-bold mb-5">Add Kebele</h1>

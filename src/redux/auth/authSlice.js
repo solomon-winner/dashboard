@@ -17,6 +17,7 @@ const authSlice = createSlice({
       localStorage.setItem('accessToken', data.token);
       localStorage.setItem('user', email || user);
       localStorage.setItem('refreshToken', data.refresh_token);
+      localStorage.setItem('reloadTriggered', 'false');
     },
     logOut: (state) => {
       state.user = null;

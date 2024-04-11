@@ -5,7 +5,10 @@ export const Table2 = ({ site }) => {
   console.log(site);
 
   return (
-    <div className="flex">
+    <div
+      className="overflow-y-auto h-screen overflow-x-hidden"
+      style={{ height: `calc(100vh - 140px)` }}
+    >
       <table className="border-collapse pt-2 w-full">
         <thead>
           <tr>

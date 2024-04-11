@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const Table = ({ kebele }) => {
   console.log(kebele);
   return (
-    <div className="flex">
+    <div  className="overflow-y-auto h-screen overflow-x-hidden" style={{ height: `calc(100vh - 140px)`}}>
       <table className="border-collapse pt-2 w-full">
         <thead>
           <tr>
@@ -20,9 +20,9 @@ export const Table = ({ kebele }) => {
           {kebele.map((item, index) => (
             <tr
               key={item.id}
-              className="bg-white flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0"
+              className="bg-white border-b"
             >
-              <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+             <td className="px-6 py-4 whitespace-no-wrap">
                 <div className="flex items-center justify-between">
                   <Link
                     to={`/admin/kebele/${item.id}`}
@@ -38,7 +38,7 @@ export const Table = ({ kebele }) => {
                   </Link>
                 </div>
               </td>
-              <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+              <td className="px-6 py-4 whitespace-no-wrap">
                 {item.sites.map((site, siteIndex) => (
                   <div key={site.id} className="mb-1">
                     <div className="flex items-center justify-between">

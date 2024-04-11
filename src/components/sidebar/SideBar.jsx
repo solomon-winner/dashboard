@@ -81,56 +81,56 @@ const ProfileDropdown = () => {
         }`}
         aria-label="Sidebar"
       >
-        <div className="relative flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-green-900 pt-0">
+        <div className="relative flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-sideboard pt-0">
           <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-            <div className="flex-1 px-3 bg-green-900 divide-y space-y-1">
+            <div className="flex-1 px-3  bg-sideboard divide-y space-y-1">
               <ul className="space-y-2 pb-2">
                 <li>
-                  <NavLink to="/admin" className="text-sm text-white font-normal rounded-lg flex items-center p-2 hover:bg-rbgSecond group">
+                  <NavLink to="/admin" className="text-sm text-white font-normal rounded-lg flex items-center p-2 hover:bg-hoverColor group">
                      <DashboardRoundedIcon style={{ fontSize: "large" }}  />
                     <span className="ml-3">Dashboard</span>
                   </NavLink>
                 </li>
                 <li className='pl-3 text-sm  text-white font-semibold'>Inputs</li>
                 <li>
-                  <NavLink to="/admin/region" className="text-sm text-white font-normal rounded-lg hover:bg-rbgSecond flex items-center p-2 group ">
+                  <NavLink to="/admin/region" className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group ">
                      <MapsHomeWorkIcon style={{ fontSize: "large" }} />
                     <span className="ml-3 flex-1 whitespace-nowrap">Region</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/admin/wereda" className="text-sm text-white font-normal rounded-lg hover:bg-rbgSecond flex items-center p-2 group ">
+                  <NavLink to="/admin/wereda" className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group ">
                     < StreetviewIcon style={{ fontSize: "large" }} />
                     <span className="ml-3 flex-1 whitespace-nowrap">Wereda</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/admin/kebele" className="text-sm text-white font-normal rounded-lg hover:bg-rbgSecond flex items-center p-2 group ">
+                  <NavLink to="/admin/kebele" className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group ">
                     <GpsFixedRoundedIcon style={{ fontSize: "large" }} />
                     <span className="ml-3 flex-1 whitespace-nowrap">Kebele</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/admin/site" className="text-sm text-white font-normal rounded-lg hover:bg-rbgSecond flex items-center p-2 group">
+                  <NavLink to="/admin/site" className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group">
                     <LocationOnIcon style={{ fontSize: "large" }} />
                     <span className="ml-3 flex-1 whitespace-nowrap">Site</span>
                   </NavLink>
                 </li>
                 <li className='pl-3 text-sm text-white font-semibold'>User management</li>
                 <li>
-                  <NavLink to="/admin/Accounts" className="text-sm text-white font-normal rounded-lg hover:bg-rbgSecond flex items-center p-2 group ">
+                  <NavLink to="/admin/Accounts" className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group ">
                     <PeopleAltRoundedIcon style={{ fontSize: "large" }} />
                     <span className="ml-3 flex-1 whitespace-nowrap">Accounts</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/admin/profile" className="text-sm text-white font-normal rounded-lg hover:bg-rbgSecond flex items-center p-2 group ">
+                  <NavLink to="/admin/profile" className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group ">
                      <PersonRoundedIcon style={{ fontSize: "large" }}/>
                     <span className="ml-3 flex-1 whitespace-nowrap">My Profile</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/admin/roles" className="text-sm text-white font-normal rounded-lg hover:bg-rbgSecond flex items-center p-2 group ">
+                  <NavLink to="/admin/roles" className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group ">
                     <MeetingRoom style={{ fontSize: "large" }}/>
                     <span className="ml-3 flex-1 whitespace-nowrap">Roles</span>
                   </NavLink>
