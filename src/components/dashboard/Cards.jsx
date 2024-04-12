@@ -4,7 +4,7 @@ import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import StreetviewIcon from '@mui/icons-material/Streetview';
 import GpsFixedRoundedIcon from '@mui/icons-material/GpsFixedRounded';
 import { useGetStatsQuery } from '../../redux/Stats/StatsApiSlice';
-import MainLoading from '../Resource/Loading/MainLoading';
+import {MainLoading} from '../Resource/Loading/Loadings';
 export const Cards = () => {
     const {data,isFetching, isSuccess} = useGetStatsQuery();
    const stats = isSuccess && data?.data;

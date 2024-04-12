@@ -73,19 +73,12 @@ const GeoJsonConverter = {
   },
 
   createFile: async (geoJson) => {
-    console.log(geoJson)
     const jsonString = JSON.stringify(geoJson);
     const blob = new Blob([jsonString], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', 'convertedGeoJson.json');
-    document.body.appendChild(link);
-    link.click();
-    link.parentNode.removeChild(link);
-    URL.revokeObjectURL(url);
-    return blob;
-  },
+    // Create a File object from the Blob
+    const file = new File([blob], 'convertedGeoJson.json', { type: 'application/json' });
+    return file;
+   },
 };
 
 export default GeoJsonConverter;

@@ -1,31 +1,49 @@
-import React from 'react';
+import React from "react";
 
-const DeleteConfirmationDialog = ({ showConfirmation, handleConfirmDelete, handleCancelDelete, isDeleting }) => {
- if (!showConfirmation) return null;
+const DeleteConfirmationDialog = ({
+  showConfirmation,
+  handleConfirmDelete,
+  handleCancelDelete,
+  isDeleting,
+}) => {
+  if (!showConfirmation) return null;
 
- return (
-    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75 z-50">
-      <div className="bg-white rounded-lg p-8 max-w-md">
-        <div className="text-2xl text-gray-800 mb-4">Confirmation</div>
-        <div className="text-lg text-gray-800 mb-4">Are you sure you want to delete this role?</div>
-        <div className="flex justify-end">
-          <button
-            onClick={handleCancelDelete}
-            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 mr-2 rounded"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleConfirmDelete}
-            disabled={isDeleting}
-            className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            {isDeleting ? "Deleting..." : "Delete"}
-          </button>
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white shadow-xl rounded-lg overflow-hidden max-w-md w-full">
+        {" "}
+        {/* Decreased the max-w-lg to max-w-md */}
+        <div className="p-6">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Confirm Deletion
+          </h2>
+          <div className="mt-2 px-7 py-3">
+            <p className="text-sm text-gray-500">
+              Are you sure you want to delete this role? This action cannot be
+              undone.
+            </p>
+          </div>
+          <div className="flex justify-end space-x-3">
+            <button
+              onClick={handleCancelDelete}
+              className="py-2 px-4 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded transition duration-150"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleConfirmDelete}
+              disabled={isDeleting}
+              className={`py-2 px-4 text-white ${
+                isDeleting ? "bg-red-400" : "bg-red-600 hover:bg-red-700"
+              } rounded transition duration-150`}
+            >
+              {isDeleting ? "Deleting..." : "Confirm"}
+            </button>
+          </div>
         </div>
       </div>
     </div>
- );
+  );
 };
 
 export default DeleteConfirmationDialog;

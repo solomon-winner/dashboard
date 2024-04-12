@@ -11,10 +11,11 @@ import {
 } from "../../redux/wereda/WeredaApiSlice";
 import { toast } from "react-toastify";
 import { useAddResourceMutation } from "../../redux/resource/ResourceApiSlice";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
 import { useSelector } from "react-redux";
 import { useInitalValueworeda } from "../../redux/InitialState/initalValueWoreda";
 import BackButton from "../Resource/Utility/BackButton";
+import { FormBackButton, FormNextButton } from "../Resource/Utility/FormButtons";
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
@@ -65,9 +66,7 @@ export const Updatewereda = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         landArray.push({
           resource_id: values[typeKey],
@@ -92,9 +91,7 @@ export const Updatewereda = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         roadArray.push({
           resource_id: values[typeKey],
@@ -166,9 +163,7 @@ export const Updatewereda = () => {
     console.log(response);
     if (response.data) {
       toast.success("Data Added Successfully");
-    } else {
-      toast.error(response.error.data.message);
-    }
+    } 
   };
   return (
     <div className="bg-dashbordColor">
@@ -212,25 +207,13 @@ export const Updatewereda = () => {
                   )}
                   <div className="mt-20 flex justify-between w-10/12">
                     {step > 1 && (
-                      <button
-                        type="button"
-                        onClick={handleBack}
-                        className="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
-                      >
-                        Back
-                      </button>
+                     <FormBackButton handleBack={handleBack}/>
                     )}
                     <div className="text-gray-500 text-sm">
                       Page {step} of 3
                     </div>
                     {step < 3 ? (
-                      <button
-                        type="button"
-                        onClick={handleNext}
-                        className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
-                      >
-                        Next
-                      </button>
+                      <FormNextButton handleNext={handleNext}/>
                     ) : (
                       <button
                         type="submit"

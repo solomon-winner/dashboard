@@ -4,7 +4,7 @@ import {
   useDeleteRoleMutation,
   useGetRolesQuery,
 } from "../../redux/roles/RolesApiSlice";
-import { Delete, Edit } from "@mui/icons-material";
+import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,7 +12,7 @@ import {
   setLoadingRoles,
   setRoles,
 } from "../../redux/roles/RolesState";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
 
 const View = () => {
   const [deleteRole, { isLoading: isDeleting }] = useDeleteRoleMutation();
@@ -21,7 +21,7 @@ const View = () => {
   const dispatch = useDispatch();
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [deleteRoleId, setDeleteRoleId] = useState(null);
-console.log(rolesData)
+
   const handleDeleteConfirmation = (roleId) => {
     setDeleteRoleId(roleId);
     setShowConfirmation(true);
@@ -44,21 +44,21 @@ console.log(rolesData)
   };
 
   return (
-    <div className="container h-screen pt-6">
-      <div className="w-full md:w-3/4 mx-auto bg-white rounded-lg shadow-md">
+    <div className="container mx-auto pt-6">
+      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow">
         <div className="p-6">
-          <h1 className="text-3xl font-semibold mb-6 text-gray-800">Roles</h1>
+          <h1 className="text-3xl font-semibold mb-6 ">Roles Management</h1>
           <div className="flex justify-end items-center mb-6">
             <Link
               to="/admin/create-roles"
-              className="bg-blue-500 hover:bg-blue-600 py-2 px-6 rounded text-white font-semibold transition duration-300"
+              className="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 py-2 px-6 rounded text-white font-semibold transition duration-300"
             >
-              Add Roles
+              Add New Role
             </Link>
           </div>
           <div className="mt-4 overflow-x-auto">
             <table className="w-full text-sm text-left">
-              <thead className="text-xs uppercase bg-gray-100 text-gray-600">
+              <thead className="text-xs text-white uppercase bg-green-50 dark:bg-green-700 ">
                 <tr>
                   <th scope="col" className="py-3 px-6">
                     Role Name
@@ -70,21 +70,20 @@ console.log(rolesData)
               </thead>
               <tbody>
                 {isLoadingRoles ? (
-                  <tr className="bg-white border-b">
-                    <td className="py-4 px-6 text-gray-800"><MainLoading/></td>
-                    <td className="py-4 px-6 text-right"></td>
+                  <tr className="bg-green-50 border-b">
+                    <td colSpan="2" className="py-4 px-6 text-center"><MainLoading/></td>
                   </tr>
                 ) : (
                   rolesData.map((role) => (
-                    <tr key={role.id} className="bg-white border-b">
-                      <td className="py-4 px-6 text-gray-800">{role.name}</td>
+                    <tr key={role.id} className=" border-b hover:bg-green-100">
+                      <td className="py-4 px-6 text-green-900">{role.name}</td>
                       <td className="py-4 px-6 text-right">
-                        <div className="flex justify-end">
+                        <div className="flex justify-end items-center space-x-3">
                           <Link
                             to={`/admin/update-roles/${role.id}`}
-                            className="text-blue-600 hover:text-blue-700 mr-2 transition duration-300"
+                            className="text-green-600 hover:text-green-700 transition duration-300"
                           >
-                            <Edit className="w-5 h-5 inline-block" />
+                            <EditOutlined />
                           </Link>
                           <button
                             onClick={() => handleDeleteConfirmation(role.id)}
@@ -92,7 +91,7 @@ console.log(rolesData)
                             title="Delete"
                             disabled={isDeleting}
                           >
-                            <Delete className="w-5 h-5 inline-block" />
+                            <DeleteOutline />
                           </button>
                         </div>
                       </td>
@@ -106,27 +105,40 @@ console.log(rolesData)
       </div>
 
       {showConfirmation && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75 z-50">
-          <div className="bg-white rounded-lg p-8 max-w-md">
-            <div className="text-2xl text-gray-800 mb-4">Confirmation</div>
-            <div className="text-lg text-gray-800 mb-4">Are you sure you want to delete this role?</div>
-            <div className="flex justify-end">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="bg-white shadow-xl rounded-lg overflow-hidden max-w-md w-full">
+          {" "}
+          {/* Decreased the max-w-lg to max-w-md */}
+          <div className="p-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Confirm Deletion
+            </h2>
+            <div className="mt-2 px-7 py-3">
+              <p className="text-sm text-gray-500">
+                Are you sure you want to delete this role? This action cannot be
+                undone.
+              </p>
+            </div>
+            <div className="flex justify-end space-x-3">
               <button
                 onClick={handleCancelDelete}
-                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 mr-2 rounded"
+                className="py-2 px-4 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded transition duration-150"
               >
                 Cancel
               </button>
               <button
                 onClick={handleConfirmDelete}
                 disabled={isDeleting}
-                className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded"
+                className={`py-2 px-4 text-white ${
+                  isDeleting ? "bg-red-400" : "bg-red-600 hover:bg-red-700"
+                } rounded transition duration-150`}
               >
-                {isDeleting ? "Deleting..." : "Delete"}
+                {isDeleting ? "Deleting..." : "Confirm"}
               </button>
             </div>
           </div>
         </div>
+      </div>
       )}
     </div>
   );

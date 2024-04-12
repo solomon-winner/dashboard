@@ -11,7 +11,7 @@ import { regions } from "../../region/addform/AddForm";
 import { Field } from "formik";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
-import MainLoading from "../../Resource/Loading/MainLoading";
+import {MainLoading} from "../../Resource/Loading/Loadings";
 
 export const extractAdditionalFieldsData = (prefix, formData, prefix2) => {
   const fields = [];

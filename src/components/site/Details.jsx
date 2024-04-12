@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
 import {
   useGetSiteByIdQuery,
   useGetSiteQuery,
@@ -77,8 +77,8 @@ export const SiteDetails = () => {
         />
         <div className="flex gap-4">
           <DeleteButton/>
-          <UpdateDataButton id={id} name="Site" />
-          <UpdateButton id={id} name="Site"/>
+          <UpdateDataButton id={id} name="Site" url={"update-siteData"}/>
+          <UpdateButton id={id} name="Site" url={"update-site"}/>
         </div>
       </div>
       <div className="bg-white py-12 sm:py-12">

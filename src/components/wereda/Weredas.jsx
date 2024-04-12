@@ -45,9 +45,7 @@ export const Weredas = () => {
     console.log(wereda);
     if (wereda.data) {
       toast.success("Wereda added successfully!");
-    } else {
-      toast.error(wereda.error.data.message);
-    }
+    } 
   };
   const handleChanges = (event) => {
     const selectedFile = event.target.files[0];

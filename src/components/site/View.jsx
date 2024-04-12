@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetSiteQuery } from "../../redux/site/SiteApiSlice";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
 import Pagination from "../Resource/Pagination/Pagination";
 import { numberWithCommas } from "../region/View";
 import { Add } from "@mui/icons-material";
 import { AddButton } from "../Resource/Utility/AddButton";
 import { AddDataButton } from "../Resource/Utility/AddDataButton";
+import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,8 +17,8 @@ export const View = () => {
     isLoading,
     isSuccess,
   } = useGetSiteQuery({
-    pagenumber: currentPage,
-    perpage: 20,
+    page: currentPage,
+    per_page: 20,
     ...(searchInput && { search: searchInput }),
   });
 
@@ -33,7 +34,7 @@ export const View = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <MainLoading />
+         <LoadingSkeleton searchInput={searchInput} handleSearchInput={handleSearchInput} name={"Site"} url={"add-sites"} urlData={"new-site"}/>
       </div>
     );
   } else if (isSuccess) {
@@ -79,8 +80,8 @@ export const View = () => {
             </form>
           </div>
           <div>
-            <AddButton name="Site" />
-            <AddDataButton name="Site" />
+            <AddButton name="Site" url={"add-sites"} />
+            <AddDataButton name="Site" url={"new-site"} />
           </div>
         </div>
         <div className="h-full flex gap-3 flex-col">

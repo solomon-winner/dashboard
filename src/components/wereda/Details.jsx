@@ -6,7 +6,7 @@ import {
   useGetWeredaByIdQuery,
   useGetWoredaQuery,
 } from "../../redux/wereda/WeredaApiSlice";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
 import { useInitalValueworeda } from "../../redux/InitialState/initalValueWoreda";
 import { Table } from "./Table";
 import { useGetKebeleByWeredaQuery } from "../../redux/kebele/KebeleApiSlice";
@@ -70,8 +70,8 @@ export const WeredaDetails = () => {
           />
           <div className="flex gap-4">
             <DeleteButton />
-            <UpdateDataButton id={id} name="Woreda" />
-            <UpdateButton id={id} name="Woreda" />
+            <UpdateDataButton id={id} name="Woreda" url={"update-weredaData"}/>
+            <UpdateButton id={id} name="Woreda" url={"update-wereda"} />
           </div>
         </div>
         <div className="py-12 sm:py-12">

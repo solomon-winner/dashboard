@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createRoles } from "../../redux/roles/RolesState";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
 const CreateRole = () => {
   const [addRole] = useAddRoleMutation();
   const { data: permissions, isSuccess, isFetching } = useGetPermissionsQuery();
@@ -55,8 +55,6 @@ const CreateRole = () => {
       resetForm();
       navigate("/admin/roles");
 
-    } else {
-      toast.error(response.error.data.message);
     }
   };
 

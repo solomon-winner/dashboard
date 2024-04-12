@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useGetAccountsQuery } from "../../redux/account/AccountApiSlice";
 import { Delete, Edit } from "@mui/icons-material";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
+import AccountSkeleton from "../Resource/Loading/AccountSkeleton";
 
 const UserAccount = () => {
   const {
@@ -94,7 +95,7 @@ const UserAccount = () => {
             </thead>
             <tbody>
               {isFetching ? (
-                <MainLoading />
+                <AccountSkeleton/>
               ) : (
                 sortedAccounts
                   .filter((account) =>

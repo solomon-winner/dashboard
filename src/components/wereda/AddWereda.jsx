@@ -9,6 +9,7 @@ import { useAddWoredaDataMutation } from "../../redux/wereda/WeredaApiSlice";
 import { toast } from "react-toastify";
 import { useAddResourceMutation } from "../../redux/resource/ResourceApiSlice";
 import BackButton from "../Resource/Utility/BackButton";
+import { FormBackButton, FormNextButton } from "../Resource/Utility/FormButtons";
 const validationSchema = Yup.object().shape({
   region_id: Yup.string().required("Region is required"),
   woreda_id: Yup.string().required("Wereda is required"),
@@ -190,8 +191,6 @@ export const Addwereda = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
           }
         }
         landArray.push({
@@ -217,9 +216,7 @@ export const Addwereda = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         roadArray.push({
           resource_id: values[typeKey],
@@ -291,8 +288,6 @@ export const Addwereda = () => {
     console.log(response);
     if (response.data) {
       toast.success("Data Added Successfully");
-    } else {
-      toast.error(response.error.data.message);
     }
   };
   const handleChange = (e) => {
@@ -340,23 +335,11 @@ export const Addwereda = () => {
                 )}
                 <div className="mt-20 flex justify-between w-10/12">
                   {step > 1 && (
-                    <button
-                      type="button"
-                      onClick={handleBack}
-                      className="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
-                    >
-                      Back
-                    </button>
+                    <FormBackButton handleBack={handleBack}/>
                   )}
                   <div className="text-gray-500 text-sm">Page {step} of 3</div>
                   {step < 3 ? (
-                    <button
-                      type="button"
-                      onClick={handleNext}
-                      className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
-                    >
-                      Next
-                    </button>
+                    <FormNextButton handleNext={handleNext} />
                   ) : (
                     <button
                       type="submit"

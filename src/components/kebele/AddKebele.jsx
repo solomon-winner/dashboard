@@ -12,6 +12,10 @@ import { toast } from "react-toastify";
 import { useAddKebeleDataMutation } from "../../redux/kebele/KebeleApiSlice";
 import { useAddResourceMutation } from "../../redux/resource/ResourceApiSlice";
 import BackButton from "../Resource/Utility/BackButton";
+import {
+  FormBackButton,
+  FormNextButton,
+} from "../Resource/Utility/FormButtons";
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
@@ -60,8 +64,6 @@ export const AddKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
           }
         }
         energy_sourceArray.push({
@@ -89,8 +91,6 @@ export const AddKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
           }
         }
         livelihoodArray.push({
@@ -117,8 +117,6 @@ export const AddKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
           }
         }
         landuseArray.push({
@@ -147,8 +145,6 @@ export const AddKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
           }
         }
         livestockArray.push({
@@ -176,8 +172,6 @@ export const AddKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
           }
         }
         indegeneoustreeArray.push({
@@ -205,8 +199,6 @@ export const AddKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
           }
         }
         exotictreeArray.push({
@@ -236,8 +228,6 @@ export const AddKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
           }
         }
         forageArray.push({
@@ -266,8 +256,6 @@ export const AddKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
           }
         }
         cropArray.push({
@@ -296,8 +284,6 @@ export const AddKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
           }
         }
         fruitArray.push({
@@ -327,8 +313,6 @@ export const AddKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
           }
         }
         nurseryArray.push({
@@ -356,8 +340,6 @@ export const AddKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
           }
         }
         causeofdeforestationArray.push({
@@ -401,8 +383,6 @@ export const AddKebele = () => {
     console.log(response);
     if (response.data) {
       toast.success("Kebele added successfully");
-    } else {
-      toast.error(response.error.data.message);
     }
     console.log({ ...value, id: values.kebele_id });
   };
@@ -472,24 +452,10 @@ export const AddKebele = () => {
                   />
                 )}
                 <div className="mt-20 flex justify-between w-10/12">
-                  {step > 1 && (
-                    <button
-                      type="button"
-                      onClick={handleBack}
-                      className="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
-                    >
-                      Back
-                    </button>
-                  )}
+                  {step > 1 && <FormBackButton handleBack={handleBack} />}
                   <div className="text-gray-500 text-sm">Page {step} of 7</div>
                   {step < 7 ? (
-                    <button
-                      type="button"
-                      onClick={handleNext}
-                      className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
-                    >
-                      Next
-                    </button>
+                    <FormNextButton handleNext={handleNext} />
                   ) : (
                     <button
                       type="submit"

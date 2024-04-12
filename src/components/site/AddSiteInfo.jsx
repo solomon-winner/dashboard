@@ -85,8 +85,6 @@ export const AddSiteInfo = () => {
     console.log(site);
     if (site.data) {
       toast.success("Site added successfully!");
-    } else {
-      toast.error(site.error.data.message);
     }
   };
   const weredaOptions = isFetching

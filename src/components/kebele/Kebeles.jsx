@@ -60,9 +60,7 @@ const Kebeles = () => {
     console.log(kebele);
     if (kebele.data) {
       toast.success("Kebele added successfully!");
-    } else {
-      toast.error(kebele.error.data.message);
-    }
+    } 
   };
   const weredaOptions = isFetching
     ? [

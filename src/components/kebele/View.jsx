@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetKebeleQuery } from "../../redux/kebele/KebeleApiSlice";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
 import Pagination from "../Resource/Pagination/Pagination";
 import { numberWithCommas } from "../region/View";
 import { Add } from "@mui/icons-material";
+import { AddButton } from "../Resource/Utility/AddButton";
+import { AddDataButton } from "../Resource/Utility/AddDataButton";
+import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
-  const { data, error, isLoading, isSuccess } = useGetKebeleQuery({pagenumber : currentPage, perpage : 20, ...(searchInput && { search: searchInput })});
+  const { data, error, isLoading, isSuccess } = useGetKebeleQuery({page : currentPage, per_page : 20, ...(searchInput && { search: searchInput })});
 
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
@@ -25,7 +28,7 @@ export const View = () => {
   if (isLoading === true) {
     return (
       <div className="flex justify-center items-center h-screen ">
-        <MainLoading />
+         <LoadingSkeleton searchInput={searchInput} handleSearchInput={handleSearchInput} name={"Kebele"} url={"add-kebeles"} urlData={"new-kebele"}/>
       </div>
     );
   } else if (isLoading === false && data && data.length != 0) {
@@ -129,20 +132,9 @@ export const View = () => {
           </form>
         </div>
         <div>
-          <Link
-            to="/admin/add-kebele"
-            className="bg-mainColor p-2 rounded-md text-sm text-white font-semibold hover:bg-customDark mr-4"
-          >
-             <Add style={{ fontSize: "large" }} className="mr-2"/>
-            Add Kebele
-          </Link>
-          <Link
-            to="/admin/new-kebele"
-            className="bg-mainColor p-2 rounded-md text-sm text-white font-semibold hover:bg-customDark"
-          >
-            <Add style={{ fontSize: "large" }} className="mr-2"/>
-            Add Kebele Data
-          </Link>
+          <AddButton name="Kebele" url={"add-kebele"} />
+          <AddDataButton name="Kebele" url={"new-kebele"} />
+          
         </div>
       </div>
       <div className="h-full flex gap-3 flex-col">

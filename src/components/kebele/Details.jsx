@@ -5,7 +5,7 @@ import {
   useGetKebeleByIdQuery,
   useGetKebeleQuery,
 } from "../../redux/kebele/KebeleApiSlice";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
 import { useInitialValueKebele } from "../../redux/InitialState/initalValueKebele";
 import { Check, Delete, Edit } from "@mui/icons-material";
 import { useGetSiteByKebeleQuery } from "../../redux/site/SiteApiSlice";
@@ -61,8 +61,8 @@ export const Details = () => {
           />
           <div className="flex gap-4">
             <DeleteButton />
-            <UpdateDataButton id={id} name="Kebele" />
-            <UpdateButton id={id} name="Kebele" />
+            <UpdateDataButton id={id} name="Kebele" url={"update-kebeleData"} />
+            <UpdateButton id={id} name="Kebele" url={"update-kebele"} />
           </div>
         </div>
         <div className="bg-white py-12 sm:py-12">

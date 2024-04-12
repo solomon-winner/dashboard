@@ -38,7 +38,10 @@ console.log(result);
       api.dispatch(logOut());
     }
     }
+  } else {
+    toast.error(result?.error?.data?.message);
   }
+
   return result;
 };
 export const apiSlice = createApi({

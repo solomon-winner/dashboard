@@ -7,7 +7,7 @@ import { Check } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 import { FormField } from '../wereda/AddWereda';
 import { useNavigate } from "react-router-dom";
-import MainLoading from '../Resource/Loading/MainLoading';
+import {MainLoading} from '../Resource/Loading/Loadings';
 const EditRole = () => {
  const { id } = useParams(); // Assuming the role ID is passed as a URL parameter
  const [editRole] = useEditRoleMutation();
@@ -60,9 +60,7 @@ const EditRole = () => {
       toast.success("Role added successfully");
       refetch(); 
       navigate("/admin/roles");
-    } else {
-      toast.error(response.error.data.message);
-    }
+    } 
   };
 
   return (
