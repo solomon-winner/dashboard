@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetRegionQuery } from "../../redux/region/RegionApiSlice";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
+import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
 
 export const View = () => {
   const { data: region, isLoading, isSuccess } = useGetRegionQuery();
@@ -17,7 +18,7 @@ export const View = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <MainLoading />
+        <LoadingSkeleton searchInput={searchInput} handleSearchInput={handleSearchInput} name={"Region"}/>
       </div>
     );
   } else if (isSuccess) {

@@ -6,7 +6,7 @@ import {
   useGetSiteByRegionQuery,
   useGetWeredaByRegionQuery,
 } from "../../redux/region/RegionApiSlice";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
 import { Delete, Edit } from "@mui/icons-material";
 import BackButton from "../Resource/Utility/BackButton";
 

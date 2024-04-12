@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 import Loadings from "../Resource/Loading/Loadings";
 import { useParams } from "react-router-dom";
 import { useGetWeredaByIdQuery } from "../../redux/wereda/WeredaApiSlice";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
 const validationSchema = Yup.object().shape({
   kebele_name: Yup.string().required("Kebele name is required"),
@@ -132,9 +132,7 @@ const UpdateKebeleForm = () => {
     console.log(kebele);
     if (kebele.data) {
       toast.success("Kebele Updated successfully!");
-    } else {
-      toast.error(kebele.error.data.message);
-    }
+    } 
   };
   const weredaOptions = isFetching
     ? [

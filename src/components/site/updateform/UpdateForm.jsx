@@ -12,7 +12,7 @@ import Select from "react-select";
 import { useGetKebeleByWeredaQuery } from "../../../redux/kebele/KebeleApiSlice";
 import { useGetWeredaByRegionQuery } from "../../../redux/region/RegionApiSlice";
 import { useGetSiteByKebeleQuery } from "../../../redux/site/SiteApiSlice";
-import MainLoading from "../../Resource/Loading/MainLoading";
+import {MainLoading} from "../../Resource/Loading/Loadings";
 export const extractAdditionalFieldsData = (prefix, formData, prefix2) => {
   const fields = [];
   let index = 1;

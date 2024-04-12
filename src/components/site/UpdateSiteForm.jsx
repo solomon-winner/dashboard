@@ -25,7 +25,7 @@ import {
   useGetWeredaByIdQuery,
   useGetWoredaQuery,
 } from "../../redux/wereda/WeredaApiSlice";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
 import BackButton from "../Resource/Utility/BackButton";
 
@@ -188,8 +188,6 @@ export const UpdateSiteForm = () => {
     console.log(site);
     if (site.data) {
       toast.success("Site added successfully!");
-    } else {
-      toast.error(site.error.data.message);
     }
   };
   const weredaOptions = isFetching

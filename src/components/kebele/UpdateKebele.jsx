@@ -15,10 +15,11 @@ import {
 } from "../../redux/kebele/KebeleApiSlice";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
 import { useInitialValueKebele } from "../../redux/InitialState/initalValueKebele";
 import { useSelector } from "react-redux";
 import BackButton from "../Resource/Utility/BackButton";
+import { FormBackButton, FormNextButton } from "../Resource/Utility/FormButtons";
 
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
@@ -61,9 +62,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         energy_sourceArray.push({
           resource_id: values[typeKey],
@@ -90,9 +89,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         livelihoodArray.push({
           resource_id: values[typeKey],
@@ -118,9 +115,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         landuseArray.push({
           resource_id: values[typeKey],
@@ -148,9 +143,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         livestockArray.push({
           resource_id: values[typeKey],
@@ -177,9 +170,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         indegeneoustreeArray.push({
           resource_id: values[typeKey],
@@ -206,9 +197,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         exotictreeArray.push({
           resource_id: values[typeKey],
@@ -237,8 +226,6 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
           }
         }
         forageArray.push({
@@ -267,9 +254,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         cropArray.push({
           resource_id: values[typeKey],
@@ -297,9 +282,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         fruitArray.push({
           resource_id: values[typeKey],
@@ -328,9 +311,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         nurseryArray.push({
           resource_id: values[typeKey],
@@ -357,9 +338,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         causeofdeforestationArray.push({
           resource_id: values[typeKey],
@@ -402,9 +381,7 @@ export const UpdateKebele = () => {
     console.log(response);
     if (response.data) {
       toast.success("Kebele added successfully");
-    } else {
-      toast.error(response.error.data.message);
-    }
+    } 
     console.log({ ...value, id: Number(id) });
   };
 
@@ -478,25 +455,13 @@ export const UpdateKebele = () => {
                   )}
                   <div className="mt-4 flex justify-between w-10/12">
                     {step > 1 && (
-                      <button
-                        type="button"
-                        onClick={handleBack}
-                        className="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
-                      >
-                        Back
-                      </button>
+                      <FormBackButton handleBack={handleBack} />
                     )}
                     <div className="text-gray-500 text-sm">
                       Page {step} of 7
                     </div>
                     {step < 7 ? (
-                      <button
-                        type="button"
-                        onClick={handleNext}
-                        className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
-                      >
-                        Next
-                      </button>
+                      <FormNextButton handleNext={handleNext} />
                     ) : (
                       <button
                         type="submit"

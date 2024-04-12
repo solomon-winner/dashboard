@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import { useSelector } from "react-redux";
 import Loadings from "../Resource/Loading/Loadings";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
 import { useParams } from "react-router-dom";
 import BackButton from "../Resource/Utility/BackButton";
 const validationSchema = Yup.object().shape({});
@@ -81,9 +81,7 @@ export const UpdateWeredaForm = () => {
     console.log(wereda);
     if (wereda.data) {
       toast.success("Wereda updated successfully!");
-    } else {
-      toast.error(wereda.error.data.message);
-    }
+    } 
   };
   const handleChanges = (e) => {
     setFormData({

@@ -10,7 +10,7 @@ import { useAddResourceMutation } from "../../redux/resource/ResourceApiSlice";
 import { useParams } from "react-router-dom";
 import { useInitialValueSite } from "../../redux/InitialState/initalValueSite";
 import { useDispatch, useSelector } from "react-redux";
-import MainLoading from "../Resource/Loading/MainLoading";
+import { MainLoading } from "../Resource/Loading/Loadings";
 import { UpdateForm2 } from "./updateform/UpdateForm2";
 import { UpdateForm } from "./updateform/UpdateForm";
 import {
@@ -18,6 +18,7 @@ import {
   setLoadingTrue,
 } from "../../redux/site/SiteByIdState";
 import BackButton from "../Resource/Utility/BackButton";
+import { FormBackButton, FormNextButton } from "../Resource/Utility/FormButtons";
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
@@ -57,9 +58,7 @@ export const UpdateSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         indegeneoustreeArray.push({
           resource_id: values[typeKey],
@@ -83,9 +82,7 @@ export const UpdateSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         exotictreeArray.push({
           resource_id: values[typeKey],
@@ -109,9 +106,7 @@ export const UpdateSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         currentlanduseArray.push({
           resource_id: values[typeKey],
@@ -135,9 +130,7 @@ export const UpdateSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         forageArray.push({
           resource_id: values[typeKey],
@@ -161,9 +154,7 @@ export const UpdateSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } else {
-            toast.error(response.error.data.message);
-          }
+          } 
         }
         livelihoodArray.push({
           resource_id: values[typeKey],
@@ -188,8 +179,6 @@ export const UpdateSite = () => {
     console.log(response);
     if (response.data) {
       toast.success("Site added successfully");
-    } else {
-      toast.error(response.error.data.message);
     }
   };
   return (
@@ -199,7 +188,7 @@ export const UpdateSite = () => {
       </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
-          <h1 className="text-3xl font-bold mb-5">Update Site</h1>
+          <h1 className="text-3xl font-bold mb-5">Update Site Data</h1>
           {loading === true ? (
             <MainLoading />
           ) : (
@@ -227,25 +216,13 @@ export const UpdateSite = () => {
                   )}
                   <div className="mt-20 flex justify-between w-10/12 ">
                     {step > 1 && (
-                      <button
-                        type="button"
-                        onClick={handleBack}
-                        className="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
-                      >
-                        Back
-                      </button>
+                      <FormBackButton handleBack={handleBack}/>
                     )}
                     <div className="text-gray-500 text-sm">
                       Page {step} of 2
                     </div>
                     {step < 2 ? (
-                      <button
-                        type="button"
-                        onClick={handleNext}
-                        className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
-                      >
-                        Next
-                      </button>
+                     <FormNextButton handleNext={handleNext}/>
                     ) : (
                       <button
                         type="submit"
