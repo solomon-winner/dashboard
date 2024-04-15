@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createRoles } from "../../redux/roles/RolesState";
 import { MainLoading } from "../Resource/Loading/Loadings";
+import BackButton from "../Resource/Utility/BackButton";
 const CreateRole = () => {
   const [addRole] = useAddRoleMutation();
   const { data: permissions, isSuccess, isFetching } = useGetPermissionsQuery();
@@ -60,6 +61,9 @@ const CreateRole = () => {
 
   return (
     <div className="container mx-auto p-14 flex-grow justify-center items-center bg-dashbordColor">
+      <div className="mb-4">
+      <BackButton/>
+      </div>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {({ handleChange, values, isSubmitting }) => (
           <Form className="bg-white shadow-md rounded p-8 pt-6 pb-8 mb-4 w-full">

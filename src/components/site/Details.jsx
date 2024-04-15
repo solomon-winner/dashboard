@@ -68,7 +68,7 @@ export const SiteDetails = () => {
   return (
     <div>
       <div className="flex justify-between p-10">
-        <BackButton/>
+        <BackButton />
         <Select
           options={siteOptions}
           onChange={handleWeredaSelect}
@@ -76,9 +76,9 @@ export const SiteDetails = () => {
           className="w-full sm:w-1/3 lg:w-1/4"
         />
         <div className="flex gap-4">
-          <DeleteButton/>
-          <UpdateDataButton id={id} name="Site" url={"update-siteData"}/>
-          <UpdateButton id={id} name="Site" url={"update-site"}/>
+          <DeleteButton />
+          <UpdateDataButton id={id} name="Site" url={"update-siteData"} />
+          <UpdateButton id={id} name="Site" url={"update-site"} />
         </div>
       </div>
       <div className="bg-white py-12 sm:py-12">
@@ -89,7 +89,7 @@ export const SiteDetails = () => {
             </h2>
           </div>
           <div className="grid gap-4 lg:grid-cols-3">
-            <div className="rounded-3xl overflow-hidden shadow-lg h-fit">
+            <div className="bg-white shadow-md rounded-md p-4 h-fit">
               <div className="p-8 text-gray-600">
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Region: {data.data?.region_name}
@@ -108,88 +108,106 @@ export const SiteDetails = () => {
                 </h3>
               </div>
             </div>
-            <div className="rounded-3xl overflow-hidden shadow-lg">
-              <div className="p-8 text-gray-600">
-                <div className="mb-8">
-                  <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                    Current land use
-                  </h4>
-                  <ul className="mt-4 space-y-2">
-                    {data?.data?.resources?.map((resource, index) =>
-                      resource?.LAND?.map((item, idx) => (
-                        <li key={`${index}-${idx}`} className="flex items-center gap-x-3">
-                          <Check style={{ fontSize: "large" }} />
-                          {item.value}
-                        </li>
-                      ))
-                    )}
-                  </ul>
-                </div>
-                </div>
-                </div>
-                <div className="rounded-3xl overflow-hidden shadow-lg">
-              <div className="p-8 text-gray-600">
-                <div className="mb-8">
-                  <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                    Indigenous Tree
-                  </h4>
-                  <ul className="mt-4 space-y-2">
-                    {data?.data?.resources?.map((resource, index) =>
-                      resource?.TREE?.filter((tree) => tree.indigenous === 1).map((tree, idx) => (
-                        <li key={`${index}-${idx}`} className="flex items-center gap-x-3">
-                          <Check style={{ fontSize: "large" }} />
-                          {tree.value}
-                        </li>
-                      ))
-                    )}
-                  </ul>
-                </div>
-                <div className="mb-8">
-                  <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                    Exotic Trees
-                  </h4>
-                  <ul className="mt-4 space-y-2">
-                    {data?.data?.resources?.map((resource, index) =>
-                      resource?.TREE?.filter((tree) => !tree.hasOwnProperty("indigenous")).map((tree, idx) => (
-                        <li key={`${index}-${idx}`} className="flex items-center gap-x-3">
-                          <Check style={{ fontSize: "large" }} />
-                          {tree.value}
-                        </li>
-                      ))
-                    )}
-                  </ul>
-                </div>
-                <div className="mb-8">
-                  <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                    Livestock
-                  </h4>
-                  <ul className="mt-4 space-y-2">
-                    {data?.data?.resources?.map((resource, index) =>
-                      resource?.LIVESTOCK?.map((item, idx) => (
-                        <li key={`${index}-${idx}`} className="flex items-center gap-x-3">
-                          <Check style={{ fontSize: "large" }} />
-                          {item.value}
-                        </li>
-                      ))
-                    )}
-                  </ul>
-                </div>
-                <div className="mb-8">
-                  <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                    Forage
-                  </h4>
-                  <ul className="mt-4 space-y-2">
-                    {data?.data?.resources?.map((resource, index) =>
-                      resource?.FORAGE?.map((item, idx) => (
-                        <li key={`${index}-${idx}`} className="flex items-center gap-x-3">
-                          <Check style={{ fontSize: "large" }} />
-                          {item.value}
-                        </li>
-                      ))
-                    )}
-                  </ul>
-                </div>
-              </div>
+
+            <div className="bg-white shadow-md rounded-md p-4 h-fit">
+              <h4 className="text-base font-bold tracking-tight text-customDark my-1">
+                Current land use
+              </h4>
+
+              {data?.data?.resources?.map((resource, index) =>
+                resource?.LAND?.map((item, idx) => (
+                  <div
+                    key={index}
+                    class="border-b border-gray-300 rounded-md p-3 mb-4"
+                  >
+                    <p key={index} className="font-normal text-xs">
+                      <Check style={{ fontSize: "large" }} />
+                      {item.value}
+                    </p>
+                  </div>
+                ))
+              )}
+            </div>
+
+            <div className="bg-white shadow-md rounded-md p-4 h-fit">
+              <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
+                Indigenous Tree
+              </h4>
+              {data?.data?.resources?.map((resource, index) =>
+                resource?.TREE?.filter((tree) => tree.indigenous === 1).map(
+                  (tree, idx) => (
+                    <div
+                      key={index}
+                      class="border-b border-gray-300 rounded-md p-3 mb-4"
+                    >
+                      <p key={index} className="font-normal text-xs">
+                        <Check style={{ fontSize: "large" }} />
+                        {tree.value}
+                      </p>
+                    </div>
+                  )
+                )
+              )}
+            </div>
+            <div className="bg-white shadow-md rounded-md p-4 h-fit">
+              <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
+                Exotic Trees
+              </h4>
+
+              {data?.data?.resources?.map((resource, index) =>
+                resource?.TREE?.filter(
+                  (tree) => !tree.hasOwnProperty("indigenous")
+                ).map((tree, idx) => (
+                  <div
+                    key={index}
+                    class="border-b border-gray-300 rounded-md p-3 mb-4"
+                  >
+                    <p key={index} className="font-normal text-xs">
+                      <Check style={{ fontSize: "large" }} />
+                      {tree.value}
+                    </p>
+                  </div>
+                ))
+              )}
+            </div>
+            <div className="bg-white shadow-md rounded-md p-4 h-fit">
+              <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
+                Livestock
+              </h4>
+
+              {data?.data?.resources?.map((resource, index) =>
+                resource?.LIVESTOCK?.map((item, idx) => (
+                  <div
+                    key={index}
+                    class="border-b border-gray-300 rounded-md p-3 mb-4"
+                  >
+                    <p key={index} className="font-normal text-xs">
+                      <Check style={{ fontSize: "large" }} />
+                      {item.value}
+                    </p>
+                  </div>
+                ))
+              )}
+            </div>
+            <div className="bg-white shadow-md rounded-md p-4 h-fit">
+              <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
+                Forage
+              </h4>
+           
+                {data?.data?.resources?.map((resource, index) =>
+                  resource?.FORAGE?.map((item, idx) => (
+                    <div
+                    key={index}
+                    class="border-b border-gray-300 rounded-md p-3 mb-4"
+                  >
+                    <p key={index} className="font-normal text-xs">
+                      <Check style={{ fontSize: "large" }} />
+                      {item.value}
+                    </p>
+                    </div>
+                  ))
+                )}
+              
             </div>
           </div>
         </div>
