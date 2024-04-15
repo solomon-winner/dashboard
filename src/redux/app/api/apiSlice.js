@@ -24,6 +24,7 @@ console.log(result);
   } else if (result.error?.status === 401) {
     console.log("unauthorized");
     const refreshToken = api.getState().auth.refresh_token;
+    console.log(refreshToken);
     if(refreshToken){
     const refreshResult = await baseQuery(
       { url: "/refresh-token", method: "POST", body: { refresh_token: refreshToken } },
