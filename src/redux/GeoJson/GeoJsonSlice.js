@@ -38,6 +38,8 @@ export const GeoJsonSlice = createSlice({
         },
         SetZoom_out: (state, action) => {
             state.Zoom_out = action.payload
+            console.log("the reducer is working...", state.Zoom_out," and action ", action.payload)
+  
         }
 
     }

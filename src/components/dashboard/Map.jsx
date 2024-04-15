@@ -7,7 +7,6 @@ import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
 import {fetchRegionData, fetchSiteData} from '../Maps/FetchGeoJsonMap';
 import {SetAllSiteData} from '../../redux/GeoJson/GeoJsonSlice'
 import { useDispatch, useSelector } from 'react-redux';
-import { LocationInfo } from '../Maps/LocationInfo';
 import { setSiteId } from '../../redux/site/SiteByIdState';
 
   var siteIcon = L.icon({
@@ -37,10 +36,17 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
       ],
       updateWhenIdle: false,
     }).setView([ethiopia.lat, ethiopia.lng], 6);
+  
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(map);
+
+    if(Zoom) {
+
+      map.setView([ethiopia.lat, ethiopia.lng], 6)
+
+    }
 
     if (isRegionSuccess && RegionGeoJSONUrl) {
       RegionGeoJSONUrl.forEach(url => {
@@ -89,7 +95,7 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
     return () => {
       map.remove();
     };
-  }, [isRegionSuccess && RegionGeoJSONUrl, isSiteSuccess && SitegeojsonUrl]);
+  }, [isRegionSuccess && RegionGeoJSONUrl, isSiteSuccess && SitegeojsonUrl, Zoom]);
 
   return (
     <div id="map" className='h-full'>
