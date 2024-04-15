@@ -24,10 +24,10 @@ export const Table = ({ woreda }) => {
             </th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-white divide-y divide-black">
           {woreda.map((item) => (
             <tr key={item.id}>
-              <td className="px-6 py-4 whitespace-nowrap">
+              <td className="px-6 py-4 whitespace-nowrap flex items-center">
                 <Link
                   to={`/admin/wereda/${item.id}`}
                   className="text-sm font-medium text-green-600 hover:text-green-900"
@@ -42,7 +42,9 @@ export const Table = ({ woreda }) => {
                 </Link>
               </td>
               <td className="px-6 py-4">
+              <div className="grid grid-cols-4 gap-1">
                 {item.sites.map((site) => (
+                  
                   <div key={site.id} className="mb-2">
                     <Link
                       to={`/admin/site/${site.id}`}
@@ -60,7 +62,9 @@ export const Table = ({ woreda }) => {
                       <Visibility style={{ fontSize: "small" }} /> View Detail
                     </Link>
                   </div>
+                
                 ))}
+                  </div>
               </td>
             </tr>
           ))}
