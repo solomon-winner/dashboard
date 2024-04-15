@@ -12,7 +12,8 @@ export const GeoJsonSlice = createSlice({
             WoredasKebele: [],
             SelectedKebele: {},
             KebelesSite: {},
-            SelectedSite: {}
+            SelectedSite: {},
+            Zoom_out: false,
         },
     },
 
@@ -35,10 +36,13 @@ export const GeoJsonSlice = createSlice({
         SetSelectedSite: (state, action) => {
             state.GeoJson.SelectedSite = action.payload;
         },
+        SetZoom_out: (state, action) => {
+            state.Zoom_out = action.payload
+        }
 
     }
 })
 
-export const {SetAllSiteData} = GeoJsonSlice.actions;
+export const {SetAllSiteData, SetZoom_out} = GeoJsonSlice.actions;
 
 export default GeoJsonSlice.reducer;

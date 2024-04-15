@@ -14,11 +14,54 @@ export const LocationInfo = () => {
           <div className="container project-container">
             <div className="card">
             <div className="bg-gray-200 border-gray-400">
-                <p className="text-lg font-bold">Detailed location Information</p>
+                <p className="text-lg font-bold ml-5">Detailed location Information</p>
               </div>
               <div className="card-body">
                 {!data && <p>Select a region to view detailed location information.</p>}
-                {data && <strong className="text-2xl font-bold">{data.data.site_name}</strong>}
+                {data && <div className="m-5"><strong className="text-2xl font-bold">{data.data.site_name}</strong>
+                <table class="table-auto w-full">
+                <thead>
+                  <tr>
+                    <th class="px-4 py-2">Field</th>
+                    <th class="px-4 py-2">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="border px-4 py-2 font-bold">Region Name</td>
+                    <td class="border px-4 py-2">{data.data.region_name}</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border px-4 py-2 font-bold">Zone Name</td>
+                    <td class="border px-4 py-2">{data.data.zone_name}</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border px-4 py-2 font-bold">Woreda Name</td>
+                    <td class="border px-4 py-2">{data.data.woreda_name}</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border px-4 py-2 font-bold">Kebele Name</td>
+                    <td class="border px-4 py-2">{data.data.kebele_name}</td>
+                  </tr>
+
+
+                  <tr>
+                    <td class="border px-4 py-2 font-bold">Site Size</td>
+                    <td class="border px-4 py-2">{data.data.size_ha}</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border px-4 py-2 font-bold">Water shed Name</td>
+                    <td class="border px-4 py-2">{data.data.watershed_name}</td>
+                  </tr>
+
+                </tbody>
+              </table>
+              </div>
+                }
 
               </div>
               <div>

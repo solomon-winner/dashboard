@@ -22,7 +22,8 @@ export const Map = () => {
   const { data: SitegeojsonUrls, isSuccess:isSiteSuccess } = useGetSiteGeojsonsQuery();
   const dispatch = useDispatch();
   const AllSite = useSelector((state) => state.geoJson.GeoJson.AllSite);
-
+  const Zoom  = useSelector((state) => state.geoJson.GeoJson.Zoom_out);
+  console.log("this is zoom", Zoom);
   const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
   const SitegeojsonUrl = isSiteSuccess && SitegeojsonUrls.data;
 dispatch(SetAllSiteData(SitegeojsonUrl));
