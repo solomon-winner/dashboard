@@ -14,7 +14,7 @@ import { isRejected, isRejectedWithValue } from "@reduxjs/toolkit";
 import { useRefreshMutation } from './auth/AuthApiSlice';
 import { useDispatch } from 'react-redux';
 import { rtkQueryErrorLogger } from '../components/Resource/hooks/rtkQueryErrorLogger';
-
+import accountReducer from './account/AccountState';
 
 const store = configureStore({
     reducer: {
@@ -29,6 +29,7 @@ const store = configureStore({
       kebeleById: KebeleByIdReducer,
       siteById: SiteByIdReducer,
       geoJson: GeoJsonReducer,
+      account: accountReducer,
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware), // Use the middleware
@@ -45,4 +46,5 @@ export const regionSelector = (state) => state.region;
 export const kebeleByIdSelector = (state) => state.kebeleById;
 export const siteByIdSelector = (state) => state.siteById;
 export const geoJsonSelector = (state) => state.GeoJson
+export const accountSelector = (state) => state.account;
 export default store;

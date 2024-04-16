@@ -55,7 +55,6 @@ const CreateRole = () => {
       dispatch(createRoles(response.data.data));
       resetForm();
       navigate("/admin/roles");
-
     }
   };
 

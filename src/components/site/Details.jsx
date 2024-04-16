@@ -13,6 +13,7 @@ import BackButton from "../Resource/Utility/BackButton";
 import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
 import { UpdateDataButton } from "../Resource/Utility/UpdateDataButton";
 import { UpdateButton } from "../Resource/Utility/UpdateButton";
+import { EachMap } from "../Resource/Map/EachMap";
 
 export const SiteDetails = () => {
   const { id } = useParams();
@@ -88,8 +89,8 @@ export const SiteDetails = () => {
               Site Name: {data.data?.site_name}
             </h2>
           </div>
-          <div className="grid gap-4 lg:grid-cols-3">
-            <div className="bg-white shadow-md rounded-md p-4 h-fit">
+          <div className="flex gap-2 mb-6">
+          <div className="bg-white shadow-md rounded-md p-4 h-fit w-1/3">
               <div className="p-8 text-gray-600">
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Region: {data.data?.region_name}
@@ -109,6 +110,13 @@ export const SiteDetails = () => {
               </div>
             </div>
 
+            <div className="w-2/3">
+      <EachMap geojsonData={`/geojson/sites/${id}.geojson`} />
+      </div>
+
+          </div>
+          <div className="grid gap-4 lg:grid-cols-3">
+           
             <div className="bg-white shadow-md rounded-md p-4 h-fit">
               <h4 className="text-base font-bold tracking-tight text-customDark my-1">
                 Current land use
@@ -212,6 +220,7 @@ export const SiteDetails = () => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };

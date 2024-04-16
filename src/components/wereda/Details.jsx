@@ -16,6 +16,7 @@ import BackButton from "../Resource/Utility/BackButton";
 import { UpdateDataButton } from "../Resource/Utility/UpdateDataButton";
 import { UpdateButton } from "../Resource/Utility/UpdateButton";
 import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
+import { EachMap } from "../Resource/Map/EachMap";
 
 export const WeredaDetails = () => {
   const { id } = useParams();
@@ -70,7 +71,7 @@ export const WeredaDetails = () => {
           />
           <div className="flex gap-4">
             <DeleteButton />
-            <UpdateDataButton id={id} name="Woreda" url={"update-weredaData"}/>
+            <UpdateDataButton id={id} name="Woreda" url={"update-weredaData"} />
             <UpdateButton id={id} name="Woreda" url={"update-wereda"} />
           </div>
         </div>
@@ -254,12 +255,9 @@ export const WeredaDetails = () => {
                   </div>
                 </div>
                 <div className="flex flex-col lg:flex-row gap-4 w-full mt-10">
-                  <img
-                    src="/wereda.jpg"
-                    alt="Wereda"
-                    className="w-full lg:w-1/2 mt-6"
-                    style={{ height: `calc(100vh - 140px)` }}
-                  />
+                  <div className="w-1/2">
+                    <EachMap geojsonData={`/geojson/woredas/${id}.geojson`} />
+                  </div>
                   <div className="w-full lg:w-1/2">
                     <div className="flex flex-col justify-between pb-5 border-b border-gray-200">
                       <h1 className="text-base font-bold tracking-tight text-customDark my-1">

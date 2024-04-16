@@ -15,6 +15,7 @@ import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
 import { UpdateDataButton } from "../Resource/Utility/UpdateDataButton";
 import { UpdateButton } from "../Resource/Utility/UpdateButton";
 import BackButton from "../Resource/Utility/BackButton";
+import { EachMap } from "../Resource/Map/EachMap";
 
 export const Details = () => {
   const { id } = useParams();
@@ -315,11 +316,16 @@ export const Details = () => {
                   </div>
                 </div>
               </div>
-              <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0 pt-10">
-                <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                  Site
-                </h1>
-                <Table2 site={site.data.data} />
+              <div className="flex flex-col lg:flex-row gap-4 w-full mt-10">
+                <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0 pt-10">
+                  <h1 className="text-base font-bold tracking-tight text-customDark my-1">
+                    Site
+                  </h1>
+                  <Table2 site={site.data.data} />
+                </div>
+                <div className="w-2/3">
+                  <EachMap geojsonData={`/geojson/kebeles/${id}.geojson`} />
+                </div>
               </div>
             </div>
           </div>
