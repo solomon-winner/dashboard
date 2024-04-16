@@ -24,8 +24,27 @@ export const accountApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body: data
             })
-        })
+        }),
+        deleteAccount: builder.mutation({
+            query: (id) => ({
+                url: `/users/${id}`,
+                method: "DELETE",
+            })
+        }),
+        getUserById: builder.query({
+            query: (id) => ({
+                url: `/users/${id}`,
+                method: "GET",
+            })
+        }),
+        UpdateUser: builder.mutation({
+            query: (data) => ({
+                url: `/users/${data.id}?_method=PUT`,
+                method: "PUT",
+                body: data
+            })
+        }),
     })
 })
 
-export const { useGetAccountsQuery, useGetUserQuery, useAddAccountMutation } = accountApiSlice
+export const { useGetAccountsQuery, useGetUserQuery, useAddAccountMutation, useDeleteAccountMutation, useGetUserByIdQuery, useUpdateUserMutation } = accountApiSlice

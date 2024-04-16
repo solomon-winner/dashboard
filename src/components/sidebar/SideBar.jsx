@@ -13,12 +13,14 @@ import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { logOut } from '../../redux/auth/authSlice';
 import { MeetingRoom } from '@mui/icons-material';
 import { setProfileDropDown } from '../../redux/Profile/ProfileSlice';
+import Avatars from '../Resource/Utility/Avatars';
 
  export const SideBar = () => {
   const dispatch = useDispatch();
   // const navigate = useNavigate();
   const Avatar = useSelector((state) => state.user.UserData.avatar)
   const Email = useSelector((state) => state.user.UserData.email)
+  const Name = useSelector((state) => state.user.UserData.name)
   const ProfileDropDown = useSelector((state) => state.user.ProfileDropDown);
   const [showSidebar, setShowSidebar] = useState(false);
   console.log("profile drop down...",ProfileDropDown);
@@ -63,7 +65,7 @@ const ProfileDropdown = () => {
             
           </div>
           <div className="flex gap-2 justify-center items-center cursor-pointer" onClick={ProfileDropdown}>
-              <img src={`https://tbrr.echnoserve.com/storage/app/public/${Avatar}`}  alt="img" className="w-12 h-12 bg-red-400 object-fill rounded-full" />
+              <Avatars avatar={Avatar} name={Name}/>
               <div className="flex flex-col">
                 <span className="text-sm font-medium text-gray-900">{Email}</span>
                 <span className="text-xs font-medium text-gray-500">Admin</span>
