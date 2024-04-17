@@ -10,6 +10,7 @@ export const GetAccount = () => {
 
  useEffect(() => {
   if (isSuccess) {
+   console.log(accounts.data.data);
      dispatch(setAccounts(accounts.data.data));
   }
  }, [isSuccess, accounts, dispatch, error]);

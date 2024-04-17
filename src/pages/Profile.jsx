@@ -16,14 +16,7 @@ export const Profile = () => {
 
 		<div className ="relative">
 			<img src= {Nature} alt="Banner Profile" className ="w-full h-40 object-cover" />
-            <div className="absolute bottom-0 left-2/4 transform -translate-x-1/2 translate-y-1/2 w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-800 text-6xl font-extrabold border-4 border-white capitalize">
-			{UserData.avatar ? (
-            <img src={`https://tbrr.echnoserve.com/storage/app/public/${UserData.avatar}`} alt="Profile Picture" className ="absolute bottom-0 left-2/4 transform -translate-x-1/2 translate-y-1/2 w-24 h-24 rounded-full border-4 border-white object-cover"/>
-            ) : (
-                UserData.name ? UserData.name.charAt(0) : 'N/A'
-            )
-            }
-           </div>
+           <Avatars avatar={UserData.avatar} name={UserData.name} className ="absolute bottom-0 left-2/4 transform -translate-x-1/2 translate-y-1/2 w-24 h-24 text-6xl rounded-full border-4 border-white object-cover"/>
 		</div>
 		<div className ="flex items-center mt-4 pl-2">
 			<h2 className ="text-xl font-bold text-gray-800">{UserData.name}</h2>

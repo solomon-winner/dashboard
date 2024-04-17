@@ -15,13 +15,6 @@ import { GetAccount } from "../../redux/InitialState/GetAccount";
 import Avatars from "../Resource/Utility/Avatars";
 
 const UserAccount = () => {
-  // const {
-  //   data: accounts,
-  //   isFetching,
-  //   isSuccess,
-  //   refetch,
-  // } = useGetAccountsQuery();
-
   const accounts = useSelector((state) => state.account.accounts);
   const isLoadingAccounts = useSelector(
     (state) => state.account.isLoadingAccounts
@@ -29,11 +22,11 @@ const UserAccount = () => {
   const dispatch = useDispatch();
   const [sortedAccounts, setSortedAccounts] = useState([]);
   const [sortOrder, setSortOrder] = useState("asc");
-  const [searchTerm, setSearchTerm] = useState(""); // New state for search term
+  const [searchTerm, setSearchTerm] = useState(""); 
   const [showConfirmation, setShowConfirmation] = useState(false); // New state for confirmation dialog
   const [deleteAccountId, setDeleteAccountId] = useState(null); // New state for delete account id
   const [deleteAccount, { isLoading: isDeleting }] = useDeleteAccountMutation();
-
+console.log(accounts)
   useEffect(() => {
     if (accounts) {
       const sorted = [...accounts].sort((a, b) => {
@@ -86,7 +79,6 @@ const UserAccount = () => {
       <div className="flex justify-between items-center bg-green-50 p-4 mb-4 rounded-md">
         <div>
           <h2 className="text-xl font-medium mb-2">Accounts List</h2>
-         
         </div>
         <Link
           to="/admin/new-user"
@@ -144,41 +136,38 @@ const UserAccount = () => {
                         .toLowerCase()
                         .includes(searchTerm.toLowerCase())
                   )
-                  .map((account, index) => (
-                    <tr key={index}>
-                      <td className="py-4 px-6 text-gray-800">
+                .map((account, index) => (
+                  <tr key={index}>
+                    <td className="py-4 px-6 text-gray-800">
                       <Avatars avatar={account.avatar} name={account.name} />
-                      </td>
-                      <td className="py-4 px-6 text-gray-800">
-                        {account.name}
-                      </td>
-                      <td className="py-4 px-6 text-gray-800">
-                        {account.email}
-                      </td>
-                      <td className="py-4 px-6 text-gray-800">
-                        {account.roles.map((role) => role.name).join(", ") ??
-                          ""}
-                      </td>
-                      <td className="py-4 px-6 text-right">
-                        <div className="flex justify-end">
-                          <Link
-                            to={`/admin/update-account/${account.id}`}
-                            className="text-blue-600 hover:text-blue-700 mr-2 transition duration-300"
-                          >
-                            <Edit className="w-5 h-5 inline-block" />
-                          </Link>
-                          <button
-                            onClick={() => handleDeleteConfirmation(account.id)} // Updated to call handleDeleteConfirmation
-                            className="text-red-600 hover:text-red-700 transition duration-300"
-                            title="Delete"
-                            disabled={isDeleting}
-                          >
-                            <Delete className="w-5 h-5 inline-block" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
+                    </td>
+                    <td className="py-4 px-6 text-gray-800">{account.name}</td>
+                    <td className="py-4 px-6 text-gray-800">{account.email}</td>
+                    <td className="py-4 px-6 text-gray-800">
+                      {(account.roles || [])
+                        .map((role) => role.name)
+                        .join(", ") ?? ""}
+                    </td>
+                    <td className="py-4 px-6 text-right">
+                      <div className="flex justify-end">
+                        <Link
+                          to={`/admin/update-account/${account.id}`}
+                          className="text-blue-600 hover:text-blue-700 mr-2 transition duration-300"
+                        >
+                          <Edit className="w-5 h-5 inline-block" />
+                        </Link>
+                        <button
+                          onClick={() => handleDeleteConfirmation(account.id)} // Updated to call handleDeleteConfirmation
+                          className="text-red-600 hover:text-red-700 transition duration-300"
+                          title="Delete"
+                          disabled={isDeleting}
+                        >
+                          <Delete className="w-5 h-5 inline-block" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
               )}
             </tbody>
           </table>

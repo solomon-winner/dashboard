@@ -9,6 +9,8 @@ import {
 import Select from "react-select";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
+import RegionSelect from "../../Resource/Utility/SelecteDropDown/RegionSelect";
+import WeredaSelect from "../../Resource/Utility/SelecteDropDown/WeredaSelect";
 
 export const AddForm = ({ handleChange, formData, setFormData }) => {
 
@@ -132,6 +134,26 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
             />
           </div>
         </div>
+      </div>
+      <div className="flex flex-wrap">
+        <RegionSelect
+          regions={regions}
+          isLoadingRegions={isLoadingRegions}
+          selectedRegion={selectedRegion}
+          setSelectedRegion={setSelectedRegion}
+          handleChange={handleChange}
+          formData={formData}
+          setFormData={setFormData}
+        />
+        <WeredaSelect
+          getweredaByRegion={getweredaByRegion}
+          isFetching={isFetching}
+          selectedWereda={weredaId}
+          setSelectedWereda={setWeredaID}
+          handleChange={handleChange}
+          formData={formData}
+          setFormData={setFormData}
+        />
       </div>
       <hr className="mt-3 border-b-1 border-blueGray-300"></hr>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">

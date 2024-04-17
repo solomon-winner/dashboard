@@ -73,7 +73,7 @@ const NewUser = () => {
               if (NewUser?.data) {
                 console.log(NewUser.data);
                 toast.success("Account added successfully");
-                dispatch(createAccount(NewUser.data.data));
+                dispatch(createAccount(NewUser.data.data.user));
                 resetForm();
                 navigate("/admin/accounts");
               }

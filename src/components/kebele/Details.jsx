@@ -16,6 +16,7 @@ import { UpdateDataButton } from "../Resource/Utility/UpdateDataButton";
 import { UpdateButton } from "../Resource/Utility/UpdateButton";
 import BackButton from "../Resource/Utility/BackButton";
 import { EachMap } from "../Resource/Map/EachMap";
+import { CommonTable } from "../Resource/Utility/Table";
 
 export const Details = () => {
   const { id } = useParams();
@@ -321,10 +322,11 @@ export const Details = () => {
                   <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                     Site
                   </h1>
-                  <Table2 site={site.data.data} />
+                  {/* <Table2 site={site.data.data} /> */}
+                  <CommonTable data={site.data.data} name={"site_name"} title={"Site"} urlName={"site"}/>
                 </div>
                 <div className="w-2/3">
-                  <EachMap geojsonData={`/geojson/kebeles/${id}.geojson`} />
+                  <EachMap geojsonData={`/geojson/kebeles/${id}.geojson`} SiteIds={site.data.data.map((item) => item.id)} />
                 </div>
               </div>
             </div>

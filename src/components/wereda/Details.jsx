@@ -17,6 +17,7 @@ import { UpdateDataButton } from "../Resource/Utility/UpdateDataButton";
 import { UpdateButton } from "../Resource/Utility/UpdateButton";
 import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
 import { EachMap } from "../Resource/Map/EachMap";
+import { CommonTable } from "../Resource/Utility/Table";
 
 export const WeredaDetails = () => {
   const { id } = useParams();
@@ -256,14 +257,15 @@ export const WeredaDetails = () => {
                 </div>
                 <div className="flex flex-col lg:flex-row gap-4 w-full mt-10">
                   <div className="w-1/2">
-                    <EachMap geojsonData={`/geojson/woredas/${id}.geojson`} />
+                    <EachMap geojsonData={`/geojson/woredas/${id}.geojson`} SiteIds={KebeleData.data.data.map((item) => item.sites.map((site) => site.id))} />
                   </div>
                   <div className="w-full lg:w-1/2">
                     <div className="flex flex-col justify-between pb-5 border-b border-gray-200">
                       <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                         Kebeles and Sites
                       </h1>
-                      <Table kebele={KebeleData.data.data} />
+                      {/* <Table kebele={KebeleData.data.data} /> */}
+                      <CommonTable data={KebeleData.data.data} name={"kebele_name"} title={"Kebele"} urlName={"kebele"} />
                     </div>
                   </div>
                 </div>
