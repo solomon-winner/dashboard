@@ -10,6 +10,7 @@ import { MainLoading } from "../Resource/Loading/Loadings";
 import { Delete, Edit } from "@mui/icons-material";
 import BackButton from "../Resource/Utility/BackButton";
 import { EachMap } from "../Resource/Map/EachMap";
+import { CommonTable } from "../Resource/Utility/Table";
 
 export const RegionDetails = () => {
   const { id } = useParams();
@@ -53,7 +54,7 @@ export const RegionDetails = () => {
               {/* <p className="mt-6 text-lg leading-8 text-gray-600">Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas in. Explicabo id ut laborum.</p> */}
             </div>
             <div className="w-2/3">
-              <EachMap geojsonData={`/geojson/regions/${id}.geojson`} />
+              <EachMap geojsonData={`/geojson/regions/${id}.geojson`} SiteIds={woredaData.data.data.map((item) => item.sites.map((site) => site.id))} />
             </div>
           </div>
           <div className="flex flex-col gap-6 mt-10 lg:mt-20 lg:flex-row lg:items-start">
@@ -63,7 +64,8 @@ export const RegionDetails = () => {
                   Woreda and Site
                 </h2>
               </div>
-              <Table woreda={woredaData.data.data} />
+              {/* <Table woreda={woredaData.data.data} /> */}
+              <CommonTable data={woredaData.data.data} name={"woreda_name"} title={"Woreda"} urlName={"wereda"} className={"grid grid-cols-4 gap-1"}/>
             </div>
           </div>
         </div>

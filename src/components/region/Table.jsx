@@ -3,6 +3,7 @@ import { Visibility } from "@mui/icons-material";
 import { useState } from "react";
 
 export const Table = ({ woreda }) => {
+  console.log(woreda.map((item) => item.sites.map((site) => site.id)));
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (event) => {
@@ -58,9 +59,10 @@ export const Table = ({ woreda }) => {
                 </Link>
                 <Link
                   to={`/admin/wereda/${item.id}`}
-                  className="ml-2 text-sm bg-mainColor hover:bg-green-600 text-white py-1 px-2 rounded-md"
+                  className=" text-xl  p-2 text-green-600 hover:text-green-900"
+                  title="View Detail"
                 >
-                  View Details
+                  <Visibility style={{ fontSize: "x-large", color: "green" }} />
                 </Link>
               </td>
               <td className="px-6 py-4">
@@ -78,9 +80,10 @@ export const Table = ({ woreda }) => {
                       </p>
                       <Link
                         to={`/admin/site/${site.id}`}
-                        className="text-sm bg-mainColor hover:bg-green-600 text-white py-1 px-2 rounded-md"
+                        className="text-green-600 hover:text-green-900"
+                        title="View Detail"
                       >
-                        <Visibility style={{ fontSize: "small" }} /> View Detail
+                        <Visibility style={{ fontSize: "large", color: "green" }} />
                       </Link>
                     </div>
                   ))}
