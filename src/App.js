@@ -43,12 +43,15 @@ import { UpdateWeredaForm } from './components/wereda/UpdateWeredaForm';
 import { UpdateSiteForm } from './components/site/UpdateSiteForm';
 import { GetWereda } from './redux/InitialState/GetWereda';
 import UpdateKebeleForm from './components/kebele/UpdateKebeleForm';
+import { GetAccount } from './redux/InitialState/GetAccount';
+import { EditAccount } from './components/account/EditAccount';
 
 function App() {
 
   ProfileInfo()
   useGetRegion();
   GetRoles();
+  GetAccount();
   useGetInstitution();
   useGetResource();
   return (
@@ -90,6 +93,7 @@ function App() {
         <Route path='/admin/roles' element={<Roles />} />
         <Route path='/admin/create-roles' element={<CreateRole />} />
         <Route path='/admin/update-roles/:id' element={<EditRole />} />
+        <Route path='/admin/update-account/:id' element={<EditAccount />} />
       </Route>
       </Route>
        

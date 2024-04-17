@@ -4,6 +4,7 @@ import Nature from '../assests/nature.jpg'
 import { Activity } from '../components/profile/Activity'
 import { useSelector } from 'react-redux'
 import { dateFormat } from '../redux/DateFormat/dateFormat'
+import Avatars from '../components/Resource/Utility/Avatars'
 
 export const Profile = () => {
 
@@ -15,10 +16,15 @@ export const Profile = () => {
 
 		<div className ="relative">
 			<img src= {Nature} alt="Banner Profile" className ="w-full h-40 object-cover" />
-			<img src={`https://tbrr.echnoserve.com/storage/app/public/${UserData.avatar}`} alt="Profile Picture" className ="absolute bottom-0 left-2/4 transform -translate-x-1/2 translate-y-1/2 w-24 h-24 rounded-full border-4 border-white object-cover"/>
+            <div className="absolute bottom-0 left-2/4 transform -translate-x-1/2 translate-y-1/2 w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-800 text-6xl font-extrabold border-4 border-white capitalize">
+			{UserData.avatar ? (
+            <img src={`https://tbrr.echnoserve.com/storage/app/public/${UserData.avatar}`} alt="Profile Picture" className ="absolute bottom-0 left-2/4 transform -translate-x-1/2 translate-y-1/2 w-24 h-24 rounded-full border-4 border-white object-cover"/>
+            ) : (
+                UserData.name ? UserData.name.charAt(0) : 'N/A'
+            )
+            }
+           </div>
 		</div>
-
-
 		<div className ="flex items-center mt-4 pl-2">
 			<h2 className ="text-xl font-bold text-gray-800">{UserData.name}</h2>
 			<button className =" px-2 py-1 rounded-full">
