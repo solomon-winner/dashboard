@@ -5,7 +5,7 @@ import L from 'leaflet';
 import { useGetRegionGeojsonsQuery } from '../../redux/GeoJson/RegionGeoJsonApi';
 import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
 import {fetchRegionData, fetchSiteData} from '../Maps/FetchGeoJsonMap';
-import {SetAllSiteData} from '../../redux/GeoJson/GeoJsonSlice'
+import {SetAllRegions, SetAllSiteData, SetSelectedRegion, SetSelectedSite} from '../../redux/GeoJson/GeoJsonSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { setSiteId } from '../../redux/site/SiteByIdState';
 
@@ -61,7 +61,15 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
               color: "green",
               weight: 1,
             },
-          }).addTo(map);
+          }).addTo(map).eachLayer((layer) => {
+            //dispatch(SetAllRegions(layer))
+            layer.on("click",() => {
+              const Region_id = parseInt(url.match(/\d+/)[0], 10); 
+              dispatch(SetSelectedRegion(Region_id));
+              map.fitBounds(layer.getBounds());
+              layer.setStyle({ color: "black", fillOpacity: 0.6, fillColor: "black"});
+            })
+          });
         }).catch(error => {
           console.error("Error fetching data for URL:", url, error);
         });
