@@ -45,6 +45,7 @@ export const Weredas = () => {
     console.log(wereda);
     if (wereda.data) {
       toast.success("Wereda added successfully!");
+      window.location.href = `/admin/wereda`;
     } 
   };
   const handleChanges = (event) => {

@@ -60,6 +60,7 @@ const Kebeles = () => {
     console.log(kebele);
     if (kebele.data) {
       toast.success("Kebele added successfully!");
+      window.location.href = `/admin/kebele`;
     } 
   };
   const weredaOptions = isFetching

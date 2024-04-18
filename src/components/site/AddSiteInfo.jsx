@@ -85,6 +85,7 @@ export const AddSiteInfo = () => {
     console.log(site);
     if (site.data) {
       toast.success("Site added successfully!");
+      window.location.href = "/admin/site";
     }
   };
   const weredaOptions = isFetching

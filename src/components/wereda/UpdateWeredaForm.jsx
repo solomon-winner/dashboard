@@ -81,6 +81,7 @@ export const UpdateWeredaForm = () => {
     console.log(wereda);
     if (wereda.data) {
       toast.success("Wereda updated successfully!");
+      window.location.href = `/admin/wereda`;
     } 
   };
   const handleChanges = (e) => {

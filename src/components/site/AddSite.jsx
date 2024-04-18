@@ -223,6 +223,7 @@ export const AddSite = () => {
     console.log(response);
     if (response.data) {
       toast.success("Site added successfully");
+      window.location.href = "/admin/site";
     } 
   };
   return (

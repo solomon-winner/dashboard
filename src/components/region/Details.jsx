@@ -54,7 +54,7 @@ export const RegionDetails = () => {
               {/* <p className="mt-6 text-lg leading-8 text-gray-600">Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas in. Explicabo id ut laborum.</p> */}
             </div>
             <div className="w-2/3">
-              <EachMap geojsonData={`/geojson/regions/${id}.geojson`} SiteIds={woredaData.data.data.map((item) => item.sites.map((site) => site.id))} />
+              <EachMap geojsonData={`/geojson/regions/${id}.geojson`} SiteData={woredaData.data.data.map((item) => item.sites)} />
             </div>
           </div>
           <div className="flex flex-col gap-6 mt-10 lg:mt-20 lg:flex-row lg:items-start">

@@ -163,6 +163,7 @@ export const Updatewereda = () => {
     console.log(response);
     if (response.data) {
       toast.success("Data Added Successfully");
+      window.location.href = `/admin/wereda`;
     } 
   };
   return (

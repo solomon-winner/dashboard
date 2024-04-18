@@ -326,7 +326,7 @@ export const Details = () => {
                   <CommonTable data={site.data.data} name={"site_name"} title={"Site"} urlName={"site"}/>
                 </div>
                 <div className="w-2/3">
-                  <EachMap geojsonData={`/geojson/kebeles/${id}.geojson`} SiteIds={site.data.data.map((item) => item.id)} />
+                  <EachMap geojsonData={`/geojson/kebeles/${id}.geojson`} SiteData={site.data.data.map((item) => item.id)} />
                 </div>
               </div>
             </div>

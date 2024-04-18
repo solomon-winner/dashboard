@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import {
+  useDeleteSiteMutation,
   useGetSiteByIdQuery,
   useGetSiteQuery,
 } from "../../redux/site/SiteApiSlice";
@@ -21,6 +22,7 @@ export const SiteDetails = () => {
   const { data, isSuccess, isFetching } = useGetSiteByIdQuery(id);
   const { data: site } = useGetSiteQuery({ all: true });
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [deleteSite, { isLoading }] = useDeleteSiteMutation();
   const handleDelete = async () => {
     try {
       // await deleteRole(deleteRoleId).unwrap();
@@ -51,9 +53,11 @@ export const SiteDetails = () => {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
         <p>No Data Available</p>
-        <button className="mt-4 p-2 rounded-md text-sm bg-mainColor text-white hover:bg-customDark font-semibold">
+        <Link 
+         to={`/admin/new-site`}
+        className="mt-4 p-2 rounded-md text-sm bg-mainColor text-white hover:bg-customDark font-semibold">
           Add Data
-        </button>
+        </Link>
       </div>
     );
   }
@@ -77,7 +81,7 @@ export const SiteDetails = () => {
           className="w-full sm:w-1/3 lg:w-1/4"
         />
         <div className="flex gap-4">
-          <DeleteButton />
+          <DeleteButton entityId={id} deleteEntity={deleteSite} />
           <UpdateDataButton id={id} name="Site" url={"update-siteData"} />
           <UpdateButton id={id} name="Site" url={"update-site"} />
         </div>

@@ -257,7 +257,7 @@ export const WeredaDetails = () => {
                 </div>
                 <div className="flex flex-col lg:flex-row gap-4 w-full mt-10">
                   <div className="w-1/2">
-                    <EachMap geojsonData={`/geojson/woredas/${id}.geojson`} SiteIds={KebeleData.data.data.map((item) => item.sites.map((site) => site.id))} />
+                    <EachMap geojsonData={`/geojson/woredas/${id}.geojson`} SiteData={KebeleData.data.data.map((item) => item.sites)} />
                   </div>
                   <div className="w-full lg:w-1/2">
                     <div className="flex flex-col justify-between pb-5 border-b border-gray-200">
