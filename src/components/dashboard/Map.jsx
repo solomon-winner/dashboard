@@ -22,10 +22,9 @@ export const Map = () => {
   const dispatch = useDispatch();
   const AllSite = useSelector((state) => state.geoJson.GeoJson.AllSite);
   const Zoom  = useSelector((state) => state.geoJson.GeoJson.Zoom_out);
-  console.log("this is zoom", Zoom);
   const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
   const SitegeojsonUrl = isSiteSuccess && SitegeojsonUrls.data;
-dispatch(SetAllSiteData(SitegeojsonUrl));
+
   useEffect(() => {
     const ethiopia = { lat: 9.145, lng: 40.4897 };
     const map = L.map("map", {
@@ -62,7 +61,7 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
               weight: 1,
             },
           }).addTo(map).eachLayer((layer) => {
-            //dispatch(SetAllRegions(layer))
+            dispatch(SetAllRegions(layer))
             layer.on("click",() => {
               const Region_id = parseInt(url.match(/\d+/)[0], 10); 
               dispatch(SetSelectedRegion(Region_id));
@@ -82,8 +81,7 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
 
           L.geoJSON(data).addTo(map).eachLayer((layer) => {
             const coordinates = layer.getBounds().getCenter();
-                // dispatch(SetAllSiteData(layer));
-               console.log(url,"All data...***");
+              dispatch(SetAllSiteData(layer));
 
             const siteMarker = L.marker(coordinates, {icon: siteIcon}).addTo(map);
   

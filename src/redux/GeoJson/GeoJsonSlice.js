@@ -5,36 +5,50 @@ export const GeoJsonSlice = createSlice({
     initialState: {
         GeoJson: {
             AllSite:[],
-            Regions:[],
-            SelectedRegion:{},
+            AllRegions:[],
+            SelectedRegion:null,
             RegionsWoreda: [],
-            SelectedWoreda: {},
+            SelectedWoreda: null,
             WoredasKebele: [],
-            SelectedKebele: {},
-            KebelesSite: {},
-            SelectedSite: {},
+            SelectedKebele: null,
+            KebelesSite: [],
+            SelectedSite: null,
             Zoom_out: false,
         },
     },
 
     reducers: {
         SetAllSiteData: (state,action) => {
-            state.GeoJson.AllSite = action.payload;
+            state.GeoJson.AllSite = [...state.GeoJson.AllSite, action.payload];
         },
         SetAllRegions: (state, action) => {
-            state.GeoJson.Regions = action.payload;
+            state.GeoJson.AllRegions = [...state.GeoJson.AllRegions, action.payload];
+
         },
         SetSelectedRegion: (state, action) => {
             state.GeoJson.SelectedRegion = action.payload;
+            state.GeoJson.SelectedSite = false;
+            state.GeoJson.SelectedWoreda = false;
+            state.GeoJson.SelectedKebele = false;
         },
         SetSelectedWoreda: (state, action) => {
             state.GeoJson.SelectedWoreda = action.payload;
+            state.GeoJson.SelectedSite = false;
+            state.GeoJson.SelectedRegion = false;
+            state.GeoJson.SelectedKebele = false;
         },
         SetSelectedKebele: (state, action) => {
             state.GeoJson.SelectedKebele = action.payload;
+            state.GeoJson.SelectedRegion = false;
+            state.GeoJson.SelectedWoreda = false;
+            state.GeoJson.SelectedSite = false;
         },
         SetSelectedSite: (state, action) => {
             state.GeoJson.SelectedSite = action.payload;
+            state.GeoJson.SelectedRegion = false;
+            state.GeoJson.SelectedWoreda = false;
+            state.GeoJson.SelectedKebele = false;
+
         },
         SetZoom_out: (state, action) => {
             state.Zoom_out = action.payload
@@ -45,6 +59,12 @@ export const GeoJsonSlice = createSlice({
     }
 })
 
-export const {SetAllSiteData, SetZoom_out} = GeoJsonSlice.actions;
+export const {SetAllSiteData,
+     SetAllRegions, 
+     SetSelectedRegion, 
+     SetSelectedWoreda, 
+     SetSelectedKebele, 
+     SetSelectedSite, 
+     SetZoom_out} = GeoJsonSlice.actions;
 
 export default GeoJsonSlice.reducer;
