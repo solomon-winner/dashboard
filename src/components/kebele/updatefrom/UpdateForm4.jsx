@@ -1,8 +1,6 @@
-
-import { AddCircleOutline, Delete, FamilyRestroom, Grass, Pets } from "@mui/icons-material";
-import React ,{ useEffect, useState } from "react";
-import { FormField } from "../../wereda/AddWereda";
-import { kebeledata } from "../UpdateKebele";
+import { AddCircleOutline, Delete, Grass } from "@mui/icons-material";
+import React, { useEffect, useState } from "react";
+import { FormField } from "../../Resource/Utility/FormField";
 import Loadings from "../../Resource/Loading/Loadings";
 import { useSelector } from "react-redux";
 
@@ -19,37 +17,40 @@ export const extractAdditionalFieldsData = (prefix, formData, prefix2) => {
   }
   return fields;
 };
-export const UpdateForm4 = ({handleChange,formData,setFormData}) => {
-  const { livestock,forage, isLoadingLiveStock,isLoadingForage } = useSelector(
-    (state) => state.resource
-  );
+export const UpdateForm4 = ({ handleChange, formData, setFormData }) => {
+  const { livestock, forage, isLoadingLiveStock, isLoadingForage } =
+    useSelector((state) => state.resource);
   const [additionalFields, setAdditionalFields] = useState([]);
   const [additionalFields2, setAdditionalFields2] = useState([]);
   useEffect(() => {
     if (Object.keys(formData).length > 0) {
-      const initialAdditionalFields = extractAdditionalFieldsData('livestock', formData, 'numberlivestock');
-      const initialAdditionalFields2 = extractAdditionalFieldsData('foragetype', formData, 'foragearea');
+      const initialAdditionalFields = extractAdditionalFieldsData(
+        "livestock",
+        formData,
+        "numberlivestock"
+      );
+      const initialAdditionalFields2 = extractAdditionalFieldsData(
+        "foragetype",
+        formData,
+        "foragearea"
+      );
       setAdditionalFields(initialAdditionalFields);
       setAdditionalFields2(initialAdditionalFields2);
       const updatedFormData = { ...formData };
-      const type = initialAdditionalFields.map((item) => item.livestock) 
-      type.forEach((item,index)=>{
-         const name = livestock.find(
-          (livestock) => livestock.id === item
-        )?.name || ""
+      const type = initialAdditionalFields.map((item) => item.livestock);
+      type.forEach((item, index) => {
+        const name =
+          livestock.find((livestock) => livestock.id === item)?.name || "";
         updatedFormData[`namelivestock${index + 1}`] = name;
-      })
-      const type2 = initialAdditionalFields2.map((item) => item.foragetype)
-      type2.forEach((item,index)=>{
-         const name = forage.find(
-          (forage) => forage.id === item
-        )?.name || ""
+      });
+      const type2 = initialAdditionalFields2.map((item) => item.foragetype);
+      type2.forEach((item, index) => {
+        const name = forage.find((forage) => forage.id === item)?.name || "";
         updatedFormData[`foragename${index + 1}`] = name;
-      })
+      });
       setFormData(updatedFormData);
-      
     }
- }, [livestock,forage]); 
+  }, [livestock, forage]);
   const addField = () => {
     const highestId = additionalFields.reduce(
       (highest, field) => Math.max(highest, field.id),
@@ -71,22 +72,29 @@ export const UpdateForm4 = ({handleChange,formData,setFormData}) => {
     let numberlivestockIndex = 1;
     let namelivestockIndex = 1;
     for (let key in updatedFormData) {
-       if (key.startsWith('livestock') && key !== `livestock${id + 1}`) {
-         newFormData[`livestock${livestockIndex}`] = updatedFormData[key];
-         livestockIndex++;
-       } else if (key.startsWith('numberlivestock') && key !== `numberlivestock${id + 1}`) {
-         newFormData[`numberlivestock${numberlivestockIndex}`] = updatedFormData[key];
-         numberlivestockIndex++;
-       } else if (key.startsWith('namelivestock') && key !== `namelivestock${id + 1}`) {
-        newFormData[`namelivestock${namelivestockIndex}`] = updatedFormData[key];
+      if (key.startsWith("livestock") && key !== `livestock${id + 1}`) {
+        newFormData[`livestock${livestockIndex}`] = updatedFormData[key];
+        livestockIndex++;
+      } else if (
+        key.startsWith("numberlivestock") &&
+        key !== `numberlivestock${id + 1}`
+      ) {
+        newFormData[`numberlivestock${numberlivestockIndex}`] =
+          updatedFormData[key];
+        numberlivestockIndex++;
+      } else if (
+        key.startsWith("namelivestock") &&
+        key !== `namelivestock${id + 1}`
+      ) {
+        newFormData[`namelivestock${namelivestockIndex}`] =
+          updatedFormData[key];
         namelivestockIndex++;
-       }
-        else {
-         newFormData[key] = updatedFormData[key];
-       }
+      } else {
+        newFormData[key] = updatedFormData[key];
+      }
     }
     setFormData(newFormData);
-   };
+  };
   const addField2 = () => {
     const highestId = additionalFields2.reduce(
       (highest, field) => Math.max(highest, field.id),
@@ -94,7 +102,7 @@ export const UpdateForm4 = ({handleChange,formData,setFormData}) => {
     );
     setAdditionalFields2([
       ...additionalFields2,
-      { id: highestId + 1, livestock: "",numberlivestock:"" },
+      { id: highestId + 1, livestock: "", numberlivestock: "" },
     ]);
   };
   const removeField2 = (id) => {
@@ -108,19 +116,24 @@ export const UpdateForm4 = ({handleChange,formData,setFormData}) => {
     let forageareaIndex = 1;
     let foragenameIndex = 1;
     for (let key in updatedFormData) {
-       if (key.startsWith('foragetype') && key !== `foragetype${id + 1}`) {
-         newFormData[`foragetype${foragetypeIndex}`] = updatedFormData[key];
-         foragetypeIndex++;
-       } else if (key.startsWith('foragearea') && key !== `foragearea${id + 1}`) {
-         newFormData[`foragearea${forageareaIndex}`] = updatedFormData[key];
-         forageareaIndex++;
-       } else if (key.startsWith('foragename') && key !== `foragename${id + 1}`) {
+      if (key.startsWith("foragetype") && key !== `foragetype${id + 1}`) {
+        newFormData[`foragetype${foragetypeIndex}`] = updatedFormData[key];
+        foragetypeIndex++;
+      } else if (
+        key.startsWith("foragearea") &&
+        key !== `foragearea${id + 1}`
+      ) {
+        newFormData[`foragearea${forageareaIndex}`] = updatedFormData[key];
+        forageareaIndex++;
+      } else if (
+        key.startsWith("foragename") &&
+        key !== `foragename${id + 1}`
+      ) {
         newFormData[`foragename${foragenameIndex}`] = updatedFormData[key];
         foragenameIndex++;
-       }
-        else {
-         newFormData[key] = updatedFormData[key];
-       }
+      } else {
+        newFormData[key] = updatedFormData[key];
+      }
     }
     setFormData(newFormData);
   };
@@ -128,7 +141,7 @@ export const UpdateForm4 = ({handleChange,formData,setFormData}) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-      [e.target.label]: e.target.labelName
+      [e.target.label]: e.target.labelName,
     });
     handleChange(e);
   };
@@ -138,7 +151,7 @@ export const UpdateForm4 = ({handleChange,formData,setFormData}) => {
         Livestock
       </h6>
       <div className="flex flex-wrap">
-      {additionalFields.map((field, index) => (
+        {additionalFields.map((field, index) => (
           <React.Fragment key={field.id}>
             <FormField
               label="Type"
@@ -163,31 +176,33 @@ export const UpdateForm4 = ({handleChange,formData,setFormData}) => {
                     }))
               }
               handleChange={handleChanges}
-              value={formData[`namelivestock${index + 1}`]  || formData[`livestock${index + 1}`]}
+              value={
+                formData[`namelivestock${index + 1}`] ||
+                formData[`livestock${index + 1}`]
+              }
               onChange={(option) => {
                 handleChanges({
                   target: {
                     name: `livestock${index + 1}`,
                     value: option.target.value.value,
                     label: `namelivestock${index + 1}`,
-                    labelName: option.target.value.label
+                    labelName: option.target.value.label,
                   },
                 });
               }}
             />
             <FormField
-                    label="Number of Livestock"
-                    name={`numberlivestock${index +  1}`}
-                    type="number"
-                    placeholder="Total Number of Livestock"
-                    value={formData[`numberlivestock${index + 1}`] || ""}
-                    handleChange={handleChanges}
-                  />
+              label="Number of Livestock"
+              name={`numberlivestock${index + 1}`}
+              type="number"
+              placeholder="Total Number of Livestock"
+              value={formData[`numberlivestock${index + 1}`] || ""}
+              handleChange={handleChanges}
+            />
             <Delete onClick={() => removeField(field.id)} className="lg:mt-8" />
           </React.Fragment>
         ))}
         <AddCircleOutline onClick={addField} className="lg:mt-8" />
-        
       </div>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
         Forage
@@ -219,14 +234,17 @@ export const UpdateForm4 = ({handleChange,formData,setFormData}) => {
                     }))
               }
               handleChange={handleChanges}
-              value={formData[`foragename${index + 1}`]  || formData[`forgetype${index + 1}`]}
+              value={
+                formData[`foragename${index + 1}`] ||
+                formData[`forgetype${index + 1}`]
+              }
               onChange={(option) => {
                 handleChanges({
                   target: {
                     name: `forgetype${index + 1}`,
                     value: option.target.value.value,
                     label: `foragename${index + 1}`,
-                    labelName: option.target.value.label
+                    labelName: option.target.value.label,
                   },
                 });
               }}
@@ -239,7 +257,10 @@ export const UpdateForm4 = ({handleChange,formData,setFormData}) => {
               value={formData[`forgearea${index + 1}`] || ""}
               handleChange={handleChanges}
             />
-            <Delete onClick={() => removeField2(field.id)} className="lg:mt-8" />
+            <Delete
+              onClick={() => removeField2(field.id)}
+              className="lg:mt-8"
+            />
           </React.Fragment>
         ))}
         <AddCircleOutline onClick={addField2} className="lg:mt-8" />

@@ -8,23 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAddAccountMutation } from "../../redux/account/AccountApiSlice";
 import { createAccount } from "../../redux/account/AccountState";
 import ReactSelect from "react-select";
-// import { MultiSelect } from 'primereact/multiselect';
-// const [password, setPassword] = ('');
-
-// const handleChange = (e) => {
-//     setPassword(e.target.value);
-// };
-// const [email, setEmail] = ('');
-
-//     setEmail(e.target.value);
-// ;
 
 const NewUser = () => {
-  const { id } = useParams(); // Get the role ID from URL parameter
+  const { id } = useParams(); 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [AddUser, { isLoading }] = useAddAccountMutation();
-  const { data: role, isSuccess, isError } = useGetRolesQuery(); // Fetch role details by ID
+  const { data: role, isSuccess, isError } = useGetRolesQuery(); 
 
   const Roles = useSelector((state) => state.roles.roles);
   Roles.map((role) => {

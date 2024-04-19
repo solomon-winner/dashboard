@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import {
   useDeleteWeredaByIdMutation,
@@ -8,10 +8,8 @@ import {
 } from "../../redux/wereda/WeredaApiSlice";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import { useInitalValueworeda } from "../../redux/InitialState/initalValueWoreda";
-import { Table } from "./Table";
 import { useGetKebeleByWeredaQuery } from "../../redux/kebele/KebeleApiSlice";
 import Select from "react-select";
-import { Delete, Edit } from "@mui/icons-material";
 import BackButton from "../Resource/Utility/BackButton";
 import { UpdateDataButton } from "../Resource/Utility/UpdateDataButton";
 import { UpdateButton } from "../Resource/Utility/UpdateButton";
@@ -23,19 +21,9 @@ export const WeredaDetails = () => {
   const { id } = useParams();
   useInitalValueworeda(id);
 
-  const {
-    data: weredadata,
-    isSuccess,
-    isFetching,
-    error,
-  } = useGetWeredaByIdQuery(id);
-  const { data: KebeleData, isSuccess: kebeleFetched } =
-    useGetKebeleByWeredaQuery({ id: id });
-  const {
-    data: wereda,
-    isLoading,
-    isSuccess: weredaSuccess,
-  } = useGetWoredaQuery({ all: true });
+  const { data: weredadata, isSuccess, isFetching } = useGetWeredaByIdQuery(id);
+  const { data: KebeleData } = useGetKebeleByWeredaQuery({ id: id });
+  const { data: wereda } = useGetWoredaQuery({ all: true });
   const [deleteWereda] = useDeleteWeredaByIdMutation();
 
   if (!isSuccess || isFetching || !weredadata || !KebeleData || !wereda) {
@@ -257,7 +245,10 @@ export const WeredaDetails = () => {
                 </div>
                 <div className="flex flex-col lg:flex-row gap-4 w-full mt-10">
                   <div className="w-1/2">
-                    <EachMap geojsonData={`/geojson/woredas/${id}.geojson`} SiteIds={KebeleData.data.data.map((item) => item.sites.map((site) => site.id))} />
+                    <EachMap
+                      geojsonData={`/geojson/woredas/${id}.geojson`}
+                      SiteData={KebeleData.data.data.map((item) => item.sites)}
+                    />
                   </div>
                   <div className="w-full lg:w-1/2">
                     <div className="flex flex-col justify-between pb-5 border-b border-gray-200">
@@ -265,7 +256,12 @@ export const WeredaDetails = () => {
                         Kebeles and Sites
                       </h1>
                       {/* <Table kebele={KebeleData.data.data} /> */}
-                      <CommonTable data={KebeleData.data.data} name={"kebele_name"} title={"Kebele"} urlName={"kebele"} />
+                      <CommonTable
+                        data={KebeleData.data.data}
+                        name={"kebele_name"}
+                        title={"Kebele"}
+                        urlName={"kebele"}
+                      />
                     </div>
                   </div>
                 </div>

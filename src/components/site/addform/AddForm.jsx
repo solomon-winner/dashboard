@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { ErrorMessage, Field } from "formik";
 
 import { AddCircleOutline, Delete, Forest } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
-import { weredas } from "../../wereda/addform/AddForm";
-import Select from "react-select";
+import { FormField } from "../../Resource/Utility/FormField";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
 import { useGetWeredaByRegionQuery } from "../../../redux/region/RegionApiSlice";
@@ -20,27 +17,17 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
   const [selectedKebele, setSelectedKebele] = useState("");
   const [selectedSite, setSelectedSite] = useState("");
   const { regions, isLoadingRegions } = useSelector((state) => state.region);
-  const {
-    data: getweredaByRegion,
-    isSuccess: weredaSuccess,
-    isFetching,
-  } = useGetWeredaByRegionQuery(
+  const { data: getweredaByRegion, isFetching } = useGetWeredaByRegionQuery(
     { id: selectedRegion, with_sites: true },
     { skip: !selectedRegion }
   );
-  const {
-    data: getkebeleByWereda,
-    isSuccess: kebeleSuccess,
-    isFetching: kebeleFetching,
-  } = useGetKebeleByWeredaQuery(
-    { id: selectedWereda, with_sites: true },
-    { skip: !selectedWereda }
-  );
-  const {
-    data: getsitesByKebele,
-    isSuccess: siteSuccess,
-    isFetching: siteFetching,
-  } = useGetSiteByKebeleQuery(selectedKebele, { skip: !selectedKebele });
+  const { data: getkebeleByWereda, isFetching: kebeleFetching } =
+    useGetKebeleByWeredaQuery(
+      { id: selectedWereda, with_sites: true },
+      { skip: !selectedWereda }
+    );
+  const { data: getsitesByKebele, isFetching: siteFetching } =
+    useGetSiteByKebeleQuery(selectedKebele, { skip: !selectedKebele });
   const { tree, isLoadingTree } = useSelector((state) => state.resource);
   const [additionalFields, setAdditionalFields] = useState([
     { id: 0, indegeneoustype: "" },
@@ -82,21 +69,6 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
     });
     handleChange(e);
   };
-  const weredaOptions = isFetching
-    ? [
-        {
-          value: "loading",
-          label: (
-            <div className="flex justify-center">
-              <Loadings />
-            </div>
-          ),
-        },
-      ]
-    : getweredaByRegion?.data?.data?.map((wereda) => ({
-        value: wereda.id,
-        label: wereda.woreda_name,
-      }));
   return (
     <div>
       <div className="flex flex-wrap">

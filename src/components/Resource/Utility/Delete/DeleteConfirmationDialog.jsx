@@ -9,7 +9,7 @@ const DeleteConfirmationDialog = ({
   if (!showConfirmation) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white shadow-xl rounded-lg overflow-hidden max-w-md w-full">
         {" "}
         {/* Decreased the max-w-lg to max-w-md */}

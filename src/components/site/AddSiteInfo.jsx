@@ -1,12 +1,9 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, ErrorMessage } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
-import {
-  useGetRegionQuery,
-  useGetWeredaByRegionQuery,
-} from "../../redux/region/RegionApiSlice";
+import { useGetWeredaByRegionQuery } from "../../redux/region/RegionApiSlice";
 import { useGetKebeleByWeredaQuery } from "../../redux/kebele/KebeleApiSlice";
-import { FormField } from "../wereda/AddWereda";
+import { FormField } from "../Resource/Utility/FormField";
 import { useAddSiteMutation } from "../../redux/site/SiteApiSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -36,22 +33,15 @@ export const AddSiteInfo = () => {
   const [selectedWereda, setSelectedWereda] = useState("");
   const [selectedKebele, setSelectedKebele] = useState("");
   const { regions, isLoadingRegions } = useSelector((state) => state.region);
-  const {
-    data: getweredaByRegion,
-    isSuccess: weredaSuccess,
-    isFetching,
-  } = useGetWeredaByRegionQuery(
+  const { data: getweredaByRegion, isFetching } = useGetWeredaByRegionQuery(
     { id: selectedRegion, with_sites: true },
     { skip: !selectedRegion }
   );
-  const {
-    data: getkebeleByWereda,
-    isSuccess: kebeleSuccess,
-    isFetching: kebeleFetching,
-  } = useGetKebeleByWeredaQuery(
-    { id: selectedWereda, with_sites: true },
-    { skip: !selectedWereda }
-  );
+  const { data: getkebeleByWereda, isFetching: kebeleFetching } =
+    useGetKebeleByWeredaQuery(
+      { id: selectedWereda, with_sites: true },
+      { skip: !selectedWereda }
+    );
   const [addSite] = useAddSiteMutation();
   const [formData, setFormData] = useState({
     watershed_name: "",
@@ -85,6 +75,7 @@ export const AddSiteInfo = () => {
     console.log(site);
     if (site.data) {
       toast.success("Site added successfully!");
+      window.location.href = "/admin/site";
     }
   };
   const weredaOptions = isFetching

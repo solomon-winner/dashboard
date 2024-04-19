@@ -7,7 +7,7 @@ import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
 import {fetchRegionData, fetchSiteData} from '../Maps/FetchGeoJsonMap';
 import {SetAllSiteData} from '../../redux/GeoJson/GeoJsonSlice'
 import { useDispatch, useSelector } from 'react-redux';
-import { LocationInfo } from '../Maps/LocationInfo';
+
 import { setSiteId } from '../../redux/site/SiteByIdState';
 
   var siteIcon = L.icon({

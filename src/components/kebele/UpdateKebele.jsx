@@ -19,7 +19,10 @@ import { MainLoading } from "../Resource/Loading/Loadings";
 import { useInitialValueKebele } from "../../redux/InitialState/initalValueKebele";
 import { useSelector } from "react-redux";
 import BackButton from "../Resource/Utility/BackButton";
-import { FormBackButton, FormNextButton } from "../Resource/Utility/FormButtons";
+import {
+  FormBackButton,
+  FormNextButton,
+} from "../Resource/Utility/FormButtons";
 
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
@@ -62,7 +65,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         energy_sourceArray.push({
           resource_id: values[typeKey],
@@ -89,7 +92,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         livelihoodArray.push({
           resource_id: values[typeKey],
@@ -115,7 +118,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         landuseArray.push({
           resource_id: values[typeKey],
@@ -143,7 +146,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         livestockArray.push({
           resource_id: values[typeKey],
@@ -170,7 +173,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         indegeneoustreeArray.push({
           resource_id: values[typeKey],
@@ -197,7 +200,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         exotictreeArray.push({
           resource_id: values[typeKey],
@@ -254,7 +257,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         cropArray.push({
           resource_id: values[typeKey],
@@ -282,7 +285,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         fruitArray.push({
           resource_id: values[typeKey],
@@ -311,7 +314,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         nurseryArray.push({
           resource_id: values[typeKey],
@@ -338,7 +341,7 @@ export const UpdateKebele = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         causeofdeforestationArray.push({
           resource_id: values[typeKey],
@@ -381,7 +384,8 @@ export const UpdateKebele = () => {
     console.log(response);
     if (response.data) {
       toast.success("Kebele added successfully");
-    } 
+      window.location.href = `/admin/kebele`;
+    }
     console.log({ ...value, id: Number(id) });
   };
 
@@ -454,9 +458,7 @@ export const UpdateKebele = () => {
                     />
                   )}
                   <div className="mt-4 flex justify-between w-10/12">
-                    {step > 1 && (
-                      <FormBackButton handleBack={handleBack} />
-                    )}
+                    {step > 1 && <FormBackButton handleBack={handleBack} />}
                     <div className="text-gray-500 text-sm">
                       Page {step} of 7
                     </div>

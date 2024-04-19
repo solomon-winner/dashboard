@@ -4,13 +4,10 @@ import {
   useGetKebeleByIdQuery,
   useUpdateKebeleByIdMutation,
 } from "../../redux/kebele/KebeleApiSlice";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
-import {
-  useGetRegionQuery,
-  useGetWeredaByRegionQuery,
-} from "../../redux/region/RegionApiSlice";
-import { FormField } from "../wereda/AddWereda";
+import { useGetWeredaByRegionQuery } from "../../redux/region/RegionApiSlice";
+import { FormField } from "../Resource/Utility/FormField";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
@@ -132,7 +129,8 @@ const UpdateKebeleForm = () => {
     console.log(kebele);
     if (kebele.data) {
       toast.success("Kebele Updated successfully!");
-    } 
+      window.location.href = `/admin/kebele`;
+    }
   };
   const weredaOptions = isFetching
     ? [

@@ -1,18 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { AddCircleOutline, Delete, Forest } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
-import { ErrorMessage, Field } from "formik";
-import { kebeles } from "../addform/AddForm";
-import { weredas } from "../../wereda/addform/AddForm";
-import { regions } from "../../region/addform/AddForm";
-import { sitedata } from "../UpdateSite";
+import { AddCircleOutline, Delete } from "@mui/icons-material";
+import { FormField } from "../../Resource/Utility/FormField";
 import Loadings from "../../Resource/Loading/Loadings";
 import { useSelector } from "react-redux";
-import Select from "react-select";
-import { useGetKebeleByWeredaQuery } from "../../../redux/kebele/KebeleApiSlice";
-import { useGetWeredaByRegionQuery } from "../../../redux/region/RegionApiSlice";
-import { useGetSiteByKebeleQuery } from "../../../redux/site/SiteApiSlice";
-import {MainLoading} from "../../Resource/Loading/Loadings";
+import { MainLoading } from "../../Resource/Loading/Loadings";
 export const extractAdditionalFieldsData = (prefix, formData, prefix2) => {
   const fields = [];
   let index = 1;
