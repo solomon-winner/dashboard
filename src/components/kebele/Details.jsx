@@ -1,15 +1,14 @@
 import React from "react";
 import { Table } from "./Table";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   useGetKebeleByIdQuery,
   useGetKebeleQuery,
 } from "../../redux/kebele/KebeleApiSlice";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import { useInitialValueKebele } from "../../redux/InitialState/initalValueKebele";
-import { Check, Delete, Edit } from "@mui/icons-material";
+import { Check } from "@mui/icons-material";
 import { useGetSiteByKebeleQuery } from "../../redux/site/SiteApiSlice";
-import { Table2 } from "./Table2";
 import Select from "react-select";
 import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
 import { UpdateDataButton } from "../Resource/Utility/UpdateDataButton";
@@ -21,10 +20,6 @@ import { CommonTable } from "../Resource/Utility/Table";
 export const Details = () => {
   const { id } = useParams();
   useInitialValueKebele(id);
-  const goBack = () => {
-    window.history.back();
-  };
-
   const { data, isSuccess, isFetching } = useGetKebeleByIdQuery(id);
   const { data: site } = useGetSiteByKebeleQuery(id);
   const { data: kebele } = useGetKebeleQuery({ all: true });
@@ -323,10 +318,18 @@ export const Details = () => {
                     Site
                   </h1>
                   {/* <Table2 site={site.data.data} /> */}
-                  <CommonTable data={site.data.data} name={"site_name"} title={"Site"} urlName={"site"}/>
+                  <CommonTable
+                    data={site.data.data}
+                    name={"site_name"}
+                    title={"Site"}
+                    urlName={"site"}
+                  />
                 </div>
                 <div className="w-2/3">
-                  <EachMap geojsonData={`/geojson/kebeles/${id}.geojson`} SiteData={site.data.data.map((item) => item.id)} />
+                  <EachMap
+                    geojsonData={`/geojson/kebeles/${id}.geojson`}
+                    SiteData={site.data.data.map((item) => item.id)}
+                  />
                 </div>
               </div>
             </div>

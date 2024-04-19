@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Apartment, FamilyRestroom, Landscape } from "@mui/icons-material";
 import { FormField } from "../../Resource/Utility/FormField";
 
-import {
-  useGetRegionQuery,
-  useGetWeredaByRegionQuery,
-} from "../../../redux/region/RegionApiSlice";
+import { useGetWeredaByRegionQuery } from "../../../redux/region/RegionApiSlice";
 import Select from "react-select";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
@@ -13,16 +10,14 @@ import RegionSelect from "../../Resource/Utility/SelecteDropDown/RegionSelect";
 import WeredaSelect from "../../Resource/Utility/SelecteDropDown/WeredaSelect";
 
 export const AddForm = ({ handleChange, formData, setFormData }) => {
-
   const [selectedRegion, setSelectedRegion] = useState("");
   const [weredaId, setWeredaID] = useState("");
   const { regions, isLoadingRegions } = useSelector((state) => state.region);
 
-  const {
-    data: getweredaByRegion,
-    isSuccess: weredaSuccess,
-    isFetching,
-   } = useGetWeredaByRegionQuery({ id: selectedRegion, with_sites: true }, { skip: !selectedRegion });
+  const { data: getweredaByRegion, isFetching } = useGetWeredaByRegionQuery(
+    { id: selectedRegion, with_sites: true },
+    { skip: !selectedRegion }
+  );
   const weredaOptions = isFetching
     ? [
         {
@@ -93,7 +88,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
                 });
                 setFormData({
                   ...formData,
-                  selectedRegionName: option.label, 
+                  selectedRegionName: option.label,
                   selectedWeredaName: "",
                 });
               }}

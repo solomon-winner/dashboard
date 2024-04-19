@@ -3,7 +3,6 @@ import { Formik, Form, Field } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { SetProfileData } from "../../redux/Profile/ProfileSlice";
 import {
   useGetUserByIdQuery,
   useUpdateUserMutation,

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FormField } from "../Resource/Utility/FormField";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useAddWoredaMutation } from "../../redux/wereda/WeredaApiSlice";
 import { toast } from "react-toastify";
@@ -46,7 +46,7 @@ export const Weredas = () => {
     if (wereda.data) {
       toast.success("Wereda added successfully!");
       window.location.href = `/admin/wereda`;
-    } 
+    }
   };
   const handleChanges = (event) => {
     const selectedFile = event.target.files[0];

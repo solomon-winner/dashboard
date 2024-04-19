@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetKebeleQuery } from "../../redux/kebele/KebeleApiSlice";
-import { MainLoading } from "../Resource/Loading/Loadings";
 import Pagination from "../Resource/Pagination/Pagination";
 import { numberWithCommas } from "../region/View";
-import { Add } from "@mui/icons-material";
 import { AddButton } from "../Resource/Utility/AddButton";
 import { AddDataButton } from "../Resource/Utility/AddDataButton";
 import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
@@ -12,7 +10,11 @@ import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
-  const { data, error, isLoading, isSuccess } = useGetKebeleQuery({page : currentPage, per_page : 20, ...(searchInput && { search: searchInput })});
+  const { data, error, isLoading, isSuccess } = useGetKebeleQuery({
+    page: currentPage,
+    per_page: 20,
+    ...(searchInput && { search: searchInput }),
+  });
 
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
@@ -28,7 +30,13 @@ export const View = () => {
   if (isLoading === true) {
     return (
       <div className="flex justify-center items-center h-screen ">
-         <LoadingSkeleton searchInput={searchInput} handleSearchInput={handleSearchInput} name={"Kebele"} url={"add-kebeles"} urlData={"new-kebele"}/>
+        <LoadingSkeleton
+          searchInput={searchInput}
+          handleSearchInput={handleSearchInput}
+          name={"Kebele"}
+          url={"add-kebeles"}
+          urlData={"new-kebele"}
+        />
       </div>
     );
   } else if (isLoading === false && data && data.length != 0) {
@@ -47,28 +55,7 @@ export const View = () => {
             >
               <Link
                 to={`/admin/kebele/${item.id}`}
-                className="
-          p-4
-          pt-9
-          h-full
-          md:px-7
-          xl:px-10
-          bg-white
-          shadow-md
-          border
-          border-custumBlue
-          hover:shadow-lg
-          hover:bg-mainColor
-          hover:text-white
-          transition duration-300 ease-in-out
-          flex
-          flex-col
-          justify-center
-          relative
-          group
-          overflow-hidden
-          rounded
-        "
+                className="p-4 pt-9 h-full md:px-7 xl:px-10 bg-white shadow-md border border-custumBlue hover:shadow-lg hover:bg-mainColor hover:text-white transition duration-300 ease-in-out flex flex-col justify-center relative group overflow-hidden rounded"
               >
                 <h4 className="relative z-10 font-semibold font-raleway text-2xl text-dark mb-3">
                   {item.kebele_name}
@@ -134,7 +121,6 @@ export const View = () => {
         <div>
           <AddButton name="Kebele" url={"add-kebele"} />
           <AddDataButton name="Kebele" url={"new-kebele"} />
-          
         </div>
       </div>
       <div className="h-full flex gap-3 flex-col">

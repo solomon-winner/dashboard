@@ -1,33 +1,16 @@
-import {
-  AddCircleOutline,
-  Delete,
-  FamilyRestroom,
-  Grass,
-  Pets,
-} from "@mui/icons-material";
+import { AddCircleOutline, Delete, Grass } from "@mui/icons-material";
 import React, { useState } from "react";
 import { FormField } from "../../Resource/Utility/FormField";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
-
-const option = [
-  "Grass",
-  "Elephant Grass",
-  "Suspania suspan",
-  "Truelucern",
-  "Sespanya",
-  "Yekintebameno",
-  "Cow Pea",
-];
-export const AddForm4 = ({handleChange,formData,setFormData}) => {
-  const { livestock,forage, isLoadingLiveStock,isLoadingForage } = useSelector(
-    (state) => state.resource
-  );
+export const AddForm4 = ({ handleChange, formData, setFormData }) => {
+  const { livestock, forage, isLoadingLiveStock, isLoadingForage } =
+    useSelector((state) => state.resource);
   const [additionalFields, setAdditionalFields] = useState([
     { id: 0, type: "", area: "" },
   ]);
   const [additionalFields2, setAdditionalFields2] = useState([
-    { id: 0, livestock: "",numberlivestock:"" },
+    { id: 0, livestock: "", numberlivestock: "" },
   ]);
   const addField = () => {
     const highestId = additionalFields.reduce(
@@ -49,7 +32,7 @@ export const AddForm4 = ({handleChange,formData,setFormData}) => {
     );
     setAdditionalFields2([
       ...additionalFields2,
-      { id: highestId + 1, livestock: "",numberlivestock:"" },
+      { id: highestId + 1, livestock: "", numberlivestock: "" },
     ]);
   };
   const removeField2 = (id) => {
@@ -68,7 +51,7 @@ export const AddForm4 = ({handleChange,formData,setFormData}) => {
         Livestock
       </h6>
       <div className="flex flex-wrap">
-      {additionalFields2.map((field, index) => (
+        {additionalFields2.map((field, index) => (
           <React.Fragment key={field.id}>
             <FormField
               label="Type"
@@ -95,7 +78,8 @@ export const AddForm4 = ({handleChange,formData,setFormData}) => {
               handleChange={handleChanges}
               value={
                 livestock.find(
-                  (livestock) => livestock.id === formData[`livestock${index + 1}`]
+                  (livestock) =>
+                    livestock.id === formData[`livestock${index + 1}`]
                 )?.name || ""
               }
               onChange={(option) => {
@@ -108,18 +92,20 @@ export const AddForm4 = ({handleChange,formData,setFormData}) => {
               }}
             />
             <FormField
-                    label="Number of Livestock"
-                    name={`numberlivestock${index +  1}`}
-                    type="number"
-                    placeholder="Total Number of Livestock"
-                    value={formData[`numberlivestock${index + 1}`] || ""}
-                    handleChange={handleChanges}
-                  />
-            <Delete onClick={() => removeField2(field.id)} className="lg:mt-8" />
+              label="Number of Livestock"
+              name={`numberlivestock${index + 1}`}
+              type="number"
+              placeholder="Total Number of Livestock"
+              value={formData[`numberlivestock${index + 1}`] || ""}
+              handleChange={handleChanges}
+            />
+            <Delete
+              onClick={() => removeField2(field.id)}
+              className="lg:mt-8"
+            />
           </React.Fragment>
         ))}
         <AddCircleOutline onClick={addField2} className="lg:mt-8" />
-        
       </div>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
         Forage
@@ -153,7 +139,8 @@ export const AddForm4 = ({handleChange,formData,setFormData}) => {
               handleChange={handleChanges}
               value={
                 forage.find(
-                  (forgetype) => forgetype.id === formData[`forgetype${index + 1}`]
+                  (forgetype) =>
+                    forgetype.id === formData[`forgetype${index + 1}`]
                 )?.name || ""
               }
               onChange={(option) => {

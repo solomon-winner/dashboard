@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { UpdateForm } from "./updateform/UpdateForm";
 import { UpdateForm2 } from "./updateform/UpdateForm2";
@@ -15,19 +15,17 @@ import { MainLoading } from "../Resource/Loading/Loadings";
 import { useSelector } from "react-redux";
 import { useInitalValueworeda } from "../../redux/InitialState/initalValueWoreda";
 import BackButton from "../Resource/Utility/BackButton";
-import { FormBackButton, FormNextButton } from "../Resource/Utility/FormButtons";
+import {
+  FormBackButton,
+  FormNextButton,
+} from "../Resource/Utility/FormButtons";
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
 export const Updatewereda = () => {
   const { id } = useParams();
   useInitalValueworeda(id);
-  const {
-    data: woredadata,
-    isSuccess,
-    isFetching,
-    refetch,
-  } = useGetWeredaByIdQuery(id);
+  const { data: woredadata, isFetching } = useGetWeredaByIdQuery(id);
   const { weredas, isLoadingWeredas } = useSelector((state) => state.wereda);
   const [addResource] = useAddResourceMutation();
   const [addweredadata] = useAddWoredaDataMutation();
@@ -66,7 +64,7 @@ export const Updatewereda = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         landArray.push({
           resource_id: values[typeKey],
@@ -91,7 +89,7 @@ export const Updatewereda = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         roadArray.push({
           resource_id: values[typeKey],
@@ -164,7 +162,7 @@ export const Updatewereda = () => {
     if (response.data) {
       toast.success("Data Added Successfully");
       window.location.href = `/admin/wereda`;
-    } 
+    }
   };
   return (
     <div className="bg-dashbordColor">
@@ -207,14 +205,12 @@ export const Updatewereda = () => {
                     />
                   )}
                   <div className="mt-20 flex justify-between w-10/12">
-                    {step > 1 && (
-                     <FormBackButton handleBack={handleBack}/>
-                    )}
+                    {step > 1 && <FormBackButton handleBack={handleBack} />}
                     <div className="text-gray-500 text-sm">
                       Page {step} of 3
                     </div>
                     {step < 3 ? (
-                      <FormNextButton handleNext={handleNext}/>
+                      <FormNextButton handleNext={handleNext} />
                     ) : (
                       <button
                         type="submit"

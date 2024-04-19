@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FormField } from "../Resource/Utility/FormField";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import {
-  useAddWoredaMutation,
   useGetWeredaByIdQuery,
   useUpdateWeredaByIdMutation,
 } from "../../redux/wereda/WeredaApiSlice";
@@ -82,7 +81,7 @@ export const UpdateWeredaForm = () => {
     if (wereda.data) {
       toast.success("Wereda updated successfully!");
       window.location.href = `/admin/wereda`;
-    } 
+    }
   };
   const handleChanges = (e) => {
     setFormData({

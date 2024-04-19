@@ -1,17 +1,13 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, ErrorMessage } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
-import {
-  useGetRegionQuery,
-  useGetWeredaByRegionQuery,
-} from "../../redux/region/RegionApiSlice";
+import { useGetWeredaByRegionQuery } from "../../redux/region/RegionApiSlice";
 import {
   useGetKebeleByIdQuery,
   useGetKebeleByWeredaQuery,
 } from "../../redux/kebele/KebeleApiSlice";
 import { FormField } from "../Resource/Utility/FormField";
 import {
-  useAddSiteMutation,
   useGetSiteByIdQuery,
   useUpdateSiteByIdMutation,
 } from "../../redux/site/SiteApiSlice";
@@ -21,10 +17,7 @@ import Select from "react-select";
 import { useSelector } from "react-redux";
 import Loadings from "../Resource/Loading/Loadings";
 import { useParams } from "react-router-dom";
-import {
-  useGetWeredaByIdQuery,
-  useGetWoredaQuery,
-} from "../../redux/wereda/WeredaApiSlice";
+import { useGetWeredaByIdQuery } from "../../redux/wereda/WeredaApiSlice";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
 import BackButton from "../Resource/Utility/BackButton";

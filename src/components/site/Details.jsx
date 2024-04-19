@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import CloseIcon from "@mui/icons-material/Close";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import {
   useDeleteSiteMutation,
@@ -8,7 +7,7 @@ import {
   useGetSiteQuery,
 } from "../../redux/site/SiteApiSlice";
 import { useInitialValueSite } from "../../redux/InitialState/initalValueSite";
-import { Check, Delete, Edit } from "@mui/icons-material";
+import { Check } from "@mui/icons-material";
 import Select from "react-select";
 import BackButton from "../Resource/Utility/BackButton";
 import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
@@ -23,23 +22,7 @@ export const SiteDetails = () => {
   const { data: site } = useGetSiteQuery({ all: true });
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [deleteSite, { isLoading }] = useDeleteSiteMutation();
-  const handleDelete = async () => {
-    try {
-      // await deleteRole(deleteRoleId).unwrap();
-      // toast.success("Role deleted successfully");
-      // dispatch(deleteRoles(deleteRoleId));
-      setShowDeleteConfirmation(false);
-    } catch (error) {
-      console.error("Failed to delete role:", error);
-    }
-  };
 
-  const handleCancelDelete = () => {
-    setShowDeleteConfirmation(false);
-  };
-  const goBack = () => {
-    window.history.back();
-  };
   if (!isSuccess || isFetching || !data || !site) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -53,9 +36,10 @@ export const SiteDetails = () => {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
         <p>No Data Available</p>
-        <Link 
-         to={`/admin/new-site`}
-        className="mt-4 p-2 rounded-md text-sm bg-mainColor text-white hover:bg-customDark font-semibold">
+        <Link
+          to={`/admin/new-site`}
+          className="mt-4 p-2 rounded-md text-sm bg-mainColor text-white hover:bg-customDark font-semibold"
+        >
           Add Data
         </Link>
       </div>
@@ -94,7 +78,7 @@ export const SiteDetails = () => {
             </h2>
           </div>
           <div className="flex gap-2 mb-6">
-          <div className="bg-white shadow-md rounded-md p-4 h-fit w-1/3">
+            <div className="bg-white shadow-md rounded-md p-4 h-fit w-1/3">
               <div className="p-8 text-gray-600">
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Region: {data.data?.region_name}
@@ -115,12 +99,10 @@ export const SiteDetails = () => {
             </div>
 
             <div className="w-2/3">
-      <EachMap geojsonData={`/geojson/sites/${id}.geojson`} />
-      </div>
-
+              <EachMap geojsonData={`/geojson/sites/${id}.geojson`} />
+            </div>
           </div>
           <div className="grid gap-4 lg:grid-cols-3">
-           
             <div className="bg-white shadow-md rounded-md p-4 h-fit">
               <h4 className="text-base font-bold tracking-tight text-customDark my-1">
                 Current land use
@@ -205,10 +187,10 @@ export const SiteDetails = () => {
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
                 Forage
               </h4>
-           
-                {data?.data?.resources?.map((resource, index) =>
-                  resource?.FORAGE?.map((item, idx) => (
-                    <div
+
+              {data?.data?.resources?.map((resource, index) =>
+                resource?.FORAGE?.map((item, idx) => (
+                  <div
                     key={index}
                     class="border-b border-gray-300 rounded-md p-3 mb-4"
                   >
@@ -216,15 +198,13 @@ export const SiteDetails = () => {
                       <Check style={{ fontSize: "large" }} />
                       {item.value}
                     </p>
-                    </div>
-                  ))
-                )}
-              
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>
       </div>
-      
     </div>
   );
 };

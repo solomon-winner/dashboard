@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from "react";
-import {
-  AddCircleOutline,
-  AspectRatio,
-  Delete,
-  Landscape,
-} from "@mui/icons-material";
+import React, { useState } from "react";
+import { AddCircleOutline, AspectRatio, Delete } from "@mui/icons-material";
 import { FormField } from "../../Resource/Utility/FormField";
-import { weredadata } from "../UpdateWereda";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
 
@@ -24,15 +18,27 @@ export const extractAdditionalFieldsData = (prefix, formData, prefix2) => {
   return fields;
 };
 export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
-  const { road, landuse, isLoadingLanduse,isLoadingRoad } = useSelector(
+  const { road, landuse, isLoadingLanduse, isLoadingRoad } = useSelector(
     (state) => state.resource
   );
-// Extracting additionalFields and additionalFields2 from formData
-const initialAdditionalFields = extractAdditionalFieldsData('type', formData, 'area');
-const initialAdditionalFields2 = extractAdditionalFieldsData('roadtype', formData, 'distance');
+  // Extracting additionalFields and additionalFields2 from formData
+  const initialAdditionalFields = extractAdditionalFieldsData(
+    "type",
+    formData,
+    "area"
+  );
+  const initialAdditionalFields2 = extractAdditionalFieldsData(
+    "roadtype",
+    formData,
+    "distance"
+  );
 
-const [additionalFields, setAdditionalFields] = useState(initialAdditionalFields);
-const [additionalFields2, setAdditionalFields2] = useState(initialAdditionalFields2);
+  const [additionalFields, setAdditionalFields] = useState(
+    initialAdditionalFields
+  );
+  const [additionalFields2, setAdditionalFields2] = useState(
+    initialAdditionalFields2
+  );
   const addField = () => {
     const highestId = additionalFields.reduce(
       (highest, field) => Math.max(highest, field.id),
@@ -52,18 +58,18 @@ const [additionalFields2, setAdditionalFields2] = useState(initialAdditionalFiel
     let typeIndex = 1;
     let areaIndex = 1;
     for (let key in updatedFormData) {
-       if (key.startsWith('type') && key !== `type${id + 1}`) {
-         newFormData[`type${typeIndex}`] = updatedFormData[key];
-         typeIndex++;
-       } else if (key.startsWith('area') && key !== `area${id + 1}`) {
-         newFormData[`area${areaIndex}`] = updatedFormData[key];
-         areaIndex++;
-       } else {
-         newFormData[key] = updatedFormData[key];
-       }
+      if (key.startsWith("type") && key !== `type${id + 1}`) {
+        newFormData[`type${typeIndex}`] = updatedFormData[key];
+        typeIndex++;
+      } else if (key.startsWith("area") && key !== `area${id + 1}`) {
+        newFormData[`area${areaIndex}`] = updatedFormData[key];
+        areaIndex++;
+      } else {
+        newFormData[key] = updatedFormData[key];
+      }
     }
     setFormData(newFormData);
-   };
+  };
   const addField2 = () => {
     const highestId = additionalFields2.reduce(
       (highest, field) => Math.max(highest, field.id),
@@ -83,28 +89,31 @@ const [additionalFields2, setAdditionalFields2] = useState(initialAdditionalFiel
     let roadtypeIndex = 1;
     let distanceIndex = 1;
     for (let key in updatedFormData) {
-       if (key.startsWith('roadtype') && key !== `roadtype${id + 1}`) {
-         newFormData[`roadtype${roadtypeIndex}`] = updatedFormData[key];
-         roadtypeIndex++;
-       } else if (key.startsWith('distance') && key !== `distance${id + 1}`) {
-         newFormData[`distance${distanceIndex}`] = updatedFormData[key];
-         distanceIndex++;
-       } else {
-         newFormData[key] = updatedFormData[key];
-       }
+      if (key.startsWith("roadtype") && key !== `roadtype${id + 1}`) {
+        newFormData[`roadtype${roadtypeIndex}`] = updatedFormData[key];
+        roadtypeIndex++;
+      } else if (key.startsWith("distance") && key !== `distance${id + 1}`) {
+        newFormData[`distance${distanceIndex}`] = updatedFormData[key];
+        distanceIndex++;
+      } else {
+        newFormData[key] = updatedFormData[key];
+      }
     }
     setFormData(newFormData);
-   };
+  };
   const handleChanges = (e) => {
     const { name, value } = e.target;
     // Check if the name is 'area' or 'distance' and parse the value as a number
-    const parsedValue = (name.includes('area') || name.includes('distance')) ? parseFloat(value) : value;
+    const parsedValue =
+      name.includes("area") || name.includes("distance")
+        ? parseFloat(value)
+        : value;
     setFormData({
-       ...formData,
-       [name]: parsedValue,
+      ...formData,
+      [name]: parsedValue,
     });
     handleChange(e);
-};
+  };
   return (
     <div>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">

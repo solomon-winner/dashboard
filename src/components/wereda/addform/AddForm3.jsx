@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { Link } from "react-router-dom";
-
-import {
-  AddCircleOutline,
-  Delete,
-  LocalHospital,
-  School,
-} from "@mui/icons-material";
+import { AddCircleOutline, Delete, School } from "@mui/icons-material";
 import { FormField } from "../../Resource/Utility/FormField";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useAddKebeleMutation } from "../../redux/kebele/KebeleApiSlice";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
 import {
-  useGetRegionQuery,
   useGetWeredaByRegionQuery,
 } from "../../redux/region/RegionApiSlice";
 
@@ -27,7 +26,6 @@ const Kebeles = () => {
   const { regions, isLoadingRegions } = useSelector((state) => state.region);
   const {
     data: getweredaByRegion,
-    isSuccess: weredaSuccess,
     isFetching,
   } = useGetWeredaByRegionQuery(
     { id: selectedRegion, with_sites: true },

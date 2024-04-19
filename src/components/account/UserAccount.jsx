@@ -2,16 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   useDeleteAccountMutation,
-  useGetAccountsQuery,
 } from "../../redux/account/AccountApiSlice";
 import { Delete, Edit } from "@mui/icons-material";
-import { MainLoading } from "../Resource/Loading/Loadings";
 import AccountSkeleton from "../Resource/Loading/AccountSkeleton";
 import DeleteConfirmationDialog from "../Resource/Utility/Delete/DeleteConfirmationDialog";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAccounts } from "../../redux/account/AccountState";
-import { GetAccount } from "../../redux/InitialState/GetAccount";
 import Avatars from "../Resource/Utility/Avatars";
 
 const UserAccount = () => {
@@ -30,7 +27,7 @@ console.log(accounts)
   useEffect(() => {
     if (accounts) {
       const sorted = [...accounts].sort((a, b) => {
-        // Check if both names are defined
+
         if (a.name && b.name) {
           if (sortOrder === "asc") {
             return a.name.localeCompare(b.name);
@@ -38,12 +35,12 @@ console.log(accounts)
             return b.name.localeCompare(a.name);
           }
         }
-        // If one or both names are undefined, consider them equal for sorting purposes
+  
         return 0;
       });
       setSortedAccounts(sorted);
     }
-  }, [accounts, sortOrder, isLoadingAccounts]); // Added isLoadingAccounts to the dependency array
+  }, [accounts, sortOrder, isLoadingAccounts]); 
 
   // Toggle sort order
   const toggleSortOrder = () => {

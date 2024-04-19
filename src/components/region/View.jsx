@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetRegionQuery } from "../../redux/region/RegionApiSlice";
-import { MainLoading } from "../Resource/Loading/Loadings";
 import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
 
 export const View = () => {
@@ -13,12 +12,14 @@ export const View = () => {
     setSearchInput(event.target.value);
   };
 
-  let content;
-  let filteredData;
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <LoadingSkeleton searchInput={searchInput} handleSearchInput={handleSearchInput} name={"Region"}/>
+        <LoadingSkeleton
+          searchInput={searchInput}
+          handleSearchInput={handleSearchInput}
+          name={"Region"}
+        />
       </div>
     );
   } else if (isSuccess) {
@@ -75,27 +76,7 @@ export const View = () => {
                 >
                   <Link
                     to={`/admin/region/${item.id}`}
-                    className="
-        p-4
-        pt-9
-        h-full
-        md:px-7
-        xl:px-10
-        bg-white
-        shadow-md
-        border
-        border-custumBlue
-        hover:shadow-lg
-        hover:bg-mainColor
-        hover:text-white
-        transition duration-300 ease-in-out
-        flex
-        flex-col
-        justify-center
-        relative
-        group
-        overflow-hidden
-        rounded
+                    className="p-4 pt-9 h-full md:px-7 xl:px-10  bg-white shadow-md border border-custumBlue hover:shadow-lg hover:bg-mainColor hover:text-white transition duration-300 ease-in-out flex flex-col justify-center relative group overflow-hidden rounded
       "
                   >
                     <h4 className="relative z-10 font-semibold font-raleway text-2xl text-dark mb-3">

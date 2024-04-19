@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import {Field } from "formik";
 import {
   AddCircleOutline,
-  Apartment,
   Delete,
   FamilyRestroom,
-  Landscape,
   Public,
 } from "@mui/icons-material";
 import { FormField } from "../../Resource/Utility/FormField";

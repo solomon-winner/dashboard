@@ -1,12 +1,15 @@
-
 import { AddCircleOutline, Delete, FamilyRestroom } from "@mui/icons-material";
 import { FormField } from "../../Resource/Utility/FormField";
-import { kebeledata } from "../UpdateKebele";
 import React, { useEffect, useState } from "react";
 import Loadings from "../../Resource/Loading/Loadings";
 import { useSelector } from "react-redux";
 
-export const extractAdditionalFieldsData = (prefix, formData, prefix2,prefix3) => {
+export const extractAdditionalFieldsData = (
+  prefix,
+  formData,
+  prefix2,
+  prefix3
+) => {
   const fields = [];
   let index = 1;
   while (formData[`${prefix}${index}`]) {
@@ -27,20 +30,23 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
   const [additionalFields1, setAdditionalFields1] = useState([]);
   useEffect(() => {
     if (Object.keys(formData).length > 0) {
-      const initialAdditionalFields = extractAdditionalFieldsData('livelihoodtype', formData, 'livelihoodmale','livelihoodfemale');
+      const initialAdditionalFields = extractAdditionalFieldsData(
+        "livelihoodtype",
+        formData,
+        "livelihoodmale",
+        "livelihoodfemale"
+      );
       setAdditionalFields1(initialAdditionalFields);
       const updatedFormData = { ...formData };
-      const type = initialAdditionalFields.map((item) => item.livelihoodtype) 
-      type.forEach((item,index)=>{
-         const name = livelihood.find(
-          (livelihood) => livelihood.id === item
-        )?.name || ""
+      const type = initialAdditionalFields.map((item) => item.livelihoodtype);
+      type.forEach((item, index) => {
+        const name =
+          livelihood.find((livelihood) => livelihood.id === item)?.name || "";
         updatedFormData[`livelihoodname${index + 1}`] = name;
-      })
+      });
       setFormData(updatedFormData);
-      
     }
- }, [livelihood]); 
+  }, [livelihood]);
 
   const addField1 = () => {
     const highestId = additionalFields1.reduce(
@@ -65,33 +71,48 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
     let livelihoodfemaleIndex = 1;
     let livelihoodnameIndex = 1;
     for (let key in updatedFormData) {
-       if (key.startsWith('livelihoodtype') && key !== `livelihoodtype${id + 1}`) {
-         newFormData[`livelihoodtype${livelihoodtypeIndex}`] = updatedFormData[key];
-         livelihoodtypeIndex++;
-       } else if (key.startsWith('livelihoodmale') && key !== `livelihoodmale${id + 1}`) {
-         newFormData[`livelihoodmale${livelihoodmaleIndex}`] = updatedFormData[key];
-         livelihoodmaleIndex++;
-       } else if (key.startsWith('livelihoodfemale') && key !== `livelihoodfemale${id + 1}`) {
-        newFormData[`livelihoodfemale${livelihoodfemaleIndex}`] = updatedFormData[key];
+      if (
+        key.startsWith("livelihoodtype") &&
+        key !== `livelihoodtype${id + 1}`
+      ) {
+        newFormData[`livelihoodtype${livelihoodtypeIndex}`] =
+          updatedFormData[key];
+        livelihoodtypeIndex++;
+      } else if (
+        key.startsWith("livelihoodmale") &&
+        key !== `livelihoodmale${id + 1}`
+      ) {
+        newFormData[`livelihoodmale${livelihoodmaleIndex}`] =
+          updatedFormData[key];
+        livelihoodmaleIndex++;
+      } else if (
+        key.startsWith("livelihoodfemale") &&
+        key !== `livelihoodfemale${id + 1}`
+      ) {
+        newFormData[`livelihoodfemale${livelihoodfemaleIndex}`] =
+          updatedFormData[key];
         livelihoodfemaleIndex++;
-       }else if (key.startsWith('livelihoodname') && key !== `livelihoodname${id + 1}`) {
-        newFormData[`livelihoodname${livelihoodnameIndex}`] = updatedFormData[key];
+      } else if (
+        key.startsWith("livelihoodname") &&
+        key !== `livelihoodname${id + 1}`
+      ) {
+        newFormData[`livelihoodname${livelihoodnameIndex}`] =
+          updatedFormData[key];
         livelihoodnameIndex++;
-       }
-        else {
-         newFormData[key] = updatedFormData[key];
-       }
+      } else {
+        newFormData[key] = updatedFormData[key];
+      }
     }
     setFormData(newFormData);
-   };
-   useEffect(() => {
+  };
+  useEffect(() => {
     console.log(formData);
-   }, [formData]);
+  }, [formData]);
   const handleChanges = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-      [e.target.label]: e.target.labelName
+      [e.target.label]: e.target.labelName,
     });
     handleChange(e);
   };
@@ -101,44 +122,47 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
         Livelihood
       </h6>
       <div>
-        {additionalFields1.map((field, index) => (        
-          <React.Fragment key={field.id} >
+        {additionalFields1.map((field, index) => (
+          <React.Fragment key={field.id}>
             <div className="flex flex-wrap lg:w-full">
-            <FormField
-              label="Type"
-              name={`livelihoodtype${index + 1}`}
-              type="dropdown"
-              placeholder="LiveHood site can support"
-              options={
-                isLoadingLivelihood
-                  ? [
-                      {
-                        value: "loading",
-                        label: (
-                          <div className="flex justify-center">
-                            <Loadings />
-                          </div>
-                        ),
-                      },
-                    ]
-                  : livelihood.map((livelihood, index) => ({
-                      label: livelihood.name,
-                      value: livelihood.id,
-                    }))
-              }
-              handleChange={handleChanges}
-              value={formData[`livelihoodname${index + 1}`]  || formData[`livelihoodtype${index + 1}`]}
-              onChange={(option) => {
-                handleChanges({
-                  target: {
-                    name: `livelihood${index + 1}`,
-                    value: option.target.value.value,
-                    label: `livelihoodname${index + 1}`,
-                    labelName: option.target.value.label
-                  },
-                });
-              }}
-            />
+              <FormField
+                label="Type"
+                name={`livelihoodtype${index + 1}`}
+                type="dropdown"
+                placeholder="LiveHood site can support"
+                options={
+                  isLoadingLivelihood
+                    ? [
+                        {
+                          value: "loading",
+                          label: (
+                            <div className="flex justify-center">
+                              <Loadings />
+                            </div>
+                          ),
+                        },
+                      ]
+                    : livelihood.map((livelihood, index) => ({
+                        label: livelihood.name,
+                        value: livelihood.id,
+                      }))
+                }
+                handleChange={handleChanges}
+                value={
+                  formData[`livelihoodname${index + 1}`] ||
+                  formData[`livelihoodtype${index + 1}`]
+                }
+                onChange={(option) => {
+                  handleChanges({
+                    target: {
+                      name: `livelihood${index + 1}`,
+                      value: option.target.value.value,
+                      label: `livelihoodname${index + 1}`,
+                      labelName: option.target.value.label,
+                    },
+                  });
+                }}
+              />
             </div>
             <div className="flex flex-wrap">
               <FormField

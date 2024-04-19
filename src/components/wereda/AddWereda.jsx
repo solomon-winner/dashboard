@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import React, { useState } from "react";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { AddForm } from "./addform/AddForm";
 import { AddForm2 } from "./addform/AddForm2";
 import { AddForm3 } from "./addform/AddForm3";
-import { ArrowDropDown } from "@mui/icons-material";
+
 import { useAddWoredaDataMutation } from "../../redux/wereda/WeredaApiSlice";
 import { toast } from "react-toastify";
 import { useAddResourceMutation } from "../../redux/resource/ResourceApiSlice";
 import BackButton from "../Resource/Utility/BackButton";
-import { FormBackButton, FormNextButton } from "../Resource/Utility/FormButtons";
+import {
+  FormBackButton,
+  FormNextButton,
+} from "../Resource/Utility/FormButtons";
 const validationSchema = Yup.object().shape({
   region_id: Yup.string().required("Region is required"),
   woreda_id: Yup.string().required("Wereda is required"),
 });
-
 
 export const Addwereda = () => {
   const [addResource] = useAddResourceMutation();
@@ -97,7 +99,7 @@ export const Addwereda = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         roadArray.push({
           resource_id: values[typeKey],
@@ -216,9 +218,7 @@ export const Addwereda = () => {
                   />
                 )}
                 <div className="mt-20 flex justify-between w-10/12">
-                  {step > 1 && (
-                    <FormBackButton handleBack={handleBack}/>
-                  )}
+                  {step > 1 && <FormBackButton handleBack={handleBack} />}
                   <div className="text-gray-500 text-sm">Page {step} of 3</div>
                   {step < 3 ? (
                     <FormNextButton handleNext={handleNext} />
