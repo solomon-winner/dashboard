@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { AddCircleOutline, AspectRatio, Delete, Landscape } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 import Select from "react-select";
 import { LandUse } from "../../wereda/addform/AddForm2";
 

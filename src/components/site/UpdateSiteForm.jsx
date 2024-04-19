@@ -9,7 +9,7 @@ import {
   useGetKebeleByIdQuery,
   useGetKebeleByWeredaQuery,
 } from "../../redux/kebele/KebeleApiSlice";
-import { FormField } from "../wereda/AddWereda";
+import { FormField } from "../Resource/Utility/FormField";
 import {
   useAddSiteMutation,
   useGetSiteByIdQuery,

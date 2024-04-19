@@ -1,7 +1,7 @@
 import React from "react";
 
 import { LocalHospital, School } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 
 export const AddForm3 = () => {
   return (

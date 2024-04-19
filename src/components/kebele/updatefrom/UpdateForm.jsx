@@ -5,7 +5,7 @@ import {
   FamilyRestroom,
   Landscape,
 } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 import { kebeledata } from "../UpdateKebele";
 import { regions } from "../../region/addform/AddForm";
 import { Field } from "formik";

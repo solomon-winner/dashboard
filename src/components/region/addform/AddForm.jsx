@@ -8,7 +8,7 @@ import {
   Landscape,
   Public,
 } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 
 export const regions = [
   "Addis Ababa",

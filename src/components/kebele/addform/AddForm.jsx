@@ -7,7 +7,7 @@ import {
   FamilyRestroom,
   Landscape,
 } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 import { regions } from "../../region/addform/AddForm";
 import { weredas } from "../../wereda/addform/AddForm";
 import Select from "react-select";

@@ -10,7 +10,7 @@ import {
   useGetRegionQuery,
   useGetWeredaByRegionQuery,
 } from "../../redux/region/RegionApiSlice";
-import { FormField } from "../wereda/AddWereda";
+import { FormField } from "../Resource/Utility/FormField";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";

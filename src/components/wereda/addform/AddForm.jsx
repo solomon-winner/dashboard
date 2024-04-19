@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Apartment, FamilyRestroom, Landscape } from "@mui/icons-material";
-import { FormField } from "../AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 
 import {
   useGetRegionQuery,

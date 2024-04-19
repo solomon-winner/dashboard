@@ -1,6 +1,6 @@
 
 import { AddCircleOutline, Delete, FamilyRestroom } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 import { kebeledata } from "../UpdateKebele";
 import React, { useEffect, useState } from "react";
 import Loadings from "../../Resource/Loading/Loadings";

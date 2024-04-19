@@ -3,7 +3,7 @@ import { RadioButtonGroup } from "../../site/AddSite";
 import { kebeledata } from "../UpdateKebele";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
 import Loadings from "../../Resource/Loading/Loadings";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 import { useSelector } from "react-redux";
 
 export const extractAdditionalFieldsData = (prefix, formData, prefix2) => {

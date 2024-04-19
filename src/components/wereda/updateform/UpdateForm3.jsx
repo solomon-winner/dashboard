@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AddCircleOutline, Delete, LocalHospital, School } from "@mui/icons-material";
-import { FormField } from "../AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 import { weredadata } from "../UpdateWereda";
 import Loadings from "../../Resource/Loading/Loadings";
 import { useSelector } from "react-redux";

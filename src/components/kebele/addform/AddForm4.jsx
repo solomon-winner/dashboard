@@ -6,7 +6,7 @@ import {
   Pets,
 } from "@mui/icons-material";
 import React, { useState } from "react";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
 

@@ -6,13 +6,14 @@ import {
   useGetRegionQuery,
   useGetWeredaByRegionQuery,
 } from "../../redux/region/RegionApiSlice";
-import { FormField } from "../wereda/AddWereda";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import { useSelector } from "react-redux";
 import Loadings from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
+import { FormField } from "../Resource/Utility/FormField";
 const validationSchema = Yup.object().shape({
   kebele_name: Yup.string().required("Kebele name is required"),
   woreda_id: Yup.number().required("Wereda ID is required"),

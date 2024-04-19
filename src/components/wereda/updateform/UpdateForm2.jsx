@@ -5,7 +5,7 @@ import {
   Delete,
   Landscape,
 } from "@mui/icons-material";
-import { FormField } from "../AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 import { weredadata } from "../UpdateWereda";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";

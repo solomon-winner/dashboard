@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ErrorMessage, Field } from "formik";
 
 import { AddCircleOutline, Delete, Forest } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 import { weredas } from "../../wereda/addform/AddForm";
 import Select from "react-select";
 import { useSelector } from "react-redux";

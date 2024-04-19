@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 
 import { AddCircleOutline, AspectRatio, Delete, Landscape } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 
 
 export const UpdateForm2 = () => {

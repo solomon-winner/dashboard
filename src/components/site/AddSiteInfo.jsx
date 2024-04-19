@@ -6,7 +6,7 @@ import {
   useGetWeredaByRegionQuery,
 } from "../../redux/region/RegionApiSlice";
 import { useGetKebeleByWeredaQuery } from "../../redux/kebele/KebeleApiSlice";
-import { FormField } from "../wereda/AddWereda";
+import { FormField } from "../Resource/Utility/FormField";
 import { useAddSiteMutation } from "../../redux/site/SiteApiSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

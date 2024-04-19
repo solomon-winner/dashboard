@@ -6,7 +6,7 @@ import {
   Forest,
   Grass,
 } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 import { kebeledata } from "../UpdateKebele";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";

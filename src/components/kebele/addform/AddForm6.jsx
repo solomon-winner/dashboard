@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AddCircleOutline, Delete, Grass, Landslide, Medication } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
 

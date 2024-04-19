@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FormField } from "./AddWereda";
+import { FormField } from "../Resource/Utility/FormField";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import {

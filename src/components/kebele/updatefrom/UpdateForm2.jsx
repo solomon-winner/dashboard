@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { FamilyRestroom } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 import { kebeledata } from "../UpdateKebele";
 
 export const UpdateForm2 = ({handleChange, formData, setFormData}) => {

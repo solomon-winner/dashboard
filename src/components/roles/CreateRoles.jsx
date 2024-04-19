@@ -5,7 +5,7 @@ import {
   useGetPermissionsQuery,
   useGetRolesQuery,
 } from "../../redux/roles/RolesApiSlice";
-import { FormField } from "../wereda/AddWereda";
+import { FormField } from "../Resource/Utility/FormField";
 import { Check } from "@mui/icons-material";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";

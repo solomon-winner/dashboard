@@ -1,7 +1,7 @@
 import React from "react";
 
 import { FamilyRestroom } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 
 export const AddForm2 = ({handleChange, formData, setFormData}) => {
   const handleChanges = (e) => {

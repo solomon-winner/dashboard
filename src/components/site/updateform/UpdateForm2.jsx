@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
 import { RadioButtonGroup } from '../AddSite'
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 import { sitedata } from "../UpdateSite";
 import Loadings from "../../Resource/Loading/Loadings";
 import { useSelector } from "react-redux";
