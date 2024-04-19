@@ -104,7 +104,7 @@ export const Map = () => {
   }, [isRegionSuccess && RegionGeoJSONUrl, isSiteSuccess && SitegeojsonUrl, Zoom]);
 
   return (
-    <div id="map" className='h-full'>
+    <div id="map" className='h-full z-10'>
       <MapContainer center={[9.145, 40.4897]} zoom={6.3}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
