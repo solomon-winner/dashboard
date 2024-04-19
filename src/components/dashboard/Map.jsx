@@ -21,6 +21,8 @@ export const Map = () => {
   const { data: SitegeojsonUrls, isSuccess:isSiteSuccess } = useGetSiteGeojsonsQuery();
   const dispatch = useDispatch();
   const AllSite = useSelector((state) => state.geoJson.GeoJson.AllSite);
+  const SelectedRegion = useSelector((state) => state.geoJson.GeoJson.SelectedRegion);
+
   const Zoom  = useSelector((state) => state.geoJson.GeoJson.Zoom_out);
   const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
   const SitegeojsonUrl = isSiteSuccess && SitegeojsonUrls.data;
@@ -64,7 +66,7 @@ export const Map = () => {
             dispatch(SetAllRegions(layer))
             layer.on("click",() => {
               const Region_id = parseInt(url.match(/\d+/)[0], 10); 
-              dispatch(SetSelectedRegion(Region_id));
+              dispatch(SetSelectedRegion({Selected:layer, ID:Region_id}));
               map.fitBounds(layer.getBounds());
               layer.setStyle({ color: "black", fillOpacity: 0.6, fillColor: "black"});
             })
@@ -98,6 +100,9 @@ export const Map = () => {
       });
     }
 
+    if(SelectedRegion) {
+
+    }
     return () => {
       map.remove();
     };

@@ -27,27 +27,27 @@ export const GeoJsonSlice = createSlice({
         },
         SetSelectedRegion: (state, action) => {
             state.GeoJson.SelectedRegion = action.payload;
-            state.GeoJson.SelectedSite = false;
-            state.GeoJson.SelectedWoreda = false;
-            state.GeoJson.SelectedKebele = false;
+            state.GeoJson.SelectedSite = null;
+            state.GeoJson.SelectedWoreda = null;
+            state.GeoJson.SelectedKebele = null;
         },
         SetSelectedWoreda: (state, action) => {
             state.GeoJson.SelectedWoreda = action.payload;
-            state.GeoJson.SelectedSite = false;
-            state.GeoJson.SelectedRegion = false;
-            state.GeoJson.SelectedKebele = false;
+            state.GeoJson.SelectedSite = null;
+            state.GeoJson.SelectedRegion = null;
+            state.GeoJson.SelectedKebele = null;
         },
         SetSelectedKebele: (state, action) => {
             state.GeoJson.SelectedKebele = action.payload;
-            state.GeoJson.SelectedRegion = false;
-            state.GeoJson.SelectedWoreda = false;
-            state.GeoJson.SelectedSite = false;
+            state.GeoJson.SelectedRegion = null;
+            state.GeoJson.SelectedWoreda = null;
+            state.GeoJson.SelectedSite = null;
         },
         SetSelectedSite: (state, action) => {
             state.GeoJson.SelectedSite = action.payload;
-            state.GeoJson.SelectedRegion = false;
-            state.GeoJson.SelectedWoreda = false;
-            state.GeoJson.SelectedKebele = false;
+            state.GeoJson.SelectedRegion = null;
+            state.GeoJson.SelectedWoreda = null;
+            state.GeoJson.SelectedKebele = null;
 
         },
         SetZoom_out: (state, action) => {
