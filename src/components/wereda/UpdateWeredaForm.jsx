@@ -76,7 +76,7 @@ export const UpdateWeredaForm = () => {
       const geoJsonConverter = await GeoJsonConverter.convert(
         updatedValues.geojson
       );
-      console.log(values.geojson);
+      console.log(updatedValues.geojson);
       console.log(geoJsonConverter);
       formData.append("geojson", geoJsonConverter);
     }
@@ -86,7 +86,7 @@ export const UpdateWeredaForm = () => {
     console.log(wereda);
     if (wereda.data) {
       toast.success("Wereda updated successfully!");
-      // window.location.href = `/admin/wereda`;
+      window.location.href = `/admin/wereda`;
     }
   };
   const handleChanges = (e) => {
@@ -189,7 +189,7 @@ export const UpdateWeredaForm = () => {
                         View Current GeoJSON
                       </a>
                       <p className="mt-2 text-sm text-gray-600">
-                        Selected file: {formData.geojson}
+                        Selected file: {formData.geojson || formData.geojsonName}
                       </p>
                     </div>
                     <div className="w-full lg:w-2/5 mt-5">
@@ -202,10 +202,11 @@ export const UpdateWeredaForm = () => {
                         onChange={(event) => {
                           const file = event.currentTarget.files[0];
                           setFieldValue("geojson", file);
-                          setFormData({
-                            ...formData,
-                            geojson: file.name,
-                          });
+                          setFieldValue("geojsonName", file.name);
+                          // setFormData({
+                          //   ...formData,
+                          //   geojson: file.name,
+                          // });
                         }}
                       />
                        <ErrorMessage

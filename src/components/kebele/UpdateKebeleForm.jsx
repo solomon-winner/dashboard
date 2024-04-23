@@ -17,15 +17,16 @@ import { useParams } from "react-router-dom";
 import { useGetWeredaByIdQuery } from "../../redux/wereda/WeredaApiSlice";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
+import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
 const validationSchema = Yup.object().shape({
-  kebele_name: Yup.string().required("Kebele name is required"),
-  woreda_id: Yup.number().required("Wereda ID is required"),
-  region_id: Yup.number().required("Region ID is required"),
-  geojson: Yup.mixed().test(
-    "fileSize",
-    "File size is too large",
-    (value) => value && value.size <= 1048576
-  ),
+  // kebele_name: Yup.string().required("Kebele name is required"),
+  // woreda_id: Yup.number().required("Wereda ID is required"),
+  // region_id: Yup.number().required("Region ID is required"),
+  // geojson: Yup.mixed().test(
+  //   "fileSize",
+  //   "File size is too large",
+  //   (value) => value && value.size <= 1048576
+  // ),
 });
 const UpdateKebeleForm = () => {
   const { id } = useParams();
@@ -57,7 +58,6 @@ const UpdateKebeleForm = () => {
     geojson: null,
     status: "active",
   });
-  const [initialGeojson, setInitialGeojson] = useState(null);
 
   useEffect(() => {
     if (isSuccess && kebeles) {
@@ -123,7 +123,12 @@ const UpdateKebeleForm = () => {
         formData.append(key, updatedValues[key]);
       }
     }
-    if (initialGeojson && initialGeojson !== updatedValues.geojson) {
+    if (updatedValues.geojson instanceof File) {
+      const geoJsonConverter = await GeoJsonConverter.convert(
+        updatedValues.geojson
+      );
+      console.log(updatedValues.geojson);
+      console.log(geoJsonConverter);
       formData.append("geojson", updatedValues.geojson);
     }
     console.log({ id: id, updatedValues });
@@ -301,7 +306,7 @@ const UpdateKebeleForm = () => {
                         View Current GeoJSON
                       </a>
                       <p className="mt-2 text-sm text-gray-600">
-                        Selected file: {formData.geojson}
+                        Selected file: {formData.geojson || formData.geojsonName}
                       </p>
                     </div>
                     <div className="w-full lg:w-2/5 mt-5">
@@ -314,10 +319,7 @@ const UpdateKebeleForm = () => {
                         onChange={(event) => {
                           const file = event.currentTarget.files[0];
                           setFieldValue("geojson", file);
-                          setFormData({
-                            ...formData,
-                            geojson: file.name,
-                          });
+                          setFieldValue("geojsonName", file.name);
                         }}
                       />
                       <label
