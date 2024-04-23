@@ -29,6 +29,7 @@ export const UpdateSite = () => {
   useEffect(() => {
     if (!loading && siteData) {
       setFormData(siteData);
+      console.log(siteData);
     }
   }, [!loading]);
   const handleNext = (e) => {

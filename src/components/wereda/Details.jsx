@@ -59,7 +59,7 @@ export const WeredaDetails = () => {
             className={`w-full sm:w-1/3 lg:w-1/4`}
           />
           <div className="flex gap-4">
-            <DeleteButton />
+            <DeleteButton entityId={id} deleteEntity={deleteWereda}/>
             <UpdateDataButton id={id} name="Woreda" url={"update-weredaData"} />
             <UpdateButton id={id} name="Woreda" url={"update-wereda"} />
           </div>

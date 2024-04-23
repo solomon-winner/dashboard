@@ -45,6 +45,9 @@ import { GetWereda } from './redux/InitialState/GetWereda';
 import UpdateKebeleForm from './components/kebele/UpdateKebeleForm';
 import { GetAccount } from './redux/InitialState/GetAccount';
 import { EditAccount } from './components/account/EditAccount';
+import { Regions } from './components/region/Region';
+import { RegionUpdate } from './components/region/RegionUpdate';
+import DeletedPage from './pages/DeletedPage';
 
 function App() {
 
@@ -81,6 +84,7 @@ function App() {
         <Route path='/admin/update-site/:id' element={ <UpdateSiteForm />} />
         <Route path='/admin/update-kebeleData/:id' element={<UpdateKebele />} />
         <Route path='/admin/update-kebele/:id' element={<UpdateKebeleForm />} />
+        <Route path='/admin/update-regions/:id' element={<RegionUpdate />} />
         <Route path='/admin/wereda/:id' element={<WeredaDetails />} />
         <Route path='/admin/site/:id' element={<SiteDetails />} />
         <Route path='/admin/region/:id' element={<RegionDetails />} />
@@ -90,10 +94,12 @@ function App() {
         <Route path='/admin/add-sites' element={<AddSiteInfo />} />
         <Route path='/admin/add-weredas' element={<Weredas/>}/>
         <Route path='/admin/add-kebele' element={<Kebeles />} />
+        <Route path='/admin/add-region' element={<Regions />} />
         <Route path='/admin/roles' element={<Roles />} />
         <Route path='/admin/create-roles' element={<CreateRole />} />
         <Route path='/admin/update-roles/:id' element={<EditRole />} />
         <Route path='/admin/update-account/:id' element={<EditAccount />} />
+        <Route path='admin/delete-page' element={<DeletedPage />} />
       </Route>
       </Route>
        

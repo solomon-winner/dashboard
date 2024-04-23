@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetRegionQuery } from "../../redux/region/RegionApiSlice";
 import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
+import { AddButton } from "../Resource/Utility/AddButton";
 
 export const View = () => {
   const { data: region, isLoading, isSuccess } = useGetRegionQuery();
@@ -29,7 +30,7 @@ export const View = () => {
     );
     return (
       <div className="flex flex-col gap-4 py-6 px-10">
-        <div className="flex justify-start items-center">
+        <div className="flex justify-between items-center">
           <div>
             <form action="#" method="GET" className="hidden lg:block">
               <label htmlFor="topbar-search" className="sr-only">
@@ -61,6 +62,9 @@ export const View = () => {
                 />
               </div>
             </form>
+          </div>
+          <div>
+            <AddButton name="Region" url={"add-region"} />
           </div>
         </div>
         <div className="h-full flex gap-3 flex-col">

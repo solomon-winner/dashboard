@@ -19,8 +19,11 @@ export const weredaSlice = createSlice({
         setLoadingWeredas: (state, action) => {
             state.isLoadingWeredas = action.payload;
         },
+        deleteWereda: (state, action) => {
+            state.weredas = state.weredas.filter(wereda => wereda.id !== action.payload);
+        }
     },
 })
 
-export const { setWeredas, addWereda, setLoadingWeredas } = weredaSlice.actions;
+export const { setWeredas, addWereda, setLoadingWeredas, deleteWereda } = weredaSlice.actions;
 export default weredaSlice.reducer

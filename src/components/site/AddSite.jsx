@@ -12,9 +12,7 @@ import {
   FormBackButton,
   FormNextButton,
 } from "../Resource/Utility/FormButtons";
-const validationSchema = Yup.object().shape({
-  // Define your validation schema here if needed
-});
+
 export const RadioButtonGroup = ({
   name,
   label,
@@ -64,7 +62,12 @@ export const RadioButtonGroup = ({
     </div>
   );
 };
-
+const validationSchema = Yup.object().shape({
+  region_id: Yup.string().required("Region is required"),
+  woreda_id: Yup.string().required("Wereda is required"),
+  kebele_id: Yup.string().required("Kebele is required"),
+  site_id: Yup.string().required("Site is required"),
+});
 export const AddSite = () => {
   const [addSiteData] = useAddSiteDataMutation();
   const [addResource] = useAddResourceMutation();

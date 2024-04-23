@@ -76,10 +76,12 @@ export const EachMap = ({ geojsonData, SiteData }) => {
             console.log("this is site id", sites);
             if (sites.id) {
                 console.log("Site ID:", sites.id, "Site Name:", sites.site_name);
-            
+
+                try{
                 const siteGeoJsonData = await fetchSiteData(
                   `/geojson/sites/${sites.id}.geojson`
                 );
+              
                 if (siteGeoJsonData && siteGeoJsonData.features) {
                   L.geoJSON(siteGeoJsonData)
                     .addTo(mapRef.current)
@@ -112,14 +114,18 @@ export const EachMap = ({ geojsonData, SiteData }) => {
                 } else {
                   console.error("Invalid GeoJSON data for site", sites.id);
                 } 
+              } catch (error) {
+                
+              }
             }
             else {
             sites.forEach(async (site) => {
               console.log("Site ID:", site.id, "Site Name:", site.site_name);
-
+              try{
               const siteGeoJsonData = await fetchSiteData(
                 `/geojson/sites/${site.id}.geojson`
               );
+            
               if (siteGeoJsonData && siteGeoJsonData.features) {
                 L.geoJSON(siteGeoJsonData)
                   .addTo(mapRef.current)
@@ -152,6 +158,9 @@ export const EachMap = ({ geojsonData, SiteData }) => {
               } else {
                 console.error("Invalid GeoJSON data for site", site.id);
               }
+            }catch(error){
+              console.error("Error fetching GeoJSON data for site:", site.id, error);
+            }
             });
         }
           });

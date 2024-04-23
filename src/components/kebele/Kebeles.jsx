@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { useAddKebeleMutation } from "../../redux/kebele/KebeleApiSlice";
 import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
-import {
-  useGetWeredaByRegionQuery,
-} from "../../redux/region/RegionApiSlice";
+import { useGetWeredaByRegionQuery } from "../../redux/region/RegionApiSlice";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,17 +15,17 @@ const validationSchema = Yup.object().shape({
   kebele_name: Yup.string().required("Kebele name is required"),
   woreda_id: Yup.number().required("Wereda ID is required"),
   region_id: Yup.number().required("Region ID is required"),
-  geojson: Yup.mixed().required("GeoJSON file is required"),
-  status: Yup.string().required("Status is required"),
+  geojson: Yup.mixed().test(
+    "fileSize",
+    "File size is too large",
+    (value) => value && value.size <= 1048576
+  ),
 });
 const Kebeles = () => {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedWereda, setSelectedWereda] = useState("");
   const { regions, isLoadingRegions } = useSelector((state) => state.region);
-  const {
-    data: getweredaByRegion,
-    isFetching,
-  } = useGetWeredaByRegionQuery(
+  const { data: getweredaByRegion, isFetching } = useGetWeredaByRegionQuery(
     { id: selectedRegion, with_sites: true },
     { skip: !selectedRegion }
   );
@@ -60,7 +58,7 @@ const Kebeles = () => {
     if (kebele.data) {
       toast.success("Kebele added successfully!");
       window.location.href = `/admin/kebele`;
-    } 
+    }
   };
   const weredaOptions = isFetching
     ? [
