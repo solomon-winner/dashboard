@@ -5,8 +5,9 @@ import L from 'leaflet';
 import { useGetRegionGeojsonsQuery } from '../../redux/GeoJson/RegionGeoJsonApi';
 import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
 import {fetchRegionData, fetchSiteData} from '../Maps/FetchGeoJsonMap';
-import {SetAllSiteData} from '../../redux/GeoJson/GeoJsonSlice'
+import {SetAllRegions, SetAllSiteData, SetSelectedRegion, SetSelectedSite} from '../../redux/GeoJson/GeoJsonSlice'
 import { useDispatch, useSelector } from 'react-redux';
+
 
 import { setSiteId } from '../../redux/site/SiteByIdState';
 
@@ -22,11 +23,13 @@ export const Map = () => {
   const { data: SitegeojsonUrls, isSuccess:isSiteSuccess } = useGetSiteGeojsonsQuery();
   const dispatch = useDispatch();
   const AllSite = useSelector((state) => state.geoJson.GeoJson.AllSite);
+  const SelectedRegion = useSelector((state) => state.geoJson.GeoJson.SelectedRegion);
+
   const Zoom  = useSelector((state) => state.geoJson.GeoJson.Zoom_out);
-  console.log("this is zoom", Zoom);
   const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
+  console.log("RegionGeoJSONUrl", RegionGeoJSONUrl)
   const SitegeojsonUrl = isSiteSuccess && SitegeojsonUrls.data;
-dispatch(SetAllSiteData(SitegeojsonUrl));
+
   useEffect(() => {
     const ethiopia = { lat: 9.145, lng: 40.4897 };
     const map = L.map("map", {
@@ -37,10 +40,17 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
       ],
       updateWhenIdle: false,
     }).setView([ethiopia.lat, ethiopia.lng], 6);
+  
 
     L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(map);
+
+    if(Zoom) {
+
+      map.setView([ethiopia.lat, ethiopia.lng], 6)
+
+    }
 
     if (isRegionSuccess && RegionGeoJSONUrl) {
       RegionGeoJSONUrl.forEach(url => {
@@ -55,7 +65,15 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
               color: "green",
               weight: 1,
             },
-          }).addTo(map);
+          }).addTo(map).eachLayer((layer) => {
+            dispatch(SetAllRegions(layer))
+            layer.on("click",() => {
+              const Region_id = parseInt(url.match(/\d+/)[0], 10); 
+              dispatch(SetSelectedRegion({Selected:layer, ID:Region_id}));
+              Zoomer(layer)
+              layer.setStyle({ color: "black", fillOpacity: 0.6, fillColor: "black"});
+            })
+          });
         }).catch(error => {
           console.error("Error fetching data for URL:", url, error);
         });
@@ -68,8 +86,7 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
 
           L.geoJSON(data).addTo(map).eachLayer((layer) => {
             const coordinates = layer.getBounds().getCenter();
-                // dispatch(SetAllSiteData(layer));
-               console.log(url,"All data...***");
+              dispatch(SetAllSiteData(layer));
 
             const siteMarker = L.marker(coordinates, {icon: siteIcon}).addTo(map);
   
@@ -77,7 +94,7 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
               const Site_id = parseInt(url.match(/\d+/)[0], 10); 
               console.log("This is the marked layer that is clicked...",Site_id);
               dispatch(setSiteId(Site_id));
-              map.fitBounds(layer.getBounds());
+              Zoomer(layer);
           })
           });
         }).catch(error => {
@@ -85,14 +102,24 @@ dispatch(SetAllSiteData(SitegeojsonUrl));
         });
       });
     }
-
+    const Zoomer = (LAYER) =>{
+      map.fitBounds(LAYER.getBounds()); 
+      return;
+    }
+      if(SelectedRegion) {
+      const SelectedLayerID = SelectedRegion.ID;
+      // const SelectedLayer = fetchRegionData(`geojson/regions/${SelectedLayerID}.geojson`)
+      // console.log("const SelectedLayer = SelectedRegion.Selected ", SelectedLayer)
+      // Zoomer(SelectedLayer);
+      // SelectedLayer.setStyle({ color: "black", fillOpacity: 0.6, fillColor: "black"});
+    }
     return () => {
       map.remove();
     };
-  }, [isRegionSuccess && RegionGeoJSONUrl, isSiteSuccess && SitegeojsonUrl]);
+  }, [isRegionSuccess && RegionGeoJSONUrl, isSiteSuccess && SitegeojsonUrl, Zoom, SelectedRegion]);
 
   return (
-    <div id="map" className='h-full'>
+    <div id="map" className='h-full z-10'>
       <MapContainer center={[9.145, 40.4897]} zoom={6.3}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
