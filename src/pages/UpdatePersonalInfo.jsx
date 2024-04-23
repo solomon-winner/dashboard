@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import { useUpdateProfileMutation } from "../redux/Profile/UpdateProfileApi";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { SetProfileData } from "../redux/Profile/ProfileSlice";
 
@@ -30,15 +30,13 @@ export const UpdatePersonalInfo = () => {
     };
   };
 
- 
-  
   return (
     <div className="flex items-center justify-center p-12 bg-dashbordColor">
       <div className="mx-auto w-full max-w-[550px]">
         <Formik
           initialValues={{
-            FirstName:  UserData.name ? splitName(UserData.name).firstName : '',
-            LastName: UserData.name ? splitName(UserData.name).lastName : '',
+            FirstName: UserData.name ? splitName(UserData.name).firstName : "",
+            LastName: UserData.name ? splitName(UserData.name).lastName : "",
             birthday: UserData.birthday,
             mobile: UserData.mobile,
             organization: UserData.organization,
@@ -50,20 +48,20 @@ export const UpdatePersonalInfo = () => {
               const formattedData = formatFormData(values);
 
               const formData = new FormData();
-          
+
               Object.entries(formattedData).forEach(([key, value]) => {
                 formData.append(key, value);
               });
-          
+
               formData.append("avatar", values.avatar);
 
               const UpdatedProfile = await UpdateProfile(formData);
               dispatch(SetProfileData(UpdatedProfile.data.data));
               // dispatch(setAvaterUrl(UpdatedProfile.data.data.avatar))
-              navigate('/admin/profile');
-              toast.success('You have successfully Updated Your Profile!');
+              navigate("/admin/profile");
+              toast.success("You have successfully Updated Your Profile!");
             } catch (error) {
-              toast.error('Error Updating Your Profile');
+              toast.error("Error Updating Your Profile");
             } finally {
               setSubmitting(false);
             }
@@ -137,7 +135,7 @@ export const UpdatePersonalInfo = () => {
                       onChange={(event) => {
                         const file = event.target.files[0];
                         setFieldValue("avatar", file);
-                     }}
+                      }}
                     />
                   </div>
                 </div>
@@ -158,7 +156,7 @@ export const UpdatePersonalInfo = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div className="w-full px-3 sm:w-1/2">
                   <div className="mb-5">
                     <label
@@ -196,7 +194,7 @@ export const UpdatePersonalInfo = () => {
               </div>
               <button
                 type="submit"
-                className="bg-green-500 text-white font-bold py-2 px-4  hover:bg-darkMain  rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold outline-none"
+                className="bg-green-500 text-white font-bold py-2 px-4  hover:bg-darkMain  rounded-md  text-center text-base  outline-none"
               >
                 Submit
               </button>

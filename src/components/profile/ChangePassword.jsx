@@ -102,7 +102,7 @@ const ChangePassword = () => {
                             </div>
                             <div className="flex justify-between">
                                 <button type="button" onClick={() => navigate('/admin/profile')} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring focus:border-blue-300">Discard</button>
-                                <button type="submit" className="bg-green-500 text-white font-bold py-2 px-4 hover:bg-darkMain rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold outline-none" disabled={isLoading}>Apply Changes</button>
+                                <button type="submit" className="bg-green-500 text-white font-bold py-2 px-4 hover:bg-darkMain rounded-md  text-center text-base outline-none" disabled={isLoading}>Apply Changes</button>
                             </div>
                         </Form>
                     )}

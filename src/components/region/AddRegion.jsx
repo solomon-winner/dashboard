@@ -73,7 +73,7 @@ export const AddRegion = () => {
                     Back
                   </button>
                 )}
-                 <div className="text-gray-500 text-sm">Page {step} of 3</div>
+                <div className="text-gray-500 text-sm">Page {step} of 3</div>
                 {step < 3 ? (
                   <button
                     type="button"

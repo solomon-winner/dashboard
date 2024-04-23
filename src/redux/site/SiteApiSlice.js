@@ -50,7 +50,13 @@ export const SiteApiSlice = apiSlice.injectEndpoints({
                 method: "GET",
             })
         }),
+        deleteSite: builder.mutation({
+            query: (id) => ({
+                url: `/sites/${id}`,
+                method: "DELETE",
+            })
+        }),
     }),
 })
 
-export const { useGetSiteQuery, useAddSiteMutation, useGetSiteByKebeleQuery, useAddSiteDataMutation, useGetSiteByIdQuery,useUpdateSiteByIdMutation, useGetSitebyKebeleQuery } = SiteApiSlice
+export const { useGetSiteQuery, useAddSiteMutation, useGetSiteByKebeleQuery, useAddSiteDataMutation, useGetSiteByIdQuery,useUpdateSiteByIdMutation, useGetSitebyKebeleQuery, useDeleteSiteMutation } = SiteApiSlice

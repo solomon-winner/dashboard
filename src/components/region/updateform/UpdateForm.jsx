@@ -2,13 +2,11 @@ import React, { useState } from "react";
 
 import {
   AddCircleOutline,
-  Apartment,
   Delete,
   FamilyRestroom,
-  Landscape,
   Public,
 } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 
 export const UpdateForm = () => {
   const [additionalFields, setAdditionalFields] = useState([]);
@@ -32,11 +30,7 @@ export const UpdateForm = () => {
           icon={Public}
           value={"Region 1"}
         />
-        <FormField
-        label="Region GeoJSON"
-          type="file"
-          name="file"
-        />
+        <FormField label="Region GeoJSON" type="file" name="file" />
       </div>
       <hr class="mt-3 border-b-1 border-blueGray-300"></hr>
       <h6 class="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">

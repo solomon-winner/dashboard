@@ -1,22 +1,34 @@
 import React, { useState } from "react";
 import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
 import { Delete } from "@mui/icons-material";
+import { useDeleteSiteMutation } from "../../../../redux/site/SiteApiSlice";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-const DeleteButton = () => {
+const DeleteButton = ({ entityId, deleteEntity, deleteState }) => {
+
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleDelete = () => {
     setShowConfirmation(true);
   };
 
   const handleConfirmDelete = async () => {
     setIsDeleting(true);
-    // Here you would call the delete function
-    // For example: await deleteResource();
-    console.log("Deleting...");
-    setIsDeleting(false);
-    setShowConfirmation(false);
+    try {
+      await deleteEntity(entityId).unwrap();
+      toast.success("Deleted successfully");
+      setIsDeleting(false);
+      setShowConfirmation(false);
+      // dispatch(deleteState(entityId));
+      window.history.back();
+    } catch (error) {
+      console.error("Failed to delete:", error);
+      setIsDeleting(false);
+    }
   };
 
   const handleCancelDelete = () => {
@@ -43,3 +55,4 @@ const DeleteButton = () => {
 };
 
 export default DeleteButton;
+

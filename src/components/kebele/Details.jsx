@@ -1,32 +1,30 @@
 import React from "react";
 import { Table } from "./Table";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
+  useDeleteKebeleMutation,
   useGetKebeleByIdQuery,
   useGetKebeleQuery,
 } from "../../redux/kebele/KebeleApiSlice";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import { useInitialValueKebele } from "../../redux/InitialState/initalValueKebele";
-import { Check, Delete, Edit } from "@mui/icons-material";
+import { Check } from "@mui/icons-material";
 import { useGetSiteByKebeleQuery } from "../../redux/site/SiteApiSlice";
-import { Table2 } from "./Table2";
 import Select from "react-select";
 import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
 import { UpdateDataButton } from "../Resource/Utility/UpdateDataButton";
 import { UpdateButton } from "../Resource/Utility/UpdateButton";
 import BackButton from "../Resource/Utility/BackButton";
 import { EachMap } from "../Resource/Map/EachMap";
+import { CommonTable } from "../Resource/Utility/Table";
 
 export const Details = () => {
   const { id } = useParams();
   useInitialValueKebele(id);
-  const goBack = () => {
-    window.history.back();
-  };
-
   const { data, isSuccess, isFetching } = useGetKebeleByIdQuery(id);
   const { data: site } = useGetSiteByKebeleQuery(id);
   const { data: kebele } = useGetKebeleQuery({ all: true });
+  const [deleteKebele] = useDeleteKebeleMutation(id);
   if (!isSuccess || isFetching || !data || !kebele || !site) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -61,7 +59,7 @@ export const Details = () => {
             className="w-full sm:w-1/3 lg:w-1/4"
           />
           <div className="flex gap-4">
-            <DeleteButton />
+            <DeleteButton entityId={id} deleteEntity={deleteKebele}/>
             <UpdateDataButton id={id} name="Kebele" url={"update-kebeleData"} />
             <UpdateButton id={id} name="Kebele" url={"update-kebele"} />
           </div>
@@ -321,10 +319,19 @@ export const Details = () => {
                   <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                     Site
                   </h1>
-                  <Table2 site={site.data.data} />
+                  {/* <Table2 site={site.data.data} /> */}
+                  <CommonTable
+                    data={site.data.data}
+                    name={"site_name"}
+                    title={"Site"}
+                    urlName={"site"}
+                  />
                 </div>
                 <div className="w-2/3">
-                  <EachMap geojsonData={`/geojson/kebeles/${id}.geojson`} />
+                  <EachMap
+                    geojsonData={`/geojson/kebeles/${id}.geojson`}
+                    SiteData={site.data.data.map((item) => item.id)}
+                  />
                 </div>
               </div>
             </div>

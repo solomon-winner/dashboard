@@ -7,13 +7,17 @@ import { useGetResource } from '../redux/InitialState/GetResource'
 import { GetRoles } from '../redux/InitialState/GetRoles';
 import {ProfileInfo} from "../redux/InitialState/ProfileInfo"
 import { LocationInfo, RegionLocationInfo} from '../components/Maps/LocationInfo'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { Filter } from '../components/Maps/Filter'
+import { SetZoom_out } from "../redux/GeoJson/GeoJsonSlice";
+
 export const Dashboard = () => {
 
+  const dispatch = useDispatch();
+ 
   const Region_id  = useSelector((state) => state.geoJson.GeoJson.SelectedRegion);
   const Site_id  = useSelector((state) => state.geoJson.GeoJson.SelectedSite);
-
+  const Zoom = useSelector((state) => state.geoJson.GeoJson.Zoom_out);
   useGetRegion();
   GetRoles();
   useGetInstitution();
@@ -22,8 +26,13 @@ export const Dashboard = () => {
 
   
 
+  const Zoom_out = (e) => {
+    e.preventDefault();
+    dispatch(SetZoom_out(true));
+    console.log("The zoom inside the Zoom_out...", Zoom);
+  };
   return (
-    <div className='flex flex-col h-screen gap-6 bg-dashbordColor'> 
+    <div className="flex flex-col h-screen gap-6 bg-dashbordColor">
       <Cards />
       <Filter/>
       <div className='flex w-full gap-6 h-12 lg:px-8'>
@@ -38,8 +47,8 @@ export const Dashboard = () => {
           { Site_id && <LocationInfo />}
        { Region_id && <RegionLocationInfo/>}
 
-      </div>
 
+      </div>
     </div>
-  )
-}
+  );
+};

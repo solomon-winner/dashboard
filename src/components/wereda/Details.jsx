@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import {
   useDeleteWeredaByIdMutation,
@@ -8,33 +8,22 @@ import {
 } from "../../redux/wereda/WeredaApiSlice";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import { useInitalValueworeda } from "../../redux/InitialState/initalValueWoreda";
-import { Table } from "./Table";
 import { useGetKebeleByWeredaQuery } from "../../redux/kebele/KebeleApiSlice";
 import Select from "react-select";
-import { Delete, Edit } from "@mui/icons-material";
 import BackButton from "../Resource/Utility/BackButton";
 import { UpdateDataButton } from "../Resource/Utility/UpdateDataButton";
 import { UpdateButton } from "../Resource/Utility/UpdateButton";
 import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
 import { EachMap } from "../Resource/Map/EachMap";
+import { CommonTable } from "../Resource/Utility/Table";
 
 export const WeredaDetails = () => {
   const { id } = useParams();
   useInitalValueworeda(id);
 
-  const {
-    data: weredadata,
-    isSuccess,
-    isFetching,
-    error,
-  } = useGetWeredaByIdQuery(id);
-  const { data: KebeleData, isSuccess: kebeleFetched } =
-    useGetKebeleByWeredaQuery({ id: id });
-  const {
-    data: wereda,
-    isLoading,
-    isSuccess: weredaSuccess,
-  } = useGetWoredaQuery({ all: true });
+  const { data: weredadata, isSuccess, isFetching } = useGetWeredaByIdQuery(id);
+  const { data: KebeleData } = useGetKebeleByWeredaQuery({ id: id });
+  const { data: wereda } = useGetWoredaQuery({ all: true });
   const [deleteWereda] = useDeleteWeredaByIdMutation();
 
   if (!isSuccess || isFetching || !weredadata || !KebeleData || !wereda) {
@@ -70,7 +59,7 @@ export const WeredaDetails = () => {
             className={`w-full sm:w-1/3 lg:w-1/4`}
           />
           <div className="flex gap-4">
-            <DeleteButton />
+            <DeleteButton entityId={id} deleteEntity={deleteWereda}/>
             <UpdateDataButton id={id} name="Woreda" url={"update-weredaData"} />
             <UpdateButton id={id} name="Woreda" url={"update-wereda"} />
           </div>
@@ -256,14 +245,23 @@ export const WeredaDetails = () => {
                 </div>
                 <div className="flex flex-col lg:flex-row gap-4 w-full mt-10">
                   <div className="w-1/2">
-                    <EachMap geojsonData={`/geojson/woredas/${id}.geojson`} />
+                    <EachMap
+                      geojsonData={`/geojson/woredas/${id}.geojson`}
+                      SiteData={KebeleData.data.data.map((item) => item.sites)}
+                    />
                   </div>
                   <div className="w-full lg:w-1/2">
                     <div className="flex flex-col justify-between pb-5 border-b border-gray-200">
                       <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                         Kebeles and Sites
                       </h1>
-                      <Table kebele={KebeleData.data.data} />
+                      {/* <Table kebele={KebeleData.data.data} /> */}
+                      <CommonTable
+                        data={KebeleData.data.data}
+                        name={"kebele_name"}
+                        title={"Kebele"}
+                        urlName={"kebele"}
+                      />
                     </div>
                   </div>
                 </div>

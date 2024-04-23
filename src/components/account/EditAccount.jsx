@@ -3,7 +3,6 @@ import { Formik, Form, Field } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { SetProfileData } from "../../redux/Profile/ProfileSlice";
 import {
   useGetUserByIdQuery,
   useUpdateUserMutation,
@@ -224,7 +223,7 @@ export const EditAccount = () => {
                 </div>
                 <button
                   type="submit"
-                  className="bg-green-500 text-white font-bold py-2 px-4  hover:bg-darkMain  rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold outline-none"
+                  className="bg-green-500 text-white font-bold py-2 px-4  hover:bg-darkMain  rounded-md text-center text-base  outline-none"
                 >
                   Submit
                 </button>

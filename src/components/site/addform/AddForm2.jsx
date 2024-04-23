@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
-import { RadioButtonGroup } from "../AddSite";
-import { FormField } from "../../wereda/AddWereda";
-import Loadings from '../../Resource/Loading/Loadings';
+import { FormField } from "../../Resource/Utility/FormField";
+import Loadings from "../../Resource/Loading/Loadings";
 import { useSelector } from "react-redux";
 
-
 export const AddForm2 = ({ handleChange, formData, setFormData }) => {
-  const { livelihood,landuse, forage, isLoadingForage, isLoadingLanduse, isLoadingLivelihood } = useSelector((state) => state.resource);
+  const {
+    livelihood,
+    landuse,
+    forage,
+    isLoadingForage,
+    isLoadingLanduse,
+    isLoadingLivelihood,
+  } = useSelector((state) => state.resource);
   const [additionalFields, setAdditionalFields] = useState([
     { id: 0, type: "", area: "" },
   ]);
@@ -67,7 +72,7 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
   return (
     <div>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
-       Current LandUse
+        Current LandUse
       </h6>
       <div className="flex flex-wrap lg:w-2/3">
         {additionalFields2.map((field, index) => (
@@ -97,7 +102,8 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
               handleChange={handleChanges}
               value={
                 landuse.find(
-                  (currentlanduse) => currentlanduse.id === formData[`currentlanduse${index + 1}`]
+                  (currentlanduse) =>
+                    currentlanduse.id === formData[`currentlanduse${index + 1}`]
                 )?.name || ""
               }
               onChange={(option) => {
@@ -109,12 +115,15 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
                 });
               }}
             />
-            <Delete onClick={() => removeField2(field.id)} className="lg:mt-8" />
+            <Delete
+              onClick={() => removeField2(field.id)}
+              className="lg:mt-8"
+            />
           </React.Fragment>
         ))}
         <AddCircleOutline onClick={addField2} className="lg:mt-8" />
       </div>
-     
+
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
         Forage
       </h6>
@@ -164,7 +173,7 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
         <AddCircleOutline onClick={addField} className="lg:mt-8" />
       </div>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
-      Livelihood site can support
+        Livelihood site can support
       </h6>
       <div className="flex flex-wrap lg:w-2/3">
         {additionalFields3.map((field, index) => (
@@ -194,7 +203,8 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
               handleChange={handleChanges}
               value={
                 livelihood.find(
-                  (livelihood) => livelihood.id === formData[`livelihood${index + 1}`]
+                  (livelihood) =>
+                    livelihood.id === formData[`livelihood${index + 1}`]
                 )?.name || ""
               }
               onChange={(option) => {
@@ -206,7 +216,10 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
                 });
               }}
             />
-            <Delete onClick={() => removeField3(field.id)} className="lg:mt-8" />
+            <Delete
+              onClick={() => removeField3(field.id)}
+              className="lg:mt-8"
+            />
           </React.Fragment>
         ))}
         <AddCircleOutline onClick={addField3} className="lg:mt-8" />

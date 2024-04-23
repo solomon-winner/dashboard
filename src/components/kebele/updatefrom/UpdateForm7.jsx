@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { RadioButtonGroup } from "../../site/AddSite";
-import { kebeledata } from "../UpdateKebele";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
 import Loadings from "../../Resource/Loading/Loadings";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 import { useSelector } from "react-redux";
 
 export const extractAdditionalFieldsData = (prefix, formData, prefix2) => {
@@ -26,16 +25,20 @@ export const UpdateForm7 = ({ handleChange, formData, setFormData }) => {
   const [additionalFields, setAdditionalFields] = useState([]);
   useEffect(() => {
     if (Object.keys(formData).length > 0) {
-      const initialAdditionalFields = extractAdditionalFieldsData("energy_sourcetype",formData,"energy_sourcelevel");
+      const initialAdditionalFields = extractAdditionalFieldsData(
+        "energy_sourcetype",
+        formData,
+        "energy_sourcelevel"
+      );
       setAdditionalFields(initialAdditionalFields);
       const updatedFormData = { ...formData };
-      const type = initialAdditionalFields.map((item) => item.energy_source) 
-      type.forEach((item,index)=>{
-         const name = energy_source.find(
-          (energy_source) => energy_source.id === item
-        )?.name || ""
+      const type = initialAdditionalFields.map((item) => item.energy_source);
+      type.forEach((item, index) => {
+        const name =
+          energy_source.find((energy_source) => energy_source.id === item)
+            ?.name || "";
         updatedFormData[`energy_sourcename${index + 1}`] = name;
-      })
+      });
       setFormData(updatedFormData);
     }
   }, [energy_source]);
@@ -75,7 +78,7 @@ export const UpdateForm7 = ({ handleChange, formData, setFormData }) => {
       } else {
         newFormData[key] = updatedFormData[key];
       }
-    };
+    }
     setFormData(newFormData);
   };
   const handleChanges = (e) => {

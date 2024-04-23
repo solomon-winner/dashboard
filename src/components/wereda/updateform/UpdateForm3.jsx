@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { AddCircleOutline, Delete, LocalHospital, School } from "@mui/icons-material";
-import { FormField } from "../AddWereda";
-import { weredadata } from "../UpdateWereda";
+import { AddCircleOutline, Delete, School } from "@mui/icons-material";
+import { FormField } from "../../Resource/Utility/FormField";
 import Loadings from "../../Resource/Loading/Loadings";
 import { useSelector } from "react-redux";
 import { extractAdditionalFieldsData } from "./UpdateForm2";
@@ -10,10 +9,22 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
   const { school, healthFacility, isLoadingInstitutions } = useSelector(
     (state) => state.institution
   );
-  const initialAdditionalFields = extractAdditionalFieldsData('schooltype', formData, 'schoolnumber');
-const initialAdditionalFields2 = extractAdditionalFieldsData('healthFacilitytype', formData, 'healthFacilitynumber');
-  const [additionalFields, setAdditionalFields] = useState(initialAdditionalFields);
-  const [additionalFields2, setAdditionalFields2] = useState(initialAdditionalFields2);
+  const initialAdditionalFields = extractAdditionalFieldsData(
+    "schooltype",
+    formData,
+    "schoolnumber"
+  );
+  const initialAdditionalFields2 = extractAdditionalFieldsData(
+    "healthFacilitytype",
+    formData,
+    "healthFacilitynumber"
+  );
+  const [additionalFields, setAdditionalFields] = useState(
+    initialAdditionalFields
+  );
+  const [additionalFields2, setAdditionalFields2] = useState(
+    initialAdditionalFields2
+  );
   const addField = () => {
     const highestId = additionalFields.reduce(
       (highest, field) => Math.max(highest, field.id),
@@ -33,10 +44,13 @@ const initialAdditionalFields2 = extractAdditionalFieldsData('healthFacilitytype
     let schooltypeIndex = 1;
     let schoolnumberIndex = 1;
     for (let key in updatedFormData) {
-      if (key.startsWith('schooltype') && key !== `schooltype${id + 1}`) {
+      if (key.startsWith("schooltype") && key !== `schooltype${id + 1}`) {
         newFormData[`schooltype${schooltypeIndex}`] = updatedFormData[key];
         schooltypeIndex++;
-      } else if (key.startsWith('schoolnumber') && key !== `schoolnumber${id + 1}`) {
+      } else if (
+        key.startsWith("schoolnumber") &&
+        key !== `schoolnumber${id + 1}`
+      ) {
         newFormData[`schoolnumber${schoolnumberIndex}`] = updatedFormData[key];
         schoolnumberIndex++;
       }
@@ -62,11 +76,19 @@ const initialAdditionalFields2 = extractAdditionalFieldsData('healthFacilitytype
     let healthFacilitytypeIndex = 1;
     let healthFacilitynumberIndex = 1;
     for (let key in updatedFormData) {
-      if (key.startsWith('healthFacilitytype') && key !== `healthFacilitytype${id + 1}`) {
-        newFormData[`healthFacilitytype${healthFacilitytypeIndex}`] = updatedFormData[key];
+      if (
+        key.startsWith("healthFacilitytype") &&
+        key !== `healthFacilitytype${id + 1}`
+      ) {
+        newFormData[`healthFacilitytype${healthFacilitytypeIndex}`] =
+          updatedFormData[key];
         healthFacilitytypeIndex++;
-      } else if (key.startsWith('healthFacilitynumber') && key !== `healthFacilitynumber${id + 1}`) {
-        newFormData[`healthFacilitynumber${healthFacilitynumberIndex}`] = updatedFormData[key];
+      } else if (
+        key.startsWith("healthFacilitynumber") &&
+        key !== `healthFacilitynumber${id + 1}`
+      ) {
+        newFormData[`healthFacilitynumber${healthFacilitynumberIndex}`] =
+          updatedFormData[key];
         healthFacilitynumberIndex++;
       }
     }
@@ -75,13 +97,16 @@ const initialAdditionalFields2 = extractAdditionalFieldsData('healthFacilitytype
   const handleChanges = (e) => {
     const { name, value } = e.target;
     // Check if the name is 'area' or 'distance' and parse the value as a number
-    const parsedValue = (name.includes('schoolnumber') || name.includes('healthFacilitynumber')) ? parseFloat(value) : value;
+    const parsedValue =
+      name.includes("schoolnumber") || name.includes("healthFacilitynumber")
+        ? parseFloat(value)
+        : value;
     setFormData({
-       ...formData,
-       [name]: parsedValue,
+      ...formData,
+      [name]: parsedValue,
     });
     handleChange(e);
-};
+  };
   return (
     <div>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">

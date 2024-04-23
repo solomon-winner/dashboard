@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { FormField } from "./AddWereda";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { FormField } from "../Resource/Utility/FormField";
+import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
 import {
-  useAddWoredaMutation,
   useGetWeredaByIdQuery,
   useUpdateWeredaByIdMutation,
 } from "../../redux/wereda/WeredaApiSlice";
@@ -15,7 +14,12 @@ import Loadings from "../Resource/Loading/Loadings";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import { useParams } from "react-router-dom";
 import BackButton from "../Resource/Utility/BackButton";
-const validationSchema = Yup.object().shape({});
+import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
+const validationSchema = Yup.object().shape({
+  woreda_name: Yup.string().required("Wereda name is required"),
+  region_id: Yup.number().required("Region ID is required"),
+  // geojson: Yup.mixed().test("fileSize", "File size is too large", (value) => value && value.size <= 1048576),
+});
 
 export const UpdateWeredaForm = () => {
   const { id } = useParams();
@@ -36,8 +40,6 @@ export const UpdateWeredaForm = () => {
     selectedRegionName: "",
   });
 
-  // Store the initial geojson value
-  const [initialGeojson, setInitialGeojson] = useState(null);
 
   useEffect(() => {
     if (isSuccess && woredadata) {
@@ -54,8 +56,6 @@ export const UpdateWeredaForm = () => {
         woreda_code,
         selectedRegionName,
       });
-      // Set the initial geojson value
-      setInitialGeojson(geojson);
     }
   }, [isSuccess, woredadata, regions]);
 
@@ -71,9 +71,14 @@ export const UpdateWeredaForm = () => {
         formData.append(key, updatedValues[key]);
       }
     }
-    // Only append geojson if it has been changed
-    if (initialGeojson !== updatedValues.geojson) {
-      formData.append("geojson", updatedValues.geojson);
+    if (updatedValues.geojson instanceof File) {
+      // Use the GeoJsonConverter component to convert the GeoJSON file
+      const geoJsonConverter = await GeoJsonConverter.convert(
+        updatedValues.geojson
+      );
+      console.log(updatedValues.geojson);
+      console.log(geoJsonConverter);
+      formData.append("geojson", geoJsonConverter);
     }
     console.log({ id: id, data: formData });
 
@@ -81,7 +86,8 @@ export const UpdateWeredaForm = () => {
     console.log(wereda);
     if (wereda.data) {
       toast.success("Wereda updated successfully!");
-    } 
+      window.location.href = `/admin/wereda`;
+    }
   };
   const handleChanges = (e) => {
     setFormData({
@@ -148,6 +154,11 @@ export const UpdateWeredaForm = () => {
                             });
                           }}
                         />
+                         <ErrorMessage
+                        name="region_id"
+                        component="div"
+                        className="text-red-500 flex items-start"
+                      />
                       </div>
                     </div>
                     <FormField
@@ -178,7 +189,7 @@ export const UpdateWeredaForm = () => {
                         View Current GeoJSON
                       </a>
                       <p className="mt-2 text-sm text-gray-600">
-                        Selected file: {formData.geojson}
+                        Selected file: {formData.geojson || formData.geojsonName}
                       </p>
                     </div>
                     <div className="w-full lg:w-2/5 mt-5">
@@ -191,11 +202,17 @@ export const UpdateWeredaForm = () => {
                         onChange={(event) => {
                           const file = event.currentTarget.files[0];
                           setFieldValue("geojson", file);
-                          setFormData({
-                            ...formData,
-                            geojson: file.name,
-                          });
+                          setFieldValue("geojsonName", file.name);
+                          // setFormData({
+                          //   ...formData,
+                          //   geojson: file.name,
+                          // });
                         }}
+                      />
+                       <ErrorMessage
+                        name="geojson"
+                        component="div"
+                        className="text-red-500 flex items-start"
                       />
                       <label
                         htmlFor="geojsonFile"

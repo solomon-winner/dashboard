@@ -1,37 +1,33 @@
 import React, { useState } from "react";
-import { ErrorMessage, Field } from "formik";
 
 import { AddCircleOutline, Delete, Forest } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
-import { weredas } from "../../wereda/addform/AddForm";
-import Select from "react-select";
+import { FormField } from "../../Resource/Utility/FormField";
 import { useSelector } from "react-redux";
-import Loadings from '../../Resource/Loading/Loadings';
+import Loadings from "../../Resource/Loading/Loadings";
 import { useGetWeredaByRegionQuery } from "../../../redux/region/RegionApiSlice";
 import { useGetKebeleByWeredaQuery } from "../../../redux/kebele/KebeleApiSlice";
 import { useGetSiteByKebeleQuery } from "../../../redux/site/SiteApiSlice";
+import SiteSelect from "../../Resource/Utility/SelecteDropDown/SiteSelect";
+import KebeleSelect from "../../Resource/Utility/SelecteDropDown/KebeleSelect";
+import WeredaSelect from "../../Resource/Utility/SelecteDropDown/WeredaSelect";
+import RegionSelect from "../../Resource/Utility/SelecteDropDown/RegionSelect";
 export const AddForm = ({ handleChange, formData, setFormData }) => {
-
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedWereda, setSelectedWereda] = useState("");
   const [selectedKebele, setSelectedKebele] = useState("");
   const [selectedSite, setSelectedSite] = useState("");
   const { regions, isLoadingRegions } = useSelector((state) => state.region);
-  const {
-    data: getweredaByRegion,
-    isSuccess: weredaSuccess,
-    isFetching,
-  } = useGetWeredaByRegionQuery({ id: selectedRegion, with_sites: true }, { skip: !selectedRegion });
-  const {
-    data: getkebeleByWereda,
-    isSuccess: kebeleSuccess,
-    isFetching: kebeleFetching,
-  } = useGetKebeleByWeredaQuery({id: selectedWereda, with_sites: true}, { skip: !selectedWereda });
-  const {
-    data: getsitesByKebele,
-    isSuccess: siteSuccess,
-    isFetching: siteFetching,
-  } = useGetSiteByKebeleQuery(selectedKebele, { skip: !selectedKebele });
+  const { data: getweredaByRegion, isFetching } = useGetWeredaByRegionQuery(
+    { id: selectedRegion, with_sites: true },
+    { skip: !selectedRegion }
+  );
+  const { data: getkebeleByWereda, isFetching: kebeleFetching } =
+    useGetKebeleByWeredaQuery(
+      { id: selectedWereda, with_sites: true },
+      { skip: !selectedWereda }
+    );
+  const { data: getsitesByKebele, isFetching: siteFetching } =
+    useGetSiteByKebeleQuery(selectedKebele, { skip: !selectedKebele });
   const { tree, isLoadingTree } = useSelector((state) => state.resource);
   const [additionalFields, setAdditionalFields] = useState([
     { id: 0, indegeneoustype: "" },
@@ -73,235 +69,47 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
     });
     handleChange(e);
   };
-  const weredaOptions = isFetching
-    ? [
-        {
-          value: "loading",
-          label: (
-            <div className="flex justify-center">
-              <Loadings />
-            </div>
-          ),
-        },
-      ]
-    : getweredaByRegion?.data?.data?.map((wereda) => ({
-        value: wereda.id,
-        label: wereda.woreda_name,
-      }));
   return (
     <div>
       <div className="flex flex-wrap">
-        <div className="w-full lg:w-2/5 px-4">
-          <div className="relative w-full mb-3">
-            <label
-              className="block uppercase text-gray-500 text-xs font-bold mb-2"
-              htmlFor="region"
-            >
-              Region
-            </label>
-            <Select
-              name="region_id"
-              options={
-                isLoadingRegions
-                  ? [
-                      {
-                        value: "loading",
-                        label: (
-                          <div className="flex justify-center">
-                            <Loadings/>
-                          </div>
-                        ),
-                      },
-                    ]
-                  : regions.map((region) => ({
-                      value: region.id,
-                      label: region.region_name,
-                    }))
-              }
-              value={
-                formData && formData.selectedRegionName
-                  ? {
-                      value: selectedRegion,
-                      label: formData.selectedRegionName,
-                    }
-                  : null
-              }
-              onChange={(option) => {
-                setSelectedRegion(option.value);
-                handleChange({
-                  target: {
-                    name: "region_id",
-                    value: option.value,
-                  },
-                });
-                setFormData({
-                  ...formData,
-                  selectedRegionName: option.label,
-                  selectedWeredaName: "",
-                  selectedKebele: "",
-                  selectedSite: "",
-                });
-              }}
-            />
-            <ErrorMessage
-              name="region_id"
-              component="div"
-              className="text-red-500 flex items-start"
-            />
-          </div>
-        </div>
-        <div className="w-full lg:w-2/5 px-4">
-          <div className="relative w-full mb-3">
-            <label
-              className="block uppercase text-gray-500 text-xs font-bold mb-2"
-              htmlFor="region"
-            >
-              Wereda
-            </label>
-            <Select
-              name="woreda_id"
-              options={weredaOptions}
-              value={
-                formData && formData.selectedWeredaName
-                  ? {
-                      value: selectedWereda,
-                      label: formData.selectedWeredaName,
-                    }
-                  : null
-              }
-              onChange={(option) => {
-                setSelectedWereda(option.value);
-                handleChange({
-                  target: {
-                    name: "woreda_id",
-                    value: option.value,
-                  },
-                });
-                setFormData({
-                  ...formData,
-                  selectedWeredaName: option.label, // Use option.label directly here
-                });
-              }}
-            />
-            <ErrorMessage
-              name="woreda_id"
-              component="div"
-              className="text-red-500 flex items-start"
-            />
-          </div>
-        </div>
-        <div className="w-full lg:w-2/5 px-4">
-          <div className="relative w-full mb-3">
-            <label
-              className="block uppercase text-gray-500 text-xs font-bold mb-2"
-              htmlFor="region"
-            >
-              Kebele
-            </label>
-            <Select
-              name="kebele_id"
-              options={
-                kebeleFetching
-                  ? [
-                      {
-                        value: "loading",
-                        label: (
-                          <div className="flex justify-center">
-                            <Loadings />
-                          </div>
-                        ),
-                      },
-                    ]
-                  : getkebeleByWereda?.data?.data?.map((kebele) => ({
-                      value: kebele.id,
-                      label: kebele.kebele_name,
-                    }))
-              }
-              value={
-                formData && formData.selectedKebele
-                  ? {
-                      value: selectedKebele,
-                      label: formData.selectedKebele,
-                    }
-                  : null
-              }
-              onChange={(option) => {
-                setSelectedKebele(option.value);
-                handleChange({
-                  target: {
-                    name: "kebele_id",
-                    value: option.value,
-                  },
-                });
-                setFormData({
-                  ...formData,
-                  selectedKebele: option.label, // Use option.label directly here
-                });
-              }}
-            />
-            <ErrorMessage
-              name="kebele_id"
-              component="div"
-              className="text-red-500 flex items-start"
-            />
-          </div>
-        </div>
-        <div className="w-full lg:w-2/5 px-4">
-          <div className="relative w-full mb-3">
-            <label
-              className="block uppercase text-gray-500 text-xs font-bold mb-2"
-              htmlFor="region"
-            >
-              Site
-            </label>
-            <Select
-              name="site_id"
-              options={
-                siteFetching
-                  ? [
-                      {
-                        value: "loading",
-                        label: (
-                          <div className="flex justify-center">
-                            <Loadings />
-                          </div>
-                        ),
-                      },
-                    ]
-                  : getsitesByKebele?.data?.data?.map((site) => ({
-                      value: site.id,
-                      label: site.site_name,
-                    }))
-              }
-              value={
-                formData && formData.selectedSite
-                  ? {
-                      value: selectedSite,
-                      label: formData.selectedSite,
-                    }
-                  : null
-              }
-              onChange={(option) => {
-                setSelectedSite(option.value);
-                handleChange({
-                  target: {
-                    name: "site_id",
-                    value: option.value,
-                  },
-                });
-                setFormData({
-                  ...formData,
-                  selectedSite: option.label, // Use option.label directly here
-                });
-              }}
-            />
-            <ErrorMessage
-              name="kebele_id"
-              component="div"
-              className="text-red-500 flex items-start"
-            />
-          </div>
-        </div>
+        <RegionSelect
+          regions={regions}
+          isLoadingRegions={isLoadingRegions}
+          selectedRegion={selectedRegion}
+          setSelectedRegion={setSelectedRegion}
+          handleChange={handleChange}
+          formData={formData}
+          setFormData={setFormData}
+        />
+        <WeredaSelect
+          getweredaByRegion={getweredaByRegion}
+          isFetching={isFetching}
+          selectedWereda={selectedWereda}
+          setSelectedWereda={setSelectedWereda}
+          handleChange={handleChange}
+          formData={formData}
+          setFormData={setFormData}
+        />
+      </div>
+      <div className="flex flex-wrap">
+        <KebeleSelect
+          getkebeleByWereda={getkebeleByWereda}
+          kebeleFetching={kebeleFetching}
+          selectedKebele={selectedKebele}
+          setSelectedKebele={setSelectedKebele}
+          handleChange={handleChange}
+          formData={formData}
+          setFormData={setFormData}
+        />
+        <SiteSelect
+          getsitesByKebele={getsitesByKebele}
+          siteFetching={siteFetching}
+          selectedSite={selectedSite}
+          setSelectedSite={setSelectedSite}
+          handleChange={handleChange}
+          formData={formData}
+          setFormData={setFormData}
+        />
       </div>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
         Trees Species found In The Site

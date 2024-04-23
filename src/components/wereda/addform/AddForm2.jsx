@@ -1,20 +1,12 @@
 import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { Link } from "react-router-dom";
-import {
-  AddCircleOutline,
-  AspectRatio,
-  Delete,
-  Landscape,
-} from "@mui/icons-material";
-import { FormField } from "../AddWereda";
-import { useDispatch, useSelector } from "react-redux";
+import { AddCircleOutline, AspectRatio, Delete } from "@mui/icons-material";
+import { FormField } from "../../Resource/Utility/FormField";
+import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
 
 export const LandUse = ["Residential", "Commercial", "Industrial"];
 export const AddForm2 = ({ handleChange, formData, setFormData }) => {
-  const { road, landuse, isLoadingLanduse,isLoadingRoad } = useSelector(
+  const { road, landuse, isLoadingLanduse, isLoadingRoad } = useSelector(
     (state) => state.resource
   );
   const [additionalFields, setAdditionalFields] = useState([
@@ -116,7 +108,7 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
       </div>
 
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
-        Road
+        Roads
       </h6>
       <div className="flex flex-wrap">
         {additionalFields2.map((field, index) => (

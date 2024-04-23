@@ -3,15 +3,16 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { AddForm } from "./addform/AddForm";
 import { AddForm2 } from "./addform/AddForm2";
-import { AddForm3 } from "./addform/AddForm3";
+
 import { useAddSiteDataMutation } from "../../redux/site/SiteApiSlice";
 import { toast } from "react-toastify";
 import { useAddResourceMutation } from "../../redux/resource/ResourceApiSlice";
 import BackButton from "../Resource/Utility/BackButton";
-import { FormBackButton, FormNextButton } from "../Resource/Utility/FormButtons";
-const validationSchema = Yup.object().shape({
-  // Define your validation schema here if needed
-});
+import {
+  FormBackButton,
+  FormNextButton,
+} from "../Resource/Utility/FormButtons";
+
 export const RadioButtonGroup = ({
   name,
   label,
@@ -61,7 +62,12 @@ export const RadioButtonGroup = ({
     </div>
   );
 };
-
+const validationSchema = Yup.object().shape({
+  region_id: Yup.string().required("Region is required"),
+  woreda_id: Yup.string().required("Wereda is required"),
+  kebele_id: Yup.string().required("Kebele is required"),
+  site_id: Yup.string().required("Site is required"),
+});
 export const AddSite = () => {
   const [addSiteData] = useAddSiteDataMutation();
   const [addResource] = useAddResourceMutation();
@@ -102,7 +108,7 @@ export const AddSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         indegeneoustreeArray.push({
           resource_id: values[typeKey],
@@ -126,7 +132,7 @@ export const AddSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         exotictreeArray.push({
           resource_id: values[typeKey],
@@ -150,7 +156,7 @@ export const AddSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         currentlanduseArray.push({
           resource_id: values[typeKey],
@@ -174,7 +180,7 @@ export const AddSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         forageArray.push({
           resource_id: values[typeKey],
@@ -198,7 +204,7 @@ export const AddSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         livelihoodArray.push({
           resource_id: values[typeKey],
@@ -223,7 +229,8 @@ export const AddSite = () => {
     console.log(response);
     if (response.data) {
       toast.success("Site added successfully");
-    } 
+      window.location.href = "/admin/site";
+    }
   };
   return (
     <div className="bg-dashbordColor">
@@ -255,12 +262,10 @@ export const AddSite = () => {
                   />
                 )}
                 <div className="mt-20 flex justify-between w-10/12 ">
-                  {step > 1 && (
-                   <FormBackButton handleBack={handleBack}/>
-                  )}
+                  {step > 1 && <FormBackButton handleBack={handleBack} />}
                   <div className="text-gray-500 text-sm">Page {step} of 2</div>
                   {step < 2 ? (
-                    <FormNextButton handleNext={handleNext}/>
+                    <FormNextButton handleNext={handleNext} />
                   ) : (
                     <button
                       type="submit"

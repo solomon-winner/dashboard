@@ -3,9 +3,8 @@ import { Formik, Form, Field } from "formik";
 import {
   useAddRoleMutation,
   useGetPermissionsQuery,
-  useGetRolesQuery,
 } from "../../redux/roles/RolesApiSlice";
-import { FormField } from "../wereda/AddWereda";
+import { FormField } from "../Resource/Utility/FormField";
 import { Check } from "@mui/icons-material";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -33,7 +32,9 @@ const CreateRole = () => {
   }, {});
 
   const handleSelectAll = () => {
-    const allPermissions = permissions.data.map((permission) => permission.name);
+    const allPermissions = permissions.data.map(
+      (permission) => permission.name
+    );
     setSelectedPermissions(allPermissions);
   };
 
@@ -61,7 +62,7 @@ const CreateRole = () => {
   return (
     <div className="container mx-auto p-14 flex-grow justify-center items-center bg-dashbordColor">
       <div className="mb-4">
-      <BackButton/>
+        <BackButton />
       </div>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {({ handleChange, values, isSubmitting }) => (
@@ -74,53 +75,71 @@ const CreateRole = () => {
               handleChange={handleChange}
             />
             {isFetching ? (
-             <div className='flex justify-center items-center h-screen'><MainLoading /></div>
+              <div className="flex justify-center items-center h-screen">
+                <MainLoading />
+              </div>
             ) : isSuccess ? (
               <div className="flex flex-wrap justify-between">
-                {Object.entries(groupedPermissions).map(([groupName, permissions], index) => (
-                  <div key={index} className="w-full sm:w-1/2 md:w-1/3">
-                    <h3 className="text-lg font-semibold mb-2">
-                      {groupName.charAt(0).toUpperCase() + groupName.slice(1)}
-                    </h3>
-                    {permissions.map((permission, permissionIndex) => (
-                      <div key={permission.id} className="mb-2 flex items-center">
-                        <div className="relative">
-                          <Field
-                            id={`permission-${permission.id}`}
-                            name="permissions"
-                            type="checkbox"
-                            value={permission.name}
-                            checked={
-                              (values.permissions || []).includes(permission.name) ||
-                              (selectedPermissions || []).includes(permission.name)
-                            }
-                            onChange={(e) => {
-                              const isChecked = e.target.checked;
-                              const permissionName = permission.name;
-                              if (isChecked) {
-                                setSelectedPermissions([...selectedPermissions, permissionName]);
-                              } else {
-                                setSelectedPermissions(selectedPermissions.filter((name) => name !== permissionName));
-                              }
-                              handleChange(e);
-                            }}
-                            className="before:content[''] peer relative h-6 w-6 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-green-500 checked:bg-green-500 checked:before:bg-green-500 hover:before:opacity-10"
-                          />
-                          {/* Check icon */}
-                          <div className="pointer-events-none absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-                            <Check className="mb-2" />
-                          </div>
-                        </div>
-                        <label
-                          className="block uppercase text-gray-500 text-xs font-bold mb-2 ml-2"
-                          htmlFor={`permission-${permission.id}`}
+                {Object.entries(groupedPermissions).map(
+                  ([groupName, permissions], index) => (
+                    <div key={index} className="w-full sm:w-1/2 md:w-1/3">
+                      <h3 className="text-lg font-semibold mb-2">
+                        {groupName.charAt(0).toUpperCase() + groupName.slice(1)}
+                      </h3>
+                      {permissions.map((permission, permissionIndex) => (
+                        <div
+                          key={permission.id}
+                          className="mb-2 flex items-center"
                         >
-                          {permission.name}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                ))}
+                          <div className="relative">
+                            <Field
+                              id={`permission-${permission.id}`}
+                              name="permissions"
+                              type="checkbox"
+                              value={permission.name}
+                              checked={
+                                (values.permissions || []).includes(
+                                  permission.name
+                                ) ||
+                                (selectedPermissions || []).includes(
+                                  permission.name
+                                )
+                              }
+                              onChange={(e) => {
+                                const isChecked = e.target.checked;
+                                const permissionName = permission.name;
+                                if (isChecked) {
+                                  setSelectedPermissions([
+                                    ...selectedPermissions,
+                                    permissionName,
+                                  ]);
+                                } else {
+                                  setSelectedPermissions(
+                                    selectedPermissions.filter(
+                                      (name) => name !== permissionName
+                                    )
+                                  );
+                                }
+                                handleChange(e);
+                              }}
+                              className="before:content[''] peer relative h-6 w-6 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-green-500 checked:bg-green-500 checked:before:bg-green-500 hover:before:opacity-10"
+                            />
+                            {/* Check icon */}
+                            <div className="pointer-events-none absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+                              <Check className="mb-2" />
+                            </div>
+                          </div>
+                          <label
+                            className="block uppercase text-gray-500 text-xs font-bold mb-2 ml-2"
+                            htmlFor={`permission-${permission.id}`}
+                          >
+                            {permission.name}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  )
+                )}
               </div>
             ) : (
               <div>Error loading permissions.</div>
@@ -135,7 +154,9 @@ const CreateRole = () => {
                     handleChange({
                       target: {
                         name: "permissions",
-                        value: permissions.data.map((permission) => permission.name),
+                        value: permissions.data.map(
+                          (permission) => permission.name
+                        ),
                       },
                     });
                   }}

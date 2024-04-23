@@ -1,26 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Apartment, FamilyRestroom, Landscape } from "@mui/icons-material";
-import { FormField } from "../AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 
-import {
-  useGetRegionQuery,
-  useGetWeredaByRegionQuery,
-} from "../../../redux/region/RegionApiSlice";
+import { useGetWeredaByRegionQuery } from "../../../redux/region/RegionApiSlice";
 import Select from "react-select";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
+import RegionSelect from "../../Resource/Utility/SelecteDropDown/RegionSelect";
+import WeredaSelect from "../../Resource/Utility/SelecteDropDown/WeredaSelect";
 
 export const AddForm = ({ handleChange, formData, setFormData }) => {
-
   const [selectedRegion, setSelectedRegion] = useState("");
   const [weredaId, setWeredaID] = useState("");
   const { regions, isLoadingRegions } = useSelector((state) => state.region);
 
-  const {
-    data: getweredaByRegion,
-    isSuccess: weredaSuccess,
-    isFetching,
-   } = useGetWeredaByRegionQuery({ id: selectedRegion, with_sites: true }, { skip: !selectedRegion });
+  const { data: getweredaByRegion, isFetching } = useGetWeredaByRegionQuery(
+    { id: selectedRegion, with_sites: true },
+    { skip: !selectedRegion }
+  );
   const weredaOptions = isFetching
     ? [
         {
@@ -46,92 +43,24 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
   return (
     <div>
       <div className="flex flex-wrap">
-        <div className="w-full lg:w-2/5 px-4">
-          <div className="relative w-full mb-3">
-            <label
-              className="block uppercase text-gray-500 text-xs font-bold mb-2"
-              htmlFor="region"
-            >
-              Region
-            </label>
-            <Select
-              name="region_id"
-              options={
-                isLoadingRegions
-                  ? [
-                      {
-                        value: "loading",
-                        label: (
-                          <div className="flex justify-center">
-                            <Loadings />
-                          </div>
-                        ),
-                      },
-                    ]
-                  : regions.map((region) => ({
-                      value: region.id,
-                      label: region.region_name,
-                    }))
-              }
-              value={
-                formData && formData.selectedRegionName
-                  ? {
-                      value: selectedRegion,
-                      label: formData.selectedRegionName,
-                    }
-                  : null
-              }
-              onChange={(option) => {
-                setSelectedRegion(option.value);
-                handleChanges({
-                  target: {
-                    name: "region_id",
-                    value: option.value,
-                  },
-                });
-                setFormData({
-                  ...formData,
-                  selectedRegionName: option.label, 
-                  selectedWeredaName: "",
-                });
-              }}
-            />
-          </div>
-        </div>
-        <div className="w-full lg:w-2/5 px-4">
-          <div className="relative w-full mb-3">
-            <label
-              className="block uppercase text-gray-500 text-xs font-bold mb-2"
-              htmlFor="region"
-            >
-              Wereda
-            </label>
-            <Select
-              name="woreda_id"
-              options={weredaOptions}
-              value={
-                formData && formData.selectedWeredaName
-                  ? {
-                      label: formData.selectedWeredaName,
-                    }
-                  : null
-              }
-              onChange={(option) => {
-                setWeredaID(option.label);
-                handleChange({
-                  target: {
-                    name: "woreda_id",
-                    value: option.value,
-                  },
-                });
-                setFormData({
-                  ...formData,
-                  selectedWeredaName: option.label, // Use option.label directly here
-                });
-              }}
-            />
-          </div>
-        </div>
+        <RegionSelect
+          regions={regions}
+          isLoadingRegions={isLoadingRegions}
+          selectedRegion={selectedRegion}
+          setSelectedRegion={setSelectedRegion}
+          handleChange={handleChange}
+          formData={formData}
+          setFormData={setFormData}
+        />
+        <WeredaSelect
+          getweredaByRegion={getweredaByRegion}
+          isFetching={isFetching}
+          selectedWereda={weredaId}
+          setSelectedWereda={setWeredaID}
+          handleChange={handleChange}
+          formData={formData}
+          setFormData={setFormData}
+        />
       </div>
       <hr className="mt-3 border-b-1 border-blueGray-300"></hr>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">

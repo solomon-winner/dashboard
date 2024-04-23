@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  useDeleteRoleMutation,
-  useGetRolesQuery,
-} from "../../redux/roles/RolesApiSlice";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useDeleteRoleMutation } from "../../redux/roles/RolesApiSlice";
 import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteRoles,
-  setLoadingRoles,
-  setRoles,
-} from "../../redux/roles/RolesState";
+import { deleteRoles } from "../../redux/roles/RolesState";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import DeleteConfirmationDialog from "../Resource/Utility/Delete/DeleteConfirmationDialog"; // Import the DeleteConfirmationDialog component
 
@@ -72,7 +65,9 @@ const View = () => {
               <tbody>
                 {isLoadingRoles ? (
                   <tr className="bg-green-50 border-b">
-                    <td colSpan="2" className="py-4 px-6 text-center"><MainLoading/></td>
+                    <td colSpan="2" className="py-4 px-6 text-center">
+                      <MainLoading />
+                    </td>
                   </tr>
                 ) : (
                   rolesData.map((role) => (

@@ -1,12 +1,9 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, ErrorMessage } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
-import {
-  useGetRegionQuery,
-  useGetWeredaByRegionQuery,
-} from "../../redux/region/RegionApiSlice";
+import { useGetWeredaByRegionQuery } from "../../redux/region/RegionApiSlice";
 import { useGetKebeleByWeredaQuery } from "../../redux/kebele/KebeleApiSlice";
-import { FormField } from "../wereda/AddWereda";
+import { FormField } from "../Resource/Utility/FormField";
 import { useAddSiteMutation } from "../../redux/site/SiteApiSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -23,35 +20,26 @@ const validationSchema = Yup.object().shape({
   size_ha: Yup.number()
     .required("Size of Site is required")
     .positive("Size must be a positive number"),
-  geojson: Yup.mixed()
-    .required("Kebele GeoJSON is required")
-    .test(
-      "fileSize",
-      "File size is too large",
-      (value) => value && value.size <= 1048576
-    ), // Assuming a max file size of 1MB
+  geojson: Yup.mixed().test(
+    "fileSize",
+    "File size is too large",
+    (value) => value && value.size <= 1048576
+  ), // Assuming a max file size of 1MB
 });
 export const AddSiteInfo = () => {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedWereda, setSelectedWereda] = useState("");
   const [selectedKebele, setSelectedKebele] = useState("");
   const { regions, isLoadingRegions } = useSelector((state) => state.region);
-  const {
-    data: getweredaByRegion,
-    isSuccess: weredaSuccess,
-    isFetching,
-  } = useGetWeredaByRegionQuery(
+  const { data: getweredaByRegion, isFetching } = useGetWeredaByRegionQuery(
     { id: selectedRegion, with_sites: true },
     { skip: !selectedRegion }
   );
-  const {
-    data: getkebeleByWereda,
-    isSuccess: kebeleSuccess,
-    isFetching: kebeleFetching,
-  } = useGetKebeleByWeredaQuery(
-    { id: selectedWereda, with_sites: true },
-    { skip: !selectedWereda }
-  );
+  const { data: getkebeleByWereda, isFetching: kebeleFetching } =
+    useGetKebeleByWeredaQuery(
+      { id: selectedWereda, with_sites: true },
+      { skip: !selectedWereda }
+    );
   const [addSite] = useAddSiteMutation();
   const [formData, setFormData] = useState({
     watershed_name: "",
@@ -75,8 +63,8 @@ export const AddSiteInfo = () => {
     for (const key in updatedValues) {
       formData.append(key, updatedValues[key]);
     }
-    if (values.geojson) {
-      formData.append("geojson", values.geojson);
+    if (updatedValues.geojson) {
+      formData.append("geojson", updatedValues.geojson);
     }
     console.log(formData);
 
@@ -85,6 +73,7 @@ export const AddSiteInfo = () => {
     console.log(site);
     if (site.data) {
       toast.success("Site added successfully!");
+      window.location.href = "/admin/site";
     }
   };
   const weredaOptions = isFetching

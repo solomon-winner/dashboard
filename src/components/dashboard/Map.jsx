@@ -7,6 +7,8 @@ import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
 import {fetchRegionData, fetchSiteData} from '../Maps/FetchGeoJsonMap';
 import {SetAllRegions, SetAllSiteData, SetSelectedRegion, SetSelectedSite} from '../../redux/GeoJson/GeoJsonSlice'
 import { useDispatch, useSelector } from 'react-redux';
+
+
 import { setSiteId } from '../../redux/site/SiteByIdState';
 
   var siteIcon = L.icon({
@@ -40,7 +42,7 @@ export const Map = () => {
     }).setView([ethiopia.lat, ethiopia.lng], 6);
   
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(map);
 

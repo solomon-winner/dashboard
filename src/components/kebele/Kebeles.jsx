@@ -1,34 +1,31 @@
 import React, { useState } from "react";
 import { useAddKebeleMutation } from "../../redux/kebele/KebeleApiSlice";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
-import {
-  useGetRegionQuery,
-  useGetWeredaByRegionQuery,
-} from "../../redux/region/RegionApiSlice";
-import { FormField } from "../wereda/AddWereda";
+import { useGetWeredaByRegionQuery } from "../../redux/region/RegionApiSlice";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import { useSelector } from "react-redux";
 import Loadings from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
+import { FormField } from "../Resource/Utility/FormField";
 const validationSchema = Yup.object().shape({
   kebele_name: Yup.string().required("Kebele name is required"),
   woreda_id: Yup.number().required("Wereda ID is required"),
   region_id: Yup.number().required("Region ID is required"),
-  geojson: Yup.mixed().required("GeoJSON file is required"),
-  status: Yup.string().required("Status is required"),
+  geojson: Yup.mixed().test(
+    "fileSize",
+    "File size is too large",
+    (value) => value && value.size <= 1048576
+  ),
 });
 const Kebeles = () => {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedWereda, setSelectedWereda] = useState("");
   const { regions, isLoadingRegions } = useSelector((state) => state.region);
-  const {
-    data: getweredaByRegion,
-    isSuccess: weredaSuccess,
-    isFetching,
-  } = useGetWeredaByRegionQuery(
+  const { data: getweredaByRegion, isFetching } = useGetWeredaByRegionQuery(
     { id: selectedRegion, with_sites: true },
     { skip: !selectedRegion }
   );
@@ -60,7 +57,8 @@ const Kebeles = () => {
     console.log(kebele);
     if (kebele.data) {
       toast.success("Kebele added successfully!");
-    } 
+      window.location.href = `/admin/kebele`;
+    }
   };
   const weredaOptions = isFetching
     ? [

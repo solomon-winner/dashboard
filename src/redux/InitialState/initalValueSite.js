@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useGetSiteByIdQuery } from "../site/SiteApiSlice";
 import { useDispatch } from "react-redux";
-import { setSiteById } from "../site/SiteByIdState";
+import { setLoading, setSiteById } from "../site/SiteByIdState";
 
 export const useInitialValueSite = (id) => {
   const { data: sitedata, isSuccess } = useGetSiteByIdQuery(id);
@@ -9,8 +9,9 @@ export const useInitialValueSite = (id) => {
   useEffect(() => {
     if (isSuccess && sitedata) {
       const data = sitedata?.data;
-      if(!data.resources){
-        return
+      if (!data.resources) {
+        dispatch(setLoading());
+        return 
       }
       const tree = data?.resources.find((resource) =>
         resource.hasOwnProperty("TREE")
@@ -39,27 +40,33 @@ export const useInitialValueSite = (id) => {
             };
           })
         : [];
-        const land = data.resources.find(resource => resource.hasOwnProperty('LAND'));
-          const landResource = land?.LAND ? land.LAND.map(
-            (item, index) => ({
-               [`currentlandusetype${index + 1}`]: item.id,
-               [`currentlandusename${index + 1}`]: item.value
-            })
-           ) : [];
-           const forage = data.resources.find(resource => resource.hasOwnProperty('FORAGE'));
-          const forageResource = forage?.FORAGE ? forage.FORAGE.map(
-            (item, index) => ({
-               [`foragetype${index + 1}`]: item.id,
-               [`foragename${index + 1}`]: item.value
-            })
-           ) : [];
-           const livelihood = data.resources.find(resource => resource.hasOwnProperty('LIVELIHOOD'));
-          const livelihoodResource = livelihood?.LIVELIHOOD ? livelihood.LIVELIHOOD.map(
-            (item, index) => ({
-               [`livelihoodtype${index + 1}`]: item.id,
-               [`livelihoodname${index + 1}`]: item.value
-            })
-          ) : [];
+      const land = data.resources.find((resource) =>
+        resource.hasOwnProperty("LAND")
+      );
+      const landResource = land?.LAND
+        ? land.LAND.map((item, index) => ({
+            [`currentlandusetype${index + 1}`]: item.id,
+            [`currentlandusename${index + 1}`]: item.value,
+          }))
+        : [];
+      const forage = data.resources.find((resource) =>
+        resource.hasOwnProperty("FORAGE")
+      );
+      const forageResource = forage?.FORAGE
+        ? forage.FORAGE.map((item, index) => ({
+            [`foragetype${index + 1}`]: item.id,
+            [`foragename${index + 1}`]: item.value,
+          }))
+        : [];
+      const livelihood = data.resources.find((resource) =>
+        resource.hasOwnProperty("LIVELIHOOD")
+      );
+      const livelihoodResource = livelihood?.LIVELIHOOD
+        ? livelihood.LIVELIHOOD.map((item, index) => ({
+            [`livelihoodtype${index + 1}`]: item.id,
+            [`livelihoodname${index + 1}`]: item.value,
+          }))
+        : [];
       const siteData = {
         ...treeResource.reduce((acc, item) => ({ ...acc, ...item }), {}),
         ...landResource.reduce((acc, item) => ({ ...acc, ...item }), {}),

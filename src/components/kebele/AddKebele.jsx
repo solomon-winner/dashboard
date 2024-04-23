@@ -17,7 +17,9 @@ import {
   FormNextButton,
 } from "../Resource/Utility/FormButtons";
 const validationSchema = Yup.object().shape({
-  // Define your validation schema here if needed
+  region_id: Yup.string().required("Region is required"),
+  woreda_id: Yup.string().required("Wereda is required"),
+  kebele_id: Yup.string().required("Kebele is required"),
 });
 
 export const AddKebele = () => {
@@ -383,6 +385,7 @@ export const AddKebele = () => {
     console.log(response);
     if (response.data) {
       toast.success("Kebele added successfully");
+      window.location.href = `/admin/kebele`;
     }
     console.log({ ...value, id: values.kebele_id });
   };

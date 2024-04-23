@@ -13,14 +13,17 @@ export const SiteByIdSlice = createSlice({
           state.siteData = action.payload;
           state.loading = false;
       },
-      setLoadingTrue: (state) => {
-        state.loading = true;
+      setLoading: (state) => {
+        state.loading = false;
      },
      setSiteId: (state, action) => {
       state.Id = action.payload;
+     },
+     deleteSiteData: (state, action) => {
+        state.siteData = state.siteData.filter(site => site.id !== action.payload);
      }
     }
   });
 
-  export const { setSiteById, setLoadingTrue ,setSiteId} = SiteByIdSlice.actions;
+  export const { setSiteById, setLoading, setSiteId, deleteSiteData} = SiteByIdSlice.actions;
   export default SiteByIdSlice.reducer

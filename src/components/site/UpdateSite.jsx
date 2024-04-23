@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { AddForm } from "./addform/AddForm";
-import { AddForm2 } from "./addform/AddForm2";
-import { AddForm3 } from "./addform/AddForm3";
 import { useAddSiteDataMutation } from "../../redux/site/SiteApiSlice";
 import { toast } from "react-toastify";
 import { useAddResourceMutation } from "../../redux/resource/ResourceApiSlice";
 import { useParams } from "react-router-dom";
 import { useInitialValueSite } from "../../redux/InitialState/initalValueSite";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import { UpdateForm2 } from "./updateform/UpdateForm2";
 import { UpdateForm } from "./updateform/UpdateForm";
-import {
-  setLoadingFalse,
-  setLoadingTrue,
-} from "../../redux/site/SiteByIdState";
 import BackButton from "../Resource/Utility/BackButton";
-import { FormBackButton, FormNextButton } from "../Resource/Utility/FormButtons";
+import {
+  FormBackButton,
+  FormNextButton,
+} from "../Resource/Utility/FormButtons";
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
@@ -33,6 +29,7 @@ export const UpdateSite = () => {
   useEffect(() => {
     if (!loading && siteData) {
       setFormData(siteData);
+      console.log(siteData);
     }
   }, [!loading]);
   const handleNext = (e) => {
@@ -58,7 +55,7 @@ export const UpdateSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         indegeneoustreeArray.push({
           resource_id: values[typeKey],
@@ -82,7 +79,7 @@ export const UpdateSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         exotictreeArray.push({
           resource_id: values[typeKey],
@@ -106,7 +103,7 @@ export const UpdateSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         currentlanduseArray.push({
           resource_id: values[typeKey],
@@ -130,7 +127,7 @@ export const UpdateSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         forageArray.push({
           resource_id: values[typeKey],
@@ -154,7 +151,7 @@ export const UpdateSite = () => {
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
-          } 
+          }
         }
         livelihoodArray.push({
           resource_id: values[typeKey],
@@ -179,6 +176,7 @@ export const UpdateSite = () => {
     console.log(response);
     if (response.data) {
       toast.success("Site added successfully");
+      window.location.href = `/admin/site`;
     }
   };
   return (
@@ -215,14 +213,12 @@ export const UpdateSite = () => {
                     />
                   )}
                   <div className="mt-20 flex justify-between w-10/12 ">
-                    {step > 1 && (
-                      <FormBackButton handleBack={handleBack}/>
-                    )}
+                    {step > 1 && <FormBackButton handleBack={handleBack} />}
                     <div className="text-gray-500 text-sm">
                       Page {step} of 2
                     </div>
                     {step < 2 ? (
-                     <FormNextButton handleNext={handleNext}/>
+                      <FormNextButton handleNext={handleNext} />
                     ) : (
                       <button
                         type="submit"

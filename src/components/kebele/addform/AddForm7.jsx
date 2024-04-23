@@ -3,7 +3,7 @@ import { RadioButtonGroup } from "../../site/AddSite";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 
 export const AddForm7 = ({ handleChange, formData, setFormData }) => {
   const { energy_source, isLoadingEnergy_source } = useSelector(

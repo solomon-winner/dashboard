@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import {Field } from "formik";
 import {
   AddCircleOutline,
-  Apartment,
   Delete,
   FamilyRestroom,
-  Landscape,
   Public,
 } from "@mui/icons-material";
-import { FormField } from "../../wereda/AddWereda";
+import { FormField } from "../../Resource/Utility/FormField";
 
 export const regions = [
   "Addis Ababa",
