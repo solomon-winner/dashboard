@@ -19,9 +19,13 @@ export const regionSlice = createSlice({
         setLoadingRegions: (state, action) => {
             state.isLoadingRegions = action.payload;
         },
+
+        deleteRegion: (state, action) => {
+            state.regions = state.regions.filter(region => region.id !== action.payload);
+        }
     },
 });
 
-export const { setRegions, addRegion, setLoadingRegions } =
+export const { setRegions, addRegion, setLoadingRegions, deleteRegion } =
     regionSlice.actions;
 export default regionSlice.reducer

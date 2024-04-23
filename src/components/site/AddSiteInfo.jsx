@@ -20,13 +20,11 @@ const validationSchema = Yup.object().shape({
   size_ha: Yup.number()
     .required("Size of Site is required")
     .positive("Size must be a positive number"),
-  geojson: Yup.mixed()
-    .required("Kebele GeoJSON is required")
-    .test(
-      "fileSize",
-      "File size is too large",
-      (value) => value && value.size <= 1048576
-    ), // Assuming a max file size of 1MB
+  geojson: Yup.mixed().test(
+    "fileSize",
+    "File size is too large",
+    (value) => value && value.size <= 1048576
+  ), // Assuming a max file size of 1MB
 });
 export const AddSiteInfo = () => {
   const [selectedRegion, setSelectedRegion] = useState("");

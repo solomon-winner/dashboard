@@ -13,7 +13,7 @@ const validationSchema = Yup.object().shape({
   woreda_name: Yup.string().required("Wereda name is required"),
   status: Yup.string().required("Status is required"),
   region_id: Yup.number().required("Region ID is required"),
-  geojson: Yup.mixed().required("GeoJSON file is required"),
+  geojson: Yup.mixed().test("fileSize", "File size is too large", (value) => value && value.size <= 1048576),
 });
 
 export const Weredas = () => {
@@ -59,7 +59,7 @@ export const Weredas = () => {
       </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
-          <h1 className="text-3xl font-bold mb-5">Add Wereda Data</h1>
+          <h1 className="text-3xl font-bold mb-5">Add Wereda</h1>
 
           <Formik
             initialValues={formData}

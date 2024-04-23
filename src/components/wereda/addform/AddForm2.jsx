@@ -108,7 +108,7 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
       </div>
 
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
-        Road
+        Roads
       </h6>
       <div className="flex flex-wrap">
         {additionalFields2.map((field, index) => (

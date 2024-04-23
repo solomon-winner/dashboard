@@ -36,8 +36,21 @@ export const RegionApiSlice = apiSlice.injectEndpoints({
                 url: `/regions/${id}/sites`,
                 method: "GET",
             })
+        }),
+        updateRegion: builder.mutation({
+            query: ({id,data}) => ({
+                url: `/regions/${id}?_method=PUT`,
+                method: "Post",
+                body: data
+            })
+        }),
+        deleteRegion: builder.mutation({
+            query: (id) => ({
+                url: `/regions/${id}`,
+                method: "DELETE",
+            })
         })
     }),
 })
 
-export const { useGetRegionQuery, useAddRegionMutation, useGetWeredaByRegionQuery,useGetSiteByRegionQuery, useGetRegionByIdQuery } = RegionApiSlice
+export const { useGetRegionQuery, useAddRegionMutation, useGetWeredaByRegionQuery,useGetSiteByRegionQuery, useGetRegionByIdQuery, useUpdateRegionMutation, useDeleteRegionMutation } = RegionApiSlice

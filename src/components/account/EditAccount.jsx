@@ -223,7 +223,7 @@ export const EditAccount = () => {
                 </div>
                 <button
                   type="submit"
-                  className="bg-green-500 text-white font-bold py-2 px-4  hover:bg-darkMain  rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold outline-none"
+                  className="bg-green-500 text-white font-bold py-2 px-4  hover:bg-darkMain  rounded-md text-center text-base  outline-none"
                 >
                   Submit
                 </button>

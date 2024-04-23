@@ -14,6 +14,7 @@ import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
 import { UpdateDataButton } from "../Resource/Utility/UpdateDataButton";
 import { UpdateButton } from "../Resource/Utility/UpdateButton";
 import { EachMap } from "../Resource/Map/EachMap";
+import { deleteSiteData } from "../../redux/site/SiteByIdState";
 
 export const SiteDetails = () => {
   const { id } = useParams();
@@ -37,7 +38,7 @@ export const SiteDetails = () => {
       <div className="flex flex-col items-center justify-center h-screen">
         <p>No Data Available</p>
         <Link
-          to={`/admin/new-site`}
+          to={`/admin/update-siteData/${id}`}
           className="mt-4 p-2 rounded-md text-sm bg-mainColor text-white hover:bg-customDark font-semibold"
         >
           Add Data
@@ -65,7 +66,7 @@ export const SiteDetails = () => {
           className="w-full sm:w-1/3 lg:w-1/4"
         />
         <div className="flex gap-4">
-          <DeleteButton entityId={id} deleteEntity={deleteSite} />
+          <DeleteButton entityId={id} deleteEntity={deleteSite}/>
           <UpdateDataButton id={id} name="Site" url={"update-siteData"} />
           <UpdateButton id={id} name="Site" url={"update-site"} />
         </div>

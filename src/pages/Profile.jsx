@@ -109,13 +109,13 @@ export const Profile = () => {
           <div className="flex items-center space-x-4 mt-2">
             <Link
               to="/admin/UpdatePersonalInfo"
-              className="bg-green-500 text-white font-bold py-2 px-4  hover:bg-darkMain  rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold outline-none"
+              className="bg-green-500 text-white font-bold py-2 px-4  hover:bg-darkMain  rounded-md  text-center text-base outline-none"
             >
               <span>Update</span>
             </Link>
             <Link
               to="/admin/ChangePassword"
-              className="bg-green-500 text-white font-bold py-2 px-4  hover:bg-darkMain  rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold outline-none"
+              className="bg-green-500 text-white font-bold py-2 px-4  hover:bg-darkMain  rounded-md text-center text-base outline-none"
             >
               <span>Change password</span>
             </Link>

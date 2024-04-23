@@ -42,6 +42,12 @@ export const KebeleApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    deleteKebele: builder.mutation({
+      query: (id) => ({
+        url: `kebeles/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -51,5 +57,6 @@ export const {
   useGetKebeleByWeredaQuery,
   useAddKebeleDataMutation,
   useGetKebeleByIdQuery,
-  useUpdateKebeleByIdMutation
+  useUpdateKebeleByIdMutation,
+  useDeleteKebeleMutation,
 } = KebeleApiSlice;

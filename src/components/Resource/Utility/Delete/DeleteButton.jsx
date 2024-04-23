@@ -4,11 +4,14 @@ import { Delete } from "@mui/icons-material";
 import { useDeleteSiteMutation } from "../../../../redux/site/SiteApiSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-const DeleteButton = ({ entityId, deleteEntity }) => {
+const DeleteButton = ({ entityId, deleteEntity, deleteState }) => {
+
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleDelete = () => {
     setShowConfirmation(true);
   };
@@ -17,12 +20,13 @@ const DeleteButton = ({ entityId, deleteEntity }) => {
     setIsDeleting(true);
     try {
       await deleteEntity(entityId).unwrap();
-      toast.success("Site deleted successfully");
+      toast.success("Deleted successfully");
       setIsDeleting(false);
       setShowConfirmation(false);
-      navigate(-1);
+      // dispatch(deleteState(entityId));
+      window.history.back();
     } catch (error) {
-      console.error("Failed to delete site:", error);
+      console.error("Failed to delete:", error);
       setIsDeleting(false);
     }
   };
@@ -51,3 +55,4 @@ const DeleteButton = ({ entityId, deleteEntity }) => {
 };
 
 export default DeleteButton;
+

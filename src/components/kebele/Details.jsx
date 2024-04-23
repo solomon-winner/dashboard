@@ -2,6 +2,7 @@ import React from "react";
 import { Table } from "./Table";
 import { useParams } from "react-router-dom";
 import {
+  useDeleteKebeleMutation,
   useGetKebeleByIdQuery,
   useGetKebeleQuery,
 } from "../../redux/kebele/KebeleApiSlice";
@@ -23,6 +24,7 @@ export const Details = () => {
   const { data, isSuccess, isFetching } = useGetKebeleByIdQuery(id);
   const { data: site } = useGetSiteByKebeleQuery(id);
   const { data: kebele } = useGetKebeleQuery({ all: true });
+  const [deleteKebele] = useDeleteKebeleMutation(id);
   if (!isSuccess || isFetching || !data || !kebele || !site) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -57,7 +59,7 @@ export const Details = () => {
             className="w-full sm:w-1/3 lg:w-1/4"
           />
           <div className="flex gap-4">
-            <DeleteButton />
+            <DeleteButton entityId={id} deleteEntity={deleteKebele}/>
             <UpdateDataButton id={id} name="Kebele" url={"update-kebeleData"} />
             <UpdateButton id={id} name="Kebele" url={"update-kebele"} />
           </div>

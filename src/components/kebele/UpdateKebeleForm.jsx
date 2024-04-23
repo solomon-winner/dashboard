@@ -21,8 +21,11 @@ const validationSchema = Yup.object().shape({
   kebele_name: Yup.string().required("Kebele name is required"),
   woreda_id: Yup.number().required("Wereda ID is required"),
   region_id: Yup.number().required("Region ID is required"),
-  // //   geojson: Yup.mixed().required("GeoJSON file is required"),
-  status: Yup.string().required("Status is required"),
+  geojson: Yup.mixed().test(
+    "fileSize",
+    "File size is too large",
+    (value) => value && value.size <= 1048576
+  ),
 });
 const UpdateKebeleForm = () => {
   const { id } = useParams();
