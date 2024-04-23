@@ -63,8 +63,8 @@ export const AddSiteInfo = () => {
     for (const key in updatedValues) {
       formData.append(key, updatedValues[key]);
     }
-    if (values.geojson) {
-      formData.append("geojson", values.geojson);
+    if (updatedValues.geojson) {
+      formData.append("geojson", updatedValues.geojson);
     }
     console.log(formData);
 
