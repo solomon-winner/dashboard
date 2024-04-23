@@ -25,6 +25,7 @@ export const Map = () => {
 
   const Zoom  = useSelector((state) => state.geoJson.GeoJson.Zoom_out);
   const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
+  console.log("RegionGeoJSONUrl", RegionGeoJSONUrl)
   const SitegeojsonUrl = isSiteSuccess && SitegeojsonUrls.data;
 
   useEffect(() => {
@@ -67,7 +68,7 @@ export const Map = () => {
             layer.on("click",() => {
               const Region_id = parseInt(url.match(/\d+/)[0], 10); 
               dispatch(SetSelectedRegion({Selected:layer, ID:Region_id}));
-              map.fitBounds(layer.getBounds());
+              Zoomer(layer)
               layer.setStyle({ color: "black", fillOpacity: 0.6, fillColor: "black"});
             })
           });
@@ -91,7 +92,7 @@ export const Map = () => {
               const Site_id = parseInt(url.match(/\d+/)[0], 10); 
               console.log("This is the marked layer that is clicked...",Site_id);
               dispatch(setSiteId(Site_id));
-              map.fitBounds(layer.getBounds());
+              Zoomer(layer);
           })
           });
         }).catch(error => {
@@ -99,14 +100,21 @@ export const Map = () => {
         });
       });
     }
-
-    if(SelectedRegion) {
-
+    const Zoomer = (LAYER) =>{
+      map.fitBounds(LAYER.getBounds()); 
+      return;
+    }
+      if(SelectedRegion) {
+      const SelectedLayerID = SelectedRegion.ID;
+      // const SelectedLayer = fetchRegionData(`geojson/regions/${SelectedLayerID}.geojson`)
+      // console.log("const SelectedLayer = SelectedRegion.Selected ", SelectedLayer)
+      // Zoomer(SelectedLayer);
+      // SelectedLayer.setStyle({ color: "black", fillOpacity: 0.6, fillColor: "black"});
     }
     return () => {
       map.remove();
     };
-  }, [isRegionSuccess && RegionGeoJSONUrl, isSiteSuccess && SitegeojsonUrl, Zoom]);
+  }, [isRegionSuccess && RegionGeoJSONUrl, isSiteSuccess && SitegeojsonUrl, Zoom, SelectedRegion]);
 
   return (
     <div id="map" className='h-full z-10'>

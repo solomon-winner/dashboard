@@ -29,7 +29,7 @@ export const Filter = () => {
     console.log("this_is form the_regions_array...", regions)
 
     const FilterRegion = (R_id) => {
-       return  ALL_REGIONS.filter((regio) => regio.feature.properties.id === R_id);
+       return  ALL_REGIONS.filter((region) => region.feature.properties.id === R_id);
     }
     const handleMouseEnter = () => {
         setFilter({ ...filter, RegionFilter: true });
