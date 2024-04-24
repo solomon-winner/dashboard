@@ -129,7 +129,7 @@ const UpdateKebeleForm = () => {
       );
       console.log(updatedValues.geojson);
       console.log(geoJsonConverter);
-      formData.append("geojson", updatedValues.geojson);
+      formData.append("geojson", geoJsonConverter);
     }
     console.log({ id: id, updatedValues });
 
@@ -168,7 +168,7 @@ const UpdateKebeleForm = () => {
       </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
-          <h1 className="text-3xl font-bold mb-5">Add Kebele</h1>
+          <h1 className="text-3xl font-bold mb-5">Update Kebele</h1>
           {weredaDataFetching ? (
             <MainLoading />
           ) : (
@@ -296,38 +296,55 @@ const UpdateKebeleForm = () => {
                     />
                   </div>
                   <div className="flex justify-between flex-grow">
-                    <div className="mb-4 w-full lg:w-2/5 px-4">
-                      <a
-                        href={`https://tbrr.echnoserve.com/storage/app/public/${formData.geojson}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 underline"
-                      >
-                        View Current GeoJSON
-                      </a>
-                      <p className="mt-2 text-sm text-gray-600">
+                    {formData.geojson && (
+                      <div className="mb-4 w-full lg:w-2/5 px-4">
+                        <a
+                          href={`https://tbrr.echnoserve.com/storage/app/public/${formData.geojson}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800 underline"
+                        >
+                          View Current GeoJSON
+                        </a>
+                        {/* <p className="mt-2 text-sm text-gray-600">
                         Selected file: {formData.geojson || formData.geojsonName}
-                      </p>
-                    </div>
+                      </p> */}
+                      </div>
+                    )}
                     <div className="w-full lg:w-2/5 mt-5">
-                      <input
-                        id="geojsonFile"
-                        type="file"
-                        name="geojson"
-                        accept=".geojson"
-                        className="hidden"
-                        onChange={(event) => {
-                          const file = event.currentTarget.files[0];
-                          setFieldValue("geojson", file);
-                          setFieldValue("geojsonName", file.name);
-                        }}
-                      />
                       <label
                         htmlFor="geojsonFile"
-                        className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded shadow-md cursor-pointer"
+                        className="block uppercase text-gray-500 text-xs font-bold mb-2"
                       >
                         Upload GeoJSON
                       </label>
+                      <div className="flex items-center">
+                        <label
+                          htmlFor="geojsonFile"
+                          className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded shadow-md cursor-pointer mr-2"
+                        >
+                          Browse
+                        </label>
+                        <input
+                          id="geojsonFile"
+                          type="file"
+                          name="geojson"
+                          accept=".geojson"
+                          className="hidden"
+                          onChange={(event) => {
+                            const file = event.currentTarget.files[0];
+                            setFieldValue("geojson", file);
+                            setFieldValue("geojsonName", file.name);
+                            document.getElementById(
+                              "geojsonFileName"
+                            ).textContent = file.name; // Show the file name
+                          }}
+                        />
+                        <span
+                          className="text-gray-600"
+                          id="geojsonFileName"
+                        ></span>
+                      </div>
                     </div>
                   </div>
                   <button

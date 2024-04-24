@@ -63,7 +63,7 @@ export const SiteDetails = () => {
           options={siteOptions}
           onChange={handleWeredaSelect}
           placeholder="Select a Site"
-          className="w-full sm:w-1/3 lg:w-1/4"
+          className="w-full sm:w-1/3 lg:w-1/4 z-50"
         />
         <div className="flex gap-4">
           <DeleteButton entityId={id} deleteEntity={deleteSite}/>

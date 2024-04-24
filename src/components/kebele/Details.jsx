@@ -330,7 +330,7 @@ export const Details = () => {
                 <div className="w-2/3">
                   <EachMap
                     geojsonData={`/geojson/kebeles/${id}.geojson`}
-                    SiteData={site.data.data.map((item) => item.id)}
+                    SiteData={site.data.data}
                   />
                 </div>
               </div>
