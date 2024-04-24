@@ -48,6 +48,7 @@ import { EditAccount } from './components/account/EditAccount';
 import { Regions } from './components/region/Region';
 import { RegionUpdate } from './components/region/RegionUpdate';
 import DeletedPage from './pages/DeletedPage';
+import { PasswordResetPage } from './components/account/PasswordResetPage';
 
 function App() {
 
@@ -99,13 +100,16 @@ function App() {
         <Route path='/admin/create-roles' element={<CreateRole />} />
         <Route path='/admin/update-roles/:id' element={<EditRole />} />
         <Route path='/admin/update-account/:id' element={<EditAccount />} />
-        <Route path='admin/delete-page' element={<DeletedPage />} />
+        <Route path='/admin/delete-page' element={<DeletedPage />} />
+        
+
       </Route>
       </Route>
        
        {/* Public Routes */}
       <Route path='/' element={<Login />} />
       <Route path='/forgot-password' element={<ForgotPassword/>} />
+      <Route path='/reset-password' element={<PasswordResetPage />} />
       </Routes>
       
     </div>

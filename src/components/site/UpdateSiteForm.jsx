@@ -423,24 +423,39 @@ export const UpdateSiteForm = () => {
                       </div>
                     )}
                     <div className="w-full lg:w-2/5 mt-5">
-                      <input
-                        id="geojsonFile"
-                        type="file"
-                        name="geojson"
-                        accept=".geojson"
-                        className="hidden"
-                        onChange={(event) => {
-                          const file = event.currentTarget.files[0];
-                          setFieldValue("geojson", file);
-                          setFieldValue("geojsonName", file.name);
-                        }}
-                      />
                       <label
                         htmlFor="geojsonFile"
-                        className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded shadow-md cursor-pointer"
+                        className="block uppercase text-gray-500 text-xs font-bold mb-2"
                       >
                         Upload GeoJSON
                       </label>
+                      <div className="flex items-center">
+                        <label
+                          htmlFor="geojsonFile"
+                          className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded shadow-md cursor-pointer mr-2"
+                        >
+                          Browse
+                        </label>
+                        <input
+                          id="geojsonFile"
+                          type="file"
+                          name="geojson"
+                          accept=".geojson"
+                          className="hidden"
+                          onChange={(event) => {
+                            const file = event.currentTarget.files[0];
+                            setFieldValue("geojson", file);
+                            setFieldValue("geojsonName", file.name);
+                            document.getElementById(
+                              "geojsonFileName"
+                            ).textContent = file.name; // Show the file name
+                          }}
+                        />
+                        <span
+                          className="text-gray-600"
+                          id="geojsonFileName"
+                        ></span>
+                      </div>
                     </div>
                   </div>
                   <button

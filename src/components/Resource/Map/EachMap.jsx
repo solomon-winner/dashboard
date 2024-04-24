@@ -10,9 +10,6 @@ export const EachMap = ({ geojsonData, SiteData }) => {
     iconSize: [20, 20],
     iconAnchor: [16, 16],
   });
-  console.log(SiteData);
-  // const SiteIds = SiteData.map((site) => site.id)
-  // const SiteName = SiteData.map((site) => site.site_name)
   useEffect(() => {
     if (!mapRef.current) {
       const ethiopia = { lat: 9.145, lng: 40.4897 };
@@ -75,13 +72,13 @@ export const EachMap = ({ geojsonData, SiteData }) => {
           SiteData.forEach(async (sites) => {
             console.log("this is site id", sites);
             if (sites.id) {
-                console.log("Site ID:", sites.id, "Site Name:", sites.site_name);
+              console.log("Site ID:", sites.id, "Site Name:", sites.site_name);
 
-                try{
+              try {
                 const siteGeoJsonData = await fetchSiteData(
                   `/geojson/sites/${sites.id}.geojson`
                 );
-              
+
                 if (siteGeoJsonData && siteGeoJsonData.features) {
                   L.geoJSON(siteGeoJsonData)
                     .addTo(mapRef.current)
@@ -91,17 +88,17 @@ export const EachMap = ({ geojsonData, SiteData }) => {
                         `/geojson/sites/${sites.id}.geojson`,
                         "All data...***"
                       );
-            
+
                       const siteMarker = L.marker(coordinates, {
                         icon: siteIcon,
                       }).addTo(mapRef.current);
-            
+
                       // Use sites.site_name directly from the SiteData object
                       siteMarker.bindTooltip(sites.site_name, {
                         permanent: false, // Set to true if you want the tooltip to be always visible
                         direction: "top", // Direction of the tooltip, can be 'top', 'bottom', 'left', 'right'
                       });
-            
+
                       siteMarker.on("click", function () {
                         console.log(
                           "This is the marked layer that is clicked...",
@@ -113,56 +110,58 @@ export const EachMap = ({ geojsonData, SiteData }) => {
                     });
                 } else {
                   console.error("Invalid GeoJSON data for site", sites.id);
-                } 
-              } catch (error) {
-                
-              }
+                }
+              } catch (error) {}
+            } else {
+              const sitesArray = Array.isArray(sites) ? sites : [sites];
+              sitesArray.forEach(async (site) => {
+                console.log("Site ID:", site.id, "Site Name:", site.site_name);
+                try {
+                  const siteGeoJsonData = await fetchSiteData(
+                    `/geojson/sites/${site.id}.geojson`
+                  );
+
+                  if (siteGeoJsonData && siteGeoJsonData.features) {
+                    L.geoJSON(siteGeoJsonData)
+                      .addTo(mapRef.current)
+                      .eachLayer((layer) => {
+                        const coordinates = layer.getBounds().getCenter();
+                        console.log(
+                          `/geojson/sites/${site.id}.geojson`,
+                          "All data...***"
+                        );
+
+                        const siteMarker = L.marker(coordinates, {
+                          icon: siteIcon,
+                        }).addTo(mapRef.current);
+
+                        // Use site.site_name directly from the SiteData object
+                        siteMarker.bindTooltip(site.site_name, {
+                          permanent: false, // Set to true if you want the tooltip to be always visible
+                          direction: "top", // Direction of the tooltip, can be 'top', 'bottom', 'left', 'right'
+                        });
+
+                        siteMarker.on("click", function () {
+                          console.log(
+                            "This is the marked layer that is clicked...",
+                            site.id
+                          );
+                          // dispatch(setSiteId(site.id));
+                          mapRef.current.fitBounds(layer.getBounds());
+                        });
+                      });
+                  } else {
+                    console.error("Invalid GeoJSON data for site", site.id);
+                  }
+                } catch (error) {
+                  console.error(
+                    "Error fetching GeoJSON data for site:",
+                    site.id,
+                    error
+                  );
+                }
+              });
             }
-            else {
-            sites.forEach(async (site) => {
-              console.log("Site ID:", site.id, "Site Name:", site.site_name);
-              try{
-              const siteGeoJsonData = await fetchSiteData(
-                `/geojson/sites/${site.id}.geojson`
-              );
-            
-              if (siteGeoJsonData && siteGeoJsonData.features) {
-                L.geoJSON(siteGeoJsonData)
-                  .addTo(mapRef.current)
-                  .eachLayer((layer) => {
-                    const coordinates = layer.getBounds().getCenter();
-                    console.log(
-                      `/geojson/sites/${site.id}.geojson`,
-                      "All data...***"
-                    );
-
-                    const siteMarker = L.marker(coordinates, {
-                      icon: siteIcon,
-                    }).addTo(mapRef.current);
-
-                    // Use site.site_name directly from the SiteData object
-                    siteMarker.bindTooltip(site.site_name, {
-                      permanent: false, // Set to true if you want the tooltip to be always visible
-                      direction: "top", // Direction of the tooltip, can be 'top', 'bottom', 'left', 'right'
-                    });
-
-                    siteMarker.on("click", function () {
-                      console.log(
-                        "This is the marked layer that is clicked...",
-                        site.id
-                      );
-                      // dispatch(setSiteId(site.id));
-                      mapRef.current.fitBounds(layer.getBounds());
-                    });
-                  });
-              } else {
-                console.error("Invalid GeoJSON data for site", site.id);
-              }
-            }catch(error){
-              console.error("Error fetching GeoJSON data for site:", site.id, error);
-            }
-            });
-        }
           });
         }
       } catch (error) {
