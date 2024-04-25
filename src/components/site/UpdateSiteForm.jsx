@@ -167,7 +167,9 @@ export const UpdateSiteForm = () => {
     if (updatedValues.geojson instanceof File) {
       // Use the GeoJsonConverter component to convert the GeoJSON file
       const geoJsonConverter = await GeoJsonConverter.convert(
-        updatedValues.geojson
+        updatedValues.geojson,
+        updatedValues.site_name,
+        updatedValues.watershed_name
       );
       console.log(updatedValues.geojson);
       console.log(geoJsonConverter);

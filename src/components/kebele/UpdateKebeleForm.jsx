@@ -125,7 +125,8 @@ const UpdateKebeleForm = () => {
     }
     if (updatedValues.geojson instanceof File) {
       const geoJsonConverter = await GeoJsonConverter.convert(
-        updatedValues.geojson
+        updatedValues.geojson,
+        updatedValues.kebele_name
       );
       console.log(updatedValues.geojson);
       console.log(geoJsonConverter);
