@@ -74,7 +74,8 @@ export const UpdateWeredaForm = () => {
     if (updatedValues.geojson instanceof File) {
       // Use the GeoJsonConverter component to convert the GeoJSON file
       const geoJsonConverter = await GeoJsonConverter.convert(
-        updatedValues.geojson
+        updatedValues.geojson,
+        updatedValues.woreda_name
       );
       console.log(updatedValues.geojson);
       console.log(geoJsonConverter);

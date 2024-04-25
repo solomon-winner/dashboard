@@ -2,7 +2,7 @@ import React from 'react';
 import UTM from 'utm-latlng';
 
 const GeoJsonConverter = {
-  convert: async (geojsonFile) => {
+  convert: async (geojsonFile,name,watershed) => {
     try {
       const geoJson = await GeoJsonConverter.readFile(geojsonFile);
       if (GeoJsonConverter.isLatLngFormat(geoJson)) {
@@ -10,7 +10,7 @@ const GeoJsonConverter = {
         return await GeoJsonConverter.createFile(geoJson);
       } else {
         console.log('GeoJSON is in UTM format, converting to latlng...');
-        const convertedGeoJson = await GeoJsonConverter.convertToLatLng(geoJson);
+        const convertedGeoJson = await GeoJsonConverter.convertToLatLng(geoJson,name,watershed);
         return await GeoJsonConverter.createFile(convertedGeoJson);
       }
     } catch (error) {
@@ -39,7 +39,7 @@ const GeoJsonConverter = {
     return isLatLng;
   },
 
-  convertToLatLng: async (geoJson) => {
+  convertToLatLng: async (geoJson,name,watershed) => {
     const convertedGeoJson = { ...geoJson };
 
     function utmToLatLon(utmCoords) {
@@ -67,6 +67,8 @@ const GeoJsonConverter = {
 
     convertedGeoJson.features.forEach(feature => {
       convertCoordinates(feature);
+      feature.properties.name = name; // Add name property to each feature
+      feature.properties.watershed = watershed; // Add id property to each feature
     });
 
     return convertedGeoJson;

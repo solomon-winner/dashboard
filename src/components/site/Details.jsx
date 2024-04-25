@@ -94,7 +94,7 @@ export const SiteDetails = () => {
                   Micro-washed: {data.data?.watershed_name}
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
-                  Size of site: {data.data?.size_ha} ha
+                  Area: {data.data?.size_ha} ha
                 </h3>
               </div>
             </div>

@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import Loadings from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
 import { FormField } from "../Resource/Utility/FormField";
+import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
 const validationSchema = Yup.object().shape({
   kebele_name: Yup.string().required("Kebele name is required"),
   woreda_id: Yup.number().required("Wereda ID is required"),
@@ -48,9 +49,17 @@ const Kebeles = () => {
     for (const key in updatedValues) {
       formData.append(key, updatedValues[key]);
     }
-    if (values.geojson) {
-      formData.append("geojson", values.geojson);
+    if (updatedValues.geojson instanceof File) {
+      // Use the GeoJsonConverter component to convert the GeoJSON file
+      const geoJsonConverter = await GeoJsonConverter.convert(
+        updatedValues.geojson,
+        updatedValues.kebele_name
+      );
+      console.log(updatedValues.geojson);
+      console.log(geoJsonConverter);
+      formData.append("geojson", geoJsonConverter);
     }
+
     console.log(formData);
 
     const kebele = await addKebele(formData);
