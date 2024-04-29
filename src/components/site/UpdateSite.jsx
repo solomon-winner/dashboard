@@ -176,7 +176,8 @@ export const UpdateSite = () => {
     console.log(response);
     if (response.data) {
       toast.success("Site added successfully");
-      window.location.href = `/admin/site`;
+      // window.location.href = `/admin/site`;
+      window.history.back();
     }
   };
   return (

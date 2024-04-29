@@ -384,7 +384,8 @@ export const UpdateKebele = () => {
     console.log(response);
     if (response.data) {
       toast.success("Kebele added successfully");
-      window.location.href = `/admin/kebele`;
+      // window.location.href = `/admin/kebele`;
+      window.history.back();
     }
     console.log({ ...value, id: Number(id) });
   };

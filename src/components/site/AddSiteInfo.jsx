@@ -52,6 +52,7 @@ export const AddSiteInfo = () => {
     woreda_id: "",
     region_id: "",
   });
+  const [isSubmitting, setisSubmitting] = useState(false);
   const handleSubmit = async (values) => {
     // Parse the values to integers
     const updatedValues = {
@@ -304,8 +305,12 @@ export const AddSiteInfo = () => {
                 <button
                   type="submit"
                   className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
+                  disabled={isSubmitting} // Use the isSubmitting state to disable the button
+                  onClick={() => {
+                    setisSubmitting(true); // Set isSubmitting to true when the button is clicked
+                  }}
                 >
-                  Submit
+                  {isSubmitting ? "Submitting..." : "Submit"}
                 </button>
               </Form>
             )}

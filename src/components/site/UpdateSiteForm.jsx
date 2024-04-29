@@ -26,11 +26,11 @@ const validationSchema = Yup.object().shape({
   region_id: Yup.string().required("Region is required"),
   woreda_id: Yup.string().required("Wereda is required"),
   kebele_id: Yup.string().required("Kebele is required"),
-  watershed_name: Yup.string().required("MicroWaterShed name is required"),
+  // watershed_name: Yup.string().required("MicroWaterShed name is required"),
   site_name: Yup.string().required("Site name is required"),
-  size_ha: Yup.number()
-    .required("Size of Site is required")
-    .positive("Size must be a positive number"),
+  // size_ha: Yup.number()
+  //   .required("Size of Site is required")
+  //   .positive("Size must be a positive number"),
   // geojson: Yup.mixed().test(
   //   "fileSize",
   //   "File size is too large",
@@ -55,12 +55,12 @@ export const UpdateSiteForm = () => {
     data: weredas,
     isSuccess: weredaDataSuccess,
     isFetching: weredaDataFetching,
-  } = useGetWeredaByIdQuery(weredaId);
+  } = useGetWeredaByIdQuery(weredaId,{ skip: !weredaId } );
   const {
     data: kebeles,
     isSuccess: kebeleDataSuccess,
     isFetching: KebeleDataFetching,
-  } = useGetKebeleByIdQuery(kebeleId);
+  } = useGetKebeleByIdQuery(kebeleId, { skip: !kebeleId });
   const {
     data: getweredaByRegion,
     isSuccess: weredaSuccess,
@@ -181,7 +181,8 @@ export const UpdateSiteForm = () => {
     console.log(site);
     if (site.data) {
       toast.success("Site added successfully!");
-      window.location.href = `/admin/site`;
+      // window.location.href = `/admin/site`;
+      window.history.back();
     }
   };
   const weredaOptions = isFetching

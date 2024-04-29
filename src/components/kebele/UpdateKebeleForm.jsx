@@ -40,7 +40,7 @@ const UpdateKebeleForm = () => {
     data: weredas,
     isSuccess: weredaDataSuccess,
     isFetching: weredaDataFetching,
-  } = useGetWeredaByIdQuery(weredaId);
+  } = useGetWeredaByIdQuery(weredaId,{ skip: !weredaId } );
   const {
     data: getweredaByRegion,
     isSuccess: weredaSuccess,
@@ -138,7 +138,8 @@ const UpdateKebeleForm = () => {
     console.log(kebele);
     if (kebele.data) {
       toast.success("Kebele Updated successfully!");
-      window.location.href = `/admin/kebele`;
+      // window.location.href = `/admin/kebele`;
+      window.history.back();
     }
   };
   const weredaOptions = isFetching

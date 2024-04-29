@@ -1,3 +1,4 @@
+import { Person } from '@mui/icons-material';
 import React from 'react';
 
 const Avatars = ({ avatar,name, className }) => {
@@ -10,7 +11,7 @@ const Avatars = ({ avatar,name, className }) => {
           className="w-full h-full rounded-full"
         />
       ) : (
-        name ? name.charAt(0) : 'N/A'
+        name ? name.charAt(0) : <Person/>
       )}
     </div>
  );
