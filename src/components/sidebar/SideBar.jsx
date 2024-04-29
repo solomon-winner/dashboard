@@ -11,7 +11,7 @@ import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../redux/auth/authSlice";
-import { Logout, MeetingRoom } from "@mui/icons-material";
+import { Delete, Logout, MeetingRoom } from "@mui/icons-material";
 import { setProfileDropDown } from "../../redux/Profile/ProfileSlice";
 import Avatars from "../Resource/Utility/Avatars";
 
@@ -107,9 +107,8 @@ export const SideBar = () => {
               {ProfileDropDown && (
                 <div className="absolute top-16 right-1 bg-white shadow-md rounded-md p-2 w-48">
                   <NavLink
-                   to="/admin/profile"
+                    to="/admin/profile"
                     className="w-full text-left py-2 px-4 hover:bg-gray-100 border-b-2 flex items-center"
-                  
                   >
                     <PersonRoundedIcon style={{ fontSize: "large" }} />
                     <span className="ml-2">Profile</span>
@@ -233,6 +232,17 @@ export const SideBar = () => {
                   </li>
                 </ul>
               </div>
+              <li>
+                <NavLink
+                  to="/admin/delete-page"
+                  className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group w-fit "
+                >
+                  <Delete style={{ fontSize: "x-large" }} />
+                  {/* <span className="ml-3 flex-1 whitespace-nowrap">
+                        Delete Page
+                      </span> */}
+                </NavLink>
+              </li>
             </div>
           </div>
         </aside>
@@ -253,4 +263,3 @@ export const SideBar = () => {
     </div>
   );
 };
-

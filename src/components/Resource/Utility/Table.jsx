@@ -81,7 +81,7 @@ export const CommonTable = ({ data, title, name, urlName, className }) => {
                     title="View Detail"
                   >
                     <Visibility
-                      style={{ fontSize: "x-large", color: "green" }}
+                      style={{ fontSize: "x-large", color: item.geojson ? "green" : "red" }}
                     />
                   </Link>
                 </td>

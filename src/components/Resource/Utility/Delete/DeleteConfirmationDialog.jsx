@@ -5,6 +5,7 @@ const DeleteConfirmationDialog = ({
   handleConfirmDelete,
   handleCancelDelete,
   isDeleting,
+  message,
 }) => {
   if (!showConfirmation) return null;
 
@@ -17,10 +18,11 @@ const DeleteConfirmationDialog = ({
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Confirm Deletion
           </h2>
-          <div className="mt-2 px-7 py-3">
+          <div className="mt-2 px-5 py-3">
             <p className="text-sm text-gray-500">
-              Are you sure you want to delete this item? This action cannot be
-              undone.
+              {message
+                ? message
+                : "Are you sure you want to delete this item? This action cannot be undone."}
             </p>
           </div>
           <div className="flex justify-end space-x-3">
@@ -65,7 +67,9 @@ export const DeleteConfirmationWithDetails = ({
           </h2>
           <div className="mt-2 px-7 py-3">
             <p className="text-sm text-gray-500">
-              Are you sure you want to delete this item? This action cannot be undone. This action will also delete all dependent entities (e.g., kebeles and sites).
+              Are you sure you want to delete this item? This action cannot be
+              undone. This action will also delete all dependent entities (e.g.,
+              kebeles and sites).
             </p>
           </div>
           <div className="flex justify-end space-x-3">
