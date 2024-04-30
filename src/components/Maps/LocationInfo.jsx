@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useGetRegionByIdQuery } from '../../redux/region/RegionApiSlice'
 
 export const LocationInfo = () => {
-   const Site_id = useSelector((state) => state.geoJson.GeoJson.SelectedSite);
+   const Site_id = useSelector((state) => state.siteById.Id);
    console.log("the location information of the site...", Site_id);
    const { data, isSuccess, isFetching } = useGetSiteByIdQuery(Site_id);
    isSuccess && console.log("the location data of the site...", data.data);

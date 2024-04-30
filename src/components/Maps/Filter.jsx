@@ -28,9 +28,9 @@ export const Filter = () => {
     
     console.log("this_is form the_regions_array...", regions)
 
-    const FilterRegion = (R_id) => {
-       return  ALL_REGIONS.filter((region) => region.feature.properties.id === R_id);
-    }
+    // const FilterRegion = (R_id) => {
+    //    return  ALL_REGIONS.filter((region) => region.feature.properties.id === R_id);
+    // }
     const handleMouseEnter = () => {
         setFilter({ ...filter, RegionFilter: true });
     };
@@ -43,9 +43,7 @@ export const Filter = () => {
 
     const handleRegionChange = selectedRegion => {
         setFilter({ ...filter,selectedRegion:selectedRegion, WoredaFilter: true });
-       let selectedLayer= FilterRegion(selectedRegion.value)
-        dispatch(SetSelectedRegion({Selected:selectedLayer, ID: selectedRegion.value}));
-        selectedLayer = null;
+        dispatch(SetSelectedRegion( selectedRegion.value));
     };
 
     const handleWoredaChange = selectedWoreda => {
@@ -69,7 +67,10 @@ export const Filter = () => {
 
     return (
         <>
-            <div className="flex cursor-pointer align-text-bottom w-fit flex-wrap" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div className="flex cursor-pointer align-text-bottom w-fit flex-wrap" 
+            onMouseEnter={handleMouseEnter} 
+            onMouseLeave={handleMouseLeave}
+            onClick={handleMouseEnter}>
                 <Search />
                 <Select
                     className={`ml-2 ${filter.RegionFilter || filter.isFiterFocused ? '' : 'hidden'} w-[300px] z-50`}
