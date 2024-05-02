@@ -10,11 +10,12 @@ import { useSelector } from "react-redux";
 import Loadings from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
+import { log } from "../Resource/Utility/Logger";
 const validationSchema = Yup.object().shape({
   woreda_name: Yup.string().required("Wereda name is required"),
-  status: Yup.string().required("Status is required"),
+  // status: Yup.string().required("Status is required"),
   region_id: Yup.number().required("Region ID is required"),
-  geojson: Yup.mixed().test("fileSize", "File size is too large", (value) => value && value.size <= 1048576),
+  // geojson: Yup.mixed().test("fileSize", "File size is too large", (value) => value && value.size <= 1048576),
 });
 
 export const Weredas = () => {
@@ -35,7 +36,9 @@ export const Weredas = () => {
     };
     const formData = new FormData();
     for (const key in updatedValues) {
-      formData.append(key, updatedValues[key]);
+      if (key !== "geojson") {
+        formData.append(key, updatedValues[key]);
+      }
     }
     if (updatedValues.geojson instanceof File) {
       // Use the GeoJsonConverter component to convert the GeoJSON file
@@ -43,14 +46,14 @@ export const Weredas = () => {
         updatedValues.geojson,
         updatedValues.woreda_name
       );
-      console.log(updatedValues.geojson);
-      console.log(geoJsonConverter);
+      log(updatedValues.geojson);
+      log(geoJsonConverter);
       formData.append("geojson", geoJsonConverter);
     }
-    console.log(formData);
+    log(formData);
 
     const wereda = await AddWereda(formData);
-    console.log(wereda);
+    log(wereda);
     if (wereda.data) {
       toast.success("Wereda added successfully!");
       window.location.href = `/admin/wereda`;

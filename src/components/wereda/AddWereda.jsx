@@ -13,6 +13,7 @@ import {
   FormBackButton,
   FormNextButton,
 } from "../Resource/Utility/FormButtons";
+import { log } from "../Resource/Utility/Logger";
 const validationSchema = Yup.object().shape({
   region_id: Yup.string().required("Region is required"),
   woreda_id: Yup.string().required("Wereda is required"),
@@ -59,7 +60,7 @@ export const Addwereda = () => {
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
+    log(values);
     const landArray = [];
     let i = 1;
     while (true) {
@@ -165,10 +166,10 @@ export const Addwereda = () => {
       institution,
     };
 
-    console.log(value);
+    log(value);
     // Check if it's the last step before submitting
     const response = await addweredadata({ ...value, id: values.woreda_id });
-    console.log(response);
+    log(response);
     if (response.data) {
       toast.success("Data Added Successfully");
       window.location.href = `/admin/wereda`;

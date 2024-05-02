@@ -1,10 +1,11 @@
 import { useDispatch } from "react-redux";
 import { useGetUserQuery } from "../account/AccountApiSlice";
 import { SetProfileData } from "../Profile/ProfileSlice";
+import { log } from "../../components/Resource/Utility/Logger";
 
 export const ProfileInfo = () =>{
     const { data: user, isLoading, isSuccess, isError, error } = useGetUserQuery()
-  console.log(isSuccess && user.data.birthday);
+  log(isSuccess && user.data.birthday);
 if (isSuccess) {
   
 }

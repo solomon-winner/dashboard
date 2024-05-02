@@ -12,20 +12,21 @@ import { useSelector } from "react-redux";
 import Loadings from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
+import { log } from "../Resource/Utility/Logger";
 const validationSchema = Yup.object().shape({
   region_id: Yup.string().required("Region is required"),
   woreda_id: Yup.string().required("Wereda is required"),
   kebele_id: Yup.string().required("Kebele is required"),
-  watershed_name: Yup.string().required("MicroWaterShed name is required"),
-  site_name: Yup.string().required("Site name is required"),
-  size_ha: Yup.number()
-    .required("Size of Site is required")
-    .positive("Size must be a positive number"),
-  geojson: Yup.mixed().test(
-    "fileSize",
-    "File size is too large",
-    (value) => value && value.size <= 1048576
-  ), // Assuming a max file size of 1MB
+  // watershed_name: Yup.string().required("MicroWaterShed name is required"),
+  // site_name: Yup.string().required("Site name is required"),
+  // size_ha: Yup.number()
+  //   .required("Size of Site is required")
+  //   .positive("Size must be a positive number"),
+  // geojson: Yup.mixed().test(
+  //   "fileSize",
+  //   "File size is too large",
+  //   (value) => value && value.size <= 1048576
+  // ), // Assuming a max file size of 1MB
 });
 export const AddSiteInfo = () => {
   const [selectedRegion, setSelectedRegion] = useState("");
@@ -63,7 +64,9 @@ export const AddSiteInfo = () => {
     };
     const formData = new FormData();
     for (const key in updatedValues) {
-      formData.append(key, updatedValues[key]);
+      if (key !== "geojson") {
+        formData.append(key, updatedValues[key]);
+      }
     }
     if (updatedValues.geojson instanceof File) {
       // Use the GeoJsonConverter component to convert the GeoJSON file
@@ -72,13 +75,13 @@ export const AddSiteInfo = () => {
         updatedValues.site_name,
         updatedValues.watershed_name
       );
-      console.log(updatedValues.geojson);
-      console.log(geoJsonConverter);
+      log(updatedValues.geojson);
+      log(geoJsonConverter);
       formData.append("geojson", geoJsonConverter);
     }
     // Assuming addSite now accepts FormData instead of a plain object
     const site = await addSite(formData);
-    console.log(site);
+    log(site);
     if (site.data) {
       toast.success("Site added successfully!");
       window.location.href = "/admin/site";
@@ -95,7 +98,7 @@ export const AddSiteInfo = () => {
           ),
         },
       ]
-    : getweredaByRegion?.data?.data?.map((wereda) => ({
+    : getweredaByRegion?.data?.map((wereda) => ({
         value: wereda.id,
         label: wereda.woreda_name,
       }));
@@ -235,7 +238,7 @@ export const AddSiteInfo = () => {
                                   ),
                                 },
                               ]
-                            : getkebeleByWereda?.data?.data?.map((kebele) => ({
+                            : getkebeleByWereda?.data?.map((kebele) => ({
                                 value: kebele.id,
                                 label: kebele.kebele_name,
                               }))
@@ -290,6 +293,7 @@ export const AddSiteInfo = () => {
                     type="number"
                     placeholder="Size of Site in ha"
                     handleChange={handleChange}
+                    step={0.01}
                   />
                   <FormField
                     label="Kebele GeoJSON"
@@ -305,12 +309,13 @@ export const AddSiteInfo = () => {
                 <button
                   type="submit"
                   className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
-                  disabled={isSubmitting} // Use the isSubmitting state to disable the button
-                  onClick={() => {
-                    setisSubmitting(true); // Set isSubmitting to true when the button is clicked
-                  }}
+                  // disabled={isSubmitting} // Use the isSubmitting state to disable the button
+                  // onClick={() => {
+                  //   setisSubmitting(true); // Set isSubmitting to true when the button is clicked
+                  // }}
                 >
-                  {isSubmitting ? "Submitting..." : "Submit"}
+                  {/* {isSubmitting ? "Submitting..." : "Submit"} */}
+                  Submit
                 </button>
               </Form>
             )}

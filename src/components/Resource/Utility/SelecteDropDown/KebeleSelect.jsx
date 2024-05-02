@@ -23,7 +23,7 @@ const KebeleSelect = ({
           ),
         },
       ]
-    : getkebeleByWereda?.data?.data?.map((kebele) => ({
+    : getkebeleByWereda?.data?.map((kebele) => ({
         value: kebele.id,
         label: kebele.kebele_name,
       }));

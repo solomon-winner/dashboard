@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { UpdateForm } from "./updateform/UpdateForm";
 import { UpdateForm2 } from "./updateform/UpdateForm2";
 import { UpdateForm3 } from "./updateform/UpdateForm3";
+import { log } from "../Resource/Utility/Logger";
 
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
@@ -46,7 +47,7 @@ export const UpdateRegion = () => {
 
   const handleSubmit = (values) => {
     // Handle form submission here
-    console.log(values);
+    log(values);
   };
 
   return (

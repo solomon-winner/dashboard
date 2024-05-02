@@ -10,6 +10,7 @@ import {
 import { MainLoading } from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
 import ReactSelect from "react-select";
+import { log } from "../Resource/Utility/Logger";
 
 export const EditAccount = () => {
   const { id } = useParams();
@@ -49,7 +50,7 @@ export const EditAccount = () => {
       </div>
     );
   }
-  console.log(UserData.data);
+  log(UserData.data);
 
   return (
     <div className="bg-dashbordColor">

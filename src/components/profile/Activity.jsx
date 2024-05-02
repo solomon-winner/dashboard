@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useActivityQuery } from "../../redux/Activity/ActivityApi";
 import { dateFormat } from '../../redux/DateFormat/dateFormat';
+import { log } from '../Resource/Utility/Logger';
 
 export const Activity = () => {
 const [count, setCount] = useState(1);
@@ -12,7 +13,7 @@ const [count, setCount] = useState(1);
         error
     } = useActivityQuery(count); 
     const History = userSuccess && user.data;
-    console.log(History.length)
+    log(History.length)
 const seeNext = () => {
     setCount(count+1);
 }
@@ -79,7 +80,7 @@ const seePrevious = () => {
 //         const clientHeight = document.documentElement.clientHeight || window.innerHeight;
         
 //         if (scrollTop + clientHeight >= scrollHeight - 20 && !isFetchingMore) {
-//             console.log("*s*s*s*s*s*s***sssssss**s* ===>> " + isFetchingMore)
+//             log("*s*s*s*s*s*s***sssssss**s* ===>> " + isFetchingMore)
 //             // Adjust the number '20' to your preference to start loading data before reaching the absolute bottom
 //             setCount(prevCount => prevCount + 1);
 //         }

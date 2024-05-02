@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { fetchSiteData } from "../../Maps/FetchGeoJsonMap";
+import { log } from "../Utility/Logger";
 
 export const EachMap = ({ geojsonData, SiteData }) => {
   const mapRef = useRef(null);
@@ -70,9 +71,9 @@ export const EachMap = ({ geojsonData, SiteData }) => {
         // Place markers on the sites if SiteIds are provided
         if (SiteData && SiteData.length > 0) {
           SiteData.forEach(async (sites) => {
-            console.log("this is site id", sites);
+            log("this is site id", sites);
             if (sites.id) {
-              console.log("Site ID:", sites.id, "Site Name:", sites.site_name);
+              log("Site ID:", sites.id, "Site Name:", sites.site_name);
 
               try {
                 const siteGeoJsonData = await fetchSiteData(
@@ -84,7 +85,7 @@ export const EachMap = ({ geojsonData, SiteData }) => {
                     .addTo(mapRef.current)
                     .eachLayer((layer) => {
                       const coordinates = layer.getBounds().getCenter();
-                      console.log(
+                      log(
                         `/geojson/sites/${sites.id}.geojson`,
                         "All data...***"
                       );
@@ -100,7 +101,7 @@ export const EachMap = ({ geojsonData, SiteData }) => {
                       });
 
                       siteMarker.on("click", function () {
-                        console.log(
+                        log(
                           "This is the marked layer that is clicked...",
                           sites.id
                         );
@@ -115,7 +116,7 @@ export const EachMap = ({ geojsonData, SiteData }) => {
             } else {
               const sitesArray = Array.isArray(sites) ? sites : [sites];
               sitesArray.forEach(async (site) => {
-                console.log("Site ID:", site.id, "Site Name:", site.site_name);
+                log("Site ID:", site.id, "Site Name:", site.site_name);
                 try {
                   const siteGeoJsonData = await fetchSiteData(
                     `/geojson/sites/${site.id}.geojson`
@@ -126,7 +127,7 @@ export const EachMap = ({ geojsonData, SiteData }) => {
                       .addTo(mapRef.current)
                       .eachLayer((layer) => {
                         const coordinates = layer.getBounds().getCenter();
-                        console.log(
+                        log(
                           `/geojson/sites/${site.id}.geojson`,
                           "All data...***"
                         );
@@ -142,7 +143,7 @@ export const EachMap = ({ geojsonData, SiteData }) => {
                         });
 
                         siteMarker.on("click", function () {
-                          console.log(
+                          log(
                             "This is the marked layer that is clicked...",
                             site.id
                           );

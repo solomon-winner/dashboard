@@ -14,6 +14,7 @@ import { logOut } from "../../redux/auth/authSlice";
 import { Delete, Logout, MeetingRoom } from "@mui/icons-material";
 import { setProfileDropDown } from "../../redux/Profile/ProfileSlice";
 import Avatars from "../Resource/Utility/Avatars";
+import { log } from "../Resource/Utility/Logger";
 
 export const SideBar = () => {
   const dispatch = useDispatch();
@@ -23,16 +24,16 @@ export const SideBar = () => {
   const Name = useSelector((state) => state.user.UserData.name);
   const ProfileDropDown = useSelector((state) => state.user.ProfileDropDown);
   const [showSidebar, setShowSidebar] = useState(false);
-  console.log("profile drop down...", ProfileDropDown);
+  log("profile drop down...", ProfileDropDown);
 
   const ProfileDropdown = () => {
     dispatch(setProfileDropDown(!ProfileDropDown));
-    console.log(ProfileDropDown);
+    log(ProfileDropDown);
   };
 
   const handleButtonClick = () => {
     setShowSidebar(!showSidebar);
-    console.log(showSidebar);
+    log(showSidebar);
   };
 
   const handleLogout = () => {

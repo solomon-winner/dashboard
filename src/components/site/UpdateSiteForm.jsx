@@ -21,6 +21,7 @@ import { useGetWeredaByIdQuery } from "../../redux/wereda/WeredaApiSlice";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
 import BackButton from "../Resource/Utility/BackButton";
+import { log } from "../Resource/Utility/Logger";
 
 const validationSchema = Yup.object().shape({
   region_id: Yup.string().required("Region is required"),
@@ -90,7 +91,7 @@ export const UpdateSiteForm = () => {
 
   useEffect(() => {
     if (isSuccess && sites) {
-      console.log(sites.data);
+      log(sites.data);
       const Sites = sites.data;
       const {
         watershed_name,
@@ -115,7 +116,7 @@ export const UpdateSiteForm = () => {
         geojson,
         selectedRegionName,
       });
-      console.log({
+      log({
         watershed_name,
         status,
         size_ha,
@@ -142,7 +143,7 @@ export const UpdateSiteForm = () => {
         selectedWeredaName,
         selectedKebele,
       });
-      console.log({
+      log({
         ...formData,
         selectedWeredaName,
         selectedKebele,
@@ -151,7 +152,7 @@ export const UpdateSiteForm = () => {
   }, [weredaDataSuccess, weredas, kebeleDataSuccess, kebeles]);
 
   const handleSubmit = async (values) => {
-    console.log(values);
+    log(values);
     const updatedValues = {
       ...values,
       kebele_id: parseInt(values.kebele_id, 10),
@@ -171,14 +172,14 @@ export const UpdateSiteForm = () => {
         updatedValues.site_name,
         updatedValues.watershed_name
       );
-      console.log(updatedValues.geojson);
-      console.log(geoJsonConverter);
+      log(updatedValues.geojson);
+      log(geoJsonConverter);
       formData.append("geojson", geoJsonConverter);
     }
-    console.log({ id: id, updatedValues });
+    log({ id: id, updatedValues });
 
     const site = await UpdateSite({ id: id, data: formData });
-    console.log(site);
+    log(site);
     if (site.data) {
       toast.success("Site added successfully!");
       // window.location.href = `/admin/site`;
@@ -196,7 +197,7 @@ export const UpdateSiteForm = () => {
           ),
         },
       ]
-    : getweredaByRegion?.data?.data?.map((wereda) => ({
+    : getweredaByRegion?.data?.map((wereda) => ({
         value: wereda.id,
         label: wereda.woreda_name,
       }));
@@ -347,7 +348,7 @@ export const UpdateSiteForm = () => {
                                     ),
                                   },
                                 ]
-                              : getkebeleByWereda?.data?.data?.map(
+                              : getkebeleByWereda?.data?.map(
                                   (kebele) => ({
                                     value: kebele.id,
                                     label: kebele.kebele_name,

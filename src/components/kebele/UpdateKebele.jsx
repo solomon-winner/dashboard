@@ -23,6 +23,7 @@ import {
   FormBackButton,
   FormNextButton,
 } from "../Resource/Utility/FormButtons";
+import { log } from "../Resource/Utility/Logger";
 
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
@@ -367,6 +368,7 @@ export const UpdateKebele = () => {
       ...fruitArray,
       ...nurseryArray,
     ];
+    log(values)
     const data = {
       male_hh: values.householdmale2,
       female_hh: values.householdfemale2,
@@ -381,13 +383,13 @@ export const UpdateKebele = () => {
     };
     const value = { energy_source, data, livelihood, resource };
     const response = await AddKebeleData({ ...value, id: id });
-    console.log(response);
+    log(response);
     if (response.data) {
       toast.success("Kebele added successfully");
       // window.location.href = `/admin/kebele`;
-      window.history.back();
+      // window.history.back();
     }
-    console.log({ ...value, id: Number(id) });
+    log({ ...value, id: Number(id) });
   };
 
   return (

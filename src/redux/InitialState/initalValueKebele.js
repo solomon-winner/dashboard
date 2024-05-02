@@ -2,13 +2,14 @@ import React,{ useEffect } from "react";
 import { useGetKebeleByIdQuery } from "../kebele/KebeleApiSlice";
 import { useDispatch } from "react-redux";
 import { setKebeleById } from "../kebele/KebeleByIdState";
+import { log } from "../../components/Resource/Utility/Logger";
 
 export const useInitialValueKebele  = (id) => {
     const {data: kebeledata, isFetching,isSuccess } = useGetKebeleByIdQuery(id);
     const dispatch = useDispatch();
     useEffect(() => {
         if(isSuccess && kebeledata) {
-          console.log(kebeledata.data)
+          log(kebeledata.data)
           const data = kebeledata?.data
           if(data || data.kebele_data || data.livelihoods || data.resources) {
              const populationmale = data?.kebele_data?.male_population;
@@ -141,7 +142,7 @@ export const useInitialValueKebele  = (id) => {
                ...energy_source.reduce((acc, item) => ({ ...acc, ...item}),{})
               }
               dispatch(setKebeleById(kebeleData))
-             console.log(kebeleData)
+             log(kebeleData)
           }
           return
         }

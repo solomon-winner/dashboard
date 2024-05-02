@@ -11,12 +11,13 @@ import { EachMap } from "../Resource/Map/EachMap";
 import { CommonTable } from "../Resource/Utility/Table";
 import { Delete, Edit } from "@mui/icons-material";
 import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
+import { log } from "../Resource/Utility/Logger";
 
 export const RegionDetails = () => {
   const { id } = useParams();
   const { data: regionData, isSuccess, isFetching } = useGetRegionByIdQuery(id);
   const { data: woredaData, isSuccess: werdaFetched } =
-    useGetWeredaByRegionQuery({ id, with_sites: false });
+    useGetWeredaByRegionQuery({ id});
     const [deleteRegion] = useDeleteRegionMutation();
   if (!isSuccess || isFetching || !werdaFetched) {
     return (
@@ -25,7 +26,8 @@ export const RegionDetails = () => {
       </div>
     );
   }
-console.log(regionData.data)
+log(regionData.data)
+log(woredaData.data)
   return (
     <div className="bg-dashbordColor">
       <div className="flex justify-between p-10">
@@ -50,7 +52,7 @@ console.log(regionData.data)
               </h2>
             </div>
             <div className="w-2/3">
-              <EachMap geojsonData={`/geojson/regions/${id}.geojson`} SiteData={woredaData.data.data.map((item) => item.sites)} />
+              <EachMap geojsonData={`/geojson/regions/${id}.geojson`} SiteData={woredaData.data.map((item) => item.sites)} />
             </div>
           </div>
           <div className="flex flex-col gap-6 mt-10 lg:mt-20 lg:flex-row lg:items-start">
@@ -60,7 +62,7 @@ console.log(regionData.data)
                   Woreda and Site
                 </h2>
               </div>
-              <CommonTable data={woredaData.data.data} name={"woreda_name"} title={"Woreda"} urlName={"wereda"} className={"grid grid-cols-4 gap-1"}/>
+              <CommonTable data={woredaData.data} name={"woreda_name"} title={"Woreda"} urlName={"wereda"} className={"grid grid-cols-4 gap-1"}/>
             </div>
           </div>
         </div>
