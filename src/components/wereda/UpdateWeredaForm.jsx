@@ -60,6 +60,7 @@ export const UpdateWeredaForm = () => {
   }, [isSuccess, woredadata, regions]);
 
   const handleSubmit = async (values) => {
+    console.log(values);
     const updatedValues = {
       ...values,
       region_id: parseInt(values.region_id, 10),
@@ -149,9 +150,11 @@ export const UpdateWeredaForm = () => {
                             label: formData.selectedRegionName,
                           }}
                           onChange={(option) => {
+                            console.log("Option selected:", option);
                             setFieldValue("region_id", option.value);
                             setFormData({
                               ...formData,
+                              region_id: option.value,
                               selectedRegionName: option.label,
                             });
                           }}

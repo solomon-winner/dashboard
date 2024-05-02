@@ -247,7 +247,7 @@ export const WeredaDetails = () => {
                   <div className="w-1/2">
                     <EachMap
                       geojsonData={`/geojson/woredas/${id}.geojson`}
-                      SiteData={KebeleData.data.data.map((item) => item.sites)}
+                      SiteData={KebeleData.data.map((item) => item.sites)}
                     />
                   </div>
                   <div className="w-full lg:w-1/2">
@@ -257,7 +257,7 @@ export const WeredaDetails = () => {
                       </h1>
                       {/* <Table kebele={KebeleData.data.data} /> */}
                       <CommonTable
-                        data={KebeleData.data.data}
+                        data={KebeleData.data}
                         name={"kebele_name"}
                         title={"Kebele"}
                         urlName={"kebele"}

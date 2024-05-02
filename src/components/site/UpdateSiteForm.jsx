@@ -196,7 +196,7 @@ export const UpdateSiteForm = () => {
           ),
         },
       ]
-    : getweredaByRegion?.data?.data?.map((wereda) => ({
+    : getweredaByRegion?.data?.map((wereda) => ({
         value: wereda.id,
         label: wereda.woreda_name,
       }));
@@ -347,7 +347,7 @@ export const UpdateSiteForm = () => {
                                     ),
                                   },
                                 ]
-                              : getkebeleByWereda?.data?.data?.map(
+                              : getkebeleByWereda?.data?.map(
                                   (kebele) => ({
                                     value: kebele.id,
                                     label: kebele.kebele_name,

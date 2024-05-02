@@ -16,11 +16,6 @@ const validationSchema = Yup.object().shape({
   kebele_name: Yup.string().required("Kebele name is required"),
   woreda_id: Yup.number().required("Wereda ID is required"),
   region_id: Yup.number().required("Region ID is required"),
-  geojson: Yup.mixed().test(
-    "fileSize",
-    "File size is too large",
-    (value) => value && value.size <= 1048576
-  ),
 });
 const Kebeles = () => {
   const [selectedRegion, setSelectedRegion] = useState("");
@@ -47,7 +42,9 @@ const Kebeles = () => {
     };
     const formData = new FormData();
     for (const key in updatedValues) {
-      formData.append(key, updatedValues[key]);
+      if (key !== "geojson") {
+        formData.append(key, updatedValues[key]);
+      }
     }
     if (updatedValues.geojson instanceof File) {
       // Use the GeoJsonConverter component to convert the GeoJSON file
@@ -80,7 +77,7 @@ const Kebeles = () => {
           ),
         },
       ]
-    : getweredaByRegion?.data?.data?.map((wereda) => ({
+    : getweredaByRegion?.data?.map((wereda) => ({
         value: wereda.id,
         label: wereda.woreda_name,
       }));

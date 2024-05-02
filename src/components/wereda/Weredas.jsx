@@ -12,9 +12,9 @@ import BackButton from "../Resource/Utility/BackButton";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
 const validationSchema = Yup.object().shape({
   woreda_name: Yup.string().required("Wereda name is required"),
-  status: Yup.string().required("Status is required"),
+  // status: Yup.string().required("Status is required"),
   region_id: Yup.number().required("Region ID is required"),
-  geojson: Yup.mixed().test("fileSize", "File size is too large", (value) => value && value.size <= 1048576),
+  // geojson: Yup.mixed().test("fileSize", "File size is too large", (value) => value && value.size <= 1048576),
 });
 
 export const Weredas = () => {
@@ -35,7 +35,9 @@ export const Weredas = () => {
     };
     const formData = new FormData();
     for (const key in updatedValues) {
-      formData.append(key, updatedValues[key]);
+      if (key !== "geojson") {
+        formData.append(key, updatedValues[key]);
+      }
     }
     if (updatedValues.geojson instanceof File) {
       // Use the GeoJsonConverter component to convert the GeoJSON file

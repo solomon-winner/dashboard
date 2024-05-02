@@ -72,7 +72,7 @@ console.log(accounts)
   };
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-screen">
       <div className="flex flex-col sm:flex-row justify-between items-center bg-green-50 p-4 mb-4 rounded-md">
         <div>
           <h2 className="text-xl font-medium mb-2">Accounts List</h2>

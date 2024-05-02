@@ -367,6 +367,7 @@ export const UpdateKebele = () => {
       ...fruitArray,
       ...nurseryArray,
     ];
+    console.log(values)
     const data = {
       male_hh: values.householdmale2,
       female_hh: values.householdfemale2,
@@ -385,7 +386,7 @@ export const UpdateKebele = () => {
     if (response.data) {
       toast.success("Kebele added successfully");
       // window.location.href = `/admin/kebele`;
-      window.history.back();
+      // window.history.back();
     }
     console.log({ ...value, id: Number(id) });
   };
