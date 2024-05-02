@@ -3,6 +3,7 @@ import { AddCircleOutline, Delete, Grass } from "@mui/icons-material";
 import { FormField } from "../../Resource/Utility/FormField";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
+import { log } from "../../Resource/Utility/Logger";
 
 const extractAdditionalFieldsData = (prefix, formData, prefix2) => {
   const fields = [];
@@ -125,7 +126,7 @@ export const UpdateForm5 = ({ handleChange, formData, setFormData }) => {
     setFormData(newFormData);
   };
   useEffect(() => {
-    console.log(formData);
+    log(formData);
   }, [formData]);
   const addField2 = () => {
     const highestId = additionalFields2.reduce(

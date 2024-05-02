@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useGetRegionQuery } from "../../redux/region/RegionApiSlice";
 import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
 import { AddButton } from "../Resource/Utility/AddButton";
+import { log } from "../Resource/Utility/Logger";
 
 export const View = () => {
   const { data: region, isLoading, isSuccess } = useGetRegionQuery();
@@ -24,7 +25,7 @@ export const View = () => {
       </div>
     );
   } else if (isSuccess) {
-    console.log(region.data);
+    log(region.data);
     let filteredData = region.data.filter((d) =>
       d.region_name.toLowerCase().includes(searchInput.toLowerCase())
     );

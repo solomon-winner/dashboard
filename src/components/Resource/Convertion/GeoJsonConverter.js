@@ -1,15 +1,16 @@
 import React from 'react';
 import UTM from 'utm-latlng';
+import { log } from '../Utility/Logger';
 
 const GeoJsonConverter = {
   convert: async (geojsonFile,name,watershed) => {
     try {
       const geoJson = await GeoJsonConverter.readFile(geojsonFile);
       if (GeoJsonConverter.isLatLngFormat(geoJson)) {
-        console.log('GeoJSON is already in latlng format, no conversion needed.');
+        log('GeoJSON is already in latlng format, no conversion needed.');
         return await GeoJsonConverter.createFile(geoJson);
       } else {
-        console.log('GeoJSON is in UTM format, converting to latlng...');
+        log('GeoJSON is in UTM format, converting to latlng...');
         const convertedGeoJson = await GeoJsonConverter.convertToLatLng(geoJson,name,watershed);
         return await GeoJsonConverter.createFile(convertedGeoJson);
       }

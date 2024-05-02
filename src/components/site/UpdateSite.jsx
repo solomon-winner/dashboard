@@ -15,6 +15,7 @@ import {
   FormBackButton,
   FormNextButton,
 } from "../Resource/Utility/FormButtons";
+import { log } from "../Resource/Utility/Logger";
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
@@ -29,7 +30,7 @@ export const UpdateSite = () => {
   useEffect(() => {
     if (!loading && siteData) {
       setFormData(siteData);
-      console.log(siteData);
+      log(siteData);
     }
   }, [!loading]);
   const handleNext = (e) => {
@@ -41,7 +42,7 @@ export const UpdateSite = () => {
     setStep(step - 1);
   };
   const handleSubmit = async (values) => {
-    console.log(values);
+    log(values);
     const indegeneoustreeArray = [];
     let i = 1;
     while (true) {
@@ -171,9 +172,9 @@ export const UpdateSite = () => {
       ...livelihoodArray,
     ];
     const value = { resource };
-    console.log(value);
+    log(value);
     const response = await addSiteData({ ...value, id });
-    console.log(response);
+    log(response);
     if (response.data) {
       toast.success("Site added successfully");
       // window.location.href = `/admin/site`;

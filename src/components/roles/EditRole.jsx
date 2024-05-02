@@ -13,6 +13,7 @@ import { FormField } from "../Resource/Utility/FormField";
 import { useNavigate } from "react-router-dom";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
+import { log } from "../Resource/Utility/Logger";
 const EditRole = () => {
   const { id } = useParams(); // Assuming the role ID is passed as a URL parameter
   const [editRole] = useEditRoleMutation();
@@ -72,7 +73,7 @@ const EditRole = () => {
       ...values,
       id: id,
     });
-    console.log(response);
+    log(response);
     if (response?.data) {
       toast.success("Role added successfully");
       refetch();

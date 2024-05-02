@@ -15,6 +15,7 @@ import { UpdateDataButton } from "../Resource/Utility/UpdateDataButton";
 import { UpdateButton } from "../Resource/Utility/UpdateButton";
 import { EachMap } from "../Resource/Map/EachMap";
 import { deleteSiteData } from "../../redux/site/SiteByIdState";
+import { log } from "../Resource/Utility/Logger";
 
 export const SiteDetails = () => {
   const { id } = useParams();
@@ -31,7 +32,7 @@ export const SiteDetails = () => {
       </div>
     );
   }
-  console.log(data.data);
+  log(data.data);
   const siteData = data.data;
   if (!siteData || !siteData.resources) {
     return (

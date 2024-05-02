@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import Loadings from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
+import { log } from "../Resource/Utility/Logger";
 const validationSchema = Yup.object().shape({
   region_id: Yup.string().required("Region is required"),
   woreda_id: Yup.string().required("Wereda is required"),
@@ -74,13 +75,13 @@ export const AddSiteInfo = () => {
         updatedValues.site_name,
         updatedValues.watershed_name
       );
-      console.log(updatedValues.geojson);
-      console.log(geoJsonConverter);
+      log(updatedValues.geojson);
+      log(geoJsonConverter);
       formData.append("geojson", geoJsonConverter);
     }
     // Assuming addSite now accepts FormData instead of a plain object
     const site = await addSite(formData);
-    console.log(site);
+    log(site);
     if (site.data) {
       toast.success("Site added successfully!");
       window.location.href = "/admin/site";

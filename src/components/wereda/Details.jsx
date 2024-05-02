@@ -82,8 +82,8 @@ export const WeredaDetails = () => {
                     <h1 className="text-base font-bold text-customDark p-4">
                       Total number of Kebele per Wereda
                     </h1>
-                    <div class=" border-b border-gray-300 rounded-md p-3 mb-4">
-                      <div class="flex justify-between items-center">
+                    <div className=" border-b border-gray-300 rounded-md p-3 mb-4">
+                      <div className="flex justify-between items-center">
                         <p className="text-sm font-medium text-customDark ">
                           Urban Kebeles:
                         </p>
@@ -92,8 +92,8 @@ export const WeredaDetails = () => {
                         </p>
                       </div>
                     </div>
-                    <div class="border-b border-gray-300 rounded-md p-3 mb-4">
-                      <div class="flex justify-between items-center">
+                    <div className="border-b border-gray-300 rounded-md p-3 mb-4">
+                      <div className="flex justify-between items-center">
                         <p className="text-sm font-medium text-customDark">
                           Rural Kebeles:
                         </p>
@@ -107,8 +107,8 @@ export const WeredaDetails = () => {
                     <h1 className="text-base font-bold text-customDark p-4">
                       Demographic Information and Data
                     </h1>
-                    <div class="border-b border-gray-300 rounded-md p-3 mb-4">
-                      <div class="flex justify-between items-center">
+                    <div className="border-b border-gray-300 rounded-md p-3 mb-4">
+                      <div className="flex justify-between items-center">
                         <p className="text-sm font-medium text-customDark">
                           Male:
                         </p>
@@ -117,8 +117,8 @@ export const WeredaDetails = () => {
                         </p>
                       </div>
                     </div>
-                    <div class="border-b border-gray-300 rounded-md p-3 mb-4">
-                      <div class="flex justify-between items-center">
+                    <div className="border-b border-gray-300 rounded-md p-3 mb-4">
+                      <div className="flex justify-between items-center">
                         <p className="text-sm font-medium text-customDark">
                           Female:
                         </p>
@@ -127,8 +127,8 @@ export const WeredaDetails = () => {
                         </p>
                       </div>
                     </div>
-                    <div class="border-b border-gray-300 rounded-md p-3 mb-4">
-                      <div class="flex justify-between items-center">
+                    <div className="border-b border-gray-300 rounded-md p-3 mb-4">
+                      <div className="flex justify-between items-center">
                         <p className="text-sm font-medium text-customDark ">
                           Total Population:
                         </p>
@@ -149,9 +149,9 @@ export const WeredaDetails = () => {
                         (item, index) => (
                           <div
                             key={index}
-                            class="border-b border-gray-300 rounded-md p-3 mb-4"
+                            className="border-b border-gray-300 rounded-md p-3 mb-4"
                           >
-                            <div class="flex justify-between items-center">
+                            <div className="flex justify-between items-center">
                               <p
                                 key={index}
                                 className="text-sm font-medium text-customDark"
@@ -177,9 +177,9 @@ export const WeredaDetails = () => {
                         (item, index) => (
                           <div
                             key={index}
-                            class="border-b border-gray-300 rounded-md p-3 mb-4"
+                            className="border-b border-gray-300 rounded-md p-3 mb-4"
                           >
-                            <div class="flex justify-between items-center">
+                            <div className="flex justify-between items-center">
                               <p className="text-sm font-medium text-customDark">
                                 {item.value}:
                               </p>
@@ -202,9 +202,9 @@ export const WeredaDetails = () => {
                         (item, index) => (
                           <div
                             key={index}
-                            class="border-b border-gray-300 rounded-md p-3 mb-4"
+                            className="border-b border-gray-300 rounded-md p-3 mb-4"
                           >
-                            <div class="flex justify-between items-center">
+                            <div className="flex justify-between items-center">
                               <p className="text-sm font-medium text-customDark">
                                 {item.value}:
                               </p>
@@ -227,9 +227,9 @@ export const WeredaDetails = () => {
                         (item, index) => (
                           <div
                             key={index}
-                            class="border-b border-gray-300 rounded-md p-3 mb-4"
+                            className="border-b border-gray-300 rounded-md p-3 mb-4"
                           >
-                            <div class="flex justify-between items-center">
+                            <div className="flex justify-between items-center">
                               <p className="text-sm font-medium text-customDark">
                                 {item.value}:
                               </p>

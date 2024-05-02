@@ -10,7 +10,7 @@ const dispatch = useDispatch();
 useEffect(() => {
     if(isSuccess) {
             dispatch(SetAllSiteData(Site.data));
-            console.log("bobobobobobobbbbbb.............")
+
     }
 }, [isSuccess, dispatch]);
 }

@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { Visibility } from "@mui/icons-material";
 import { useState } from "react";
+import { log } from "../Resource/Utility/Logger";
 
 export const Table = ({ woreda }) => {
-  console.log(woreda.map((item) => item.sites.map((site) => site.id)));
+  log(woreda.map((item) => item.sites.map((site) => site.id)));
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (event) => {

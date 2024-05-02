@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAddAccountMutation } from "../../redux/account/AccountApiSlice";
 import { createAccount } from "../../redux/account/AccountState";
 import ReactSelect from "react-select";
+import { log } from "../Resource/Utility/Logger";
 
 const NewUser = () => {
   const { id } = useParams(); 
@@ -18,7 +19,7 @@ const NewUser = () => {
 
   const Roles = useSelector((state) => state.roles.roles);
   Roles.map((role) => {
-    console.log(role.name);
+    log(role.name);
   });
   const formatFormData = (formData) => {
     return {
@@ -49,19 +50,19 @@ const NewUser = () => {
             email: "",
           }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            console.log(values);
+            log(values);
             try {
               const name = `${values.FirstName} ${values.LastName}`;
               const updatedValues = {
                 ...values,
                 name: name,
               };
-              console.log(updatedValues.roles);
-              console.log(updatedValues);
+              log(updatedValues.roles);
+              log(updatedValues);
               const formattedData = formatFormData(updatedValues);
               const NewUser = await AddUser(formattedData);
               if (NewUser?.data) {
-                console.log(NewUser.data);
+                log(NewUser.data);
                 toast.success("Account added successfully");
                 dispatch(createAccount(NewUser.data.data.user));
                 resetForm();

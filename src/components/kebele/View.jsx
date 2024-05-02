@@ -6,6 +6,7 @@ import { numberWithCommas } from "../region/View";
 import { AddButton } from "../Resource/Utility/AddButton";
 import { AddDataButton } from "../Resource/Utility/AddDataButton";
 import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
+import { log } from "../Resource/Utility/Logger";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,7 +27,7 @@ export const View = () => {
     isSuccess && data && data.data.length < 20 ? currentPage : currentPage + 1;
   let content;
   let filteredData;
-  console.log(data, "kebele view");
+  log(data, "kebele view");
   if (isLoading === true) {
     return (
       <div className="flex justify-center items-center h-screen ">

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BackButton from "../Resource/Utility/BackButton";
 import { useAddRegionMutation } from "../../redux/region/RegionApiSlice";
+import { log } from "../Resource/Utility/Logger";
 
 const validationSchema = Yup.object().shape({
   region_name: Yup.string().required("Region name is required"),
@@ -29,10 +30,10 @@ export const Regions = () => {
     if (values.geojson) {
       formData.append("geojson", values.geojson);
     }
-    console.log(formData);
+    log(formData);
 
     const region = await AddRegion(formData);
-    console.log(region);
+    log(region);
     if (region.data) {
       toast.success("Wereda added successfully!");
       window.location.href = `/admin/region`;

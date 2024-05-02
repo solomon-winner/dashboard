@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { log } from "../../components/Resource/Utility/Logger";
 
 export const GeoJsonSlice = createSlice({
     name: 'geoJson',
@@ -52,7 +53,7 @@ export const GeoJsonSlice = createSlice({
         },
         SetZoom_out: (state, action) => {
             state.Zoom_out = action.payload
-            console.log("the reducer is working...", state.Zoom_out," and action ", action.payload)
+            log("the reducer is working...", state.Zoom_out," and action ", action.payload)
   
         }
 

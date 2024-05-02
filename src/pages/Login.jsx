@@ -6,6 +6,7 @@ import { setCredentials } from "../redux/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { log } from "../components/Resource/Utility/Logger";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required("Email is required"),
@@ -18,11 +19,11 @@ export const Login = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async (values, { setSubmitting, setErrors }) => {
-    // console.log(values);
+    // log(values);
     try {
       const userData = await login(values).unwrap();
       dispatch(setCredentials({ ...userData, email: values.email }));
-      console.log(userData);
+      log(userData);
       // setUser('');
       // setPwd('');
       navigate("/admin");
@@ -30,11 +31,11 @@ export const Login = () => {
     } catch (error) {
       setSubmitting(false);
       setErrors(error);
-      console.log(error);
+      log(error);
       if (error.status === 401) {
         toast.error("Invalid credentials");
       }
-      console.log(error, "error");
+      log(error, "error");
     }
   };
 

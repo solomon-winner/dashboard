@@ -15,6 +15,7 @@ import { MainLoading } from "../Resource/Loading/Loadings";
 import { useParams } from "react-router-dom";
 import BackButton from "../Resource/Utility/BackButton";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
+import { log } from "../Resource/Utility/Logger";
 const validationSchema = Yup.object().shape({
   woreda_name: Yup.string().required("Wereda name is required"),
   region_id: Yup.number().required("Region ID is required"),
@@ -60,7 +61,7 @@ export const UpdateWeredaForm = () => {
   }, [isSuccess, woredadata, regions]);
 
   const handleSubmit = async (values) => {
-    console.log(values);
+    log(values);
     const updatedValues = {
       ...values,
       region_id: parseInt(values.region_id, 10),
@@ -78,14 +79,14 @@ export const UpdateWeredaForm = () => {
         updatedValues.geojson,
         updatedValues.woreda_name
       );
-      console.log(updatedValues.geojson);
-      console.log(geoJsonConverter);
+      log(updatedValues.geojson);
+      log(geoJsonConverter);
       formData.append("geojson", geoJsonConverter);
     }
-    console.log({ id: id, data: formData });
+    log({ id: id, data: formData });
 
     const wereda = await UpdateWereda({ id: id, data: formData });
-    console.log(wereda);
+    log(wereda);
     if (wereda.data) {
       toast.success("Wereda updated successfully!");
       // window.location.href = `/admin/wereda`;
@@ -150,7 +151,7 @@ export const UpdateWeredaForm = () => {
                             label: formData.selectedRegionName,
                           }}
                           onChange={(option) => {
-                            console.log("Option selected:", option);
+                            log("Option selected:", option);
                             setFieldValue("region_id", option.value);
                             setFormData({
                               ...formData,

@@ -12,6 +12,7 @@ import Loadings from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
 import { FormField } from "../Resource/Utility/FormField";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
+import { log } from "../Resource/Utility/Logger";
 const validationSchema = Yup.object().shape({
   kebele_name: Yup.string().required("Kebele name is required"),
   woreda_id: Yup.number().required("Wereda ID is required"),
@@ -52,15 +53,15 @@ const Kebeles = () => {
         updatedValues.geojson,
         updatedValues.kebele_name
       );
-      console.log(updatedValues.geojson);
-      console.log(geoJsonConverter);
+      log(updatedValues.geojson);
+      log(geoJsonConverter);
       formData.append("geojson", geoJsonConverter);
     }
 
-    console.log(formData);
+    log(formData);
 
     const kebele = await addKebele(formData);
-    console.log(kebele);
+    log(kebele);
     if (kebele.data) {
       toast.success("Kebele added successfully!");
       window.location.href = `/admin/kebele`;

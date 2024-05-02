@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { toast } from "react-toastify";
 import { setCredentials, logOut } from "../../auth/authSlice";
+import { log } from "../../../components/Resource/Utility/Logger";
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: "https://tbrr.echnoserve.com/api",
@@ -18,13 +19,13 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   const { signal, ...otherOptions } = extraOptions || {}; // Destructure signal from extraOptions
 
   let result = await baseQuery(args, api, { ...otherOptions, signal }); // Pass signal in the options
-console.log(result);
+log(result);
   if (result.error?.status === "FETCH_ERROR") {
     toast.error("No internet connection");
   } else if (result.error?.status === 401) {
-    console.log("unauthorized");
+    log("unauthorized");
     const refreshToken = api.getState().auth.refresh_token;
-    console.log(refreshToken);
+    log(refreshToken);
     if(refreshToken){
     const refreshResult = await baseQuery(
       { url: "/refresh-token", method: "POST", body: { refresh_token: refreshToken } },

@@ -11,6 +11,7 @@ import { EachMap } from "../Resource/Map/EachMap";
 import { CommonTable } from "../Resource/Utility/Table";
 import { Delete, Edit } from "@mui/icons-material";
 import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
+import { log } from "../Resource/Utility/Logger";
 
 export const RegionDetails = () => {
   const { id } = useParams();
@@ -25,8 +26,8 @@ export const RegionDetails = () => {
       </div>
     );
   }
-console.log(regionData.data)
-console.log(woredaData.data)
+log(regionData.data)
+log(woredaData.data)
   return (
     <div className="bg-dashbordColor">
       <div className="flex justify-between p-10">

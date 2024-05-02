@@ -18,6 +18,7 @@ import { useGetWeredaByIdQuery } from "../../redux/wereda/WeredaApiSlice";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
+import { log } from "../Resource/Utility/Logger";
 const validationSchema = Yup.object().shape({
   // kebele_name: Yup.string().required("Kebele name is required"),
   // woreda_id: Yup.number().required("Wereda ID is required"),
@@ -70,7 +71,7 @@ const UpdateKebeleForm = () => {
         geojson,
         status,
       } = Kebele;
-      console.log(Kebele);
+      log(Kebele);
       const region = regions.find((region) => region.id === region_id);
       const selectedRegionName = region ? region.region_name : "";
       setFormData({
@@ -82,7 +83,7 @@ const UpdateKebeleForm = () => {
         selectedRegionName,
         status,
       });
-      console.log({
+      log({
         kebele_name,
         region_id,
         woreda_id,
@@ -103,7 +104,7 @@ const UpdateKebeleForm = () => {
         ...formData,
         selectedWeredaName,
       });
-      console.log({
+      log({
         ...formData,
         selectedWeredaName,
       });
@@ -128,14 +129,14 @@ const UpdateKebeleForm = () => {
         updatedValues.geojson,
         updatedValues.kebele_name
       );
-      console.log(updatedValues.geojson);
-      console.log(geoJsonConverter);
+      log(updatedValues.geojson);
+      log(geoJsonConverter);
       formData.append("geojson", geoJsonConverter);
     }
-    console.log({ id: id, updatedValues });
+    log({ id: id, updatedValues });
 
     const kebele = await UpdateKebele({ id: id, data: formData });
-    console.log(kebele);
+    log(kebele);
     if (kebele.data) {
       toast.success("Kebele Updated successfully!");
       // window.location.href = `/admin/kebele`;

@@ -10,6 +10,7 @@ import { LocationInfo, RegionLocationInfo} from '../components/Maps/LocationInfo
 import { useDispatch, useSelector } from "react-redux";
 import { Filter } from '../components/Maps/Filter'
 import { SetZoom_out } from "../redux/GeoJson/GeoJsonSlice";
+import { log } from '../components/Resource/Utility/Logger'
 
 export const Dashboard = () => {
 
@@ -29,7 +30,7 @@ export const Dashboard = () => {
   const Zoom_out = (e) => {
     e.preventDefault();
     dispatch(SetZoom_out(true));
-    console.log("The zoom inside the Zoom_out...", Zoom);
+    log("The zoom inside the Zoom_out...", Zoom);
   };
   return (
     <div className="flex flex-col h-screen gap-6 bg-dashbordColor">
