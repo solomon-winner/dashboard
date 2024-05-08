@@ -13,6 +13,7 @@ export const FormField = ({
     value,
     handleChange,
     accept,
+    step
   }) => {
     const [inputValue, setInputValue] = useState(value);
     const [filteredOptions, setFilteredOptions] = useState(options);
@@ -109,6 +110,7 @@ export const FormField = ({
                 placeholder={placeholder}
                 onChange={handleChange}
                 accept={accept}
+                step={step}
               />
             )}
           </div>

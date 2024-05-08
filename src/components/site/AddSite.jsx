@@ -12,6 +12,7 @@ import {
   FormBackButton,
   FormNextButton,
 } from "../Resource/Utility/FormButtons";
+import { log } from "../Resource/Utility/Logger";
 
 export const RadioButtonGroup = ({
   name,
@@ -199,7 +200,7 @@ export const AddSite = () => {
         if (isNaN(values[typeKey])) {
           const response = await addResource({
             name: values[typeKey],
-            resource_type: "FORAGE",
+            resource_type: "LIVELIHOOD",
           });
           if (response.data) {
             toast.success("Resource added successfully");
@@ -224,9 +225,9 @@ export const AddSite = () => {
       ...livelihoodArray,
     ];
     const value = { resource };
-    console.log(value);
+    log(value);
     const response = await addSiteData({ ...value, id: values.site_id });
-    console.log(response);
+    log(response);
     if (response.data) {
       toast.success("Site added successfully");
       window.location.href = "/admin/site";

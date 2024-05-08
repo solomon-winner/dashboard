@@ -97,7 +97,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
             <FormField
               label="Male"
               name="populationmale"
-              type="text"
+              type="number"
               placeholder="Total Number of Male"
               icon={FamilyRestroom}
               value={formData.populationmale}
@@ -106,7 +106,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
             <FormField
               label="Female"
               name="populationfemale"
-              type="text"
+              type="number"
               placeholder="Total Number of Female"
               icon={FamilyRestroom}
               value={formData.populationfemale}
@@ -121,7 +121,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
             <FormField
               label="Male"
               name="householdmale2"
-              type="text"
+              type="number"
               placeholder="Total Number of Male"
               icon={FamilyRestroom}
               value={formData.householdmale2}
@@ -130,7 +130,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
             <FormField
               label="Female"
               name="householdfemale2"
-              type="text"
+              type="number"
               placeholder="Total Number of Female"
               icon={FamilyRestroom}
               value={formData.householdfemale2}
@@ -187,6 +187,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
                   placeholder="Area"
                   value={formData[`area${index + 1}`] || ""}
                   handleChange={handleChanges}
+                  step={0.01}
                 />
                 <Delete
                   onClick={() => removeField(field.id)}

@@ -2,23 +2,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useForgotPasswordMutation } from "../redux/auth/AuthApiSlice";
+import { log } from "../components/Resource/Utility/Logger";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required("Email is required"),
 });
 
-const onSubmit = async (values, { setSubmitting, setErrors }) => {
+const onSubmit = async (values, { setSubmitting, setErrors },forgotPassword) => {
   try {
-    console.log(values);
-    // here you can call your api
+    log(values);
+    forgotPassword(values);
     setSubmitting(false);
+    log(values);
   } catch (error) {
     setSubmitting(false);
     setErrors(error);
+    log(error);
   }
 };
 
 export const ForgotPassword = () => {
+  const [forgotPassword] = useForgotPasswordMutation();
   return (
     <div className="flex w-full h-screen justify-center items-center bg-dashbordColor">
       <div className="w-full max-w-md mx-auto p-6">
@@ -47,7 +52,7 @@ export const ForgotPassword = () => {
                 }}
                 validationSchema={validationSchema}
                 onSubmit={async (values, { setSubmitting, setErrors }) => {
-                  onSubmit(values, { setSubmitting, setErrors });
+                  onSubmit(values, { setSubmitting, setErrors },forgotPassword);
                 }}
               >
                 <Form>

@@ -6,6 +6,7 @@ import { numberWithCommas } from "../region/View";
 import { AddButton } from "../Resource/Utility/AddButton";
 import { AddDataButton } from "../Resource/Utility/AddDataButton";
 import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
+import { log } from "../Resource/Utility/Logger";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,7 +48,7 @@ export const View = () => {
         d.site_name &&
         d.site_name.toLowerCase().includes(searchInput.toLowerCase())
     );
-    console.log(site.data);
+    log(site.data);
     return (
       <div className="flex flex-col gap-4 py-6 px-10">
         <div className="flex justify-between items-center">

@@ -23,7 +23,7 @@ const WeredaSelect = ({
           ),
         },
       ]
-    : getweredaByRegion?.data?.data?.map((wereda) => ({
+    : getweredaByRegion?.data?.map((wereda) => ({
         value: wereda.id,
         label: wereda.woreda_name,
       }));

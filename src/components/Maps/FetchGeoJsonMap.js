@@ -10,6 +10,7 @@ export const fetchRegionData = async (url) => {
       throw error;
   }
 };
+
   export const fetchSiteData = async (url) => {
     try {
       const response = await fetch(`${storageUrl}${url}`);

@@ -20,7 +20,7 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
         <FormField
           label="Male headed"
           name="ownsmale"
-          type="text"
+          type="number"
           placeholder="Total Number of Male"
           icon={FamilyRestroom}
           value={formData.ownsmale}
@@ -29,7 +29,7 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
         <FormField
           label="Female headed"
           name="ownsfemale"
-          type="text"
+          type="number"
           placeholder="Total Number of Female"
           icon={FamilyRestroom}
           value={formData.ownsfemale}
@@ -44,7 +44,7 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
         <FormField
           label="Male headed"
           name="doesnotownmale2"
-          type="text"
+          type="number"
           placeholder="Total Number of Male"
           icon={FamilyRestroom}
           value={formData.doesnotownmale2}
@@ -53,7 +53,7 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
         <FormField
           label="Female headed"
           name="doesnotownfemale2"
-          type="text"
+          type="number"
           placeholder="Total Number of Female"
           icon={FamilyRestroom}
           value={formData.doesnotownfemale2}
@@ -67,7 +67,7 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
         <FormField
           label="Male"
           name="unemployedmale3"
-          type="text"
+          type="number"
           placeholder="Total Number of Male"
           icon={FamilyRestroom}
           value={formData.unemployedmale3}
@@ -76,7 +76,7 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
         <FormField
           label="Female"
           name="unemployedfemale3"
-          type="text"
+          type="number"
           placeholder="Total Number of Female"
           icon={FamilyRestroom}
           value={formData.unemployedfemale3}

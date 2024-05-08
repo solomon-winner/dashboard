@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { createRoles } from "../../redux/roles/RolesState";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
+import { log } from "../Resource/Utility/Logger";
 const CreateRole = () => {
   const [addRole] = useAddRoleMutation();
   const { data: permissions, isSuccess, isFetching } = useGetPermissionsQuery();
@@ -51,7 +52,7 @@ const CreateRole = () => {
   const handleSubmit = async (values, { resetForm }) => {
     const response = await addRole(values);
     if (response?.data) {
-      console.log(response.data);
+      log(response.data);
       toast.success("Role added successfully");
       dispatch(createRoles(response.data.data));
       resetForm();

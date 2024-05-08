@@ -3,6 +3,7 @@ import { AddCircleOutline, Delete, Grass } from "@mui/icons-material";
 import { FormField } from "../../Resource/Utility/FormField";
 import { useSelector } from "react-redux";
 import Loadings from "../../Resource/Loading/Loadings";
+import { log } from "../../Resource/Utility/Logger";
 
 const extractAdditionalFieldsData = (prefix, formData, prefix2) => {
   const fields = [];
@@ -125,7 +126,7 @@ export const UpdateForm5 = ({ handleChange, formData, setFormData }) => {
     setFormData(newFormData);
   };
   useEffect(() => {
-    console.log(formData);
+    log(formData);
   }, [formData]);
   const addField2 = () => {
     const highestId = additionalFields2.reduce(
@@ -300,6 +301,7 @@ export const UpdateForm5 = ({ handleChange, formData, setFormData }) => {
                 placeholder="Area"
                 value={formData[`croparea${index + 1}`] || ""}
                 handleChange={handleChanges}
+                step={0.01}
               />
               <Delete
                 onClick={() => removeField(field.id)}
@@ -361,6 +363,7 @@ export const UpdateForm5 = ({ handleChange, formData, setFormData }) => {
                 placeholder="Area"
                 value={formData[`fruitarea${index + 1}`] || ""}
                 handleChange={handleChanges}
+                step={0.01}
               />
               <Delete
                 onClick={() => removeField2(field.id)}
@@ -370,6 +373,9 @@ export const UpdateForm5 = ({ handleChange, formData, setFormData }) => {
           ))}
           <AddCircleOutline onClick={addField2} className="lg:mt-8" />
         </div>
+        <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
+          Tree
+        </h6>
         <h6 className="text-blueGray-400 text-sm mt-3 mb-4 uppercase">
           Indegeneous
         </h6>

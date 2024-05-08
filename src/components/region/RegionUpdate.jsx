@@ -8,6 +8,7 @@ import BackButton from "../Resource/Utility/BackButton";
 import { useGetRegionByIdQuery, useUpdateRegionMutation } from "../../redux/region/RegionApiSlice";
 import { useParams } from "react-router-dom";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
+import { log } from "../Resource/Utility/Logger";
 
 const validationSchema = Yup.object().shape({
   region_name: Yup.string().required("Region name is required"),
@@ -44,7 +45,7 @@ export const RegionUpdate = () => {
   }, [isSuccess, RegionData]);
 
   const handleSubmit = async (values) => {
-    console.log(values);
+    log(values);
     const formData = new FormData();
     for (const key in values) {
       if (key !== "geojson") {
@@ -56,14 +57,14 @@ export const RegionUpdate = () => {
       const geoJsonConverter = await GeoJsonConverter.convert(
         values.geojson
       );
-      console.log(values.geojson);
-      console.log(geoJsonConverter);
+      log(values.geojson);
+      log(geoJsonConverter);
       formData.append("geojson", geoJsonConverter);
     }
-    console.log({ id: id, values });
+    log({ id: id, values });
 
     const region = await UpdateRegion({ id: id, data: formData });
-    console.log(region);
+    log(region);
     if (region.data) {
       toast.success("Region added successfully!");
       window.location.href = `/admin/region`;

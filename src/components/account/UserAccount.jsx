@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAccounts } from "../../redux/account/AccountState";
 import Avatars from "../Resource/Utility/Avatars";
-
+import { log } from "../Resource/Utility/Logger";
 const UserAccount = () => {
   const accounts = useSelector((state) => state.account.accounts);
   const isLoadingAccounts = useSelector(
@@ -23,7 +23,7 @@ const UserAccount = () => {
   const [showConfirmation, setShowConfirmation] = useState(false); // New state for confirmation dialog
   const [deleteAccountId, setDeleteAccountId] = useState(null); // New state for delete account id
   const [deleteAccount, { isLoading: isDeleting }] = useDeleteAccountMutation();
-console.log(accounts)
+ log(accounts)
   useEffect(() => {
     if (accounts) {
       const sorted = [...accounts].sort((a, b) => {
@@ -72,26 +72,26 @@ console.log(accounts)
   };
 
   return (
-    <div className="container mx-auto">
-      <div className="flex justify-between items-center bg-green-50 p-4 mb-4 rounded-md">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-screen">
+      <div className="flex flex-col sm:flex-row justify-between items-center bg-green-50 p-4 mb-4 rounded-md">
         <div>
           <h2 className="text-xl font-medium mb-2">Accounts List</h2>
         </div>
         <Link
           to="/admin/new-user"
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          className="mt-4 sm:mt-0 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
         >
           Add Account
         </Link>
       </div>
 
-      <div className="bg-white rounded-md shadow-md">
+      <div className="bg-white rounded-md shadow-md overflow-x-auto">
         <div className="p-4">
-          <div className="flex justify-end mb-4">
+          <div className=" mb-4">
             <div className="relative">
               <input
                 type="text"
-                className="border rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"
+                className="border rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500"
                 placeholder="Search Members..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -101,7 +101,7 @@ console.log(accounts)
               </button>
             </div>
           </div>
-          <table className="w-full">
+          <table className="w-full text-left">
             <thead className="text-xs uppercase bg-gray-100 text-gray-600">
               <tr>
                 <th className="py-3 px-6 text-left">Image</th>
@@ -181,3 +181,4 @@ console.log(accounts)
 };
 
 export default UserAccount;
+

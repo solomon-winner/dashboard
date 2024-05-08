@@ -23,6 +23,7 @@ import {
   FormBackButton,
   FormNextButton,
 } from "../Resource/Utility/FormButtons";
+import { log } from "../Resource/Utility/Logger";
 
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
@@ -49,7 +50,6 @@ export const UpdateKebele = () => {
   const handleBack = () => {
     setStep(step - 1);
   };
-
   const handleSubmit = async (values) => {
     const energy_sourceArray = [];
     let i = 1;
@@ -76,24 +76,27 @@ export const UpdateKebele = () => {
         break;
       }
     }
+
     const livelihoodArray = [];
     let j = 1;
     while (true) {
       const typeKey = `livelihoodtype${j}`;
       const maleKey = `livelihoodmale${j}`;
       const femalKey = `livelihoodfemale${j}`;
-
-      if (values[typeKey] && values[maleKey] && values[femalKey]) {
+    
+      if (values[typeKey] ) {
         if (isNaN(values[typeKey])) {
           const response = await addResource({
             name: values[typeKey],
-            resource_type: "ENERGY_SOURCE",
+            resource_type: "LIVELIHOOD",
           });
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
           }
+          
         }
+       
         livelihoodArray.push({
           resource_id: values[typeKey],
           male_headed_hh: values[maleKey],
@@ -331,7 +334,7 @@ export const UpdateKebele = () => {
     const causeofdeforestationArray = [];
     let c = 1;
     while (true) {
-      const typeKey = `causeofdeforestiontype${c}`;
+      const typeKey = `causeofdeforestationtype${c}`;
       if (values[typeKey]) {
         if (isNaN(values[typeKey])) {
           const response = await addResource({
@@ -366,7 +369,9 @@ export const UpdateKebele = () => {
       ...cropArray,
       ...fruitArray,
       ...nurseryArray,
+      ...causeofdeforestationArray,
     ];
+   log(values)
     const data = {
       male_hh: values.householdmale2,
       female_hh: values.householdfemale2,
@@ -378,15 +383,16 @@ export const UpdateKebele = () => {
       fhf_land_lease: values.doesnotownfemale2,
       male_non_employed: values.unemployedmale3,
       female_non_employed: values.unemployedfemale3,
+
     };
     const value = { energy_source, data, livelihood, resource };
     const response = await AddKebeleData({ ...value, id: id });
-    console.log(response);
     if (response.data) {
       toast.success("Kebele added successfully");
-      window.location.href = `/admin/kebele`;
+      window.location.href = `/admin/kebele/${id}`;
+      // window.history.back();
     }
-    console.log({ ...value, id: Number(id) });
+    log({ ...value, id: Number(id) });
   };
 
   return (
@@ -404,7 +410,7 @@ export const UpdateKebele = () => {
               initialValues={formData}
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
-              enableReinitialize={true}
+              
             >
               {({ handleChange }) => (
                 <Form>

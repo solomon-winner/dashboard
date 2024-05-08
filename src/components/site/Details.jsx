@@ -15,6 +15,7 @@ import { UpdateDataButton } from "../Resource/Utility/UpdateDataButton";
 import { UpdateButton } from "../Resource/Utility/UpdateButton";
 import { EachMap } from "../Resource/Map/EachMap";
 import { deleteSiteData } from "../../redux/site/SiteByIdState";
+import { log } from "../Resource/Utility/Logger";
 
 export const SiteDetails = () => {
   const { id } = useParams();
@@ -31,7 +32,7 @@ export const SiteDetails = () => {
       </div>
     );
   }
-  console.log(data.data);
+  log(data.data);
   const siteData = data.data;
   if (!siteData || !siteData.resources) {
     return (
@@ -63,7 +64,7 @@ export const SiteDetails = () => {
           options={siteOptions}
           onChange={handleWeredaSelect}
           placeholder="Select a Site"
-          className="w-full sm:w-1/3 lg:w-1/4"
+          className="w-full sm:w-1/3 lg:w-1/4 z-50"
         />
         <div className="flex gap-4">
           <DeleteButton entityId={id} deleteEntity={deleteSite}/>
@@ -94,7 +95,7 @@ export const SiteDetails = () => {
                   Micro-washed: {data.data?.watershed_name}
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
-                  Size of site: {data.data?.size_ha} ha
+                  Area: {data.data?.size_ha} ha
                 </h3>
               </div>
             </div>
@@ -167,11 +168,11 @@ export const SiteDetails = () => {
             </div>
             <div className="bg-white shadow-md rounded-md p-4 h-fit">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                Livestock
+                LiveliHood
               </h4>
 
               {data?.data?.resources?.map((resource, index) =>
-                resource?.LIVESTOCK?.map((item, idx) => (
+                resource?.LIVELIHOOD?.map((item, idx) => (
                   <div
                     key={index}
                     class="border-b border-gray-300 rounded-md p-3 mb-4"

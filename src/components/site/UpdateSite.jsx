@@ -15,6 +15,7 @@ import {
   FormBackButton,
   FormNextButton,
 } from "../Resource/Utility/FormButtons";
+import { log } from "../Resource/Utility/Logger";
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
@@ -26,10 +27,12 @@ export const UpdateSite = () => {
   const [addResource] = useAddResourceMutation();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState(siteData);
+
+
   useEffect(() => {
     if (!loading && siteData) {
       setFormData(siteData);
-      console.log(siteData);
+      log(siteData);
     }
   }, [!loading]);
   const handleNext = (e) => {
@@ -41,7 +44,7 @@ export const UpdateSite = () => {
     setStep(step - 1);
   };
   const handleSubmit = async (values) => {
-    console.log(values);
+    log(values);
     const indegeneoustreeArray = [];
     let i = 1;
     while (true) {
@@ -138,6 +141,7 @@ export const UpdateSite = () => {
         break;
       }
     }
+
     const livelihoodArray = [];
     let m = 1;
     while (true) {
@@ -146,7 +150,7 @@ export const UpdateSite = () => {
         if (isNaN(values[typeKey])) {
           const response = await addResource({
             name: values[typeKey],
-            resource_type: "FORAGE",
+            resource_type: "LIVELIHOOD",
           });
           if (response.data) {
             toast.success("Resource added successfully");
@@ -171,12 +175,14 @@ export const UpdateSite = () => {
       ...livelihoodArray,
     ];
     const value = { resource };
-    console.log(value);
+    log(value);
     const response = await addSiteData({ ...value, id });
-    console.log(response);
+    log(response);
     if (response.data) {
       toast.success("Site added successfully");
-      window.location.href = `/admin/site`;
+      window.location.href = `/admin/site/${id}`;
+      // window.history.back();
+   
     }
   };
   return (

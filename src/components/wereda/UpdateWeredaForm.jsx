@@ -15,6 +15,7 @@ import { MainLoading } from "../Resource/Loading/Loadings";
 import { useParams } from "react-router-dom";
 import BackButton from "../Resource/Utility/BackButton";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
+import { log } from "../Resource/Utility/Logger";
 const validationSchema = Yup.object().shape({
   woreda_name: Yup.string().required("Wereda name is required"),
   region_id: Yup.number().required("Region ID is required"),
@@ -60,6 +61,7 @@ export const UpdateWeredaForm = () => {
   }, [isSuccess, woredadata, regions]);
 
   const handleSubmit = async (values) => {
+    log(values);
     const updatedValues = {
       ...values,
       region_id: parseInt(values.region_id, 10),
@@ -74,19 +76,21 @@ export const UpdateWeredaForm = () => {
     if (updatedValues.geojson instanceof File) {
       // Use the GeoJsonConverter component to convert the GeoJSON file
       const geoJsonConverter = await GeoJsonConverter.convert(
-        updatedValues.geojson
+        updatedValues.geojson,
+        updatedValues.woreda_name
       );
-      console.log(updatedValues.geojson);
-      console.log(geoJsonConverter);
+      log(updatedValues.geojson);
+      log(geoJsonConverter);
       formData.append("geojson", geoJsonConverter);
     }
-    console.log({ id: id, data: formData });
+    log({ id: id, data: formData });
 
     const wereda = await UpdateWereda({ id: id, data: formData });
-    console.log(wereda);
+    log(wereda);
     if (wereda.data) {
       toast.success("Wereda updated successfully!");
-      window.location.href = `/admin/wereda`;
+      // window.location.href = `/admin/wereda`;
+      window.history.back();
     }
   };
   const handleChanges = (e) => {
@@ -147,9 +151,11 @@ export const UpdateWeredaForm = () => {
                             label: formData.selectedRegionName,
                           }}
                           onChange={(option) => {
+                            log("Option selected:", option);
                             setFieldValue("region_id", option.value);
                             setFormData({
                               ...formData,
+                              region_id: option.value,
                               selectedRegionName: option.label,
                             });
                           }}
@@ -179,6 +185,7 @@ export const UpdateWeredaForm = () => {
                     />
                   </div>
                   <div className="flex justify-between flex-grow">
+                  {formData.geojson && (
                     <div className="mb-4 w-full lg:w-2/5 px-4">
                       <a
                         href={`https://tbrr.echnoserve.com/storage/app/public/${formData.geojson}`}
@@ -188,39 +195,46 @@ export const UpdateWeredaForm = () => {
                       >
                         View Current GeoJSON
                       </a>
-                      <p className="mt-2 text-sm text-gray-600">
+                      {/* <p className="mt-2 text-sm text-gray-600">
                         Selected file: {formData.geojson || formData.geojsonName}
-                      </p>
+                      </p> */}
                     </div>
+                  )}
                     <div className="w-full lg:w-2/5 mt-5">
-                      <input
-                        id="geojsonFile"
-                        type="file"
-                        name="geojson"
-                        accept=".geojson"
-                        className="hidden"
-                        onChange={(event) => {
-                          const file = event.currentTarget.files[0];
-                          setFieldValue("geojson", file);
-                          setFieldValue("geojsonName", file.name);
-                          // setFormData({
-                          //   ...formData,
-                          //   geojson: file.name,
-                          // });
-                        }}
-                      />
-                       <ErrorMessage
-                        name="geojson"
-                        component="div"
-                        className="text-red-500 flex items-start"
-                      />
                       <label
                         htmlFor="geojsonFile"
-                        className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded shadow-md cursor-pointer"
+                        className="block uppercase text-gray-500 text-xs font-bold mb-2"
                       >
                         Upload GeoJSON
                       </label>
-                    </div>
+                      <div className="flex items-center">
+                        <label
+                          htmlFor="geojsonFile"
+                          className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded shadow-md cursor-pointer mr-2"
+                        >
+                          Browse
+                        </label>
+                        <input
+                          id="geojsonFile"
+                          type="file"
+                          name="geojson"
+                          accept=".geojson"
+                          className="hidden"
+                          onChange={(event) => {
+                            const file = event.currentTarget.files[0];
+                            setFieldValue("geojson", file);
+                            setFieldValue("geojsonName", file.name);
+                            document.getElementById(
+                              "geojsonFileName"
+                            ).textContent = file.name; // Show the file name
+                          }}
+                        />
+                        <span
+                          className="text-gray-600"
+                          id="geojsonFileName"
+                        ></span>
+                      </div>
+                      </div>
                   </div>
                   <button
                     type="submit"

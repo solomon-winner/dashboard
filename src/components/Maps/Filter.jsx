@@ -3,6 +3,7 @@ import { Search } from "@mui/icons-material";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { SetAllRegions, SetSelectedRegion } from "../../redux/GeoJson/GeoJsonSlice";
+import { log } from "../Resource/Utility/Logger";
 
 export const Filter = () => {
     const [filter, setFilter] = useState({
@@ -19,14 +20,14 @@ export const Filter = () => {
     });
     const dispatch = useDispatch();
     const ALL_REGIONS = useSelector((state) => state.geoJson.GeoJson.AllRegions)
-    // console.log("ALL_REGIONS____>", ALL_REGIONS[0].feature.properties.name);
+    // log("ALL_REGIONS____>", ALL_REGIONS[0].feature.properties.name);
     const regions = [];
     
     ALL_REGIONS.forEach((region) => {
          regions.push({ value: region.feature.properties.id, label: region.feature.properties.name });
     });
     
-    console.log("this_is form the_regions_array...", regions)
+    log("this_is form the_regions_array...", regions)
 
     // const FilterRegion = (R_id) => {
     //    return  ALL_REGIONS.filter((region) => region.feature.properties.id === R_id);

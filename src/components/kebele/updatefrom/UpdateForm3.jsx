@@ -3,6 +3,7 @@ import { FormField } from "../../Resource/Utility/FormField";
 import React, { useEffect, useState } from "react";
 import Loadings from "../../Resource/Loading/Loadings";
 import { useSelector } from "react-redux";
+import { log } from "../../Resource/Utility/Logger";
 
 export const extractAdditionalFieldsData = (
   prefix,
@@ -106,7 +107,7 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
     setFormData(newFormData);
   };
   useEffect(() => {
-    console.log(formData);
+    log(formData);
   }, [formData]);
   const handleChanges = (e) => {
     setFormData({
@@ -155,7 +156,7 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
                 onChange={(option) => {
                   handleChanges({
                     target: {
-                      name: `livelihood${index + 1}`,
+                      name: `livelihoodtype${index + 1}`,
                       value: option.target.value.value,
                       label: `livelihoodname${index + 1}`,
                       labelName: option.target.value.label,

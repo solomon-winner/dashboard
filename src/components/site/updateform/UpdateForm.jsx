@@ -4,6 +4,7 @@ import { FormField } from "../../Resource/Utility/FormField";
 import Loadings from "../../Resource/Loading/Loadings";
 import { useSelector } from "react-redux";
 import { MainLoading } from "../../Resource/Loading/Loadings";
+import { log } from "../../Resource/Utility/Logger";
 export const extractAdditionalFieldsData = (prefix, formData, prefix2) => {
   const fields = [];
   let index = 1;
@@ -45,7 +46,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
         updatedFormData[`exoticname${index + 1}`] = name;
       });
       setFormData(updatedFormData);
-      console.log(initialAdditionalFields);
+      log(initialAdditionalFields);
     }
   }, [tree]);
 

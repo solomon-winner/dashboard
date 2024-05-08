@@ -1,16 +1,17 @@
 import React from 'react';
 import UTM from 'utm-latlng';
+import { log } from '../Utility/Logger';
 
 const GeoJsonConverter = {
-  convert: async (geojsonFile) => {
+  convert: async (geojsonFile,name,watershed) => {
     try {
       const geoJson = await GeoJsonConverter.readFile(geojsonFile);
       if (GeoJsonConverter.isLatLngFormat(geoJson)) {
-        console.log('GeoJSON is already in latlng format, no conversion needed.');
+        log('GeoJSON is already in latlng format, no conversion needed.');
         return await GeoJsonConverter.createFile(geoJson);
       } else {
-        console.log('GeoJSON is in UTM format, converting to latlng...');
-        const convertedGeoJson = await GeoJsonConverter.convertToLatLng(geoJson);
+        log('GeoJSON is in UTM format, converting to latlng...');
+        const convertedGeoJson = await GeoJsonConverter.convertToLatLng(geoJson,name,watershed);
         return await GeoJsonConverter.createFile(convertedGeoJson);
       }
     } catch (error) {
@@ -39,7 +40,7 @@ const GeoJsonConverter = {
     return isLatLng;
   },
 
-  convertToLatLng: async (geoJson) => {
+  convertToLatLng: async (geoJson,name,watershed) => {
     const convertedGeoJson = { ...geoJson };
 
     function utmToLatLon(utmCoords) {
@@ -67,6 +68,8 @@ const GeoJsonConverter = {
 
     convertedGeoJson.features.forEach(feature => {
       convertCoordinates(feature);
+      feature.properties.name = name; // Add name property to each feature
+      feature.properties.watershed = watershed; // Add id property to each feature
     });
 
     return convertedGeoJson;

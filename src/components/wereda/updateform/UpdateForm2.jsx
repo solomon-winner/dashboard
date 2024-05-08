@@ -166,6 +166,7 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
               placeholder="Area"
               value={formData[`area${index + 1}`] || ""}
               handleChange={handleChanges}
+              step={0.01}
             />
             <Delete onClick={() => removeField(field.id)} className="lg:mt-8" />
           </React.Fragment>
@@ -224,6 +225,7 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
               icon={AspectRatio}
               value={formData[`distance${index + 1}`] || ""}
               handleChange={handleChanges}
+              step={0.01}
             />
             <Delete
               onClick={() => removeField2(field.id)}

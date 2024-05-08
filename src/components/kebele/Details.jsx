@@ -48,6 +48,7 @@ export const Details = () => {
     const handleWeredaSelect = (selectedOption) => {
       window.location.href = `/admin/kebele/${selectedOption.value}`;
     };
+    console.log(data.data.resources)
     return (
       <div>
         <div className="flex justify-between p-10">
@@ -59,7 +60,7 @@ export const Details = () => {
             className="w-full sm:w-1/3 lg:w-1/4"
           />
           <div className="flex gap-4">
-            <DeleteButton entityId={id} deleteEntity={deleteKebele}/>
+            <DeleteButton entityId={id} deleteEntity={deleteKebele} />
             <UpdateDataButton id={id} name="Kebele" url={"update-kebeleData"} />
             <UpdateButton id={id} name="Kebele" url={"update-kebele"} />
           </div>
@@ -283,7 +284,7 @@ export const Details = () => {
                           <p key={index} className="font-semibold text-sm">
                             {item.value}:{" "}
                             <span className="font-normal text-xs">
-                              number: {item.amount} capacity: {item.capacity}
+                              number: {item.avg_per_hh} capacity: {item.capacity}
                             </span>
                           </p>
                         ))
@@ -294,9 +295,14 @@ export const Details = () => {
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Major cause of deforestation
                     </h1>
-                    <p className="font-semibold text-sm">Fuel wood</p>
-                    <p className="font-semibold text-sm">Farm land expansion</p>
-                    <p className="font-semibold text-sm">Free grazing</p>
+                    {data.data.resources &&
+                      data.data.resources.map((resource, index) =>
+                        resource?.CAUSE_OF_DEFORESTATION?.map((item, index) => (
+                          <p key={index} className="font-semibold text-sm">
+                            {item.value}
+                          </p>
+                        ))
+                      )}
                   </div>
 
                   <div className="bg-white shadow-md rounded-md p-4 h-fit">
@@ -330,7 +336,7 @@ export const Details = () => {
                 <div className="w-2/3">
                   <EachMap
                     geojsonData={`/geojson/kebeles/${id}.geojson`}
-                    SiteData={site.data.data.map((item) => item.id)}
+                    SiteData={site.data.data}
                   />
                 </div>
               </div>

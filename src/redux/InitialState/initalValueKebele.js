@@ -2,13 +2,14 @@ import React,{ useEffect } from "react";
 import { useGetKebeleByIdQuery } from "../kebele/KebeleApiSlice";
 import { useDispatch } from "react-redux";
 import { setKebeleById } from "../kebele/KebeleByIdState";
+import { log } from "../../components/Resource/Utility/Logger";
 
 export const useInitialValueKebele  = (id) => {
     const {data: kebeledata, isFetching,isSuccess } = useGetKebeleByIdQuery(id);
     const dispatch = useDispatch();
     useEffect(() => {
         if(isSuccess && kebeledata) {
-          console.log(kebeledata.data)
+          log(kebeledata.data)
           const data = kebeledata?.data
           if(data || data.kebele_data || data.livelihoods || data.resources) {
              const populationmale = data?.kebele_data?.male_population;
@@ -99,13 +100,13 @@ export const useInitialValueKebele  = (id) => {
               const nurseryResource = nursery?.NURSERY ? nursery.NURSERY.map(
                (item, index) => ({
                   [`nurserytype${index + 1}`]: item.id,
-                  [`amount${index + 1}`]: item.amount,
+                  [`amount${index + 1}`]: item.avg_per_hh,
                   [`capacity${index + 1}`]: item.capacity,
                   [`nurseryname${index + 1}`]: item.value
                })
               ) : [];
-              const causeofdeforestation = data.resources ? data.resources.find(resource => resource.hasOwnProperty('CAUSE_OF_DEFORRESTION')) : undefined;
-              const causeofdeforestationResource = causeofdeforestation?.CAUSE_OF_DEFORRESTION ? causeofdeforestation.CAUSE_OF_DEFORRESTION.map(
+              const causeofdeforestation = data.resources ? data.resources.find(resource => resource.hasOwnProperty('CAUSE_OF_DEFORESTATION')) : undefined;
+              const causeofdeforestationResource = causeofdeforestation?.CAUSE_OF_DEFORESTATION ? causeofdeforestation.CAUSE_OF_DEFORESTATION.map(
                (item, index) => ({
                   [`causeofdeforestiontype${index + 1}`]: item.id,
                   [`causeofdeforestionname${index + 1}`]: item.value
@@ -118,6 +119,7 @@ export const useInitialValueKebele  = (id) => {
                   [`energy_sourcename${index + 1}`]: item.value
                })
               ) : [];
+       
              const kebeleData = {
                populationmale,
                populationfemale,
@@ -141,7 +143,7 @@ export const useInitialValueKebele  = (id) => {
                ...energy_source.reduce((acc, item) => ({ ...acc, ...item}),{})
               }
               dispatch(setKebeleById(kebeleData))
-             console.log(kebeleData)
+             log(kebeleData)
           }
           return
         }

@@ -6,6 +6,7 @@ import { useChangePasswordMutation } from '../../redux/password/passwordApi';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { log } from '../Resource/Utility/Logger';
 
 const validationSchema = Yup.object().shape({
     current_password: Yup.string().required('Current password is required'),
@@ -18,7 +19,7 @@ const validationSchema = Yup.object().shape({
 
 const ChangePassword = () => {
     const Avatar = useSelector((state) => state.user.UserData.avatar)
-    console.log(Avatar);
+    log(Avatar);
     const navigate = useNavigate();
     const [changePassword, { isLoading }] = useChangePasswordMutation();
     const dispatch = useDispatch();

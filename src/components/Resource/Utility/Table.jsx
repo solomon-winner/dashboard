@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { Visibility } from "@mui/icons-material";
 import { useState } from "react";
+import { log } from "./Logger";
 
 export const CommonTable = ({ data, title, name, urlName, className }) => {
-  console.log(data);
+  log(data);
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (event) => {
@@ -81,7 +82,7 @@ export const CommonTable = ({ data, title, name, urlName, className }) => {
                     title="View Detail"
                   >
                     <Visibility
-                      style={{ fontSize: "x-large", color: "green" }}
+                      style={{ fontSize: "x-large", color: item.geojson ? "green" : "red" }}
                     />
                   </Link>
                 </td>

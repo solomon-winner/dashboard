@@ -15,7 +15,14 @@ const AuthApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: refeshtoken,
       })
-    })
+    }),
+    forgotPassword: builder.mutation({
+      query: (email) => ({
+        url: '/forgot-password',
+        method: 'POST',
+        body: email
+      })
+    }),
     
   }),
 });
@@ -23,6 +30,7 @@ const AuthApiSlice = apiSlice.injectEndpoints({
 export const {
   useLoginMutation,
   useRefreshMutation,
+  useForgotPasswordMutation
 } = AuthApiSlice;
 
 export default AuthApiSlice;
