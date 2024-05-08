@@ -48,7 +48,7 @@ export const Details = () => {
     const handleWeredaSelect = (selectedOption) => {
       window.location.href = `/admin/kebele/${selectedOption.value}`;
     };
-    console.log(data.data.resources)
+    console.log(data.data.resources);
     return (
       <div>
         <div className="flex justify-between p-10">
@@ -68,17 +68,29 @@ export const Details = () => {
         <div className="bg-white py-12 sm:py-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-2xl sm:text-center">
-              <h2 className="text-xl font-bold tracking-tight text-gray-900 ">
-                Kebele Name: {data.data.kebele_name}
+              <h2 className="text-base font-bold tracking-tight text-gray-900 ">
+                Kebele Name: {"  "}
+                <span className="text-sm font-medium">
+                  {" "}
+                  {data.data.kebele_name}{" "}
+                </span>
               </h2>
             </div>
             <div className="mx-auto mt-16 max-w-2xl rounded-3xl sm:mt-20 lg:mx-0  lg:max-w-none">
               <div className="p-8 text-gray-600 sm:p-10 lg:flex-auto">
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
-                  Region: {data.data.region_name}
+                  Region:
+                  {"  "}
+                  <span className="text-sm font-medium">
+                    {data.data.region_name}
+                  </span>{" "}
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
-                  Woreda: {data.data.woreda_name}
+                  Woreda:
+                  {"  "}
+                  <span className="text-sm font-medium">
+                    {data.data.woreda_name}
+                  </span>
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                   <div className="bg-white shadow-md rounded-md p-4">
@@ -284,7 +296,8 @@ export const Details = () => {
                           <p key={index} className="font-semibold text-sm">
                             {item.value}:{" "}
                             <span className="font-normal text-xs">
-                              number: {item.avg_per_hh} capacity: {item.capacity}
+                              number: {item.avg_per_hh} capacity:{" "}
+                              {item.capacity}
                             </span>
                           </p>
                         ))

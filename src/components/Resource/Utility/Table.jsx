@@ -36,11 +36,11 @@ export const CommonTable = ({ data, title, name, urlName, className }) => {
         <p className="mr-4">Color Legend:</p>
         <p className="text-green-600">
           <Visibility style={{ fontSize: "large", color: "green" }} /> - Has
-          Shapefile
+          Shape file
         </p>
         <p className="text-red-600 ml-4">
           <Visibility style={{ fontSize: "large", color: "red" }} /> - Missing
-          Shapefile
+          Shape file
         </p>
       </div>
       <div

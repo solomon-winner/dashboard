@@ -47,7 +47,7 @@ export const LoadingSkeleton = ({ searchInput, handleSearchInput, url, urlData ,
       </div>
       <div className="h-full flex gap-3 flex-col">
         <div>
-          <h1 className="text-xl font-semibold">{name} List</h1>
+          <h1 className="text-base font-semibold">{name} List</h1>
         </div>
         <div className="flex flex-wrap gap-6 md:gap-0 -mx-2 mb-10">
           {[...Array(9)].map((_, index) => (

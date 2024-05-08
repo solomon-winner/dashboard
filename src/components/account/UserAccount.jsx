@@ -75,11 +75,11 @@ const UserAccount = () => {
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-screen">
       <div className="flex flex-col sm:flex-row justify-between items-center bg-green-50 p-4 mb-4 rounded-md">
         <div>
-          <h2 className="text-xl font-medium mb-2">Accounts List</h2>
+          <h2 className="text-base font-medium mb-2">Accounts List</h2>
         </div>
         <Link
           to="/admin/new-user"
-          className="mt-4 sm:mt-0 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          className="mt-4 sm:mt-0 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-xs"
         >
           Add Account
         </Link>
@@ -121,7 +121,7 @@ const UserAccount = () => {
                 <th className="py-3 px-6 text-right">Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-sm">
               {isLoadingAccounts ? (
                 <AccountSkeleton />
               ) : (

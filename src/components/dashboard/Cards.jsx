@@ -13,10 +13,10 @@ export const Cards = () => {
     <div>
         <div className="min-w-screen flex items-center justify-center">
     <div className="max-w-7xl w-full mx-auto pt-8 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0">
+        <div className="flex flex-col lg:flex-row w-full lg:space-x-10 space-y-2 lg:space-y-0">
 
             <div className="w-full lg:w-1/4">
-                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border-l-4 border-green-900">
+                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border border-green-900">
                     <div className="flex items-center">
                         <div className="icon w-14 p-4 bg-green-900 text-white flex justify-center items-center rounded-full mr-3">
                              <MapsHomeWorkIcon />
@@ -30,7 +30,7 @@ export const Cards = () => {
             </div>
 
             <div className="w-full lg:w-1/4">
-                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border-l-4 border-green-700">
+                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border border-green-700">
                     <div className="flex items-center">
                         <div className="icon w-14 p-4 flex justify-center items-center bg-green-700 text-white rounded-full mr-3">
                              <StreetviewIcon />
@@ -44,7 +44,7 @@ export const Cards = () => {
             </div>
 
             <div className="w-full lg:w-1/4">
-                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border-l-4 border-green-500">
+                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border border-green-500">
                     <div className="flex items-center">
                         <div className="icon w-14 p-4 flex justify-center items-center bg-green-500 text-white rounded-full mr-3">
                             <GpsFixedRoundedIcon />
@@ -58,7 +58,7 @@ export const Cards = () => {
             </div>
 
             <div className="w-full lg:w-1/4">
-                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border-l-4 border-lightgreen">
+                <div className="widget w-full p-4 rounded-lg bg-gray-50 shadow-sm border border-lightgreen">
                     <div className="flex items-center">
                         <div className="icon w-14 p-4 bg-lightgreen text-white flex justify-center items-center rounded-full mr-3">
                         <LocationOnIcon />

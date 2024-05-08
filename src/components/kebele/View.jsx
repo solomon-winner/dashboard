@@ -58,14 +58,14 @@ export const View = () => {
                 to={`/admin/kebele/${item.id}`}
                 className="p-4 pt-9 h-full md:px-7 xl:px-10 bg-white shadow-md border border-custumBlue hover:shadow-lg hover:bg-mainColor hover:text-white transition duration-300 ease-in-out flex flex-col justify-center relative group overflow-hidden rounded"
               >
-                <h4 className="relative z-10 font-semibold font-raleway text-2xl text-dark mb-3">
+                <h4 className="relative z-10 font-base font-raleway text-base text-dark mb-3">
                   {item.kebele_name}
                 </h4>
                 <div className="relative z-10 w-1/3 h-1 bg-black mb-4" />
-                <p className="relative z-10 text-body-color text-sm font-poppins">
+                <p className="relative z-10 text-body-color text-xs ">
                   Number of Sites: {item.sites}
                 </p>
-                <p className="relative z-10 text-body-color text-sm font-poppins">
+                <p className="relative z-10 text-body-color text-xs">
                   Degraded Land:{" "}
                   {item.area_ha
                     ? numberWithCommas(item.area_ha) + " Ha"
@@ -126,7 +126,7 @@ export const View = () => {
       </div>
       <div className="h-full flex gap-3 flex-col">
         <div>
-          <h1 className="text-xl font-semibold">Kebele List</h1>
+          <h1 className="text-base font-semibold">Kebele List</h1>
         </div>
         <div>{content}</div>
       </div>

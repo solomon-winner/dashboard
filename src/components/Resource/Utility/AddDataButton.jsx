@@ -6,7 +6,7 @@ export const AddDataButton = ({ id, name,url }) => {
   return (
     <Link
       to={`/admin/${url}`}
-      className="bg-mainColor p-2 rounded-md text-sm text-white font-semibold hover:bg-customDark"
+      className="bg-mainColor p-2 rounded-md text-xs text-white font-medium hover:bg-customDark"
     >
       <Add style={{ fontSize: "large" }} className="mr-2" />
       <span>Add {name} Data</span>

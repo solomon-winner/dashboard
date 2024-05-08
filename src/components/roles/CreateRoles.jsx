@@ -68,7 +68,7 @@ const CreateRole = () => {
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {({ handleChange, values, isSubmitting }) => (
           <Form className="bg-white shadow-md rounded p-8 pt-6 pb-8 mb-4 w-full">
-            <h1 className="text-3xl font-bold mb-5">Roles</h1>
+            <h1 className="text-lg font-bold mb-5">Roles</h1>
             <FormField
               name="name"
               label="Role Name"
@@ -84,13 +84,13 @@ const CreateRole = () => {
                 {Object.entries(groupedPermissions).map(
                   ([groupName, permissions], index) => (
                     <div key={index} className="w-full sm:w-1/2 md:w-1/3">
-                      <h3 className="text-lg font-semibold mb-2">
+                      <h3 className="text-sm font-semibold mb-2">
                         {groupName.charAt(0).toUpperCase() + groupName.slice(1)}
                       </h3>
                       {permissions.map((permission, permissionIndex) => (
                         <div
                           key={permission.id}
-                          className="mb-2 flex items-center"
+                          className="mb-2 flex items-center text-xs"
                         >
                           <div className="relative">
                             <Field
@@ -161,14 +161,14 @@ const CreateRole = () => {
                       },
                     });
                   }}
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 mt-2 sm:mt-0 mr-2"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 mt-2 sm:mt-0 mr-2"
                 >
                   Select All
                 </button>
                 <button
                   type="button"
                   onClick={() => handleUnselectAll({ handleChange })}
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 mt-2 sm:mt-0"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 mt-2 sm:mt-0"
                 >
                   Unselect All
                 </button>
@@ -176,7 +176,7 @@ const CreateRole = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-2 sm:mt-0"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-2 sm:mt-0"
               >
                 {isSubmitting ? "Saving..." : "Save Role"}
               </button>

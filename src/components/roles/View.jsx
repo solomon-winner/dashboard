@@ -41,11 +41,11 @@ const View = () => {
     <div className="container mx-auto pt-6">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow">
         <div className="p-6">
-          <h1 className="text-3xl font-semibold mb-6 ">Roles Management</h1>
+          <h1 className="text-lg font-semibold mb-6 ">Roles Management</h1>
           <div className="flex justify-end items-center mb-6">
             <Link
               to="/admin/create-roles"
-              className="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 py-2 px-6 rounded text-white font-semibold transition duration-300"
+              className="text-xs inline-flex items-center justify-center bg-green-500 hover:bg-green-600 py-2 px-6 rounded text-white font-semibold transition duration-300"
             >
               Add New Role
             </Link>
@@ -62,7 +62,7 @@ const View = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="text-sm">
                 {isLoadingRoles ? (
                   <tr className="bg-green-50 border-b">
                     <td colSpan="2" className="py-4 px-6 text-center">
