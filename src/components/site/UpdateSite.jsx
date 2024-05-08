@@ -27,6 +27,8 @@ export const UpdateSite = () => {
   const [addResource] = useAddResourceMutation();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState(siteData);
+
+
   useEffect(() => {
     if (!loading && siteData) {
       setFormData(siteData);
@@ -139,6 +141,7 @@ export const UpdateSite = () => {
         break;
       }
     }
+
     const livelihoodArray = [];
     let m = 1;
     while (true) {
@@ -147,7 +150,7 @@ export const UpdateSite = () => {
         if (isNaN(values[typeKey])) {
           const response = await addResource({
             name: values[typeKey],
-            resource_type: "FORAGE",
+            resource_type: "LIVELIHOOD",
           });
           if (response.data) {
             toast.success("Resource added successfully");
@@ -177,8 +180,9 @@ export const UpdateSite = () => {
     log(response);
     if (response.data) {
       toast.success("Site added successfully");
-      // window.location.href = `/admin/site`;
-      window.history.back();
+      window.location.href = `/admin/site/${id}`;
+      // window.history.back();
+   
     }
   };
   return (

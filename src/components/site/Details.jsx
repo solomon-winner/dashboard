@@ -168,11 +168,11 @@ export const SiteDetails = () => {
             </div>
             <div className="bg-white shadow-md rounded-md p-4 h-fit">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                Livestock
+                LiveliHood
               </h4>
 
               {data?.data?.resources?.map((resource, index) =>
-                resource?.LIVESTOCK?.map((item, idx) => (
+                resource?.LIVELIHOOD?.map((item, idx) => (
                   <div
                     key={index}
                     class="border-b border-gray-300 rounded-md p-3 mb-4"

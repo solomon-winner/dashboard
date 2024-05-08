@@ -156,7 +156,7 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
                 onChange={(option) => {
                   handleChanges({
                     target: {
-                      name: `livelihood${index + 1}`,
+                      name: `livelihoodtype${index + 1}`,
                       value: option.target.value.value,
                       label: `livelihoodname${index + 1}`,
                       labelName: option.target.value.label,

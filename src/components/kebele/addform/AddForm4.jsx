@@ -159,6 +159,7 @@ export const AddForm4 = ({ handleChange, formData, setFormData }) => {
               placeholder="Area"
               value={formData[`forgearea${index + 1}`] || ""}
               handleChange={handleChanges}
+              step={0.01}
             />
             <Delete onClick={() => removeField(field.id)} className="lg:mt-8" />
           </React.Fragment>
