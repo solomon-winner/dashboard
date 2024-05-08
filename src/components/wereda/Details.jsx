@@ -22,7 +22,10 @@ export const WeredaDetails = () => {
   useInitalValueworeda(id);
 
   const { data: weredadata, isSuccess, isFetching } = useGetWeredaByIdQuery(id);
-  const { data: KebeleData } = useGetKebeleByWeredaQuery({ id: id, with_sites: false  });
+  const { data: KebeleData } = useGetKebeleByWeredaQuery({
+    id: id,
+    with_sites: false,
+  });
   const { data: wereda } = useGetWoredaQuery({ all: true });
   const [deleteWereda] = useDeleteWeredaByIdMutation();
 
@@ -59,7 +62,7 @@ export const WeredaDetails = () => {
             className={`w-full sm:w-1/3 lg:w-1/4`}
           />
           <div className="flex gap-4">
-            <DeleteButton entityId={id} deleteEntity={deleteWereda}/>
+            <DeleteButton entityId={id} deleteEntity={deleteWereda} />
             <UpdateDataButton id={id} name="Woreda" url={"update-weredaData"} />
             <UpdateButton id={id} name="Woreda" url={"update-wereda"} />
           </div>
@@ -67,14 +70,17 @@ export const WeredaDetails = () => {
         <div className="py-12 sm:py-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-2xl sm:text-center">
-              <h2 className="text-xl font-bold tracking-tight text-gray-900 ">
-                Wereda Name: {woreda_name}
+              <h2 className="text-base font-bold tracking-tight text-gray-900 ">
+                Wereda Name:
+                {"  "}
+                <span className="text-sm font-medium">{woreda_name}</span>
               </h2>
             </div>
             <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
               <div className="p-8 text-gray-600 sm:p-10 lg:flex-auto">
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
-                  Region: {region_name}
+                  Region: {"  "}
+                  <span className="text-sm font-medium">{region_name}</span>
                 </h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">

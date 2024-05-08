@@ -86,7 +86,7 @@ export const SideBar = () => {
               </button>
               <a
                 href="#"
-                className="text-xl font-bold flex items-center lg:ml-2.5"
+                className=" text-lg font-bold flex items-center lg:ml-2.5"
               >
                 <img src={logo} className="h-12 mr-2" alt="Windster Logo" />
                 <span className="self-center whitespace-nowrap">

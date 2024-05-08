@@ -17,8 +17,8 @@ export const RegionDetails = () => {
   const { id } = useParams();
   const { data: regionData, isSuccess, isFetching } = useGetRegionByIdQuery(id);
   const { data: woredaData, isSuccess: werdaFetched } =
-    useGetWeredaByRegionQuery({ id : id, with_sites: false });
-    const [deleteRegion] = useDeleteRegionMutation();
+    useGetWeredaByRegionQuery({ id: id, with_sites: false });
+  const [deleteRegion] = useDeleteRegionMutation();
   if (!isSuccess || isFetching || !werdaFetched) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -26,8 +26,8 @@ export const RegionDetails = () => {
       </div>
     );
   }
-log(regionData.data)
-log(woredaData.data)
+  log(regionData.data);
+  log(woredaData.data);
   return (
     <div className="bg-dashbordColor">
       <div className="flex justify-between p-10">
@@ -47,12 +47,16 @@ log(woredaData.data)
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex flex-col items-center">
             <div className="mx-auto max-w-2xl sm:text-center mb-6">
-              <h2 className="text-xl font-bold tracking-tight text-gray-900 ">
-                Region Name: {regionData.data.region_name}
+              <h2 className="text-base font-bold tracking-tight text-gray-900 ">
+                Region Name: {" "}
+                <span className=" text-sm font-medium">{regionData.data.region_name}</span>
               </h2>
             </div>
-            <div className="w-2/3">
-              <EachMap geojsonData={`/geojson/regions/${id}.geojson`} SiteData={woredaData.data.map((item) => item.sites)} />
+            <div className=" w-4/5">
+              <EachMap
+                geojsonData={`/geojson/regions/${id}.geojson`}
+                SiteData={woredaData.data.map((item) => item.sites)}
+              />
             </div>
           </div>
           <div className="flex flex-col gap-6 mt-10 lg:mt-20 lg:flex-row lg:items-start">
@@ -62,7 +66,13 @@ log(woredaData.data)
                   Woreda and Site
                 </h2>
               </div>
-              <CommonTable data={woredaData.data} name={"woreda_name"} title={"Woreda"} urlName={"wereda"} className={"grid grid-cols-4 gap-1"}/>
+              <CommonTable
+                data={woredaData.data}
+                name={"woreda_name"}
+                title={"Woreda"}
+                urlName={"wereda"}
+                className={"grid grid-cols-4 gap-1"}
+              />
             </div>
           </div>
         </div>
