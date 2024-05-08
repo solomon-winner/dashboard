@@ -84,7 +84,7 @@ export const UpdateKebele = () => {
       const maleKey = `livelihoodmale${j}`;
       const femalKey = `livelihoodfemale${j}`;
     
-      if (values[typeKey] && values[maleKey] && values[femalKey]) {
+      if (values[typeKey] ) {
         if (isNaN(values[typeKey])) {
           const response = await addResource({
             name: values[typeKey],
