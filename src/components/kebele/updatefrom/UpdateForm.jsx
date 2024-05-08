@@ -187,6 +187,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
                   placeholder="Area"
                   value={formData[`area${index + 1}`] || ""}
                   handleChange={handleChanges}
+                  step={0.01}
                 />
                 <Delete
                   onClick={() => removeField(field.id)}

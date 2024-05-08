@@ -109,7 +109,7 @@ function App() {
        {/* Public Routes */}
       <Route path='/' element={<Login />} />
       <Route path='/forgot-password' element={<ForgotPassword/>} />
-      <Route path='/reset-password' element={<PasswordResetPage />} />
+      <Route path='/reset-password/:token' element={<PasswordResetPage />} />
       </Routes>
       
     </div>

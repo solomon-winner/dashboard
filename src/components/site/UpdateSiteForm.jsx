@@ -182,8 +182,8 @@ export const UpdateSiteForm = () => {
     log(site);
     if (site.data) {
       toast.success("Site added successfully!");
-      // window.location.href = `/admin/site`;
-      window.history.back();
+      window.location.href = `/admin/site/${id}`;
+      // window.history.back();
     }
   };
   const weredaOptions = isFetching

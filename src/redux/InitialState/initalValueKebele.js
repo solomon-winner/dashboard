@@ -100,13 +100,13 @@ export const useInitialValueKebele  = (id) => {
               const nurseryResource = nursery?.NURSERY ? nursery.NURSERY.map(
                (item, index) => ({
                   [`nurserytype${index + 1}`]: item.id,
-                  [`amount${index + 1}`]: item.amount,
+                  [`amount${index + 1}`]: item.avg_per_hh,
                   [`capacity${index + 1}`]: item.capacity,
                   [`nurseryname${index + 1}`]: item.value
                })
               ) : [];
-              const causeofdeforestation = data.resources ? data.resources.find(resource => resource.hasOwnProperty('CAUSE_OF_DEFORRESTION')) : undefined;
-              const causeofdeforestationResource = causeofdeforestation?.CAUSE_OF_DEFORRESTION ? causeofdeforestation.CAUSE_OF_DEFORRESTION.map(
+              const causeofdeforestation = data.resources ? data.resources.find(resource => resource.hasOwnProperty('CAUSE_OF_DEFORESTATION')) : undefined;
+              const causeofdeforestationResource = causeofdeforestation?.CAUSE_OF_DEFORESTATION ? causeofdeforestation.CAUSE_OF_DEFORESTATION.map(
                (item, index) => ({
                   [`causeofdeforestiontype${index + 1}`]: item.id,
                   [`causeofdeforestionname${index + 1}`]: item.value
@@ -119,6 +119,7 @@ export const useInitialValueKebele  = (id) => {
                   [`energy_sourcename${index + 1}`]: item.value
                })
               ) : [];
+       
              const kebeleData = {
                populationmale,
                populationfemale,

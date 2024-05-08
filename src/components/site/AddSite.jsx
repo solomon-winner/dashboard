@@ -200,7 +200,7 @@ export const AddSite = () => {
         if (isNaN(values[typeKey])) {
           const response = await addResource({
             name: values[typeKey],
-            resource_type: "FORAGE",
+            resource_type: "LIVELIHOOD",
           });
           if (response.data) {
             toast.success("Resource added successfully");

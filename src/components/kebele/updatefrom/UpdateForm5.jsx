@@ -301,6 +301,7 @@ export const UpdateForm5 = ({ handleChange, formData, setFormData }) => {
                 placeholder="Area"
                 value={formData[`croparea${index + 1}`] || ""}
                 handleChange={handleChanges}
+                step={0.01}
               />
               <Delete
                 onClick={() => removeField(field.id)}
@@ -362,6 +363,7 @@ export const UpdateForm5 = ({ handleChange, formData, setFormData }) => {
                 placeholder="Area"
                 value={formData[`fruitarea${index + 1}`] || ""}
                 handleChange={handleChanges}
+                step={0.01}
               />
               <Delete
                 onClick={() => removeField2(field.id)}
@@ -371,6 +373,9 @@ export const UpdateForm5 = ({ handleChange, formData, setFormData }) => {
           ))}
           <AddCircleOutline onClick={addField2} className="lg:mt-8" />
         </div>
+        <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
+          Tree
+        </h6>
         <h6 className="text-blueGray-400 text-sm mt-3 mb-4 uppercase">
           Indegeneous
         </h6>

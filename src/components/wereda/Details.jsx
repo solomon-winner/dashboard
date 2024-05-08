@@ -22,7 +22,7 @@ export const WeredaDetails = () => {
   useInitalValueworeda(id);
 
   const { data: weredadata, isSuccess, isFetching } = useGetWeredaByIdQuery(id);
-  const { data: KebeleData } = useGetKebeleByWeredaQuery({ id: id });
+  const { data: KebeleData } = useGetKebeleByWeredaQuery({ id: id, with_sites: false  });
   const { data: wereda } = useGetWoredaQuery({ all: true });
   const [deleteWereda] = useDeleteWeredaByIdMutation();
 

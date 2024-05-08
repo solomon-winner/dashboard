@@ -85,11 +85,11 @@ export const AddKebele = () => {
       const maleKey = `livelihoodmale${j}`;
       const femalKey = `livelihoodfemale${j}`;
 
-      if (values[typeKey] && values[maleKey] && values[femalKey]) {
+      if (values[typeKey]) {
         if (isNaN(values[typeKey])) {
           const response = await addResource({
             name: values[typeKey],
-            resource_type: "ENERGY_SOURCE",
+            resource_type: "LIVELIHOOD",
           });
           if (response.data) {
             toast.success("Resource added successfully");
@@ -368,6 +368,7 @@ export const AddKebele = () => {
       ...cropArray,
       ...fruitArray,
       ...nurseryArray,
+      ...causeofdeforestationArray,
     ];
     const data = {
       male_hh: values.householdmale2,
@@ -388,7 +389,7 @@ export const AddKebele = () => {
       toast.success("Kebele added successfully");
       window.location.href = `/admin/kebele`;
     }
-    log({ ...value, id: values.kebele_id });
+ log({ ...value, id: values.kebele_id });
   };
 
   return (
