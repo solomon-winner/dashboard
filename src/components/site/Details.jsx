@@ -34,19 +34,19 @@ export const SiteDetails = () => {
   }
   log(data.data);
   const siteData = data.data;
-  if (!siteData || !siteData.resources) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <p>No Data Available</p>
-        <Link
-          to={`/admin/update-siteData/${id}`}
-          className="mt-4 p-2 rounded-md text-sm bg-mainColor text-white hover:bg-customDark font-semibold"
-        >
-          Add Data
-        </Link>
-      </div>
-    );
-  }
+  // if (!siteData || !siteData.resources) {
+  //   return (
+  //     <div className="flex flex-col items-center justify-center h-screen">
+  //       <p>No Data Available</p>
+  //       <Link
+  //         to={`/admin/update-siteData/${id}`}
+  //         className="mt-4 p-2 rounded-md text-sm bg-mainColor text-white hover:bg-customDark font-semibold"
+  //       >
+  //         Add Data
+  //       </Link>
+  //     </div>
+  //   );
+  // }
   const siteOptions =
     site.data &&
     site.data?.map((site) => ({
@@ -110,7 +110,7 @@ export const SiteDetails = () => {
                 Current land use
               </h4>
 
-              {data?.data?.resources?.map((resource, index) =>
+              {data?.data?.resources && data?.data?.resources?.map((resource, index) =>
                 resource?.LAND?.map((item, idx) => (
                   <div
                     key={index}

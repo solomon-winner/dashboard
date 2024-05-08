@@ -81,6 +81,24 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
   };
   const removeField = (id) => {
     setAdditionalFields(additionalFields.filter((field) => field.id !== id));
+    const updatedFormData = { ...formData };
+    delete updatedFormData[`currentlandusetype${id + 1}`];
+    delete updatedFormData[`currentlandusename${id + 1}`];
+    let newFormData = {};
+    let typeIndex = 1;
+    let nameIndex = 1;
+    for (let key in updatedFormData) {
+      if (key.startsWith("currentlandusetype") && key !== `currentlandusetype${id + 1}`) {
+        newFormData[`currentlandusetype${typeIndex}`] = updatedFormData[key];
+        typeIndex++;
+      } else if (key.startsWith("currentlandusename") && key !== `currentlandusename${id + 1}`) {
+        newFormData[`currentlandusename${nameIndex}`] = updatedFormData[key];
+        nameIndex++;
+      } else {
+        newFormData[key] = updatedFormData[key];
+      }
+    }
+    setFormData(newFormData);
   };
   const addField2 = () => {
     const highestId = additionalFields2.reduce(
@@ -94,6 +112,24 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
   };
   const removeField2 = (id) => {
     setAdditionalFields2(additionalFields2.filter((field) => field.id !== id));
+    const updatedFormData = { ...formData };
+    delete updatedFormData[`foragetype${id + 1}`];
+    delete updatedFormData[`foragename${id + 1}`];
+    let newFormData = {};
+    let typeIndex = 1;
+    let nameIndex = 1;
+    for (let key in updatedFormData) {
+      if (key.startsWith("foragetype") && key !== `foragetype${id + 1}`) {
+        newFormData[`foragetype${typeIndex}`] = updatedFormData[key];
+        typeIndex++;
+      } else if (key.startsWith("foragename") && key !== `foragename${id + 1}`) {
+        newFormData[`foragename${nameIndex}`] = updatedFormData[key];
+        nameIndex++;
+      } else {
+        newFormData[key] = updatedFormData[key];
+      }
+    }
+    setFormData(newFormData);
   };
   const addField3 = () => {
     const highestId = additionalFields3.reduce(
@@ -107,6 +143,24 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
   };
   const removeField3 = (id) => {
     setAdditionalFields3(additionalFields3.filter((field) => field.id !== id));
+    const updatedFormData = { ...formData };
+    delete updatedFormData[`livelihoodtype${id + 1}`];
+    delete updatedFormData[`livelihoodname${id + 1}`];
+    let newFormData = {};
+    let typeIndex = 1;
+    let nameIndex = 1;
+    for (let key in updatedFormData) {
+      if (key.startsWith("livelihoodtype") && key !== `livelihoodtype${id + 1}`) {
+        newFormData[`livelihoodtype${typeIndex}`] = updatedFormData[key];
+        typeIndex++;
+      } else if (key.startsWith("livelihoodname") && key !== `livelihoodname${id + 1}`) {
+        newFormData[`livelihoodname${nameIndex}`] = updatedFormData[key];
+        nameIndex++;
+      } else {
+        newFormData[key] = updatedFormData[key];
+      }
+    }
+    setFormData(newFormData);
   };
 
   const handleChanges = (e) => {
