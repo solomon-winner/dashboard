@@ -162,8 +162,8 @@ export const Updatewereda = () => {
     log(response);
     if (response.data) {
       toast.success("Data Added Successfully");
-      // window.location.href = `/admin/wereda`;
-      window.history.back();
+      window.location.href = `/admin/wereda/${id}`;
+      // window.history.back();
     }
   };
   return (

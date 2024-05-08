@@ -139,8 +139,8 @@ const UpdateKebeleForm = () => {
     log(kebele);
     if (kebele.data) {
       toast.success("Kebele Updated successfully!");
-      // window.location.href = `/admin/kebele`;
-      window.history.back();
+      window.location.href = `/admin/kebele/${id}`;
+      // window.history.back();
     }
   };
   const weredaOptions = isFetching
