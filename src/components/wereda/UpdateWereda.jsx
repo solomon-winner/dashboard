@@ -173,7 +173,7 @@ export const Updatewereda = () => {
       </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
-          <h1 className="text-3xl font-bold mb-5">Update Wereda Data</h1>
+          <h1 className="text-lg font-bold mb-5">Update Wereda Data</h1>
           {isFetching ? (
             <MainLoading />
           ) : Object.keys(formData).length > 0 ? ( // Check if formData is not empty

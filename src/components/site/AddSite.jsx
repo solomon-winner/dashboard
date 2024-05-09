@@ -240,7 +240,7 @@ export const AddSite = () => {
       </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
-          <h1 className="text-3xl font-bold mb-5">Add Site Data</h1>
+          <h1 className="text-lg font-bold mb-5">Add Site Data</h1>
           <Formik
             initialValues={formData}
             validationSchema={validationSchema}
