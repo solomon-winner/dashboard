@@ -30,11 +30,10 @@ export const Dashboard = () => {
   return (
     <div className="flex flex-col h-screen gap-6 bg-dashbordColor">
       <Cards />
-      <Filter/>
+      {/* <Filter/> */}
       <div className='flex w-full gap-6 h-12 lg:px-8'>
         
         <div className='w-8/12 h-18'>
-          <h1 className='text-xl font-semibold'>Degraded sites Map</h1>
           <div className='p-3'>
             <Map />
           </div>

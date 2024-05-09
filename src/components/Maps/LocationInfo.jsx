@@ -23,7 +23,7 @@ export const Default = () => {
   )
 }
 export const LocationInfo = () => {
-   const Site_id = useSelector((state) => state.siteById.Id);
+   const Site_id = useSelector((state) => state.geoJson.GeoJson.SelectedSite);
    console.log("the location information of the site...", Site_id);
    const { data, isSuccess, isFetching } = useGetSiteByIdQuery(Site_id);
    isSuccess && console.log("the location data of the site...", data.data);
@@ -103,12 +103,12 @@ export const LocationInfo = () => {
 export const RegionLocationInfo = () => {
   const Region  = useSelector((state) => state.geoJson.GeoJson.SelectedRegion);
 
-  console.log("the location information of the region...", Region.Selected);
+  console.log("the location information of the region...", Region);
 
   const { data, isSuccess, isFetching } = useGetRegionByIdQuery(Region);
  const Kebeles = isSuccess && data.data.kebeles.length;
  const Woredas = isSuccess && data.data.woredas.length;
-  console.log("the location information of the region...", Region.ID);
+  console.log("the location information of the region...", Region);
  
    return(
        <div className="d-flex min-w-80">

@@ -14,7 +14,7 @@ export const GeoJsonSlice = createSlice({
             SelectedKebele: null,
             KebelesSite: [],
             SelectedSite: null,
-            Zoom_out: false,
+            LocationInfo: true,
         },
     },
 
@@ -31,31 +31,38 @@ export const GeoJsonSlice = createSlice({
             state.GeoJson.SelectedSite = null;
             state.GeoJson.SelectedWoreda = null;
             state.GeoJson.SelectedKebele = null;
+            state.GeoJson.LocationInfo = false;
+
         },
         SetSelectedWoreda: (state, action) => {
             state.GeoJson.SelectedWoreda = action.payload;
             state.GeoJson.SelectedSite = null;
             state.GeoJson.SelectedRegion = null;
             state.GeoJson.SelectedKebele = null;
+            state.GeoJson.LocationInfo = false;
+
         },
         SetSelectedKebele: (state, action) => {
             state.GeoJson.SelectedKebele = action.payload;
             state.GeoJson.SelectedRegion = null;
             state.GeoJson.SelectedWoreda = null;
             state.GeoJson.SelectedSite = null;
+            state.GeoJson.LocationInfo = false;
+
         },
         SetSelectedSite: (state, action) => {
             state.GeoJson.SelectedSite = action.payload;
             state.GeoJson.SelectedRegion = null;
             state.GeoJson.SelectedWoreda = null;
             state.GeoJson.SelectedKebele = null;
+            state.GeoJson.LocationInfo = false;
+
 
         },
         SetLocationInfo: (state, action) => {
             state.GeoJson.LocationInfo = action.payload
   
         }
-
 
     }
 })
