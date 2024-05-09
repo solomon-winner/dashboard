@@ -6,7 +6,7 @@ import { useGetInstitution } from '../redux/InitialState/GetInstitution'
 import { useGetResource } from '../redux/InitialState/GetResource'
 import { GetRoles } from '../redux/InitialState/GetRoles';
 import {ProfileInfo} from "../redux/InitialState/ProfileInfo"
-import { LocationInfo, RegionLocationInfo} from '../components/Maps/LocationInfo'
+import { Default, LocationInfo, RegionLocationInfo} from '../components/Maps/LocationInfo'
 import { useDispatch, useSelector } from "react-redux";
 import { Filter } from '../components/Maps/Filter'
 import { SetZoom_out } from "../redux/GeoJson/GeoJsonSlice";
@@ -16,7 +16,10 @@ export const Dashboard = () => {
 
  
   const Region_id  = useSelector((state) => state.geoJson.GeoJson.SelectedRegion);
-  const Site_id = useSelector((state) => state.siteById.Id);
+  const defualtLocation  = useSelector((state) => state.geoJson.GeoJson.LocationInfo);
+  const Site_id  = useSelector((state) => state.geoJson.GeoJson.SelectedSite);
+
+  // const Site_id = useSelector((state) => state.siteById.Id);
   useGetRegion();
   GetRoles();
   useGetInstitution();
@@ -36,6 +39,7 @@ export const Dashboard = () => {
             <Map />
           </div>
           </div>
+          {defualtLocation && <Default/>}
           { Site_id && <LocationInfo />}
        { Region_id && <RegionLocationInfo/>}
 

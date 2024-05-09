@@ -4,15 +4,31 @@ import { useSelector } from "react-redux";
 import { useGetRegionByIdQuery } from '../../redux/region/RegionApiSlice'
 import { log } from "../Resource/Utility/Logger";
 
+export const Default = () => {
+  return(
+    <div className="d-flex min-w-80">
+    <div className="w-50" style={{ border: '1px solid gray' }}>
+      <div className="container project-container">
+        <div className="card">
+        <div className="bg-gray-200 border-gray-400">
+            <p className="text-lg font-bold ml-5">Detailed location Information</p>
+          </div>
+          <div className="card-body">
+            <p>Select a region to view detailed location information.</p>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+  )
+}
 export const LocationInfo = () => {
-
-   const Site_id = useSelector((state) => state.geoJson.GeoJson.SelectedSite);
-   log("the location information of the site...", Site_id);
-
+   const Site_id = useSelector((state) => state.siteById.Id);
+   console.log("the location information of the site...", Site_id);
    const { data, isSuccess, isFetching } = useGetSiteByIdQuery(Site_id);
-   isSuccess && log("the location data of the site...", data.data);
+   isSuccess && console.log("the location data of the site...", data.data);
 
-    return(
+   return(
         <div className="d-flex min-w-80">
         <div className="w-50" style={{ border: '1px solid gray' }}>
           <div className="container project-container">
@@ -87,12 +103,12 @@ export const LocationInfo = () => {
 export const RegionLocationInfo = () => {
   const Region  = useSelector((state) => state.geoJson.GeoJson.SelectedRegion);
 
-  log("the location information of the region...", Region.Selected);
+  console.log("the location information of the region...", Region.Selected);
 
-  const { data, isSuccess, isFetching } = useGetRegionByIdQuery(Region.ID);
+  const { data, isSuccess, isFetching } = useGetRegionByIdQuery(Region);
  const Kebeles = isSuccess && data.data.kebeles.length;
  const Woredas = isSuccess && data.data.woredas.length;
-  log("the location information of the region...", Region.ID);
+  console.log("the location information of the region...", Region.ID);
  
    return(
        <div className="d-flex min-w-80">

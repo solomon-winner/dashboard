@@ -51,11 +51,11 @@ export const GeoJsonSlice = createSlice({
             state.GeoJson.SelectedKebele = null;
 
         },
-        SetZoom_out: (state, action) => {
-            state.Zoom_out = action.payload
-            log("the reducer is working...", state.Zoom_out," and action ", action.payload)
+        SetLocationInfo: (state, action) => {
+            state.GeoJson.LocationInfo = action.payload
   
         }
+
 
     }
 })
@@ -66,6 +66,6 @@ export const {SetAllSiteData,
      SetSelectedWoreda, 
      SetSelectedKebele, 
      SetSelectedSite, 
-     SetZoom_out} = GeoJsonSlice.actions;
+     SetLocationInfo} = GeoJsonSlice.actions;
 
 export default GeoJsonSlice.reducer;
