@@ -186,7 +186,7 @@ export const UpdateSite = () => {
     }
   };
   return (
-    <div className="bg-dashbordColor">
+    <div className="bg-dashbordColor min-h-screen">
       <div className="pt-6 pl-4">
         <BackButton />
       </div>

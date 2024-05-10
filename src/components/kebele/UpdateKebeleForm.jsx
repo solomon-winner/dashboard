@@ -165,7 +165,7 @@ const UpdateKebeleForm = () => {
     });
   };
   return (
-    <div className="h-screen bg-dashbordColor">
+    <div className="min-h-screen bg-dashbordColor">
       <div className="pt-6 pl-4">
         <BackButton />
       </div>

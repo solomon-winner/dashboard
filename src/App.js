@@ -60,7 +60,7 @@ function App() {
   useGetResource();
   return (
 
-    <div >
+    <div className='bg-dashbordColor' >
        <ToastContainer />
       <Routes>
       {/* Protected Routes */}
