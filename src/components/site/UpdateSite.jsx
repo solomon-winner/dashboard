@@ -186,13 +186,13 @@ export const UpdateSite = () => {
     }
   };
   return (
-    <div className="bg-dashbordColor">
+    <div className="bg-dashbordColor min-h-screen">
       <div className="pt-6 pl-4">
         <BackButton />
       </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
-          <h1 className="text-3xl font-bold mb-5">Update Site Data</h1>
+          <h1 className="text-lg font-bold mb-5">Update Site Data</h1>
           {loading === true ? (
             <MainLoading />
           ) : (

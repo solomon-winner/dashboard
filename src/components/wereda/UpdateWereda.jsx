@@ -162,18 +162,18 @@ export const Updatewereda = () => {
     log(response);
     if (response.data) {
       toast.success("Data Added Successfully");
-      // window.location.href = `/admin/wereda`;
-      window.history.back();
+      window.location.href = `/admin/wereda/${id}`;
+      // window.history.back();
     }
   };
   return (
-    <div className="bg-dashbordColor">
+    <div className="bg-dashbordColor h-screen">
       <div className="pt-6 pl-4">
         <BackButton />
       </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
-          <h1 className="text-3xl font-bold mb-5">Update Wereda Data</h1>
+          <h1 className="text-lg font-bold mb-5">Update Wereda Data</h1>
           {isFetching ? (
             <MainLoading />
           ) : Object.keys(formData).length > 0 ? ( // Check if formData is not empty
