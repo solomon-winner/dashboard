@@ -88,7 +88,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
       </div>
 
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
-        Population
+      Household
       </h6>
       <div className="flex flex-wrap">
         <FormField
@@ -112,7 +112,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
       </div>
 
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
-        Household
+      Population
       </h6>
       <div className="flex flex-wrap">
         <FormField
