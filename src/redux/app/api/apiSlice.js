@@ -53,7 +53,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       toast.error(
         <div>
           <p className="font-bold text-lg">{result?.error?.data?.message}</p>
-          <p className="text-sm">{result?.error?.data?.errors?.error}</p>
+          <p className="text-sm">{JSON.stringify(result?.error?.data?.errors)}</p>
         </div>
       )
     } else {

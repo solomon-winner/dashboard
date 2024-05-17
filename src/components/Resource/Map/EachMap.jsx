@@ -61,12 +61,12 @@ export const EachMap = ({ geojsonData, SiteData }) => {
         // Calculate the zoom level that fits the bounds
         const zoomLevel = mapRef.current.getBoundsZoom(bounds);
         // Set the minimum zoom level to the calculated zoom level
-        mapRef.current.setMinZoom(zoomLevel);
+        // mapRef.current.setMinZoom(zoomLevel);
         // Center the map to the bounds
         mapRef.current.setView(bounds.getCenter(), zoomLevel);
 
         // Update the map's maxBounds based on the fetched sites
-        mapRef.current.setMaxBounds(bounds);
+        // mapRef.current.setMaxBounds(bounds);
 
         // Place markers on the sites if SiteIds are provided
         if (SiteData && SiteData.length > 0) {
