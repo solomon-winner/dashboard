@@ -296,7 +296,7 @@ export const AddSiteInfo = () => {
                     step={0.01}
                   />
                   <FormField
-                    label="Kebele GeoJSON"
+                    label="Site GeoJSON"
                     type="file"
                     name="geojson"
                     accept=".geojson"
