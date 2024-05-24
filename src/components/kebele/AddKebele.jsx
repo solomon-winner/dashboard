@@ -320,9 +320,9 @@ export const AddKebele = () => {
         }
         nurseryArray.push({
           resource_id: values[typeKey],
-          amount: 0,
+          amount: values[amountKey],
           capacity: values[capacityKey],
-          avg_per_hh: values[amountKey],
+          avg_per_hh: 0,
           indigenous: false,
         });
         b++;

@@ -296,7 +296,7 @@ export const Details = () => {
                           <p key={index} className="font-semibold text-sm">
                             {item.value}:{" "}
                             <span className="font-normal text-xs">
-                              number: {item.avg_per_hh} capacity:{" "}
+                              number: {item.amount} capacity:{" "}
                               {item.capacity}
                             </span>
                           </p>
