@@ -233,17 +233,17 @@ export const SideBar = () => {
                   </li>
                 </ul>
               </div>
-              <div>
+              {/* <div>
                 <NavLink
                   to="/admin/delete-page"
                   className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group w-fit "
                 >
                   <Delete style={{ fontSize: "x-large" }} />
-                  {/* <span className="ml-3 flex-1 whitespace-nowrap">
+                  <span className="ml-3 flex-1 whitespace-nowrap">
                         Delete Page
-                      </span> */}
+                      </span>
                 </NavLink>
-              </div>
+              </div> */}
             </div>
           </div>
         </aside>

@@ -10,7 +10,7 @@ export const Profile = () => {
   const UserData = useSelector((state) => state.user.UserData);
   console.log(UserData);
   return (
-    <div className="bg-dashbordColor h-screen justify-center p-3 overflow-y-auto overflow-hidden scrollbar-none scrollbar-track-transparent">
+    <div className="bg-dashbordColor  justify-center p-3 overflow-y-auto overflow-hidden scrollbar-none scrollbar-track-transparent">
       <div className="bg-white rounded-lg shadow-md max-w-full w-full scrollbar-none bg-transparent">
         <div className="relative">
           <img
@@ -56,7 +56,7 @@ export const Profile = () => {
           </button>
         </div>
 
-        <p className="text-gray-700 mt-2 pl-2">{UserData.position}</p>
+        <p className="text-gray-700 mt-2 pl-2">{UserData.position || " "}</p>
 
         <hr className="my-4 border-t border-gray-300" />
       </div>

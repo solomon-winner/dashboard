@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Pagination = ({ currentPage, totalPages, handlePageChange }) => {
   return (
-    <div className="flex justify-center items-center mt-8">
+    <div className="flex justify-center items-center mt-8 mb-4">
       <button
         onClick={() => handlePageChange(1)}
         className={`mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm  flex items-center ${currentPage === 1 ? 'bg-gray-400 text-white cursor-not-allowed' : ''}`}
