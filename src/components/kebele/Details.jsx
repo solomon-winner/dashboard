@@ -17,6 +17,7 @@ import { UpdateButton } from "../Resource/Utility/UpdateButton";
 import BackButton from "../Resource/Utility/BackButton";
 import { EachMap } from "../Resource/Map/EachMap";
 import { CommonTable } from "../Resource/Utility/Table";
+import { useSelector } from "react-redux";
 
 export const Details = () => {
   const { id } = useParams();
@@ -25,6 +26,8 @@ export const Details = () => {
   const { data: site } = useGetSiteByKebeleQuery(id);
   const { data: kebele } = useGetKebeleQuery({ all: true });
   const [deleteKebele] = useDeleteKebeleMutation(id);
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
+
   if (!isSuccess || isFetching || !data || !kebele || !site) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -60,9 +63,15 @@ export const Details = () => {
             className="w-full sm:w-1/3 lg:w-1/4"
           />
           <div className="flex gap-4">
+            {all_permissions.includes("delete_kebeles") && (             
             <DeleteButton entityId={id} deleteEntity={deleteKebele} />
+            )}
+            {all_permissions.includes("edit_kebele_data") && (
             <UpdateDataButton id={id} name="Kebele" url={"update-kebeleData"} />
+            )}
+            {all_permissions.includes("edit_kebeles") && (
             <UpdateButton id={id} name="Kebele" url={"update-kebele"} />
+            )}
           </div>
         </div>
         <div className="bg-white py-12 sm:py-12">

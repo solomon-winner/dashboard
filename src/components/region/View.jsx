@@ -4,11 +4,12 @@ import { useGetRegionQuery } from "../../redux/region/RegionApiSlice";
 import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
 import { AddButton } from "../Resource/Utility/AddButton";
 import { log } from "../Resource/Utility/Logger";
+import { useSelector } from "react-redux";
 
 export const View = () => {
   const { data: region, isLoading, isSuccess } = useGetRegionQuery();
-
   const [searchInput, setSearchInput] = useState("");
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
 
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
@@ -64,9 +65,11 @@ export const View = () => {
               </div>
             </form>
           </div>
+          {all_permissions.includes("create_regions") && (
           <div>
             <AddButton name="Region" url={"add-region"} />
           </div>
+          )}
         </div>
         <div className="h-full flex gap-3 flex-col">
           <div>

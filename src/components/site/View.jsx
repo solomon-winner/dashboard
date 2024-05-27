@@ -7,10 +7,12 @@ import { AddButton } from "../Resource/Utility/AddButton";
 import { AddDataButton } from "../Resource/Utility/AddDataButton";
 import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
 import { log } from "../Resource/Utility/Logger";
+import { useSelector } from "react-redux";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
   const {
     data: site,
     isLoading,
@@ -84,8 +86,12 @@ export const View = () => {
             </form>
           </div>
           <div>
+            {all_permissions.includes("create_sites") && (
             <AddButton name="Site" url={"add-sites"} />
+            )}
+            {all_permissions.includes("create_site_data") && (
             <AddDataButton name="Site" url={"new-site"} />
+            )}
           </div>
         </div>
         <div className="h-full flex gap-3 flex-col">

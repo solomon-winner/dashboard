@@ -25,6 +25,8 @@ const UserAccount = () => {
   const [showConfirmation, setShowConfirmation] = useState(false); // New state for confirmation dialog
   const [deleteAccountId, setDeleteAccountId] = useState(null); // New state for delete account id
   const [deleteAccount, { isLoading: isDeleting }] = useDeleteAccountMutation();
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
+
   log(accounts);
 
   // Inside the useEffect hook where you calculate sortedAccounts
@@ -107,12 +109,14 @@ const UserAccount = () => {
         <div>
           <h2 className="text-base font-medium mb-2">Accounts List</h2>
         </div>
+        {all_permissions.includes("create_users") && (
         <Link
           to="/admin/new-user"
           className="mt-4 sm:mt-0 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-xs"
         >
           Add Account
         </Link>
+          )}
       </div>
 
       <div className="bg-white rounded-md shadow-md overflow-x-auto">
@@ -201,12 +205,15 @@ const UserAccount = () => {
                       </td>
                       <td className="py-4 px-6 text-right">
                         <div className="flex justify-end">
+                          {all_permissions.includes("edit_users") && (
                           <Link
                             to={`/admin/update-account/${account.id}`}
                             className="text-blue-600 hover:text-blue-700 mr-2 transition duration-300"
                           >
                             <Edit className="w-5 h-5 inline-block" />
                           </Link>
+                          )}
+                          {all_permissions.includes("delete_users") && (
                           <button
                             onClick={() => handleDeleteConfirmation(account.id)} // Updated to call handleDeleteConfirmation
                             className="text-red-600 hover:text-red-700 transition duration-300"
@@ -215,6 +222,7 @@ const UserAccount = () => {
                           >
                             <Delete className="w-5 h-5 inline-block" />
                           </button>
+                          )}
                         </div>
                       </td>
                     </tr>

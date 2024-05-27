@@ -16,6 +16,7 @@ import { UpdateButton } from "../Resource/Utility/UpdateButton";
 import { EachMap } from "../Resource/Map/EachMap";
 import { deleteSiteData } from "../../redux/site/SiteByIdState";
 import { log } from "../Resource/Utility/Logger";
+import { useSelector } from "react-redux";
 
 export const SiteDetails = () => {
   const { id } = useParams();
@@ -24,6 +25,7 @@ export const SiteDetails = () => {
   const { data: site } = useGetSiteQuery({ all: true });
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [deleteSite, { isLoading }] = useDeleteSiteMutation();
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
 
   if (!isSuccess || isFetching || !data || !site) {
     return (
@@ -67,9 +69,15 @@ export const SiteDetails = () => {
           className="w-full sm:w-1/3 lg:w-1/4 z-50"
         />
         <div className="flex gap-4">
+          {all_permissions.includes("delete_sites") && (           
           <DeleteButton entityId={id} deleteEntity={deleteSite}/>
+          )}
+          {all_permissions.includes("edit_site_data") && (
           <UpdateDataButton id={id} name="Site" url={"update-siteData"} />
+          )}
+          {all_permissions.includes("edit_sites") && (
           <UpdateButton id={id} name="Site" url={"update-site"} />
+          )}
         </div>
       </div>
       <div className="bg-white py-12 sm:py-12">
