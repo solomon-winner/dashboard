@@ -54,7 +54,7 @@ export const WeredaDetails = () => {
     const { woreda_name, woreda_data, region_name } = weredadata.data;
     return (
       <div className="bg-dashbordColor">
-        <div className="flex justify-between p-10">
+        <div className="flex justify-between p-4 gap-1">
           <BackButton />
           <Select
             options={weredaOptions}
@@ -62,7 +62,7 @@ export const WeredaDetails = () => {
             placeholder="Select a Wereda"
             className={`w-full sm:w-1/3 lg:w-1/4`}
           />
-          <div className="flex gap-4">
+          <div className="flex gap-2">
             {all_permissions.includes("delete_woredas") && (
             <DeleteButton entityId={id} deleteEntity={deleteWereda} />
             )}
@@ -257,7 +257,7 @@ export const WeredaDetails = () => {
                   </div>
                 </div>
                 <div className="flex flex-col lg:flex-row gap-4 w-full mt-10">
-                  <div className="w-1/2">
+                  <div className="w-full md:w-1/2">
                     <EachMap
                       geojsonData={`/geojson/woredas/${id}.geojson`}
                       SiteData={KebeleData.data.map((item) => item.sites)}

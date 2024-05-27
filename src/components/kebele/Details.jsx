@@ -355,7 +355,7 @@ export const Details = () => {
                     urlName={"site"}
                   />
                 </div>
-                <div className="w-2/3">
+                <div className="w-full">
                   <EachMap
                     geojsonData={`/geojson/kebeles/${id}.geojson`}
                     SiteData={site.data.data}
