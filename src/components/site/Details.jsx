@@ -66,7 +66,7 @@ export const SiteDetails = () => {
           options={siteOptions}
           onChange={handleWeredaSelect}
           placeholder="Select a Site"
-          className="w-full sm:w-1/3 lg:w-1/4 z-50"
+          className="w-full sm:w-1/3 lg:w-1/4"
         />
         <div className="flex gap-4">
           {all_permissions.includes("delete_sites") && (           
@@ -87,8 +87,8 @@ export const SiteDetails = () => {
               Site Name: {data.data?.site_name}
             </h2>
           </div>
-          <div className="flex gap-2 mb-6">
-            <div className="bg-white shadow-md rounded-md p-4 h-fit w-1/3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-6">
+            <div className="bg-white shadow-md rounded-md p-4 h-fit">
               <div className="p-8 text-gray-600">
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Region: {data.data?.region_name}
@@ -108,7 +108,7 @@ export const SiteDetails = () => {
               </div>
             </div>
 
-            <div className="w-2/3">
+            <div className="w-full">
               <EachMap geojsonData={`/geojson/sites/${id}.geojson`} />
             </div>
           </div>

@@ -43,7 +43,7 @@ export const SideBar = () => {
 
   return (
     <div>
-      <nav className="bg-white border-b border-gray-200 fixed z-30 w-full">
+      <nav className="bg-white border-b border-gray-200 fixed z-50 w-full">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start">
@@ -90,7 +90,7 @@ export const SideBar = () => {
                 className=" text-lg font-bold flex items-center lg:ml-2.5"
               >
                 <img src={logo} className="h-12 mr-2" alt="Windster Logo" />
-                <span className="self-center whitespace-nowrap">
+                <span className="self-center whitespace-nowrap text-base md:text-lg">
                   Tree Based Restoration Registry
                 </span>
               </a>
@@ -136,8 +136,8 @@ export const SideBar = () => {
           }`}
           aria-label="Sidebar"
         >
-          <div className="relative flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-sideboard pt-0">
-            <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+          <div className="relative flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-sideboard pt-0 ">
+            <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto ">
               <div className="flex-1 px-3  bg-sideboard divide-y space-y-1">
                 <ul className="space-y-2 pb-2">
                   <li>
