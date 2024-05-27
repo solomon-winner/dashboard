@@ -1,5 +1,5 @@
 // Pagination.jsx
-import { KeyboardDoubleArrowLeft } from "@mui/icons-material";
+import { KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight } from "@mui/icons-material";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -8,7 +8,7 @@ const Pagination = ({ currentPage, totalPages, handlePageChange }) => {
     <div className="flex justify-center items-center mt-8 mb-4">
       <button
         onClick={() => handlePageChange(1)}
-        className={`mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm  flex items-center ${currentPage === 1 ? 'bg-gray-400 text-white cursor-not-allowed' : ''}`}
+        className={`mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm  flex items-center ${currentPage === 1 ? 'bg-gray-400 text-gray-300 cursor-not-allowed' : ''}`}
         disabled={currentPage === 1}
       >
         <KeyboardDoubleArrowLeft  />
@@ -25,7 +25,7 @@ const Pagination = ({ currentPage, totalPages, handlePageChange }) => {
               onClick={() => handlePageChange(pageNumber + 1)}
               className={`mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50  ${
                 currentPage === pageNumber + 1
-                  ? "bg-green-600 text-white border-2 border-green-700"
+                  ? "bg-green-600 text-green-700 border-2 border-green-700"
                   : ""
               }`}
               disabled={pageNumber + 1 > totalPages}
@@ -37,6 +37,13 @@ const Pagination = ({ currentPage, totalPages, handlePageChange }) => {
           return null;
         }
       })}
+      <button
+        onClick={() => handlePageChange(totalPages)}
+        className={`mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm  flex items-center ${currentPage === totalPages ? 'bg-gray-400 text-gray-300 cursor-not-allowed' : ''}`}
+        disabled={currentPage === totalPages}
+      >
+        <KeyboardDoubleArrowRight  />
+      </button>
     </div>
   );
 };

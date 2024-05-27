@@ -26,8 +26,7 @@ export const View = () => {
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
   };
-  const totalPages =
-    isSuccess && wereda.data.length < 20 ? currentPage : currentPage + 1;
+    const totalPages = isSuccess? Math.ceil(wereda.total_count / 20) : 1;
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
