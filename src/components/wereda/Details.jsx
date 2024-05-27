@@ -16,11 +16,12 @@ import { UpdateButton } from "../Resource/Utility/UpdateButton";
 import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
 import { EachMap } from "../Resource/Map/EachMap";
 import { CommonTable } from "../Resource/Utility/Table";
+import { useSelector } from "react-redux";
 
 export const WeredaDetails = () => {
   const { id } = useParams();
   useInitalValueworeda(id);
-
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
   const { data: weredadata, isSuccess, isFetching } = useGetWeredaByIdQuery(id);
   const { data: KebeleData } = useGetKebeleByWeredaQuery({
     id: id,
@@ -62,9 +63,15 @@ export const WeredaDetails = () => {
             className={`w-full sm:w-1/3 lg:w-1/4`}
           />
           <div className="flex gap-4">
+            {all_permissions.includes("delete_woredas") && (
             <DeleteButton entityId={id} deleteEntity={deleteWereda} />
+            )}
+            {all_permissions.includes("edit_woreda_data") && (
             <UpdateDataButton id={id} name="Woreda" url={"update-weredaData"} />
+            )}
+            {all_permissions.includes("edit_woredas") && (
             <UpdateButton id={id} name="Woreda" url={"update-wereda"} />
+            )}
           </div>
         </div>
         <div className="py-12 sm:py-12">

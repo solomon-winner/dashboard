@@ -7,10 +7,12 @@ import { AddButton } from "../Resource/Utility/AddButton";
 import { AddDataButton } from "../Resource/Utility/AddDataButton";
 import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
 import { log } from "../Resource/Utility/Logger";
+import { useSelector } from "react-redux";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
   const { data, error, isLoading, isSuccess } = useGetKebeleQuery({
     page: currentPage,
     per_page: 20,
@@ -120,8 +122,12 @@ export const View = () => {
           </form>
         </div>
         <div>
+          {all_permissions.includes("create_kebeles") && (           
           <AddButton name="Kebele" url={"add-kebele"} />
+          )}
+          {all_permissions.includes("create_kebele_data") && (           
           <AddDataButton name="Kebele" url={"new-kebele"} />
+          )}
         </div>
       </div>
       <div className="h-full flex gap-3 flex-col">

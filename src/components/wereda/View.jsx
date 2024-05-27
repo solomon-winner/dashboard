@@ -6,10 +6,12 @@ import { numberWithCommas } from "../region/View";
 import { AddButton } from "../Resource/Utility/AddButton";
 import { AddDataButton } from "../Resource/Utility/AddDataButton";
 import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
+import { useSelector } from "react-redux";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
   const {
     data: wereda,
     isLoading,
@@ -26,7 +28,7 @@ export const View = () => {
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
   };
-    const totalPages = isSuccess? Math.ceil(wereda.total_count / 20) : 1;
+  const totalPages = isSuccess ? Math.ceil(wereda.total_count / 20) : 1;
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -79,8 +81,12 @@ export const View = () => {
             </form>
           </div>
           <div>
-            <AddButton name="Woreda" url={"add-weredas"} />
-            <AddDataButton name="Woreda" url={"new-wereda"} />
+            {all_permissions.includes("create_woredas") && (
+              <AddButton name="Woreda" url={"add-weredas"} />
+            )}
+            {all_permissions.includes("create_woreda_data") && (
+              <AddDataButton name="Woreda" url={"new-wereda"} />
+            )}
           </div>
         </div>
         <div className="h-full flex gap-3 flex-col">
