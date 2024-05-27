@@ -24,8 +24,7 @@ export const View = () => {
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
-  const totalPages =
-    isSuccess && site.data.length < 20 ? currentPage : currentPage + 1;
+  const totalPages = isSuccess? Math.ceil(site.total_count / 20) : 1;
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
   };

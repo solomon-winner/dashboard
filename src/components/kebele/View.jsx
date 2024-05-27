@@ -23,8 +23,8 @@ export const View = () => {
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
-  const totalPages =
-    isSuccess && data && data.data.length < 20 ? currentPage : currentPage + 1;
+
+    const totalPages = isSuccess? Math.ceil(data.total_count / 20) : 1;
   let content;
   let filteredData;
   log(data, "kebele view");
