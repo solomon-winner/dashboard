@@ -158,7 +158,7 @@ const EditRole = () => {
                             className="block uppercase text-gray-500 text-xs font-bold mb-2 ml-2"
                             htmlFor={`permission-${permission.id}`}
                           >
-                            {permission.name}
+                            {permission.name.replace(/_/g, ' ')}
                           </label>
                         </div>
                       ))}
