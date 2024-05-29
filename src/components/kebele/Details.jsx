@@ -54,26 +54,35 @@ export const Details = () => {
     console.log(data.data.resources);
     return (
       <div>
-        <div className="flex justify-between p-10">
-          <BackButton />
-          <Select
-            options={kebeleOptions}
-            onChange={handleWeredaSelect}
-            placeholder="Select a Kebele"
-            className="w-full sm:w-1/3 lg:w-1/4"
-          />
-          <div className="flex gap-4">
-            {all_permissions.includes("delete_kebeles") && (             
-            <DeleteButton entityId={id} deleteEntity={deleteKebele} />
-            )}
-            {all_permissions.includes("edit_kebele_data") && (
-            <UpdateDataButton id={id} name="Kebele" url={"update-kebeleData"} />
-            )}
-            {all_permissions.includes("edit_kebeles") && (
-            <UpdateButton id={id} name="Kebele" url={"update-kebele"} />
-            )}
+        <div className="p-4 w-full">
+          <div className="flex flex-col lg:flex-row justify-between p-4 gap-1">
+            <div className="flex flex-row lg:items-center gap-2 md:gap-10 mb-4 md:w-1/2">
+              <BackButton />
+              <Select
+                options={kebeleOptions}
+                onChange={handleWeredaSelect}
+                placeholder="Select a Kebele"
+                className="w-full"
+              />
+            </div>
+            <div className="flex gap-4">
+              {all_permissions.includes("delete_kebeles") && (
+                <DeleteButton entityId={id} deleteEntity={deleteKebele} />
+              )}
+              {all_permissions.includes("edit_kebele_data") && (
+                <UpdateDataButton
+                  id={id}
+                  name="Kebele"
+                  url={"update-kebeleData"}
+                />
+              )}
+              {all_permissions.includes("edit_kebeles") && (
+                <UpdateButton id={id} name="Kebele" url={"update-kebele"} />
+              )}
+            </div>
           </div>
         </div>
+
         <div className="bg-white py-12 sm:py-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-2xl sm:text-center">
@@ -305,8 +314,7 @@ export const Details = () => {
                           <p key={index} className="font-semibold text-sm">
                             {item.value}:{" "}
                             <span className="font-normal text-xs">
-                              number: {item.amount} capacity:{" "}
-                              {item.capacity}
+                              number: {item.amount} capacity: {item.capacity}
                             </span>
                           </p>
                         ))

@@ -60,24 +60,28 @@ export const SiteDetails = () => {
   };
   return (
     <div>
-      <div className="flex justify-between p-10">
-        <BackButton />
-        <Select
-          options={siteOptions}
-          onChange={handleWeredaSelect}
-          placeholder="Select a Site"
-          className="w-full sm:w-1/3 lg:w-1/4"
-        />
-        <div className="flex gap-4">
-          {all_permissions.includes("delete_sites") && (           
-          <DeleteButton entityId={id} deleteEntity={deleteSite}/>
-          )}
-          {all_permissions.includes("edit_site_data") && (
-          <UpdateDataButton id={id} name="Site" url={"update-siteData"} />
-          )}
-          {all_permissions.includes("edit_sites") && (
-          <UpdateButton id={id} name="Site" url={"update-site"} />
-          )}
+      <div className="p-4 w-full">
+        <div className="flex flex-col lg:flex-row justify-between p-4 gap-1">
+          <div className="flex flex-row lg:items-center gap-2 md:gap-10 mb-4 md:w-1/2">
+            <BackButton />
+            <Select
+              options={siteOptions}
+              onChange={handleWeredaSelect}
+              placeholder="Select a Site"
+              className="w-full"
+            />
+          </div>
+          <div className="flex gap-4">
+            {all_permissions.includes("delete_sites") && (
+              <DeleteButton entityId={id} deleteEntity={deleteSite} />
+            )}
+            {all_permissions.includes("edit_site_data") && (
+              <UpdateDataButton id={id} name="Site" url={"update-siteData"} />
+            )}
+            {all_permissions.includes("edit_sites") && (
+              <UpdateButton id={id} name="Site" url={"update-site"} />
+            )}
+          </div>
         </div>
       </div>
       <div className="bg-white py-12 sm:py-12">
@@ -118,19 +122,20 @@ export const SiteDetails = () => {
                 Current land use
               </h4>
 
-              {data?.data?.resources && data?.data?.resources?.map((resource, index) =>
-                resource?.LAND?.map((item, idx) => (
-                  <div
-                    key={index}
-                    class="border-b border-gray-300 rounded-md p-3 mb-4"
-                  >
-                    <p key={index} className="font-normal text-xs">
-                      <Check style={{ fontSize: "large" }} />
-                      {item.value}
-                    </p>
-                  </div>
-                ))
-              )}
+              {data?.data?.resources &&
+                data?.data?.resources?.map((resource, index) =>
+                  resource?.LAND?.map((item, idx) => (
+                    <div
+                      key={index}
+                      class="border-b border-gray-300 rounded-md p-3 mb-4"
+                    >
+                      <p key={index} className="font-normal text-xs">
+                        <Check style={{ fontSize: "large" }} />
+                        {item.value}
+                      </p>
+                    </div>
+                  ))
+                )}
             </div>
 
             <div className="bg-white shadow-md rounded-md p-4 h-fit">
