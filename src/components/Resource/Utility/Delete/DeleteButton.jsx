@@ -39,7 +39,7 @@ const DeleteButton = ({ entityId, deleteEntity, deleteState }) => {
     <>
       <button
         onClick={handleDelete}
-        className="bg-red-500 hover:bg-red-600 text-xs text-white font-medium md:py-1 h-fit md:h-full p-3 md:px-2 rounded-lg inline-flex items-center" 
+        className="bg-red-500 hover:bg-red-600 text-xs text-white font-medium h-fit md:h-fit p-3 md:p-2 rounded-lg inline-flex items-center" 
       >
         <Delete fontSize="small" className="mr-1" /> 
         <span>Delete</span>

@@ -42,6 +42,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
         result = await baseQuery(args, api, { ...otherOptions, signal }); // Retry with new access token
       } else {
         api.dispatch(logOut());
+        toast.error("Your session has expired. Please log in again.");
       }
     }
   } else {

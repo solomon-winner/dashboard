@@ -34,7 +34,7 @@ const BackButton = () => {
   return (
     <button
       onClick={goBack}
-      className="text-xs h-fit p-3 md:h-full md:py-1 md:px-4 rounded-md bg-mainColor text-white hover:bg-customDark font-medium"
+      className="text-xs h-fit p-3 w-fit md:h-full md:py-1 md:px-4 rounded-md bg-mainColor text-white hover:bg-customDark font-medium"
     >
       Back
     </button>
