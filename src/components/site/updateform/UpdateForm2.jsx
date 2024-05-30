@@ -164,7 +164,7 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
   };
 
   const handleChanges = (e) => {
-    // console.log(e.target.value, e.target.name);
+    // log(e.target.value, e.target.name);
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,

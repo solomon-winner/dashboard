@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { toast } from "react-toastify";
-import { setCredentials, logOut } from "../../auth/authSlice";
+import { setCredentials, logOut, updateToken, setIsRefreshingToken } from "../../auth/authSlice";
 import { log } from "../../../components/Resource/Utility/Logger";
 
 export const baseQuery = fetchBaseQuery({
@@ -26,7 +26,8 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     log("unauthorized");
     const refreshToken = api.getState().auth.refresh_token;
     log(refreshToken);
-    if (refreshToken) {
+    if (refreshToken &&!api.getState().auth.isRefreshingToken) {
+      api.dispatch(setIsRefreshingToken(true));
       const refreshResult = await baseQuery(
         {
           url: "/refresh-token",
@@ -38,11 +39,12 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       );
       if (refreshResult?.data) {
         const { user } = api.getState().auth;
-        api.dispatch(setCredentials({ ...refreshResult.data, user }));
+        api.dispatch(updateToken({ ...refreshResult.data, user }));
         result = await baseQuery(args, api, { ...otherOptions, signal }); // Retry with new access token
+        api.dispatch(setIsRefreshingToken(false));
       } else {
         api.dispatch(logOut());
-        toast.error("Your session has expired. Please log in again.");
+        api.dispatch(setIsRefreshingToken(false));
       }
     }
   } else {

@@ -67,17 +67,17 @@ export const WeredaDetails = () => {
             </div>
 
             <div className="flex gap-2">
-              {all_permissions.includes("delete_woredas") && (
+              {all_permissions?.includes("delete_woredas") && (
                 <DeleteButton entityId={id} deleteEntity={deleteWereda} />
               )}
-              {all_permissions.includes("edit_woreda_data") && (
+              {all_permissions?.includes("edit_woreda_data") && (
                 <UpdateDataButton
                   id={id}
                   name="Woreda"
                   url={"update-weredaData"}
                 />
               )}
-              {all_permissions.includes("edit_woredas") && (
+              {all_permissions?.includes("edit_woredas") && (
                 <UpdateButton id={id} name="Woreda" url={"update-wereda"} />
               )}
             </div>

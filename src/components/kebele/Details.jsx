@@ -18,6 +18,7 @@ import BackButton from "../Resource/Utility/BackButton";
 import { EachMap } from "../Resource/Map/EachMap";
 import { CommonTable } from "../Resource/Utility/Table";
 import { useSelector } from "react-redux";
+import { log } from "../Resource/Utility/Logger";
 
 export const Details = () => {
   const { id } = useParams();
@@ -51,7 +52,7 @@ export const Details = () => {
     const handleWeredaSelect = (selectedOption) => {
       window.location.href = `/admin/kebele/${selectedOption.value}`;
     };
-    console.log(data.data.resources);
+    log(data.data.resources);
     return (
       <div>
         <div className="p-4 w-full">
@@ -66,17 +67,17 @@ export const Details = () => {
               />
             </div>
             <div className="flex gap-4">
-              {all_permissions.includes("delete_kebeles") && (
+              {all_permissions?.includes("delete_kebeles") && (
                 <DeleteButton entityId={id} deleteEntity={deleteKebele} />
               )}
-              {all_permissions.includes("edit_kebele_data") && (
+              {all_permissions?.includes("edit_kebele_data") && (
                 <UpdateDataButton
                   id={id}
                   name="Kebele"
                   url={"update-kebeleData"}
                 />
               )}
-              {all_permissions.includes("edit_kebeles") && (
+              {all_permissions?.includes("edit_kebeles") && (
                 <UpdateButton id={id} name="Kebele" url={"update-kebele"} />
               )}
             </div>

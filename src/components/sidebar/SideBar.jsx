@@ -152,7 +152,7 @@ export const SideBar = () => {
                   <li className="pl-3 text-sm  text-white font-semibold">
                     Inputs
                   </li>
-                  {all_permissions.includes("view_regions") && (            
+                  {all_permissions?.includes("view_regions") && (            
                   <li>
                     <NavLink
                       to="/admin/region"
@@ -165,7 +165,7 @@ export const SideBar = () => {
                     </NavLink>
                   </li>
                   )}
-                  {all_permissions.includes("view_woredas") && (  
+                  {all_permissions?.includes("view_woredas") && (  
                   <li>
                     <NavLink
                       to="/admin/wereda"
@@ -178,7 +178,7 @@ export const SideBar = () => {
                     </NavLink>
                   </li>
                   )}
-                  {all_permissions.includes("view_kebeles") && ( 
+                  {all_permissions?.includes("view_kebeles") && ( 
                   <li>
                     <NavLink
                       to="/admin/kebele"
@@ -191,7 +191,7 @@ export const SideBar = () => {
                     </NavLink>
                   </li>
                   )}
-                  {all_permissions.includes("view_sites") && (                   
+                  {all_permissions?.includes("view_sites") && (                   
                   <li>
                     <NavLink
                       to="/admin/site"
@@ -207,7 +207,7 @@ export const SideBar = () => {
                   <li className="pl-3 text-sm text-white font-semibold">
                     User management
                   </li>
-                  {all_permissions.includes('view_users') && (              
+                  {all_permissions?.includes('view_users') && (              
                   <li>
                     <NavLink
                       to="/admin/Accounts"
@@ -231,7 +231,7 @@ export const SideBar = () => {
                       </span>
                     </NavLink>
                   </li>
-                  {all_permissions.includes('view_roles') && (
+                  {all_permissions?.includes('view_roles') && (
                   <li>
                     <NavLink
                       to="/admin/roles"

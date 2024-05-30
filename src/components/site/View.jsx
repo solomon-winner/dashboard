@@ -86,10 +86,10 @@ export const View = () => {
             </form>
           </div>
           <div>
-            {all_permissions.includes("create_sites") && (
+            {all_permissions?.includes("create_sites") && (
             <AddButton name="Site" url={"add-sites"} />
             )}
-            {all_permissions.includes("create_site_data") && (
+            {all_permissions?.includes("create_site_data") && (
             <AddDataButton name="Site" url={"new-site"} />
             )}
           </div>
@@ -107,33 +107,12 @@ export const View = () => {
                 >
                   <Link
                     to={`/admin/site/${item.id}`}
-                    className="
-        p-4
-        pt-9
-        h-full
-        md:px-7
-        xl:px-10
-        bg-white
-        shadow-md
-        border
-        border-custumBlue
-        hover:shadow-lg
-        hover:bg-mainColor
-        hover:text-white
-        transition duration-300 ease-in-out
-        flex
-        flex-col
-        justify-center
-        relative
-        group
-        overflow-hidden
-        rounded
-      "
+                    className="group p-4 pt-9 h-full md:px-7 xl:px-10 bg-white shadow-md  border border-custumBlue hover:shadow-lg hover:bg-mainColor hover:text-white transition duration-300 ease-in-out flex flex-col justify-center relative group  overflow-hidden rounded "
                   >
                     <h4 className="relative z-10 font-semibold font-raleway text-base text-dark mb-3">
                       {item.site_name}
                     </h4>
-                    <div className="relative z-10 w-1/3 h-1 bg-black mb-4" />
+                    <div className="relative z-10 w-1/3 h-1 bg-black group-hover:bg-white mb-4" />
                     <p className="relative z-10 text-body-color text-xs ">
                       Degraded Land:{" "}
                       {item.size_ha

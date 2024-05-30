@@ -5,10 +5,11 @@ import { Activity } from "../components/profile/Activity";
 import { useSelector } from "react-redux";
 import { dateFormat } from "../redux/DateFormat/dateFormat";
 import Avatars from "../components/Resource/Utility/Avatars";
+import { log } from "../components/Resource/Utility/Logger";
 
 export const Profile = () => {
   const UserData = useSelector((state) => state.user.UserData);
-  console.log(UserData);
+  log(UserData);
   return (
     <div className="bg-dashbordColor  justify-center p-3 overflow-y-auto overflow-hidden scrollbar-none scrollbar-track-transparent">
       <div className="bg-white rounded-lg shadow-md max-w-full w-full scrollbar-none bg-transparent">
