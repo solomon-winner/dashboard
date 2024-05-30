@@ -85,7 +85,7 @@ const UserAccount = () => {
       dispatch(deleteAccounts(deleteAccountId));
       setShowConfirmation(false);
     } catch (error) {
-      console.error("Failed to delete account:", error);
+      log("Failed to delete account:", error);
     }
   };
 

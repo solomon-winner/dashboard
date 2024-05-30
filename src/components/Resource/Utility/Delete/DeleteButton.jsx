@@ -5,6 +5,7 @@ import { useDeleteSiteMutation } from "../../../../redux/site/SiteApiSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { log } from "../Logger";
 
 const DeleteButton = ({ entityId, deleteEntity, deleteState }) => {
 
@@ -26,7 +27,7 @@ const DeleteButton = ({ entityId, deleteEntity, deleteState }) => {
       // dispatch(deleteState(entityId));
       window.history.back();
     } catch (error) {
-      console.error("Failed to delete:", error);
+      log("Failed to delete:", error);
       setIsDeleting(false);
     }
   };

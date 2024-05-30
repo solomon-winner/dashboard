@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteRoles } from "../../redux/roles/RolesState";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import DeleteConfirmationDialog from "../Resource/Utility/Delete/DeleteConfirmationDialog"; // Import the DeleteConfirmationDialog component
+import { log } from "../Resource/Utility/Logger";
 
 const View = () => {
   const [deleteRole, { isLoading: isDeleting }] = useDeleteRoleMutation();
@@ -29,7 +30,7 @@ const View = () => {
       dispatch(deleteRoles(deleteRoleId));
       setShowConfirmation(false);
     } catch (error) {
-      console.error("Failed to delete role:", error);
+      log("Failed to delete role:", error);
     }
   };
 

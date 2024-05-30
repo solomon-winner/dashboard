@@ -110,7 +110,7 @@ export const EachMap = ({ geojsonData, SiteData }) => {
                       });
                     });
                 } else {
-                  console.error("Invalid GeoJSON data for site", sites.id);
+                  log("Invalid GeoJSON data for site", sites.id);
                 }
               } catch (error) {}
             } else {
@@ -152,10 +152,10 @@ export const EachMap = ({ geojsonData, SiteData }) => {
                         });
                       });
                   } else {
-                    console.error("Invalid GeoJSON data for site", site.id);
+                    log("Invalid GeoJSON data for site", site.id);
                   }
                 } catch (error) {
-                  console.error(
+                  log(
                     "Error fetching GeoJSON data for site:",
                     site.id,
                     error
@@ -166,7 +166,7 @@ export const EachMap = ({ geojsonData, SiteData }) => {
           });
         }
       } catch (error) {
-        console.error("Error fetching GeoJSON data:", error);
+        log("Error fetching GeoJSON data:", error);
       }
     };
 

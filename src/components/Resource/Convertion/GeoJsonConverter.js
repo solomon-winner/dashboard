@@ -15,7 +15,7 @@ const GeoJsonConverter = {
         return await GeoJsonConverter.createFile(convertedGeoJson);
       }
     } catch (error) {
-      console.error('An unhandled error was caught from submitForm()', error);
+      log('An unhandled error was caught from submitForm()', error);
       throw new Error('Error converting GeoJSON:', error);
     }
   },
