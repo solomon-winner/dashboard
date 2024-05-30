@@ -72,13 +72,13 @@ export const SiteDetails = () => {
             />
           </div>
           <div className="flex gap-4">
-            {all_permissions.includes("delete_sites") && (
+            {all_permissions?.includes("delete_sites") && (
               <DeleteButton entityId={id} deleteEntity={deleteSite} />
             )}
-            {all_permissions.includes("edit_site_data") && (
+            {all_permissions?.includes("edit_site_data") && (
               <UpdateDataButton id={id} name="Site" url={"update-siteData"} />
             )}
-            {all_permissions.includes("edit_sites") && (
+            {all_permissions?.includes("edit_sites") && (
               <UpdateButton id={id} name="Site" url={"update-site"} />
             )}
           </div>

@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useResetPasswordMutation } from "../../redux/auth/AuthApiSlice";
+import { log } from "../Resource/Utility/Logger";
 export const PasswordResetPage = ({ step }) => {
   const urlParams = new URLSearchParams(window.location.search);
   const { token } = useParams();
@@ -30,16 +31,16 @@ export const PasswordResetPage = ({ step }) => {
           return errors;
         }}
         onSubmit={async (values, { setSubmitting }) => {
-          console.log(values);
+          log(values);
           const data = {
             email: email,
             password: values.newPassword,
             password_confirmation: values.confirmPassword,
             token: token,
           };
-          console.log(data);
+          log(data);
           const response = await resetPassword(data);
-          console.log(response);
+          log(response);
           if (response.data) {
             setLoading(true);
             await new Promise((resolve) => setTimeout(resolve, 1500));

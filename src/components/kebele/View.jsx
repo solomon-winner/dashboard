@@ -16,6 +16,7 @@ export const View = () => {
   const { data, error, isLoading, isSuccess } = useGetKebeleQuery({
     page: currentPage,
     per_page: 20,
+    has_sites: "true",
     ...(searchInput && { search: searchInput }),
   });
 
@@ -58,12 +59,12 @@ export const View = () => {
             >
               <Link
                 to={`/admin/kebele/${item.id}`}
-                className="p-4 pt-9 h-full md:px-7 xl:px-10 bg-white shadow-md border border-custumBlue hover:shadow-lg hover:bg-mainColor hover:text-white transition duration-300 ease-in-out flex flex-col justify-center relative group overflow-hidden rounded"
+                className="group p-4 pt-9 h-full md:px-7 xl:px-10 bg-white shadow-md border border-custumBlue hover:shadow-lg hover:bg-mainColor hover:text-white transition duration-300 ease-in-out flex flex-col justify-center relative group overflow-hidden rounded"
               >
                 <h4 className="relative z-10 font-base font-raleway text-base text-dark mb-3">
                   {item.kebele_name}
                 </h4>
-                <div className="relative z-10 w-1/3 h-1 bg-black mb-4" />
+                <div className="relative z-10 w-1/3 h-1 bg-black group-hover:bg-white mb-4" />
                 <p className="relative z-10 text-body-color text-xs ">
                   Number of Sites: {item.sites}
                 </p>
@@ -122,10 +123,10 @@ export const View = () => {
           </form>
         </div>
         <div>
-          {all_permissions.includes("create_kebeles") && (           
+          {all_permissions?.includes("create_kebeles") && (           
           <AddButton name="Kebele" url={"add-kebele"} />
           )}
-          {all_permissions.includes("create_kebele_data") && (           
+          {all_permissions?.includes("create_kebele_data") && (           
           <AddDataButton name="Kebele" url={"new-kebele"} />
           )}
         </div>

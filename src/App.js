@@ -54,7 +54,9 @@ import NotFoundPage from "./components/Resource/Utility/NotFoundPage";
 import ForbiddenPage from "./components/Resource/Utility/ForbiddenPage";
 
 function App() {
-  const all_permissions = useSelector((state) => state.auth.all_permissions);
+  const all_permissions = useSelector((state) => state.auth?.all_permissions);
+
+
   ProfileInfo();
   useGetRegion();
   GetRoles();
@@ -71,7 +73,7 @@ function App() {
             <Route path="/admin" element={<Dashboard />} />
 
             {/* Region */}
-            {all_permissions.includes("view_regions") ? (
+            {all_permissions?.includes("view_regions") ? (
               <>
               <Route path="/admin/region" element={<Region />} />
               <Route path="/admin/region/:id" element={<RegionDetails />} />
@@ -81,7 +83,7 @@ function App() {
             )}
             <Route path="/admin/new-region" element={<AddRegion />} />
             <Route path="/admin/update-region/:id" element={<UpdateRegion />} />
-            {all_permissions.includes("edit_regions") ? (
+            {all_permissions?.includes("edit_regions") ? (
               <Route
                 path="/admin/update-regions/:id"
                 element={<RegionUpdate />}
@@ -89,7 +91,7 @@ function App() {
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("create_regions") ? (
+            {all_permissions?.includes("create_regions") ? (
               <Route path="/admin/add-region" element={<Regions />} />
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
@@ -97,7 +99,7 @@ function App() {
 
 
             {/* Woreda */}
-            {all_permissions.includes("view_woredas") ? (
+            {all_permissions?.includes("view_woredas") ? (
               <>
               <Route path="/admin/wereda" element={<Wereda />} />
               <Route path="/admin/wereda/:id" element={<WeredaDetails />} />
@@ -105,12 +107,12 @@ function App() {
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("create_woreda_data") ? (
+            {all_permissions?.includes("create_woreda_data") ? (
               <Route path="/admin/new-wereda" element={<Addwereda />} />
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("edit_woreda_data") ? (
+            {all_permissions?.includes("edit_woreda_data") ? (
               <Route
               path="/admin/update-weredaData/:id"
               element={<Updatewereda />}
@@ -118,7 +120,7 @@ function App() {
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("edit_woredas") ? (
+            {all_permissions?.includes("edit_woredas") ? (
               <Route
               path="/admin/update-wereda/:id"
               element={<UpdateWeredaForm />}
@@ -126,7 +128,7 @@ function App() {
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("create_woredas") ? (
+            {all_permissions?.includes("create_woredas") ? (
               <Route path="/admin/add-weredas" element={<Weredas />} />
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
@@ -134,7 +136,7 @@ function App() {
 
 
             {/* Kebele */}
-            {all_permissions.includes("view_kebeles") ? (
+            {all_permissions?.includes("view_kebeles") ? (
               <>
                 <Route path="/admin/kebele" element={<Kebele />} />
                 <Route path="/admin/kebele/:id" element={<Details />} />
@@ -142,12 +144,12 @@ function App() {
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("create_kebele_data") ? (
+            {all_permissions?.includes("create_kebele_data") ? (
               <Route path="/admin/new-kebele" element={<AddKebele />} />
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("edit_kebele_data") ? (
+            {all_permissions?.includes("edit_kebele_data") ? (
               <Route
                 path="/admin/update-kebeleData/:id"
                 element={<UpdateKebele />}
@@ -155,7 +157,7 @@ function App() {
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("edit_kebeles") ? (
+            {all_permissions?.includes("edit_kebeles") ? (
               <Route
                 path="/admin/update-kebele/:id"
                 element={<UpdateKebeleForm />}
@@ -163,7 +165,7 @@ function App() {
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-             {all_permissions.includes("create_kebeles") ? (
+             {all_permissions?.includes("create_kebeles") ? (
               <Route path="/admin/add-kebele" element={<Kebeles />} />
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
@@ -171,7 +173,7 @@ function App() {
 
 
             {/* Site */}
-            {all_permissions.includes("view_sites") ? (
+            {all_permissions?.includes("view_sites") ? (
               <>
               <Route path="/admin/site" element={<Site />} />
               <Route path="/admin/site/:id" element={<SiteDetails />} />
@@ -179,12 +181,12 @@ function App() {
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("create_site_data") ? (
+            {all_permissions?.includes("create_site_data") ? (
               <Route path="/admin/new-site" element={<AddSite />} />
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("edit_site_data") ? (
+            {all_permissions?.includes("edit_site_data") ? (
               <Route
                 path="/admin/update-siteData/:id"
                 element={<UpdateSite />}
@@ -192,7 +194,7 @@ function App() {
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("edit_sites") ? (
+            {all_permissions?.includes("edit_sites") ? (
               <Route
                 path="/admin/update-site/:id"
                 element={<UpdateSiteForm />}
@@ -200,7 +202,7 @@ function App() {
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("create_sites") ? (
+            {all_permissions?.includes("create_sites") ? (
               <Route path="/admin/add-sites" element={<AddSiteInfo />} />
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
@@ -208,17 +210,17 @@ function App() {
 
 
             {/* Accounts */}
-            {all_permissions.includes("view_users") ? (
+            {all_permissions?.includes("view_users") ? (
               <Route path="/admin/accounts" element={<Accounts />} />
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("create_users") ? (
+            {all_permissions?.includes("create_users") ? (
               <Route path="/admin/new-user" element={<NewUser />} />
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("edit_users") ? (
+            {all_permissions?.includes("edit_users") ? (
               <Route
               path="/admin/update-account/:id"
               element={<EditAccount />}
@@ -235,17 +237,17 @@ function App() {
 
             
             {/* Roles */}         
-            {all_permissions.includes("view_roles") ? (
+            {all_permissions?.includes("view_roles") ? (
               <Route path="/admin/roles" element={<Roles />} />
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("create_roles") ? (
+            {all_permissions?.includes("create_roles") ? (
               <Route path="/admin/create-roles" element={<CreateRole />} />
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />
             )}
-            {all_permissions.includes("edit_roles") ? (
+            {all_permissions?.includes("edit_roles") ? (
               <Route path="/admin/update-roles/:id" element={<EditRole />} />
             ):(
               <Route path="/admin/*" element={<ForbiddenPage />} />

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { log } from '../../components/Resource/Utility/Logger';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -7,6 +8,7 @@ const authSlice = createSlice({
     token: localStorage.getItem('accessToken') || null,
     refresh_token: localStorage.getItem('refreshToken') || null,
     all_permissions: localStorage.getItem('all_permissions') || [],
+    isRefreshingToken: false,
   },
   reducers: {
     setCredentials: (state, action) => {
@@ -22,6 +24,9 @@ const authSlice = createSlice({
       localStorage.setItem('reloadTriggered', 'false');
       localStorage.setItem('all_permissions', data.all_permissions);
     },
+    setIsRefreshingToken: (state, action) => {
+      state.isRefreshingToken = action.payload;
+    },
     logOut: (state) => {
       state.user = null;
       state.token = null;
@@ -34,14 +39,16 @@ const authSlice = createSlice({
       localStorage.removeItem('all_permissions');
     },
     updateToken: (state, action) => {
-      state.token = action.payload;
+      const {data } = action.payload;
+      console.log(data.token);
+      state.token = data.token;
       // Update localStorage with the new token
-      localStorage.setItem('accessToken', action.payload);
+      localStorage.setItem('accessToken', data.token);
    },
   },
 });
 
-export const { setCredentials, logOut,updateToken } = authSlice.actions;
+export const { setCredentials, logOut,updateToken,setIsRefreshingToken } = authSlice.actions;
 
 export default authSlice.reducer;
 

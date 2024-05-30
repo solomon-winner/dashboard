@@ -43,7 +43,7 @@ const View = () => {
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow">
         <div className="p-6">
           <h1 className="text-lg font-semibold mb-6 ">Roles Management</h1>
-          {all_permissions.includes("create_roles") && (      
+          {all_permissions?.includes("create_roles") && (      
           <div className="flex justify-end items-center mb-6">
             <Link
               to="/admin/create-roles"
@@ -78,7 +78,7 @@ const View = () => {
                       <td className="py-4 px-6 text-green-900">{role.name}</td>
                       <td className="py-4 px-6 text-right">
                         <div className="flex justify-end items-center space-x-3">
-                          {all_permissions.includes("edit_roles") && (
+                          {all_permissions?.includes("edit_roles") && (
                           <Link
                             to={`/admin/update-roles/${role.id}`}
                             className="text-green-600 hover:text-green-700 transition duration-300"
@@ -86,7 +86,7 @@ const View = () => {
                             <EditOutlined />
                           </Link>
                           )}
-                          {all_permissions.includes("delete_roles") && (                        
+                          {all_permissions?.includes("delete_roles") && (                        
                           <button
                             onClick={() => handleDeleteConfirmation(role.id)}
                             className="text-red-600 hover:text-red-700 transition duration-300"
