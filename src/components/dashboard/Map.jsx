@@ -9,6 +9,7 @@ import {SetAllRegions, SetAllSiteData, SetSelectedRegion, SetSelectedSite, SetLo
 import { useDispatch, useSelector } from 'react-redux';
 import { setSiteId } from '../../redux/site/SiteByIdState';
 import { ZoomOut } from '@mui/icons-material';
+import { log } from '../Resource/Utility/Logger';
 
   var siteIcon = L.icon({
         iconUrl: '/gps.png',
@@ -109,7 +110,7 @@ var regionLayer,
           )
         })
         .catch(error => {
-          console.error('Error:', error);
+          log('Error:', error);
         });
       
       
@@ -165,7 +166,7 @@ var regionLayer,
           )
         })
         .catch(error => {
-          console.error('Error:', error);
+          log('Error:', error);
         });
       
       
@@ -202,7 +203,7 @@ var regionLayer,
       
 
         }).catch(error => {
-          console.error("Error fetching data for URL:", url, error);
+          log("Error fetching data for URL:", url, error);
         });
       });
     }
@@ -230,7 +231,7 @@ var regionLayer,
           })
           });
         }).catch(error => {
-          console.error("Error fetching data for URL:", url, error);
+          log("Error fetching data for URL:", url, error);
         });
       });
     }
@@ -382,7 +383,7 @@ var regionLayer,
 //                   });
 //                 })
 //                 .catch(error => {
-//                   console.error('Error:', error);
+//                   log('Error:', error);
 //                 });
 //             }
 //           }
@@ -430,7 +431,7 @@ var regionLayer,
 //                 });
 //               })
 //               .catch(error => {
-//                 console.error('Error:', error);
+//                 log('Error:', error);
 //               });
 //           }
 
@@ -458,7 +459,7 @@ var regionLayer,
 //           }
 
 //         }).catch(error => {
-//           console.error("Error fetching data for URL:", url, error);
+//           log("Error fetching data for URL:", url, error);
 //         });
 //       });
 //     }
@@ -484,7 +485,7 @@ var regionLayer,
 //             })
 //           });
 //         }).catch(error => {
-//           console.error("Error fetching data for URL:", url, error);
+//           log("Error fetching data for URL:", url, error);
 //         });
 //       });
 //     }

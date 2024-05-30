@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useRefreshMutation } from "../../../redux/auth/AuthApiSlice";
 import { updateToken } from "../../../redux/auth/authSlice";
+import { log } from "../Utility/Logger";
 
 export const useRefreshToken = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export const useRefreshToken = () => {
           return true; 
         }
       } catch (error) {
-        console.error("Failed to refresh token", error);
+        log("Failed to refresh token", error);
         return false; 
       }
     }

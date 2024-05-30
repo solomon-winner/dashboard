@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import DeleteConfirmationDialog from '../components/Resource/Utility/Delete/DeleteConfirmationDialog';
 import BackButton from '../components/Resource/Utility/BackButton';
 import { Undo } from '@mui/icons-material';
+import { log } from '../components/Resource/Utility/Logger';
 
 const DeletedPage = () => {
   const [deletedItems, setDeletedItems] = useState([]);
@@ -32,7 +33,7 @@ const DeletedPage = () => {
         setDeletedItems(data);
         setIsLoading(false); // Set loading to false after data fetching
       } catch (error) {
-        console.error('Failed to fetch deleted items:', error);
+        log('Failed to fetch deleted items:', error);
         toast.error('Failed to load deleted items');
         setIsLoading(false); // Set loading to false on error
       }
@@ -53,7 +54,7 @@ const DeletedPage = () => {
       setDeletedItems(deletedItems.filter(item => item.id !== selectedItem.id));
       setShowConfirmation(false);
     } catch (error) {
-      console.error('Failed to undo delete:', error);
+      log('Failed to undo delete:', error);
       toast.error('Failed to restore item');
     }
   };

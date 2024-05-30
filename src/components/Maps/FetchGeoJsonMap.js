@@ -1,4 +1,5 @@
 import { storageUrl } from "../../redux/app/api/baseApi";
+import { log } from "../Resource/Utility/Logger";
 
 export const fetchRegionData = async (url) => {
   try {
@@ -6,7 +7,7 @@ export const fetchRegionData = async (url) => {
       const response = await fetch(`https://tbrr.echnoserve.com${correctedUrl}`);
       return await response.json();
   } catch (error) {
-      console.error("Error fetching data:", error);
+      log("Error fetching data:", error);
       throw error;
   }
 };
@@ -16,7 +17,7 @@ export const fetchRegionData = async (url) => {
       const response = await fetch(`${storageUrl}${url}`);
       return await response.json();
     } catch (error) {
-      console.error("Error fetching data:", error);
+      log("Error fetching data:", error);
       throw error;
     }
   };
