@@ -40,7 +40,6 @@ const authSlice = createSlice({
     },
     updateToken: (state, action) => {
       const {data } = action.payload;
-      console.log(data.token);
       state.token = data.token;
       // Update localStorage with the new token
       localStorage.setItem('accessToken', data.token);
