@@ -104,7 +104,7 @@ export const SideBar = () => {
                 <span className="text-sm font-medium text-gray-900">
                   {Email}
                 </span>
-                <span className="text-xs font-medium text-gray-500">Admin</span>
+                {/* <span className="text-xs font-medium text-gray-500">Admin</span> */}
               </div>
               {ProfileDropDown && (
                 <div className="absolute top-16 right-1 bg-white shadow-md rounded-md p-2 w-48">

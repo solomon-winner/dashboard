@@ -100,19 +100,19 @@ export const Details = () => {
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Region:
                   {"  "}
-                  <span className="text-sm font-medium">
+                  <a href={`/admin/region/${data.data?.region_id}`} className="text-sm font-medium">
                     {data.data.region_name}
-                  </span>{" "}
+                  </a>{" "}
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Woreda:
                   {"  "}
-                  <span className="text-sm font-medium">
+                  <a href={`/admin/wereda/${data.data?.woreda_id}`} className="text-sm font-medium">
                     {data.data.woreda_name}
-                  </span>
+                  </a>
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                  <div className="bg-white shadow-md rounded-md p-4">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4">
                     <h1 className=" text-base font-bold tracking-tight text-customDark my-1">
                       Demographic Information and Data{" "}
                     </h1>
@@ -137,7 +137,7 @@ export const Details = () => {
                     </p>
                   </div>
 
-                  <div className="bg-white shadow-md rounded-md p-4">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Current land use with area
                     </h1>
@@ -154,7 +154,7 @@ export const Details = () => {
                       )}
                   </div>
 
-                  <div className="bg-white shadow-md rounded-md p-4">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Land Ownership
                     </h1>
@@ -174,14 +174,14 @@ export const Details = () => {
                     </span>
                   </div>
 
-                  <div className="bg-white shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Major livelihood activities
                     </h1>
                     <Table data={data.data?.livelihoods} />
                   </div>
 
-                  <div className="bg-white shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
                     <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
                       Included indeginous tree
                     </h4>
@@ -204,7 +204,7 @@ export const Details = () => {
                         )}
                     </ul>
                   </div>
-                  <div className="bg-white shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
                     <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
                       Included Exotic tree
                     </h4>
@@ -228,7 +228,7 @@ export const Details = () => {
                         )}
                     </ul>
                   </div>
-                  <div className="bg-white shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Employment Status
                     </h1>
@@ -247,7 +247,7 @@ export const Details = () => {
                     </p>
                   </div>
 
-                  <div className="bg-white shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Number Livestock
                     </h1>
@@ -264,14 +264,7 @@ export const Details = () => {
                       )}
                   </div>
 
-                  {/* <div className='flex text-gray-600 flex-col gap-2'> 
-           <h1 className='text-xl font-bold tracking-tight text-customDark my-1'>Forage grown</h1>
-             <p className='font-semibold'>Elephant grass: <span className='font-normal'>9</span></p>
-             <p className='font-semibold'>Suspanina suspan: <span className='font-normal'>2.5</span></p>
-             <p className='font-semibold'>Truelucern: <span className='font-normal'>1.6</span></p>
-          </div> */}
-
-                  <div className="bg-white shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Crop grown
                     </h1>
@@ -288,7 +281,7 @@ export const Details = () => {
                       )}
                   </div>
 
-                  <div className="bg-white shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
                     <h1 className="text-xl font-bold tracking-tight text-customDark my-1">
                       Fruit grown
                     </h1>
@@ -305,7 +298,7 @@ export const Details = () => {
                       )}
                   </div>
 
-                  <div className="bg-white shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Nursery Availability
                     </h1>
@@ -322,7 +315,7 @@ export const Details = () => {
                       )}
                   </div>
 
-                  <div className="bg-white shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Major cause of deforestation
                     </h1>
@@ -336,7 +329,7 @@ export const Details = () => {
                       )}
                   </div>
 
-                  <div className="bg-white shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Major cause of deforestation
                     </h1>
@@ -364,7 +357,7 @@ export const Details = () => {
                     urlName={"site"}
                   />
                 </div>
-                <div className="w-full">
+                <div className="w-full ">
                   <EachMap
                     geojsonData={`/geojson/kebeles/${id}.geojson`}
                     SiteData={site.data.data}
