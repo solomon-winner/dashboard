@@ -88,36 +88,42 @@ export const SiteDetails = () => {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl sm:text-center mb-10">
             <h2 className="text-xl font-bold tracking-tight text-gray-900">
-              Site Name: {data.data?.site_name}
+              Site Name: {"  "}
+                  <span className=" text-lg font-medium">{data.data?.site_name}</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-6">
-            <div className="bg-white shadow-md rounded-md p-4 h-fit">
+            <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit w-full md:w-9/12">
               <div className="p-8 text-gray-600">
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
-                  Region: {data.data?.region_name}
+                  Region: {"  "}
+                  <a href={`/admin/region/${data.data?.region_id}`} className="text-sm font-medium">{data.data?.region_name}</a>
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
-                  Woreda: {data.data?.woreda_name}
+                  Woreda: {"  "}
+                  <a href={`/admin/wereda/${data.data?.woreda_id}`} className="text-sm font-medium">{data.data?.woreda_name}</a>
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
-                  Kebele: {data.data?.kebele_name}
+                  Kebele: {"  "}
+                  <a href={`/admin/kebele/${data.data?.kebele_id}`} className="text-sm font-medium">{data.data?.kebele_name}</a>
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
-                  Micro-washed: {data.data?.watershed_name}
+                  Micro-watershed: {"  "}
+                  <span className="text-sm font-medium">{data.data?.watershed_name}</span>
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
-                  Area: {data.data?.size_ha} ha
+                  Area: {"  "}
+                  <span className="text-sm font-medium">{data.data?.size_ha} ha</span>
                 </h3>
               </div>
             </div>
 
-            <div className="w-full">
+            <div className="w-full border border-opacity-35 border-sideboard shadow-md">
               <EachMap geojsonData={`/geojson/sites/${id}.geojson`} />
             </div>
           </div>
           <div className="grid gap-4 lg:grid-cols-3">
-            <div className="bg-white shadow-md rounded-md p-4 h-fit">
+            <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
               <h4 className="text-base font-bold tracking-tight text-customDark my-1">
                 Current land use
               </h4>
@@ -138,7 +144,7 @@ export const SiteDetails = () => {
                 )}
             </div>
 
-            <div className="bg-white shadow-md rounded-md p-4 h-fit">
+            <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
                 Indigenous Tree
               </h4>
@@ -158,7 +164,7 @@ export const SiteDetails = () => {
                 )
               )}
             </div>
-            <div className="bg-white shadow-md rounded-md p-4 h-fit">
+            <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
                 Exotic Trees
               </h4>
@@ -179,7 +185,7 @@ export const SiteDetails = () => {
                 ))
               )}
             </div>
-            <div className="bg-white shadow-md rounded-md p-4 h-fit">
+            <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
                 LiveliHood
               </h4>
@@ -198,7 +204,7 @@ export const SiteDetails = () => {
                 ))
               )}
             </div>
-            <div className="bg-white shadow-md rounded-md p-4 h-fit">
+            <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
                 Forage
               </h4>
