@@ -20,6 +20,7 @@ import {
   FormNextButton,
 } from "../Resource/Utility/FormButtons";
 import { log } from "../Resource/Utility/Logger";
+import { useAddInstitutionMutation } from "../../redux/institutions/InstitutionsApislice";
 const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
@@ -29,6 +30,7 @@ export const Updatewereda = () => {
   const { data: woredadata, isFetching } = useGetWeredaByIdQuery(id);
   const { weredas, isLoadingWeredas } = useSelector((state) => state.wereda);
   const [addResource] = useAddResourceMutation();
+  const [addInstution] = useAddInstitutionMutation();
   const [addweredadata] = useAddWoredaDataMutation();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState(weredas); // Initialize formData as an empty object
@@ -107,6 +109,16 @@ export const Updatewereda = () => {
       const typeKey = `schooltype${k}`;
       const areaKey = `schoolnumber${k}`;
       if (values[typeKey] && values[areaKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addInstution({
+            name: values[typeKey],
+            institution_type: "SCHOOL",
+          });
+          if (response.data) {
+            toast.success("Institution added successfully");
+            values[typeKey] = response.data.data.id;
+          }
+        }
         schoolArray.push({
           institution_id: values[typeKey],
           amount: values[areaKey],
@@ -122,6 +134,16 @@ export const Updatewereda = () => {
       const typeKey = `healthFacilitytype${l}`;
       const areaKey = `healthFacilitynumber${l}`;
       if (values[typeKey] && values[areaKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addInstution({
+            name: values[typeKey],
+            institution_type: "HEALTH_FACILITY",
+          });
+          if (response.data) {
+            toast.success("Institution added successfully");
+            values[typeKey] = response.data.data.id;
+          }
+        }
         healthArray.push({
           institution_id: values[typeKey],
           amount: values[areaKey],
