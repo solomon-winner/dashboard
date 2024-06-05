@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteRoles } from "../../redux/roles/RolesState";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import DeleteConfirmationDialog from "../Resource/Utility/Delete/DeleteConfirmationDialog"; // Import the DeleteConfirmationDialog component
+import { log } from "../Resource/Utility/Logger";
 
 const View = () => {
   const [deleteRole, { isLoading: isDeleting }] = useDeleteRoleMutation();
@@ -15,6 +16,7 @@ const View = () => {
   const dispatch = useDispatch();
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [deleteRoleId, setDeleteRoleId] = useState(null);
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
 
   const handleDeleteConfirmation = (roleId) => {
     setDeleteRoleId(roleId);
@@ -28,7 +30,7 @@ const View = () => {
       dispatch(deleteRoles(deleteRoleId));
       setShowConfirmation(false);
     } catch (error) {
-      console.error("Failed to delete role:", error);
+      log("Failed to delete role:", error);
     }
   };
 
@@ -42,6 +44,7 @@ const View = () => {
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow">
         <div className="p-6">
           <h1 className="text-lg font-semibold mb-6 ">Roles Management</h1>
+          {all_permissions?.includes("create_roles") && (      
           <div className="flex justify-end items-center mb-6">
             <Link
               to="/admin/create-roles"
@@ -50,6 +53,7 @@ const View = () => {
               Add New Role
             </Link>
           </div>
+          )}
           <div className="mt-4 overflow-x-auto">
             <table className="w-full text-sm text-left">
               <thead className="text-xs text-white uppercase bg-green-50 dark:bg-green-700 ">
@@ -75,12 +79,15 @@ const View = () => {
                       <td className="py-4 px-6 text-green-900">{role.name}</td>
                       <td className="py-4 px-6 text-right">
                         <div className="flex justify-end items-center space-x-3">
+                          {all_permissions?.includes("edit_roles") && (
                           <Link
                             to={`/admin/update-roles/${role.id}`}
                             className="text-green-600 hover:text-green-700 transition duration-300"
                           >
                             <EditOutlined />
                           </Link>
+                          )}
+                          {all_permissions?.includes("delete_roles") && (                        
                           <button
                             onClick={() => handleDeleteConfirmation(role.id)}
                             className="text-red-600 hover:text-red-700 transition duration-300"
@@ -89,6 +96,7 @@ const View = () => {
                           >
                             <DeleteOutline />
                           </button>
+                          )}
                         </div>
                       </td>
                     </tr>

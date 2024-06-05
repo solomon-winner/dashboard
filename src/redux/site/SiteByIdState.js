@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { log } from "../../components/Resource/Utility/Logger";
 
 export const SiteByIdSlice = createSlice({
     name: "siteById",
@@ -18,7 +19,7 @@ export const SiteByIdSlice = createSlice({
      },
      setSiteId: (state, action) => {
       state.Id = action.payload;
-      console.log("state.Id ", state.Id)
+      log("state.Id ", state.Id)
      },
      deleteSiteData: (state, action) => {
         state.siteData = state.siteData.filter(site => site.id !== action.payload);

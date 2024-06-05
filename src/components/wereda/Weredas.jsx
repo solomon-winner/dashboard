@@ -64,13 +64,13 @@ export const Weredas = () => {
     setFile(selectedFile);
   };
   return (
-    <div className="h-screen bg-dashbordColor">
+    <div className="min-h-screen bg-dashbordColor">
       <div className="pt-6 pl-4">
         <BackButton />
       </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
-          <h1 className="text-3xl font-bold mb-5">Add Wereda</h1>
+          <h1 className="text-lg font-bold mb-5">Add Wereda</h1>
 
           <Formik
             initialValues={formData}

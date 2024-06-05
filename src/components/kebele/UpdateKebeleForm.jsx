@@ -19,6 +19,8 @@ import { MainLoading } from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
 import { log } from "../Resource/Utility/Logger";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+
 const validationSchema = Yup.object().shape({
   // kebele_name: Yup.string().required("Kebele name is required"),
   // woreda_id: Yup.number().required("Wereda ID is required"),
@@ -132,6 +134,8 @@ const UpdateKebeleForm = () => {
       log(updatedValues.geojson);
       log(geoJsonConverter);
       formData.append("geojson", geoJsonConverter);
+    }else if (updatedValues.geojson === null) {
+      formData.append("geojson", "");
     }
     log({ id: id, updatedValues });
 
@@ -139,8 +143,8 @@ const UpdateKebeleForm = () => {
     log(kebele);
     if (kebele.data) {
       toast.success("Kebele Updated successfully!");
-      // window.location.href = `/admin/kebele`;
-      window.history.back();
+      window.location.href = `/admin/kebele/${id}`;
+      // window.history.back();
     }
   };
   const weredaOptions = isFetching
@@ -165,13 +169,13 @@ const UpdateKebeleForm = () => {
     });
   };
   return (
-    <div className="h-screen bg-dashbordColor">
+    <div className="min-h-screen bg-dashbordColor">
       <div className="pt-6 pl-4">
         <BackButton />
       </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
-          <h1 className="text-3xl font-bold mb-5">Update Kebele</h1>
+          <h1 className="text-lg font-bold mb-5">Update Kebele</h1>
           {weredaDataFetching ? (
             <MainLoading />
           ) : (
@@ -309,6 +313,14 @@ const UpdateKebeleForm = () => {
                         >
                           View Current GeoJSON
                         </a>
+                        <button
+                          onClick={() =>
+                            setFormData({ ...formData, geojson: null })
+                          }
+                          className="hover:bg-red-200 text-red-700 font-bold rounded ml-4 p-0.5"
+                        >
+                          <DeleteOutlineIcon />
+                        </button>
                         {/* <p className="mt-2 text-sm text-gray-600">
                         Selected file: {formData.geojson || formData.geojsonName}
                       </p> */}

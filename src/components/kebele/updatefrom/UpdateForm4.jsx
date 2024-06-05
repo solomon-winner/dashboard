@@ -102,32 +102,32 @@ export const UpdateForm4 = ({ handleChange, formData, setFormData }) => {
     );
     setAdditionalFields2([
       ...additionalFields2,
-      { id: highestId + 1, livestock: "", numberlivestock: "" },
+      { id: highestId + 1, forgetype: "", forgearea: "" },
     ]);
   };
   const removeField2 = (id) => {
     setAdditionalFields2(additionalFields2.filter((field) => field.id !== id));
     const updatedFormData = { ...formData };
-    delete updatedFormData[`foragetype${id + 1}`];
-    delete updatedFormData[`foragearea${id + 1}`];
+    delete updatedFormData[`forgetype${id + 1}`];
+    delete updatedFormData[`forgearea${id + 1}`];
     delete updatedFormData[`foragename${id + 1}`];
     let newFormData = {};
     let foragetypeIndex = 1;
     let forageareaIndex = 1;
     let foragenameIndex = 1;
     for (let key in updatedFormData) {
-      if (key.startsWith("foragetype") && key !== `foragetype${id + 1}`) {
-        newFormData[`foragetype${foragetypeIndex}`] = updatedFormData[key];
+      if (key.startsWith("forgetype") && key !== `forgetype${id + 1}`) {
+        newFormData[`forgetype${foragetypeIndex}`] = updatedFormData[key];
         foragetypeIndex++;
       } else if (
-        key.startsWith("foragearea") &&
-        key !== `foragearea${id + 1}`
+        key.startsWith("forgearea") &&
+        key !== `forgearea${id + 1}`
       ) {
-        newFormData[`foragearea${forageareaIndex}`] = updatedFormData[key];
+        newFormData[`forgearea${forageareaIndex}`] = updatedFormData[key];
         forageareaIndex++;
       } else if (
         key.startsWith("foragename") &&
-        key !== `foragename${id + 1}`
+        key !== `foragename${id + 1}` 
       ) {
         newFormData[`foragename${foragenameIndex}`] = updatedFormData[key];
         foragenameIndex++;
@@ -212,7 +212,7 @@ export const UpdateForm4 = ({ handleChange, formData, setFormData }) => {
           <React.Fragment key={field.id}>
             <FormField
               label="Type"
-              name={`forgetype${index + 2}`}
+              name={`forgetype${index + 1}`}
               type="dropdown"
               placeholder="Type of Forage"
               icon={Grass}

@@ -23,9 +23,9 @@ export const SideBar = () => {
   const Email = useSelector((state) => state.user.UserData.email);
   const Name = useSelector((state) => state.user.UserData.name);
   const ProfileDropDown = useSelector((state) => state.user.ProfileDropDown);
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
   const [showSidebar, setShowSidebar] = useState(false);
   log("profile drop down...", ProfileDropDown);
-
   const ProfileDropdown = () => {
     dispatch(setProfileDropDown(!ProfileDropDown));
     log(ProfileDropDown);
@@ -38,11 +38,12 @@ export const SideBar = () => {
 
   const handleLogout = () => {
     dispatch(logOut());
+    window.location.href = "/";
   };
 
   return (
     <div>
-      <nav className="bg-white border-b border-gray-200 fixed z-30 w-full">
+      <nav className="bg-white border-b border-gray-200 fixed z-50 w-full">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start">
@@ -89,7 +90,7 @@ export const SideBar = () => {
                 className=" text-lg font-bold flex items-center lg:ml-2.5"
               >
                 <img src={logo} className="h-12 mr-2" alt="Windster Logo" />
-                <span className="self-center whitespace-nowrap">
+                <span className="self-center whitespace-nowrap text-base md:text-lg">
                   Tree Based Restoration Registry
                 </span>
               </a>
@@ -103,7 +104,7 @@ export const SideBar = () => {
                 <span className="text-sm font-medium text-gray-900">
                   {Email}
                 </span>
-                <span className="text-xs font-medium text-gray-500">Admin</span>
+                {/* <span className="text-xs font-medium text-gray-500">Admin</span> */}
               </div>
               {ProfileDropDown && (
                 <div className="absolute top-16 right-1 bg-white shadow-md rounded-md p-2 w-48">
@@ -135,8 +136,8 @@ export const SideBar = () => {
           }`}
           aria-label="Sidebar"
         >
-          <div className="relative flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-sideboard pt-0">
-            <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+          <div className="relative flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-sideboard pt-0 ">
+            <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto ">
               <div className="flex-1 px-3  bg-sideboard divide-y space-y-1">
                 <ul className="space-y-2 pb-2">
                   <li>
@@ -151,6 +152,7 @@ export const SideBar = () => {
                   <li className="pl-3 text-sm  text-white font-semibold">
                     Inputs
                   </li>
+                  {all_permissions?.includes("view_regions") && (            
                   <li>
                     <NavLink
                       to="/admin/region"
@@ -162,6 +164,8 @@ export const SideBar = () => {
                       </span>
                     </NavLink>
                   </li>
+                  )}
+                  {all_permissions?.includes("view_woredas") && (  
                   <li>
                     <NavLink
                       to="/admin/wereda"
@@ -173,6 +177,8 @@ export const SideBar = () => {
                       </span>
                     </NavLink>
                   </li>
+                  )}
+                  {all_permissions?.includes("view_kebeles") && ( 
                   <li>
                     <NavLink
                       to="/admin/kebele"
@@ -184,6 +190,8 @@ export const SideBar = () => {
                       </span>
                     </NavLink>
                   </li>
+                  )}
+                  {all_permissions?.includes("view_sites") && (                   
                   <li>
                     <NavLink
                       to="/admin/site"
@@ -195,9 +203,11 @@ export const SideBar = () => {
                       </span>
                     </NavLink>
                   </li>
+                  )}
                   <li className="pl-3 text-sm text-white font-semibold">
                     User management
                   </li>
+                  {all_permissions?.includes('view_users') && (              
                   <li>
                     <NavLink
                       to="/admin/Accounts"
@@ -209,6 +219,7 @@ export const SideBar = () => {
                       </span>
                     </NavLink>
                   </li>
+                  )}
                   <li>
                     <NavLink
                       to="/admin/profile"
@@ -220,6 +231,7 @@ export const SideBar = () => {
                       </span>
                     </NavLink>
                   </li>
+                  {all_permissions?.includes('view_roles') && (
                   <li>
                     <NavLink
                       to="/admin/roles"
@@ -231,19 +243,20 @@ export const SideBar = () => {
                       </span>
                     </NavLink>
                   </li>
+                  )}
                 </ul>
               </div>
-              <div>
+              {/* <div>
                 <NavLink
                   to="/admin/delete-page"
                   className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group w-fit "
                 >
                   <Delete style={{ fontSize: "x-large" }} />
-                  {/* <span className="ml-3 flex-1 whitespace-nowrap">
+                  <span className="ml-3 flex-1 whitespace-nowrap">
                         Delete Page
-                      </span> */}
+                      </span>
                 </NavLink>
-              </div>
+              </div> */}
             </div>
           </div>
         </aside>

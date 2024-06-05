@@ -7,13 +7,16 @@ import { AddButton } from "../Resource/Utility/AddButton";
 import { AddDataButton } from "../Resource/Utility/AddDataButton";
 import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
 import { log } from "../Resource/Utility/Logger";
+import { useSelector } from "react-redux";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
   const { data, error, isLoading, isSuccess } = useGetKebeleQuery({
     page: currentPage,
     per_page: 20,
+    has_sites: "true",
     ...(searchInput && { search: searchInput }),
   });
 
@@ -23,8 +26,8 @@ export const View = () => {
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
-  const totalPages =
-    isSuccess && data && data.data.length < 20 ? currentPage : currentPage + 1;
+
+    const totalPages = isSuccess? Math.ceil(data.total_count / 20) : 1;
   let content;
   let filteredData;
   log(data, "kebele view");
@@ -56,12 +59,12 @@ export const View = () => {
             >
               <Link
                 to={`/admin/kebele/${item.id}`}
-                className="p-4 pt-9 h-full md:px-7 xl:px-10 bg-white shadow-md border border-custumBlue hover:shadow-lg hover:bg-mainColor hover:text-white transition duration-300 ease-in-out flex flex-col justify-center relative group overflow-hidden rounded"
+                className="group p-4 pt-9 h-full md:px-7 xl:px-10 bg-white shadow-md border border-custumBlue hover:shadow-lg hover:bg-mainColor hover:text-white transition duration-300 ease-in-out flex flex-col justify-center relative group overflow-hidden rounded"
               >
                 <h4 className="relative z-10 font-base font-raleway text-base text-dark mb-3">
                   {item.kebele_name}
                 </h4>
-                <div className="relative z-10 w-1/3 h-1 bg-black mb-4" />
+                <div className="relative z-10 w-1/3 h-1 bg-black group-hover:bg-white mb-4" />
                 <p className="relative z-10 text-body-color text-xs ">
                   Number of Sites: {item.sites}
                 </p>
@@ -120,8 +123,12 @@ export const View = () => {
           </form>
         </div>
         <div>
+          {all_permissions?.includes("create_kebeles") && (           
           <AddButton name="Kebele" url={"add-kebele"} />
+          )}
+          {all_permissions?.includes("create_kebele_data") && (           
           <AddDataButton name="Kebele" url={"new-kebele"} />
+          )}
         </div>
       </div>
       <div className="h-full flex gap-3 flex-col">

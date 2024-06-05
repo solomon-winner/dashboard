@@ -16,11 +16,12 @@ import { UpdateButton } from "../Resource/Utility/UpdateButton";
 import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
 import { EachMap } from "../Resource/Map/EachMap";
 import { CommonTable } from "../Resource/Utility/Table";
+import { useSelector } from "react-redux";
 
 export const WeredaDetails = () => {
   const { id } = useParams();
   useInitalValueworeda(id);
-
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
   const { data: weredadata, isSuccess, isFetching } = useGetWeredaByIdQuery(id);
   const { data: KebeleData } = useGetKebeleByWeredaQuery({
     id: id,
@@ -53,20 +54,36 @@ export const WeredaDetails = () => {
     const { woreda_name, woreda_data, region_name } = weredadata.data;
     return (
       <div className="bg-dashbordColor">
-        <div className="flex justify-between p-10">
-          <BackButton />
-          <Select
-            options={weredaOptions}
-            onChange={handleWeredaSelect}
-            placeholder="Select a Wereda"
-            className={`w-full sm:w-1/3 lg:w-1/4`}
-          />
-          <div className="flex gap-4">
-            <DeleteButton entityId={id} deleteEntity={deleteWereda} />
-            <UpdateDataButton id={id} name="Woreda" url={"update-weredaData"} />
-            <UpdateButton id={id} name="Woreda" url={"update-wereda"} />
+        <div className="p-4 w-full">
+          <div className="flex flex-col lg:flex-row justify-between p-4 gap-1">
+            <div className="flex flex-row lg:items-center gap-2 md:gap-10 mb-4 md:w-1/2">
+              <BackButton />
+              <Select
+                options={weredaOptions}
+                onChange={handleWeredaSelect}
+                placeholder="Search a Wereda and select"
+                className="w-full"
+              />
+            </div>
+
+            <div className="flex gap-2">
+              {all_permissions?.includes("delete_woredas") && (
+                <DeleteButton entityId={id} deleteEntity={deleteWereda} />
+              )}
+              {all_permissions?.includes("edit_woreda_data") && (
+                <UpdateDataButton
+                  id={id}
+                  name="Woreda"
+                  url={"update-weredaData"}
+                />
+              )}
+              {all_permissions?.includes("edit_woredas") && (
+                <UpdateButton id={id} name="Woreda" url={"update-wereda"} />
+              )}
+            </div>
           </div>
         </div>
+
         <div className="py-12 sm:py-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-2xl sm:text-center">
@@ -80,11 +97,16 @@ export const WeredaDetails = () => {
               <div className="p-8 text-gray-600 sm:p-10 lg:flex-auto">
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Region: {"  "}
-                  <span className="text-sm font-medium">{region_name}</span>
+                  <a
+                    href={`/admin/region/${weredadata.data?.region_id}`}
+                    className="text-sm font-medium"
+                  >
+                    {region_name}
+                  </a>
                 </h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                  <div className="bg-white shadow-md rounded-md p-4">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold text-customDark p-4">
                       Total number of Kebele per Wereda
                     </h1>
@@ -109,7 +131,7 @@ export const WeredaDetails = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-white shadow-md rounded-md p-4">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold text-customDark p-4">
                       Demographic Information and Data
                     </h1>
@@ -119,7 +141,9 @@ export const WeredaDetails = () => {
                           Male:
                         </p>
                         <p className="text-sm text-gray-600">
-                          {woreda_data?.male_population}
+                          {new Intl.NumberFormat().format(
+                            woreda_data?.male_population
+                          )}
                         </p>
                       </div>
                     </div>
@@ -129,7 +153,7 @@ export const WeredaDetails = () => {
                           Female:
                         </p>
                         <p className="text-sm text-gray-600">
-                          {woreda_data?.female_population}
+                          {new Intl.NumberFormat().format(woreda_data?.female_population)}
                         </p>
                       </div>
                     </div>
@@ -139,14 +163,14 @@ export const WeredaDetails = () => {
                           Total Population:
                         </p>
                         <p className="text-sm text-gray-600">
-                          {woreda_data?.male_population +
-                            woreda_data?.female_population}
+                          {new Intl.NumberFormat().format(woreda_data?.male_population +
+                            woreda_data?.female_population)}
                         </p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-white shadow-md rounded-md p-4">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1 p-4">
                       Land use with area
                     </h1>
@@ -165,7 +189,7 @@ export const WeredaDetails = () => {
                                 {item.value}:
                               </p>
                               <p className="text-sm text-gray-600">
-                                {item.amount}
+                                {new Intl.NumberFormat().format(item.amount)}
                               </p>
                             </div>
                           </div>
@@ -174,7 +198,7 @@ export const WeredaDetails = () => {
                     </div>
                   </div>
 
-                  <div className="bg-white shadow-md rounded-md p-4">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1 p-4">
                       Road
                     </h1>
@@ -190,7 +214,7 @@ export const WeredaDetails = () => {
                                 {item.value}:
                               </p>
                               <p className="text-sm text-gray-600">
-                                {item.amount}
+                                {new Intl.NumberFormat().format(item.amount)}
                               </p>
                             </div>
                           </div>
@@ -199,7 +223,7 @@ export const WeredaDetails = () => {
                     </div>
                   </div>
 
-                  <div className="bg-white shadow-md rounded-md p-4">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1 p-4">
                       School
                     </h1>
@@ -215,7 +239,7 @@ export const WeredaDetails = () => {
                                 {item.value}:
                               </p>
                               <p className="text-sm text-gray-600">
-                                {item.amount}
+                                {new Intl.NumberFormat().format(item.amount)}
                               </p>
                             </div>
                           </div>
@@ -224,7 +248,7 @@ export const WeredaDetails = () => {
                     </div>
                   </div>
 
-                  <div className="bg-white shadow-md rounded-md p-4">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1 p-4">
                       Health Facilities
                     </h1>
@@ -240,7 +264,7 @@ export const WeredaDetails = () => {
                                 {item.value}:
                               </p>
                               <p className="text-sm text-gray-600">
-                                {item.amount}
+                                {new Intl.NumberFormat().format(item.amount)}
                               </p>
                             </div>
                           </div>
@@ -249,8 +273,8 @@ export const WeredaDetails = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-col lg:flex-row gap-4 w-full mt-10">
-                  <div className="w-1/2">
+                <div className="flex flex-col lg:flex-row md:gap-4 w-full mt-10">
+                  <div className="w-full md:w-1/2">
                     <EachMap
                       geojsonData={`/geojson/woredas/${id}.geojson`}
                       SiteData={KebeleData.data.map((item) => item.sites)}

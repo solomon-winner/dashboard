@@ -69,7 +69,7 @@ const NewUser = () => {
                 navigate("/admin/accounts");
               }
             } catch (error) {
-              console.error("Error adding account:", error);
+              log("Error adding account:", error);
             } finally {
               setSubmitting(false);
             }

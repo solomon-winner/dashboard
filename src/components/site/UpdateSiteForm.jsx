@@ -22,7 +22,7 @@ import { MainLoading } from "../Resource/Loading/Loadings";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
 import BackButton from "../Resource/Utility/BackButton";
 import { log } from "../Resource/Utility/Logger";
-
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 const validationSchema = Yup.object().shape({
   region_id: Yup.string().required("Region is required"),
   woreda_id: Yup.string().required("Wereda is required"),
@@ -56,7 +56,7 @@ export const UpdateSiteForm = () => {
     data: weredas,
     isSuccess: weredaDataSuccess,
     isFetching: weredaDataFetching,
-  } = useGetWeredaByIdQuery(weredaId,{ skip: !weredaId } );
+  } = useGetWeredaByIdQuery(weredaId, { skip: !weredaId });
   const {
     data: kebeles,
     isSuccess: kebeleDataSuccess,
@@ -166,7 +166,7 @@ export const UpdateSiteForm = () => {
       }
     }
     if (updatedValues.geojson instanceof File) {
-      // Use the GeoJsonConverter component to convert the GeoJSON file
+      // If geojson is not null and is an instance of File, proceed with conversion
       const geoJsonConverter = await GeoJsonConverter.convert(
         updatedValues.geojson,
         updatedValues.site_name,
@@ -175,6 +175,9 @@ export const UpdateSiteForm = () => {
       log(updatedValues.geojson);
       log(geoJsonConverter);
       formData.append("geojson", geoJsonConverter);
+    } else if (updatedValues.geojson === null) {
+      // If geojson is explicitly null, append it as null
+      formData.append("geojson", "");
     }
     log({ id: id, updatedValues });
 
@@ -208,13 +211,13 @@ export const UpdateSiteForm = () => {
     });
   };
   return (
-    <div className="bg-dashbordColor">
+    <div className="bg-dashbordColor min-h-screen">
       <div className="pt-6 pl-4">
         <BackButton />
       </div>
       <div className="p-6 flex items-center justify-center">
         <div className="w-4/5">
-          <h1 className="text-3xl font-bold mb-5">Update Site</h1>
+          <h1 className="text-lg font-bold mb-5">Update Site</h1>
           {weredaDataFetching && KebeleDataFetching ? (
             <MainLoading />
           ) : (
@@ -348,12 +351,10 @@ export const UpdateSiteForm = () => {
                                     ),
                                   },
                                 ]
-                              : getkebeleByWereda?.data?.map(
-                                  (kebele) => ({
-                                    value: kebele.id,
-                                    label: kebele.kebele_name,
-                                  })
-                                )
+                              : getkebeleByWereda?.data?.map((kebele) => ({
+                                  value: kebele.id,
+                                  label: kebele.kebele_name,
+                                }))
                           }
                           value={
                             formData && formData.selectedKebele
@@ -421,6 +422,14 @@ export const UpdateSiteForm = () => {
                         >
                           View Current GeoJSON
                         </a>
+                        <button
+                          onClick={() =>
+                            setFormData({ ...formData, geojson: null })
+                          }
+                          className="hover:bg-red-200 text-red-700 font-bold rounded ml-4 p-0.5"
+                        >
+                          <DeleteOutlineIcon />
+                        </button>
                         {/* <p className="mt-2 text-sm text-gray-600">
                           Selected file: {formData.geojsonName}
                         </p> */}

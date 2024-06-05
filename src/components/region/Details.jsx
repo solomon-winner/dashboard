@@ -12,9 +12,11 @@ import { CommonTable } from "../Resource/Utility/Table";
 import { Delete, Edit } from "@mui/icons-material";
 import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
 import { log } from "../Resource/Utility/Logger";
+import { useSelector } from "react-redux";
 
 export const RegionDetails = () => {
   const { id } = useParams();
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
   const { data: regionData, isSuccess, isFetching } = useGetRegionByIdQuery(id);
   const { data: woredaData, isSuccess: werdaFetched } =
     useGetWeredaByRegionQuery({ id: id, with_sites: false });
@@ -33,7 +35,10 @@ export const RegionDetails = () => {
       <div className="flex justify-between p-10">
         <BackButton />
         <div className="flex gap-4">
+          {all_permissions?.includes("delete_regions") && (        
           <DeleteButton entityId={id} deleteEntity={deleteRegion} />
+          )}
+          {all_permissions?.includes("edit_regions") && (
           <Link
             to={`/admin/update-regions/${id}`}
             className=" text-sm py-1 px-4 rounded-md bg-updatecolor hover:bg-customDark text-white font-semibold"
@@ -41,6 +46,7 @@ export const RegionDetails = () => {
             <Edit />
             Update Region
           </Link>
+          )}
         </div>
       </div>
       <div className="py-12 sm:py-12">
@@ -71,7 +77,7 @@ export const RegionDetails = () => {
                 name={"woreda_name"}
                 title={"Woreda"}
                 urlName={"wereda"}
-                className={"grid grid-cols-4 gap-1"}
+                className={"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1"}
               />
             </div>
           </div>

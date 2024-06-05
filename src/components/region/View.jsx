@@ -4,11 +4,12 @@ import { useGetRegionQuery } from "../../redux/region/RegionApiSlice";
 import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
 import { AddButton } from "../Resource/Utility/AddButton";
 import { log } from "../Resource/Utility/Logger";
+import { useSelector } from "react-redux";
 
 export const View = () => {
   const { data: region, isLoading, isSuccess } = useGetRegionQuery();
-
   const [searchInput, setSearchInput] = useState("");
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
 
   const handleSearchInput = (event) => {
     setSearchInput(event.target.value);
@@ -64,9 +65,11 @@ export const View = () => {
               </div>
             </form>
           </div>
+          {all_permissions?.includes("create_regions") && (
           <div>
             <AddButton name="Region" url={"add-region"} />
           </div>
+          )}
         </div>
         <div className="h-full flex gap-3 flex-col">
           <div>
@@ -81,13 +84,13 @@ export const View = () => {
                 >
                   <Link
                     to={`/admin/region/${item.id}`}
-                    className="p-4 pt-9 h-full md:px-7 xl:px-10  bg-white shadow-md border border-custumBlue hover:shadow-lg hover:bg-mainColor hover:text-white transition duration-300 ease-in-out flex flex-col justify-center relative group overflow-hidden rounded
+                    className="group p-4 pt-9 h-full md:px-7 xl:px-10  bg-white shadow-md border border-custumBlue hover:shadow-lg hover:bg-mainColor hover:text-white transition duration-300 ease-in-out flex flex-col justify-center relative group overflow-hidden rounded
       "
                   >
                     <h4 className="relative z-10 font-semibold font-raleway text-base text-dark mb-3">
                       {item.region_name}
                     </h4>
-                    <div className="relative z-10 w-1/3 h-1 bg-black mb-4" />
+                    <div className="relative z-10 w-1/3 h-1 bg-black group-hover:bg-white mb-4" />
                     <p className="relative z-10 text-body-color text-xs">
                       Number of Wereda: {item.woredas}
                     </p>
