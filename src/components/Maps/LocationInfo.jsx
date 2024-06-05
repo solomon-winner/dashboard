@@ -29,6 +29,7 @@ export const LocationInfo = () => {
    isSuccess && console.log("the location data of the site...", data.data);
 
    return(
+    
         <div className="d-flex min-w-80">
         <div className="w-50" style={{ border: '1px solid gray' }}>
           <div className="container project-container">
