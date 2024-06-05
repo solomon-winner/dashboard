@@ -14,6 +14,7 @@ import {
   FormNextButton,
 } from "../Resource/Utility/FormButtons";
 import { log } from "../Resource/Utility/Logger";
+import { useAddInstitutionMutation } from "../../redux/institutions/InstitutionsApislice";
 const validationSchema = Yup.object().shape({
   region_id: Yup.string().required("Region is required"),
   woreda_id: Yup.string().required("Wereda is required"),
@@ -21,6 +22,7 @@ const validationSchema = Yup.object().shape({
 
 export const Addwereda = () => {
   const [addResource] = useAddResourceMutation();
+  const [addInstution] = useAddInstitutionMutation();
   const [step, setStep] = useState(1);
   const [addweredadata] = useAddWoredaDataMutation();
   const [formData, setFormData] = useState({
@@ -117,6 +119,16 @@ export const Addwereda = () => {
       const typeKey = `schooltype${k}`;
       const areaKey = `schoolnumber${k}`;
       if (values[typeKey] && values[areaKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addInstution({
+            name: values[typeKey],
+            institution_type: "SCHOOL",
+          });
+          if (response.data) {
+            toast.success("Institution added successfully");
+            values[typeKey] = response.data.data.id;
+          }
+        }
         schoolArray.push({
           institution_id: values[typeKey],
           amount: values[areaKey],
@@ -132,6 +144,16 @@ export const Addwereda = () => {
       const typeKey = `healthFacilitytype${l}`;
       const areaKey = `healthFacilitynumber${l}`;
       if (values[typeKey] && values[areaKey]) {
+        if (isNaN(values[typeKey])) {
+          const response = await addInstution({
+            name: values[typeKey],
+            institution_type: "HEALTH_FACILITY",
+          });
+          if (response.data) {
+            toast.success("Institution added successfully");
+            values[typeKey] = response.data.data.id;
+          }
+        }
         healthArray.push({
           institution_id: values[typeKey],
           amount: values[areaKey],

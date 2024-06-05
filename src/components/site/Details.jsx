@@ -93,7 +93,7 @@ export const SiteDetails = () => {
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-6">
-            <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit w-full md:w-9/12">
+            <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4  w-full md:w-9/12">
               <div className="p-8 text-gray-600">
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Region: {"  "}
@@ -113,17 +113,17 @@ export const SiteDetails = () => {
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Area: {"  "}
-                  <span className="text-sm font-medium">{data.data?.size_ha} ha</span>
+                  <span className="text-sm font-medium">{new Intl.NumberFormat().format(data.data?.size_ha)} ha</span>
                 </h3>
               </div>
             </div>
 
-            <div className="w-full border border-opacity-35 border-sideboard shadow-md">
+            <div className="w-full border border-opacity-35 border-sideboard shadow-custom">
               <EachMap geojsonData={`/geojson/sites/${id}.geojson`} />
             </div>
           </div>
           <div className="grid gap-4 lg:grid-cols-3">
-            <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+            <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
               <h4 className="text-base font-bold tracking-tight text-customDark my-1">
                 Current land use
               </h4>
@@ -144,7 +144,7 @@ export const SiteDetails = () => {
                 )}
             </div>
 
-            <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+            <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
                 Indigenous Tree
               </h4>
@@ -164,7 +164,7 @@ export const SiteDetails = () => {
                 )
               )}
             </div>
-            <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+            <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
                 Exotic Trees
               </h4>
@@ -185,7 +185,7 @@ export const SiteDetails = () => {
                 ))
               )}
             </div>
-            <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+            <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
                 LiveliHood
               </h4>
@@ -204,7 +204,7 @@ export const SiteDetails = () => {
                 ))
               )}
             </div>
-            <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+            <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
                 Forage
               </h4>

@@ -112,32 +112,32 @@ export const Details = () => {
                   </a>
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className=" text-base font-bold tracking-tight text-customDark my-1">
                       Demographic Information and Data{" "}
                     </h1>
                     <p className="font-semibold text-sm">
                       Male:{" "}
                       <span className="font-normal text-xs">
-                        {data.data.kebele_data?.male_population}
+                        {new Intl.NumberFormat().format(data.data.kebele_data?.male_population)}
                       </span>
                     </p>
                     <p className="font-semibold text-sm">
                       Female:{" "}
                       <span className="font-normal text-xs">
-                        {data.data.kebele_data?.female_population}
+                        {new Intl.NumberFormat().format(data.data.kebele_data?.female_population)}
                       </span>
                     </p>
                     <p className="font-semibold text-sm">
                       Total Population:{" "}
                       <span className="font-normal text-xs">
-                        {data.data.kebele_data?.female_population +
-                          data.data.kebele_data?.male_population}
+                        {new Intl.NumberFormat().format(data.data.kebele_data?.female_population +
+                          data.data.kebele_data?.male_population)}
                       </span>
                     </p>
                   </div>
 
-                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Current land use with area
                     </h1>
@@ -147,41 +147,41 @@ export const Details = () => {
                           <p key={index} className="font-semibold text-sm">
                             {item.value}:{" "}
                             <span className="font-normal text-xs">
-                              {item.amount}
+                              {new Intl.NumberFormat().format(item.amount)}
                             </span>
                           </p>
                         ))
                       )}
                   </div>
 
-                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Land Ownership
                     </h1>
                     <p className="font-bold text-sm">Male headed family:</p>
                     <span className="font-normal text-xs">
-                      Own land: {data.data.kebele_data?.mhf_land_owners}{" "}
+                      Own land: {new Intl.NumberFormat().format(data.data.kebele_data?.mhf_land_owners)}{" "}
                     </span>
                     <span className="font-normal text-xs">
-                      Does'nt Own land: {data.data.kebele_data?.fhf_land_lease}
+                      Does'nt Own land: {new Intl.NumberFormat().format(data.data.kebele_data?.fhf_land_lease)}
                     </span>
                     <p className="font-bold text-sm">Female headed family:</p>
                     <span className="font-normal text-xs">
-                      Own land: {data.data.kebele_data?.fhf_land_owners}{" "}
+                      Own land: {new Intl.NumberFormat().format(data.data.kebele_data?.fhf_land_owners)}{" "}
                     </span>
                     <span className="font-normal text-xs">
-                      Does'nt Own land: {data.data.kebele_data?.fhf_land_lease}{" "}
+                      Does'nt Own land: {new Intl.NumberFormat().format(data.data.kebele_data?.fhf_land_lease)}{" "}
                     </span>
                   </div>
 
-                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Major livelihood activities
                     </h1>
                     <Table data={data.data?.livelihoods} />
                   </div>
 
-                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
                       Included indeginous tree
                     </h4>
@@ -204,7 +204,7 @@ export const Details = () => {
                         )}
                     </ul>
                   </div>
-                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
                       Included Exotic tree
                     </h4>
@@ -228,7 +228,7 @@ export const Details = () => {
                         )}
                     </ul>
                   </div>
-                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Employment Status
                     </h1>
@@ -236,18 +236,18 @@ export const Details = () => {
                     <p className="font-semibold text-sm">
                       Male:{" "}
                       <span className="font-normal text-xs">
-                        {data.data.kebele_data?.male_non_employed}
+                        {new Intl.NumberFormat().format(data.data.kebele_data?.male_non_employed)}
                       </span>
                     </p>
                     <p className="font-semibold text-sm">
                       Female:{" "}
                       <span className="font-normal text-xs">
-                        {data.data.kebele_data?.female_non_employed}
+                        {new Intl.NumberFormat().format(data.data.kebele_data?.female_non_employed)}
                       </span>
                     </p>
                   </div>
 
-                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Number Livestock
                     </h1>
@@ -257,14 +257,14 @@ export const Details = () => {
                           <p key={index} className="font-semibold text-sm">
                             {item.value}:{" "}
                             <span className="font-normal text-xs">
-                              {item.amount}
+                              {new Intl.NumberFormat().format(item.amount)}
                             </span>
                           </p>
                         ))
                       )}
                   </div>
 
-                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Crop grown
                     </h1>
@@ -274,14 +274,14 @@ export const Details = () => {
                           <p key={index} className="font-semibold text-sm">
                             {item.value}:{" "}
                             <span className="font-normal text-xs">
-                              {item.amount}
+                              {new Intl.NumberFormat().format(item.amount)}
                             </span>
                           </p>
                         ))
                       )}
                   </div>
 
-                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-xl font-bold tracking-tight text-customDark my-1">
                       Fruit grown
                     </h1>
@@ -291,14 +291,14 @@ export const Details = () => {
                           <p key={index} className="font-semibold text-sm">
                             {item.value}:{" "}
                             <span className="font-normal text-xs">
-                              {item.amount}
+                              {new Intl.NumberFormat().format(item.amount)}
                             </span>
                           </p>
                         ))
                       )}
                   </div>
 
-                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Nursery Availability
                     </h1>
@@ -308,14 +308,14 @@ export const Details = () => {
                           <p key={index} className="font-semibold text-sm">
                             {item.value}:{" "}
                             <span className="font-normal text-xs">
-                              number: {item.amount} capacity: {item.capacity}
+                              number: {new Intl.NumberFormat().format(item.amount)} capacity: {new Intl.NumberFormat().format(item.capacity)}
                             </span>
                           </p>
                         ))
                       )}
                   </div>
 
-                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Major cause of deforestation
                     </h1>
@@ -329,7 +329,7 @@ export const Details = () => {
                       )}
                   </div>
 
-                  <div className="bg-white border border-opacity-35 border-sideboard shadow-md rounded-md p-4 h-fit">
+                  <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
                       Major cause of deforestation
                     </h1>

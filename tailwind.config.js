@@ -20,6 +20,9 @@ module.exports = {
         deletecolor: '#27ae60',
         sideboard: "#004b23",
       },
+      boxShadow: {
+        "custom": "0 2px 4px -1px rgba(0, 75, 35, 0.2)",
+      },
     },
   },
   plugins: [
