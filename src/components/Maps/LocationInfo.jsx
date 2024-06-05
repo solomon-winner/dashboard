@@ -43,11 +43,6 @@ export const Default = () => {
 export const LocationInfo = () => {
   const [coordinates, setCoordinates] = useState("Loading...");
 
-   const Site_id = useSelector((state) => state.geoJson.GeoJson.SelectedSite);
-   log("the location information of the site...", Site_id);
-   const { data, isSuccess, isFetching } = useGetSiteByIdQuery(Site_id);
-   isSuccess && log("the location data of the site...", data.data);
-
   const Site_id = useSelector((state) => state.geoJson.GeoJson.SelectedSite);
   console.log("the location information of the site...", Site_id);
   const { data, isSuccess, isFetching } = useGetSiteByIdQuery(Site_id);
