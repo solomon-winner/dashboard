@@ -38,7 +38,7 @@ export const EachMap = ({ geojsonData, SiteData }) => {
           const noDataMarker = L.marker([ethiopia.lat, ethiopia.lng], {
             icon: L.divIcon({
               className: 'no-data-marker',
-              html: '<div class="text-4xl text-black font-bold">No ShapFile</div>',
+              html: '<div class="text-4xl text-black font-bold">NoShapFile</div>',
               iconSize: [100, 40],
               iconAnchor: [50, 20],
             }),
