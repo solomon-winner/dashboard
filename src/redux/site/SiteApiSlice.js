@@ -59,4 +59,7 @@ export const SiteApiSlice = apiSlice.injectEndpoints({
     }),
 })
 
-export const { useGetSiteQuery, useAddSiteMutation, useGetSiteByKebeleQuery, useAddSiteDataMutation, useGetSiteByIdQuery,useUpdateSiteByIdMutation, useGetSitebyKebeleQuery, useDeleteSiteMutation } = SiteApiSlice
+export const { useGetSiteQuery, useAddSiteMutation, 
+    useGetSiteByKebeleQuery, useAddSiteDataMutation,
+     useGetSiteByIdQuery,useUpdateSiteByIdMutation, 
+     useGetSitebyKebeleQuery, useDeleteSiteMutation } = SiteApiSlice
