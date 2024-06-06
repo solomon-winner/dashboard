@@ -1,4 +1,4 @@
-const ResourceTable = ({ resources, resourceName }) => {
+export const ResourceTable = ({ resources, resourceName }) => {
     return (
       <>
         <h4>{resourceName}</h4>

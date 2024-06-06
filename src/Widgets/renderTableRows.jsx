@@ -1,4 +1,4 @@
-const RenderTableRows = ({ rows }) => {
+export const RenderTableRows = ({ rows }) => {
     return (
       <>
         {rows.map((row, index) => (

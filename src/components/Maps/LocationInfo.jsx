@@ -5,6 +5,8 @@ import { useGetRegionByIdQuery } from '../../redux/region/RegionApiSlice'
 import { log } from "../Resource/Utility/Logger";
 import { useState } from "react";
 import { useGetWeredaByIdQuery } from "../../redux/wereda/WeredaApiSlice";
+import { RenderTableRows } from "../../Widgets/renderTableRows";
+import { ResourceTable } from "../../Widgets/resourceTables";
 
 async function Get_Coordinates(geoJSON) {
   try {
@@ -263,116 +265,63 @@ export const RegionLocationInfo = () => {
 
 export const WoredaLocationInfo = () => {
   const Woreda_id = useSelector((state) => state.geoJson.GeoJson.selectedWoreda);
-
-  const { data, isSuccess, isFetching } = useGetWeredaByIdQuery(Woreda_id);
+  const { data, isSuccess } = useGetWeredaByIdQuery(Woreda_id);
   const woredaData = isSuccess && data.data;
 
   const dataRows = [
-    {
-      label: "Female Population",
-      value:
-        woredaData.woreda_data?.female_population !== undefined
-          ? woredaData.woreda_data.female_population
-          : "No data",
-    },
-    {
-      label: "Male Population",
-      value:
-        woredaData.woreda_data?.male_population !== undefined
-          ? woredaData.woreda_data.male_population
-          : "No data",
-    },
-    {
-      label: "Rural Kebeles",
-      value:
-        woredaData.woreda_data?.rural_kebeles !== undefined
-          ? woredaData.woreda_data.rural_kebeles
-          : "No data",
-    },
-    {
-      label: "Urban Kebeles",
-      value:
-        woredaData.woreda_data?.urban_kebeles !== undefined
-          ? woredaData.woreda_data.urban_kebeles
-          : "No data",
-    },
+    { label: "Female Population", value: woredaData?.woreda_data?.female_population ?? "No data" },
+    { label: "Male Population", value: woredaData?.woreda_data?.male_population ?? "No data" },
+    { label: "Rural Kebeles", value: woredaData?.woreda_data?.rural_kebeles ?? "No data" },
+    { label: "Urban Kebeles", value: woredaData?.woreda_data?.urban_kebeles ?? "No data" },
   ];
 
-
-  return(
+  return (
     <div>
- 
-                <h4>${woredaData.woreda_name}</h4>
-                <hr />
-                <table class="table-auto w-full">
-                    <tbody>${renderTableRows([
-                      {
-                        label: "Woreda Name",
-                        value:
-                          woredaData.woreda_name !== undefined
-                            ? woredaData.woreda_name
-                            : "No data",
-                      },
-                      {
-                        label: "Woreda Code",
-                        value:
-                          woredaData.woreda_code !== undefined
-                            ? woredaData.woreda_code
-                            : "No data",
-                      },
-                      {
-                        label: "Region Name",
-                        value:
-                          woredaData.region_name !== undefined
-                            ? woredaData.region_name
-                            : "No data",
-                      },
-                      {
-                        label: "Zone Name",
-                        value:
-                          woredaData.zone_name !== undefined
-                            ? woredaData.zone_name
-                            : "No data",
-                      },
-                    ])}</tbody>
-                </table>
-                <hr/>
-                <h6>Woreda Data</h6>
-                <hr/>
-                <table class="table-auto w-full">
-                    <tbody>${renderTableRows(dataRows)}</tbody>
-                </table>
-                <hr />
-                <h4>Woreda Resource</h4>
-                <hr />
-                ${
-                  woredaData.woreda_resource.length !== 0
-                    ? resourceTables(woredaData.woreda_resource?.LAND, "LAND")
-                    : "No Data Entered"
-                }
-                ${
-                  woredaData.woreda_resource.length !== 0
-                    ? resourceTables(woredaData.woreda_resource?.ROAD, "ROAD")
-                    : "No Data Entered"
-                }
-                ${
-                  woredaData.woreda_institution.length !== 0
-                    ? resourceTables(
-                        woredaData.woreda_institution?.SCHOOL,
-                        "School"
-                      )
-                    : "No Data Entered"
-                }
-                ${
-                  woredaData.woreda_institution.length !== 0
-                    ? resourceTables(
-                        woredaData.woreda_institution?.HEALTH_FACILITY,
-                        "Health Facility"
-                      )
-                    : "No Data Entered"
-                }
-            
-          
+      <h4>{woredaData?.woreda_name ?? "No data"}</h4>
+      <hr />
+      <table className="table-auto w-full">
+        <tbody>
+          <RenderTableRows
+            rows={[
+              { label: "Woreda Name", value: woredaData?.woreda_name ?? "No data" },
+              { label: "Woreda Code", value: woredaData?.woreda_code ?? "No data" },
+              { label: "Region Name", value: woredaData?.region_name ?? "No data" },
+              { label: "Zone Name", value: woredaData?.zone_name ?? "No data" },
+            ]}
+          />
+        </tbody>
+      </table>
+      <hr />
+      <h6>Woreda Data</h6>
+      <hr />
+      <table className="table-auto w-full">
+        <tbody>
+          <RenderTableRows rows={dataRows} />
+        </tbody>
+      </table>
+      <hr />
+      <h4>Woreda Resource</h4>
+      <hr />
+      {woredaData?.woreda_resource?.LAND?.length > 0 ? (
+        <ResourceTable resources={woredaData.woreda_resource.LAND} resourceName="LAND" />
+      ) : (
+        "No Data Entered"
+      )}
+      {woredaData?.woreda_resource?.ROAD?.length > 0 ? (
+        <ResourceTable resources={woredaData.woreda_resource.ROAD} resourceName="ROAD" />
+      ) : (
+        "No Data Entered"
+      )}
+      {woredaData?.woreda_institution?.SCHOOL?.length > 0 ? (
+        <ResourceTable resources={woredaData.woreda_institution.SCHOOL} resourceName="School" />
+      ) : (
+        "No Data Entered"
+      )}
+      {woredaData?.woreda_institution?.HEALTH_FACILITY?.length > 0 ? (
+        <ResourceTable resources={woredaData.woreda_institution.HEALTH_FACILITY} resourceName="Health Facility" />
+      ) : (
+        "No Data Entered"
+      )}
     </div>
-  )
-}
+  );
+};
