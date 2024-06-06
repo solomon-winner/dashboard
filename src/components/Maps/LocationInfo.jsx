@@ -71,7 +71,7 @@ export const LocationInfo = () => {
             <div className="bg-gray-200 border-gray-400">
               <p className="text-lg font-bold ml-5">Detailed location Information</p>
             </div>
-            <div className="card-body">
+            <div className="card-body" style={{ overflowX: 'auto', overflowY: 'auto', maxHeight: '80vh' }}>
               {!data && <p>Select a region to view detailed location information.</p>}
               {data && (
                 <div className="m-5">
@@ -81,56 +81,52 @@ export const LocationInfo = () => {
                   </div>
 
                   <div>
-                    <h4>{siteData.site_name}</h4>
                     <hr />
-                    <h6>Site Information</h6>
-                    <p>
-                      <strong>Size in Ha.: </strong>
-                      {siteData.size_ha !== undefined ? siteData.size_ha : "No data"}
-                    </p>
-                    <p>
+                    <h6 className="px-4 py-2 underline">Site Information</h6>
+         
+                    <p className="px-2 py-2">
                       <strong>Watershed: </strong>
                       {siteData.watershed_name !== undefined ? siteData.watershed_name : "No data"}
                     </p>
-                    <p>
+                    <p className="px-2 py-2">
                       <strong>Kebele: </strong>
                       {siteData.kebele_name !== undefined ? siteData.kebele_name : "No data"}
                     </p>
-                    <p>
+                    <p className="px-2 py-2">
                       <strong>Woreda: </strong>
-                      {siteData.woreda_name || "Adwa"}
+                      {siteData.woreda_name || "No data"}
                     </p>
-                    <p>
+                    <p className="px-2 py-2">
                       <strong>Zone: </strong>
                       {siteData.zone_name || "N/A"}
                     </p>
-                    <h4>Site Resource</h4>
+                    <h4 className="px-4 py-2 underline">Site Resource</h4>
                     <hr />
                     <strong>Current land use</strong>
                     <hr />
                     {siteData.resources?.map((resource, resourceIndex) =>
                       resource.LAND?.map((item, itemIndex) => (
                         <div key={`${resourceIndex}-${itemIndex}`}>
-                          <p className="border px-4 py-2 font-bold">{item.value}</p>
+                          <p className="border px-4 py-2">{item.value}</p>
                         </div>
                       ))
                     )}
                     <strong>TREE</strong>
                     <hr />
-                    <p className="font-bold">Indigenous Tree</p>
+                    <p className="px-4 py-2 underline">Indigenous Tree</p>
                     {siteData.resources?.map((resource, resourceIndex) =>
                       resource.TREE?.filter(tree => tree.indigenous === 1).map((item, itemIndex) => (
                         <div key={`${resourceIndex}-${itemIndex}`}>
-                          <p className="border px-4 py-2 font-bold">{item.value}</p>
+                          <p className="border px-4 py-2">{item.value}</p>
                         </div>
                       ))
                     )}
-                    <p className="font-bold">Exotic Tree</p>
+                    <p className="px-4 py-2 underline">Exotic Tree</p>
                     <hr />
                     {siteData.resources?.map((resource, resourceIndex) =>
                       resource.TREE?.filter(tree => !tree.hasOwnProperty("indigenous")).map((item, itemIndex) => (
                         <div key={`${resourceIndex}-${itemIndex}`}>
-                          <p className="border px-4 py-2 font-bold">{item.value}</p>
+                          <p className="border px-4 py-2">{item.value}</p>
                         </div>
                       ))
                     )}
@@ -139,23 +135,27 @@ export const LocationInfo = () => {
                     {siteData.resources?.map((resource, resourceIndex) =>
                       resource.LIVESTOCK?.map((item, itemIndex) => (
                         <div key={`${resourceIndex}-${itemIndex}`}>
-                          <p className="border px-4 py-2 font-bold">{item.value}</p>
+                          <p className="border px-4 py-2">{item.value}</p>
                         </div>
                       ))
                     )}
                     <strong>FORAGE</strong>
                     <hr />
-                    {siteData.resources?.map((resource, resourceIndex) =>
-                      resource.FORAGE?.map((item, itemIndex) => (
-                        <div key={`${resourceIndex}-${itemIndex}`}>
-                          <p className="border px-4 py-2 font-bold">{item.value}</p>
-                        </div>
-                      ))
+                    {siteData.resources?.some(resource => resource.FORAGE?.length === 0) ? (
+                      <p>No Data Entered</p>
+                    ) : (
+                      siteData.resources?.map((resource, resourceIndex) =>
+                        resource.FORAGE?.map((item, itemIndex) => (
+                          <div key={`${resourceIndex}-${itemIndex}`}>
+                            <p className="border px-4 py-2">{item.value}</p>
+                          </div>
+                        ))
+                      )
                     )}
                     <strong>Coordinates</strong>
                     <hr />
                     {coordinates === "No Coordinate" ? (
-                      <p className="border px-4 py-2 font-bold">No Coordinate</p>
+                      <p className="border px-4 py-2">No Coordinate</p>
                     ) : (
                       <table className="table-auto w-full">
                         <thead>
@@ -165,10 +165,9 @@ export const LocationInfo = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {console.log("nfskhdfjsygfbc nxvcsdsdf,smkdjf",coordinates)}
                           {coordinates.map((coords, index) => (
                             <tr key={index}>
-                              <td className="border px-4 py-2 font-bold">{coords[0]}</td>
+                              <td className="border px-4 py-2">{coords[0]}</td>
                               <td className="border px-4 py-2">{coords[1]}</td>
                             </tr>
                           ))}
@@ -179,7 +178,6 @@ export const LocationInfo = () => {
                 </div>
               )}
             </div>
-            <div></div>
           </div>
         </div>
       </div>
@@ -259,5 +257,13 @@ export const RegionLocationInfo = () => {
          </div>
        </div>
      </div>
+  )
+}
+
+export const WoredaLocationInfo = () => {
+  return(
+    <div>
+      
+    </div>
   )
 }
