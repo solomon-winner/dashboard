@@ -41,7 +41,7 @@ export const Default = () => {
 }
 
 export const LocationInfo = () => {
-  const [coordinates, setCoordinates] = useState("Loading...");
+  const [coordinates, setCoordinates] = useState(["Loading..."]);
 
   const Site_id = useSelector((state) => state.geoJson.GeoJson.SelectedSite);
   console.log("the location information of the site...", Site_id);
@@ -165,6 +165,7 @@ export const LocationInfo = () => {
                           </tr>
                         </thead>
                         <tbody>
+                          {console.log("nfskhdfjsygfbc nxvcsdsdf,smkdjf",coordinates)}
                           {coordinates.map((coords, index) => (
                             <tr key={index}>
                               <td className="border px-4 py-2 font-bold">{coords[0]}</td>
