@@ -261,9 +261,10 @@ export const RegionLocationInfo = () => {
 }
 
 export const WoredaLocationInfo = () => {
-  const Woreda_id = useSelector((state) => state.geoJson.GeoJson.SelectedWoreda);
-  const { data, isSuccess, isFetching } = useGetSiteByIdQuery(Site_id);
-  const WoredaData = isSuccess && data.data;
+  const Woreda_id = useSelector((state) => state.geoJson.GeoJson.selectedWoreda);
+
+  const { data, isSuccess, isFetching } = useGetSiteByIdQuery(Woreda_id);
+  const woredaData = isSuccess && data.data;
 
   const dataRows = [
     {

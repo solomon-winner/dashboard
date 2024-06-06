@@ -24,6 +24,8 @@ export const Map = () => {
   const dispatch = useDispatch();
   const AllSite = useSelector((state) => state.geoJson.GeoJson.AllSite);
   const SelectedRegion = useSelector((state) => state.geoJson.GeoJson.SelectedRegion);
+  const SelectedWoreda = useSelector((state) => state.geoJson.GeoJson.selectedWoreda);
+
 
   const [Zoom,setZoom]  = useState(false);
   const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
@@ -146,6 +148,7 @@ var regionLayer,
                 kebeleLayerGroup.clearLayers();
                 drawKebelesForWoreda(feature.properties.id);
                 dispatch(SetSelectedWoreda(feature.properties.id));
+                console.log("vhdjhfdhrfhbafhbdflhfbvhbfsdkjf",SelectedRegion)
                 // updateKebeleList(feature.properties.id);
             });
             }
