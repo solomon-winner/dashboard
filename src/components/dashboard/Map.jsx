@@ -5,7 +5,7 @@ import L from 'leaflet';
 import { useGetRegionGeojsonsQuery } from '../../redux/GeoJson/RegionGeoJsonApi';
 import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
 import {fetchRegionData, fetchSiteData} from '../Maps/FetchGeoJsonMap';
-import {SetAllRegions, SetAllSiteData, SetSelectedRegion, SetSelectedSite, SetLocationInfo} from '../../redux/GeoJson/GeoJsonSlice'
+import {SetAllRegions, SetAllSiteData, SetSelectedWoreda,SetSelectedRegion, SetSelectedSite, SetLocationInfo} from '../../redux/GeoJson/GeoJsonSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { setSiteId } from '../../redux/site/SiteByIdState';
 import { ZoomOut } from '@mui/icons-material';
@@ -88,7 +88,7 @@ var regionLayer,
               woredaLayerGroup.clearLayers();
               Zoomer(layer);
               drawWoredasForRegion(feature.properties.id);
-                dispatch(SetSelectedRegion(feature.properties.id));
+              dispatch(SetSelectedRegion(feature.properties.id));
 
               // updateWoredaList(feature.properties.name);
             });
@@ -145,6 +145,7 @@ var regionLayer,
             
                 kebeleLayerGroup.clearLayers();
                 drawKebelesForWoreda(feature.properties.id);
+                dispatch(SetSelectedWoreda(feature.properties.id));
                 // updateKebeleList(feature.properties.id);
             });
             }
