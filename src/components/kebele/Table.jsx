@@ -2,17 +2,17 @@ import React from "react";
 
 export const Table = ({ data }) => {
   return (
-    <div className="overflow-y-auto h-screen overflow-x-hidden" >
-      <table className="min-w-full divide-y divide-gray-200">
+    <div className="" >
+      <table className="bg-gray-300 divide-y divide-gray-200">
         <thead>
           <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">
               Livelihood asctivities
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">
               Male Headed
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">
               Female Headed
             </th>
           </tr>
