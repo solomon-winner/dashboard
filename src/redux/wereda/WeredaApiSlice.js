@@ -46,4 +46,6 @@ export const weredaApiSlice = apiSlice.injectEndpoints({
     }),
 })
 
-export const { useGetWoredaQuery, useAddWoredaMutation, useAddWoredaDataMutation, useGetWeredaByIdQuery, useUpdateWeredaByIdMutation, useDeleteWeredaByIdMutation } = weredaApiSlice
+export const { useGetWoredaQuery, useAddWoredaMutation,
+     useAddWoredaDataMutation, useGetWeredaByIdQuery, 
+     useUpdateWeredaByIdMutation, useDeleteWeredaByIdMutation } = weredaApiSlice

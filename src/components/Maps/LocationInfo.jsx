@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useGetRegionByIdQuery } from '../../redux/region/RegionApiSlice'
 import { log } from "../Resource/Utility/Logger";
 import { useState } from "react";
+import { useGetWeredaByIdQuery } from "../../redux/wereda/WeredaApiSlice";
 
 async function Get_Coordinates(geoJSON) {
   try {
@@ -263,7 +264,7 @@ export const RegionLocationInfo = () => {
 export const WoredaLocationInfo = () => {
   const Woreda_id = useSelector((state) => state.geoJson.GeoJson.selectedWoreda);
 
-  const { data, isSuccess, isFetching } = useGetSiteByIdQuery(Woreda_id);
+  const { data, isSuccess, isFetching } = useGetWeredaByIdQuery(Woreda_id);
   const woredaData = isSuccess && data.data;
 
   const dataRows = [
@@ -347,12 +348,12 @@ export const WoredaLocationInfo = () => {
                 ${
                   woredaData.woreda_resource.length !== 0
                     ? resourceTables(woredaData.woreda_resource?.LAND, "LAND")
-                    : ""
+                    : "No Data Entered"
                 }
                 ${
                   woredaData.woreda_resource.length !== 0
                     ? resourceTables(woredaData.woreda_resource?.ROAD, "ROAD")
-                    : ""
+                    : "No Data Entered"
                 }
                 ${
                   woredaData.woreda_institution.length !== 0
@@ -360,7 +361,7 @@ export const WoredaLocationInfo = () => {
                         woredaData.woreda_institution?.SCHOOL,
                         "School"
                       )
-                    : ""
+                    : "No Data Entered"
                 }
                 ${
                   woredaData.woreda_institution.length !== 0
@@ -368,7 +369,7 @@ export const WoredaLocationInfo = () => {
                         woredaData.woreda_institution?.HEALTH_FACILITY,
                         "Health Facility"
                       )
-                    : ""
+                    : "No Data Entered"
                 }
             
           
