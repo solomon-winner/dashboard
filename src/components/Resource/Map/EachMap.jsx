@@ -7,7 +7,7 @@ import { log } from "../Utility/Logger";
 export const EachMap = ({ geojsonData, SiteData }) => {
   const mapRef = useRef(null);
   var siteIcon = L.icon({
-    iconUrl: "/Marker.svg",
+    iconUrl: "/gps.png",
     iconSize: [20, 20],
     iconAnchor: [16, 16],
   });
