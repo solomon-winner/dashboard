@@ -133,7 +133,7 @@ export const WeredaDetails = () => {
                   </div>
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold text-customDark p-4">
-                      Demographic Information and Data
+                      Demographic Information and Data By Gender for the whole woreda
                     </h1>
                     <div className="border-b border-gray-300 rounded-md p-3 mb-4">
                       <div className="flex justify-between items-center">
@@ -172,7 +172,7 @@ export const WeredaDetails = () => {
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1 p-4">
-                      Land use with area
+                      Major Land use classification and size in Ha
                     </h1>
                     <div className="flex flex-col gap-2">
                       {weredadata.data.woreda_resource.LAND?.map(
@@ -197,10 +197,9 @@ export const WeredaDetails = () => {
                       )}
                     </div>
                   </div>
-
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1 p-4">
-                      Road
+                     Kind of Road and Distance in Km
                     </h1>
                     <div className="flex flex-col gap-2">
                       {weredadata.data.woreda_resource.ROAD?.map(

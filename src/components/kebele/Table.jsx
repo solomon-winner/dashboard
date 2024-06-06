@@ -2,17 +2,17 @@ import React from "react";
 
 export const Table = ({ data }) => {
   return (
-    <div>
-      <table className="border-collapse pt-2 w-full">
+    <div className="overflow-y-auto h-screen overflow-x-hidden" >
+      <table className="min-w-full divide-y divide-gray-200">
         <thead>
           <tr>
-            <th className="p-3 font-bold  bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Livelihood asctivities
             </th>
-            <th className="p-3 font-bold  bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Male Headed
             </th>
-            <th className="p-3 font-bold  bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Female Headed
             </th>
           </tr>
@@ -22,15 +22,15 @@ export const Table = ({ data }) => {
             data.map((item, index) => (
               <tr
                 key={index}
-                className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0"
+                className="bg-white lg:hover:bg-gray-100 table-row flex-row flex-wrap flex-no-wrap mb-0"
               >
-                <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                <td className="w-auto p-3 text-gray-800 text-center border border-b table-cell static">
                   <span className="text-sm">{item.value}</span>
                 </td>
-                <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                <td className="w-auto p-3 text-gray-800 text-center border border-b table-cell static">
                   <span className="text-sm">{item.male_headed_hh}</span>
                 </td>
-                <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                <td className="w-auto p-3 text-gray-800 text-center border border-b table-cell static">
                   <span className="text-sm">{item.female_headed_hh}</span>
                 </td>
               </tr>

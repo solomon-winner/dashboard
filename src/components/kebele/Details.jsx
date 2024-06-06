@@ -114,7 +114,7 @@ export const Details = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className=" text-base font-bold tracking-tight text-customDark my-1">
-                      Demographic Information and Data{" "}
+                    Demographic Information and Data By Gender for the whole kebele 
                     </h1>
                     <p className="font-semibold text-sm">
                       Male:{" "}
@@ -139,7 +139,7 @@ export const Details = () => {
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                      Current land use with area
+                      Current land use classification and size in Ha
                     </h1>
                     {data.data.resources &&
                       data.data.resources?.map((resource, index) =>
@@ -176,14 +176,14 @@ export const Details = () => {
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                      Major livelihood activities
+                      Major livelihood activities in the Kebele
                     </h1>
                     <Table data={data.data?.livelihoods} />
                   </div>
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                      Included indeginous tree
+                      Major indeginous tree growing in the local area
                     </h4>
                     <div className="h-px flex-auto bg-gray-100"></div>
 
@@ -206,7 +206,7 @@ export const Details = () => {
                   </div>
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                      Included Exotic tree
+                      Major Exotic tree growing in the local area
                     </h4>
                     <div className="h-px flex-auto bg-gray-100"></div>
 
@@ -249,7 +249,7 @@ export const Details = () => {
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                      Number Livestock
+                      Number and type of Livestock in the kebele
                     </h1>
                     {data.data.resources &&
                       data.data.resources.map((resource, index) =>
@@ -266,7 +266,7 @@ export const Details = () => {
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                      Crop grown
+                    Crop types grown and area in Ha in the kebele
                     </h1>
                     {data.data.resources &&
                       data.data.resources.map((resource, index) =>
@@ -282,8 +282,8 @@ export const Details = () => {
                   </div>
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
-                    <h1 className="text-xl font-bold tracking-tight text-customDark my-1">
-                      Fruit grown
+                    <h1 className="text-base font-bold tracking-tight text-customDark my-1">
+                      Fruit types grown and area in Ha in the kebele
                     </h1>
                     {data.data.resources &&
                       data.data.resources.map((resource, index) =>
@@ -300,7 +300,7 @@ export const Details = () => {
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                      Nursery Availability
+                      Nursery Availability in the kebele
                     </h1>
                     {data.data.resources &&
                       data.data.resources.map((resource, index) =>
@@ -317,7 +317,7 @@ export const Details = () => {
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                      Major cause of deforestation
+                      Major cause of deforestation/ forest destruvtion in the kebele
                     </h1>
                     {data.data.resources &&
                       data.data.resources.map((resource, index) =>
@@ -331,7 +331,7 @@ export const Details = () => {
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                      Major cause of deforestation
+                      Source of energy for cooking and lighting in the Kebele
                     </h1>
                     {data.data.energy_sources?.map((item, index) => (
                       <p className="font-semibold text-sm">

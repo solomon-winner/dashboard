@@ -125,7 +125,7 @@ export const SiteDetails = () => {
           <div className="grid gap-4 lg:grid-cols-3">
             <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
               <h4 className="text-base font-bold tracking-tight text-customDark my-1">
-                Current land use
+                Current land use status of the Sites
               </h4>
 
               {data?.data?.resources &&
@@ -146,7 +146,7 @@ export const SiteDetails = () => {
 
             <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                Indigenous Tree
+                Indigenous Tree which can grow in the site
               </h4>
               {data?.data?.resources?.map((resource, index) =>
                 resource?.TREE?.filter((tree) => tree.indigenous === 1).map(
@@ -166,7 +166,7 @@ export const SiteDetails = () => {
             </div>
             <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                Exotic Trees
+                Exotic Trees which can grow in the site
               </h4>
 
               {data?.data?.resources?.map((resource, index) =>
@@ -187,7 +187,7 @@ export const SiteDetails = () => {
             </div>
             <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                LiveliHood
+                LiveliHood activities which the site can support
               </h4>
 
               {data?.data?.resources?.map((resource, index) =>
@@ -206,7 +206,7 @@ export const SiteDetails = () => {
             </div>
             <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                Forage
+                Forage/fodder that can grow in the site
               </h4>
 
               {data?.data?.resources?.map((resource, index) =>
