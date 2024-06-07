@@ -297,7 +297,7 @@ export const WoredaLocationInfo = () => {
                 </tbody>
               </table>
               <hr />
-              <h2 className="px-3 ">Woreda Data:</h2>
+              <h2 className="px-3">Woreda Data:</h2>
               <hr />
               <table className="table-auto w-full">
                 <tbody>
@@ -305,27 +305,33 @@ export const WoredaLocationInfo = () => {
                 </tbody>
               </table>
               <hr />
-              <h2 className=" px-3 ">Woreda Resource:</h2>
+              <h2 className="font-bold px-3 py-3">Woreda Resource:</h2>
               <hr />
-              {woredaData?.woreda_resource?.LAND?.length > 0 ? (
-                <ResourceTable resources={woredaData.woreda_resource.LAND} resourceName="LAND" />
+              {woredaData?.woreda_resource?.length === 0 ? (
+                <p className="px-4">No Data Entered</p>
               ) : (
-                "No Data Entered"
-              )}
-              {woredaData?.woreda_resource?.ROAD?.length > 0 ? (
-                <ResourceTable resources={woredaData.woreda_resource.ROAD} resourceName="ROAD" />
-              ) : (
-                "No Data Entered"
-              )}
-              {woredaData?.woreda_institution?.SCHOOL?.length > 0 ? (
-                <ResourceTable resources={woredaData.woreda_institution.SCHOOL} resourceName="School" />
-              ) : (
-                "No Data Entered"
-              )}
-              {woredaData?.woreda_institution?.HEALTH_FACILITY?.length > 0 ? (
-                <ResourceTable resources={woredaData.woreda_institution.HEALTH_FACILITY} resourceName="Health Facility" />
-              ) : (
-                "No Data Entered"
+                <>
+                  {woredaData?.woreda_resource?.LAND?.length > 0 ? (
+                    <ResourceTable resources={woredaData.woreda_resource.LAND} resourceName="LAND" />
+                  ) : (
+                    "No Data Entered"
+                  )}
+                  {woredaData?.woreda_resource?.ROAD?.length > 0 ? (
+                    <ResourceTable resources={woredaData.woreda_resource.ROAD} resourceName="ROAD" />
+                  ) : (
+                    "No Data Entered"
+                  )}
+                  {woredaData?.woreda_institution?.SCHOOL?.length > 0 ? (
+                    <ResourceTable resources={woredaData.woreda_institution.SCHOOL} resourceName="School" />
+                  ) : (
+                    "No Data Entered"
+                  )}
+                  {woredaData?.woreda_institution?.HEALTH_FACILITY?.length > 0 ? (
+                    <ResourceTable resources={woredaData.woreda_institution.HEALTH_FACILITY} resourceName="Health Facility" />
+                  ) : (
+                    "No Data Entered"
+                  )}
+                </>
               )}
             </div>
           </div>
@@ -333,4 +339,10 @@ export const WoredaLocationInfo = () => {
       </div>
     </div>
   );
-}  
+}
+
+export const KebeleLocationInfo = () => {
+  return(
+    <div className=""></div>
+  )
+}
