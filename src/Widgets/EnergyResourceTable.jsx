@@ -5,7 +5,7 @@ const EnergyResourcesTable = ({ energyResources }) => {
 
   return (
     <div>
-      <h4>Energy Resources</h4>
+      <h4  className="px-4">Energy Resources</h4>
       <hr />
       <table className="table-auto w-full">
         <thead>
