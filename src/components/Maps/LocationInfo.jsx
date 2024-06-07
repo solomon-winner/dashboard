@@ -261,7 +261,7 @@ export const RegionLocationInfo = () => {
 }
 
 export const WoredaLocationInfo = () => {
-  const Woreda_id = useSelector((state) => state.geoJson.GeoJson.selectedWoreda);
+  const Woreda_id = useSelector((state) => state.geoJson.GeoJson.SelectedWoreda);
   console.log("jfhsbdfsvdfsvfsjgvg",Woreda_id)
   const { data, isSuccess } = useGetWeredaByIdQuery(Woreda_id);
   const woredaData = isSuccess && data.data;
@@ -271,6 +271,8 @@ export const WoredaLocationInfo = () => {
     { label: "Male Population", value: woredaData?.woreda_data?.male_population ?? "No data" },
     { label: "Rural Kebeles", value: woredaData?.woreda_data?.rural_kebeles ?? "No data" },
     { label: "Urban Kebeles", value: woredaData?.woreda_data?.urban_kebeles ?? "No data" },
+    { label: "male_hh", value: woredaData?.woreda_data?.male_hh ?? "No data" },
+    { label: "female_hh", value: woredaData?.woreda_data?.female_hh?? "No data" },
   ];
 
   return (
@@ -282,14 +284,12 @@ export const WoredaLocationInfo = () => {
               <p className="text-lg font-bold ml-5 py-3">Detailed location Information</p>
             </div>
             <div className="card-body" style={{ overflowX: 'auto', overflowY: 'auto', maxHeight: '80vh' }}>
-              <h4>{woredaData?.woreda_name ?? "No data"}</h4>
               <hr />
               <table className="table-auto w-full">
                 <tbody>
                   <RenderTableRows
                     rows={[
                       { label: "Woreda Name", value: woredaData?.woreda_name ?? "No data" },
-                      { label: "Woreda Code", value: woredaData?.woreda_code ?? "No data" },
                       { label: "Region Name", value: woredaData?.region_name ?? "No data" },
                       { label: "Zone Name", value: woredaData?.zone_name ?? "No data" },
                     ]}
@@ -297,7 +297,7 @@ export const WoredaLocationInfo = () => {
                 </tbody>
               </table>
               <hr />
-              <h6>Woreda Data</h6>
+              <h2 className="px-3 ">Woreda Data:</h2>
               <hr />
               <table className="table-auto w-full">
                 <tbody>
@@ -305,7 +305,7 @@ export const WoredaLocationInfo = () => {
                 </tbody>
               </table>
               <hr />
-              <h4>Woreda Resource</h4>
+              <h2 className=" px-3 ">Woreda Resource:</h2>
               <hr />
               {woredaData?.woreda_resource?.LAND?.length > 0 ? (
                 <ResourceTable resources={woredaData.woreda_resource.LAND} resourceName="LAND" />
