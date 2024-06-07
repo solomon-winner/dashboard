@@ -72,7 +72,7 @@ export const LocationInfo = () => {
         <div className="container project-container">
           <div className="card">
             <div className="bg-gray-200 border-gray-400">
-              <p className="text-lg font-bold ml-5">Detailed location Information</p>
+              <p className="text-lg font-bold ml-5 py-3">Detailed location Information</p>
             </div>
             <div className="card-body" style={{ overflowX: 'auto', overflowY: 'auto', maxHeight: '80vh' }}>
               {!data && <p>Select a region to view detailed location information.</p>}
@@ -192,12 +192,9 @@ export const LocationInfo = () => {
 export const RegionLocationInfo = () => {
   const Region  = useSelector((state) => state.geoJson.GeoJson.SelectedRegion);
 
-  log("the location information of the region...", Region);
-
   const { data, isSuccess, isFetching } = useGetRegionByIdQuery(Region);
  const Kebeles = isSuccess && data.data.kebeles.length;
  const Woredas = isSuccess && data.data.woredas.length;
-  log("the location information of the region...", Region);
  
    return(
        <div className="d-flex min-w-80">
@@ -265,6 +262,7 @@ export const RegionLocationInfo = () => {
 
 export const WoredaLocationInfo = () => {
   const Woreda_id = useSelector((state) => state.geoJson.GeoJson.selectedWoreda);
+  console.log("jfhsbdfsvdfsvfsjgvg",Woreda_id)
   const { data, isSuccess } = useGetWeredaByIdQuery(Woreda_id);
   const woredaData = isSuccess && data.data;
 
