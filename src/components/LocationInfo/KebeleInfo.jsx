@@ -11,11 +11,11 @@ export const KebeleLocationInfo = () => {
     const Kebele_id = useSelector((state) => state.geoJson.GeoJson.SelectedKebele);
     const { data, isSuccess } = useGetKebeleByIdQuery(Kebele_id);
     const kebeleData = isSuccess && data.data;
-
+console.log("nskdhfsjdgfsd",data)
     const dataRows = [
         {
           label: "Female Population",
-          value: kebeleData.kebele_data.female_population !== undefined && kebeleData.kebele_data.female_population !== null 
+          value: kebeleData.kebele_data?.female_population !== undefined && kebeleData.kebele_data?.female_population !== null 
             ? kebeleData.kebele_data.female_population 
             : 'No Data',
         },
@@ -106,5 +106,5 @@ export const KebeleLocationInfo = () => {
         </div>
       </div>
     </div>
-  );
+ );
 }

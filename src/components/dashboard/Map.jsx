@@ -161,6 +161,14 @@ var regionLayer,
           const Woroda_Kebeles = data.data;
           Woroda_Kebeles.forEach(function (KEBELE) {
             fetchRegionData(KEBELE).then((kebeleData) => {
+                    // Extract the kebele ID from the KEBELE URL
+                    const kebeleId = KEBELE.match(/\/([^\/]+)\.geojson$/)[1];
+
+                    // Inject the kebele ID into each feature in the kebeleData
+                    kebeleData.features.forEach(feature => {
+                        feature.properties.kebeleId = kebeleId;
+                    });
+                    console.log(kebeleData.features)
           L.geoJSON(kebeleData, {
               onEachFeature: onEachKebeleFeature,
           }).addTo(kebeleLayerGroup);
@@ -202,7 +210,8 @@ var regionLayer,
           siteLayerGroup.clearLayers();
           // drawSitesForKebele(feature.properties.RK_CODE);
           // updateSiteList(feature.properties.RK_CODE);
-          console.log("cjshdjsdgv",layer)
+          console.log("cjshdjsdgv",layer.feature.properties.kebeleId)
+          dispatch(SetSelectedKebele(layer.feature.properties.kebeleId))
       });
       }
       
