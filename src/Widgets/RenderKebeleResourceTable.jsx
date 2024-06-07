@@ -3,7 +3,7 @@ import KebeleResourceTable from './KebeleResourceTable';
 import LivelihoodTable from './LiveliHoodTable';
 import EnergyResourcesTable from './EnergyResourcesTable';
 
-const RenderResourceTables = ({ resources }) => {
+const RenderKebeleResourceTables = ({ resources }) => {
   return (
     <div>
       {resources.map((resourceObj, index) => {
@@ -35,4 +35,4 @@ const RenderResourceTables = ({ resources }) => {
   );
 };
 
-export default RenderResourceTables;
+export default RenderKebeleResourceTables;

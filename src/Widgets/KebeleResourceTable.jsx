@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ResourceTable = ({ resources, resourceName }) => {
+const KebeleResourceTable = ({ resources, resourceName }) => {
   if (!Array.isArray(resources)) return null;
 
   const hasAmount = resources.some(resource => resource.amount !== undefined);
@@ -33,4 +33,4 @@ const ResourceTable = ({ resources, resourceName }) => {
   );
 };
 
-export default ResourceTable;
+export default KebeleResourceTable;
