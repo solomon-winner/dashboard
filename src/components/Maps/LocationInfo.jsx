@@ -262,7 +262,6 @@ export const RegionLocationInfo = () => {
 
 export const WoredaLocationInfo = () => {
   const Woreda_id = useSelector((state) => state.geoJson.GeoJson.SelectedWoreda);
-  console.log("jfhsbdfsvdfsvfsjgvg",Woreda_id)
   const { data, isSuccess } = useGetWeredaByIdQuery(Woreda_id);
   const woredaData = isSuccess && data.data;
 
@@ -321,6 +320,15 @@ export const WoredaLocationInfo = () => {
                   ) : (
                     "No Data Entered"
                   )}
+                </>
+              )}
+              <hr />
+              <h2 className="font-bold px-3 py-3">Woreda Institution:</h2>
+              <hr />
+              {woredaData?.woreda_institution?.length === 0 ? (
+                <p className="px-4">No Data Entered</p>
+              ) : (
+                <>
                   {woredaData?.woreda_institution?.SCHOOL?.length > 0 ? (
                     <ResourceTable resources={woredaData.woreda_institution.SCHOOL} resourceName="School" />
                   ) : (
@@ -339,10 +347,79 @@ export const WoredaLocationInfo = () => {
       </div>
     </div>
   );
-}
-
+}  
 export const KebeleLocationInfo = () => {
-  return(
-    <div className=""></div>
-  )
+  return (
+    <div className="d-flex min-w-80">
+      <div className="w-50" style={{ border: '1px solid gray' }}>
+        <div className="container project-container">
+          <div className="card">
+            <div className="bg-gray-200 border-gray-400">
+              <p className="text-lg font-bold ml-5 py-3">Detailed location Information</p>
+            </div>
+            <div className="card-body" style={{ overflowX: 'auto', overflowY: 'auto', maxHeight: '80vh' }}>
+              <hr />
+              <table className="table-auto w-full">
+                <tbody>
+                  <RenderTableRows
+                    rows={[
+                      { label: "Woreda Name", value: woredaData?.woreda_name ?? "No data" },
+                      { label: "Region Name", value: woredaData?.region_name ?? "No data" },
+                      { label: "Zone Name", value: woredaData?.zone_name ?? "No data" },
+                    ]}
+                  />
+                </tbody>
+              </table>
+              <hr />
+              <h2 className="px-3">Woreda Data:</h2>
+              <hr />
+              <table className="table-auto w-full">
+                <tbody>
+                  <RenderTableRows rows={dataRows} />
+                </tbody>
+              </table>
+              <hr />
+              <h2 className="font-bold px-3 py-3">Woreda Resource:</h2>
+              <hr />
+              {woredaData?.woreda_resource?.length === 0 ? (
+                <p className="px-4">No Data Entered</p>
+              ) : (
+                <>
+                  {woredaData?.woreda_resource?.LAND?.length > 0 ? (
+                    <ResourceTable resources={woredaData.woreda_resource.LAND} resourceName="LAND" />
+                  ) : (
+                    "No Data Entered"
+                  )}
+                  {woredaData?.woreda_resource?.ROAD?.length > 0 ? (
+                    <ResourceTable resources={woredaData.woreda_resource.ROAD} resourceName="ROAD" />
+                  ) : (
+                    "No Data Entered"
+                  )}
+                </>
+              )}
+              <hr />
+              <h2 className="font-bold px-3 py-3">Woreda Institution:</h2>
+              <hr />
+              {woredaData?.woreda_institution?.length === 0 ? (
+                <p className="px-4">No Data Entered</p>
+              ) : (
+                <>
+                  {woredaData?.woreda_institution?.SCHOOL?.length > 0 ? (
+                    <ResourceTable resources={woredaData.woreda_institution.SCHOOL} resourceName="School" />
+                  ) : (
+                    "No Data Entered"
+                  )}
+                  {woredaData?.woreda_institution?.HEALTH_FACILITY?.length > 0 ? (
+                    <ResourceTable resources={woredaData.woreda_institution.HEALTH_FACILITY} resourceName="Health Facility" />
+                  ) : (
+                    "No Data Entered"
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
