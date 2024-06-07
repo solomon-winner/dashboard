@@ -9,7 +9,7 @@ import EnergyResourcesTable from "../../Widgets/EnergyResourceTable";
 export const KebeleLocationInfo = () => {
 
     const Kebele_id = useSelector((state) => state.geoJson.GeoJson.SelectedKebele);
-    const { data, isSuccess } = useGetKebeleByIdQuery(Kebele_id);
+    const { data, isSuccess, isFetching  } = useGetKebeleByIdQuery(Kebele_id);
     const kebeleData = isSuccess && data.data;
 console.log("nskdhfsjdgfsd",data)
     const dataRows = [
@@ -63,7 +63,10 @@ console.log("nskdhfsjdgfsd",data)
         },
       ];
       
-    
+      if (isFetching) {
+        return <p>Loading...</p>;
+      }
+      
   return (
     <div className="d-flex min-w-80">
         <div className="w-50" style={{ border: '1px solid gray' }}>
