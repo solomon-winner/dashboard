@@ -18,7 +18,7 @@ export const Dashboard = () => {
   const Region_id  = useSelector((state) => state.geoJson.GeoJson.SelectedRegion);
   const defualtLocation  = useSelector((state) => state.geoJson.GeoJson.LocationInfo);
   const Site_id  = useSelector((state) => state.geoJson.GeoJson.SelectedSite);
-  const Woreda_id = useSelector((state) => state.geoJson.GeoJson.selectedWoreda);
+  const Woreda_id = useSelector((state) => state.geoJson.GeoJson.SelectedWoreda);
 console.log("Woreda_id",Woreda_id)
   // const Site_id = useSelector((state) => state.siteById.Id);
   useGetRegion();

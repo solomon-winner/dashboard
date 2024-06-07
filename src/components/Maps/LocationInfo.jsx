@@ -274,52 +274,63 @@ export const WoredaLocationInfo = () => {
   ];
 
   return (
-    <div>
-      <h4>{woredaData?.woreda_name ?? "No data"}</h4>
-      <hr />
-      <table className="table-auto w-full">
-        <tbody>
-          <RenderTableRows
-            rows={[
-              { label: "Woreda Name", value: woredaData?.woreda_name ?? "No data" },
-              { label: "Woreda Code", value: woredaData?.woreda_code ?? "No data" },
-              { label: "Region Name", value: woredaData?.region_name ?? "No data" },
-              { label: "Zone Name", value: woredaData?.zone_name ?? "No data" },
-            ]}
-          />
-        </tbody>
-      </table>
-      <hr />
-      <h6>Woreda Data</h6>
-      <hr />
-      <table className="table-auto w-full">
-        <tbody>
-          <RenderTableRows rows={dataRows} />
-        </tbody>
-      </table>
-      <hr />
-      <h4>Woreda Resource</h4>
-      <hr />
-      {woredaData?.woreda_resource?.LAND?.length > 0 ? (
-        <ResourceTable resources={woredaData.woreda_resource.LAND} resourceName="LAND" />
-      ) : (
-        "No Data Entered"
-      )}
-      {woredaData?.woreda_resource?.ROAD?.length > 0 ? (
-        <ResourceTable resources={woredaData.woreda_resource.ROAD} resourceName="ROAD" />
-      ) : (
-        "No Data Entered"
-      )}
-      {woredaData?.woreda_institution?.SCHOOL?.length > 0 ? (
-        <ResourceTable resources={woredaData.woreda_institution.SCHOOL} resourceName="School" />
-      ) : (
-        "No Data Entered"
-      )}
-      {woredaData?.woreda_institution?.HEALTH_FACILITY?.length > 0 ? (
-        <ResourceTable resources={woredaData.woreda_institution.HEALTH_FACILITY} resourceName="Health Facility" />
-      ) : (
-        "No Data Entered"
-      )}
+    <div className="d-flex min-w-80">
+      <div className="w-50" style={{ border: '1px solid gray' }}>
+        <div className="container project-container">
+          <div className="card">
+            <div className="bg-gray-200 border-gray-400">
+              <p className="text-lg font-bold ml-5 py-3">Detailed location Information</p>
+            </div>
+            <div className="card-body" style={{ overflowX: 'auto', overflowY: 'auto', maxHeight: '80vh' }}>
+              <h4>{woredaData?.woreda_name ?? "No data"}</h4>
+              <hr />
+              <table className="table-auto w-full">
+                <tbody>
+                  <RenderTableRows
+                    rows={[
+                      { label: "Woreda Name", value: woredaData?.woreda_name ?? "No data" },
+                      { label: "Woreda Code", value: woredaData?.woreda_code ?? "No data" },
+                      { label: "Region Name", value: woredaData?.region_name ?? "No data" },
+                      { label: "Zone Name", value: woredaData?.zone_name ?? "No data" },
+                    ]}
+                  />
+                </tbody>
+              </table>
+              <hr />
+              <h6>Woreda Data</h6>
+              <hr />
+              <table className="table-auto w-full">
+                <tbody>
+                  <RenderTableRows rows={dataRows} />
+                </tbody>
+              </table>
+              <hr />
+              <h4>Woreda Resource</h4>
+              <hr />
+              {woredaData?.woreda_resource?.LAND?.length > 0 ? (
+                <ResourceTable resources={woredaData.woreda_resource.LAND} resourceName="LAND" />
+              ) : (
+                "No Data Entered"
+              )}
+              {woredaData?.woreda_resource?.ROAD?.length > 0 ? (
+                <ResourceTable resources={woredaData.woreda_resource.ROAD} resourceName="ROAD" />
+              ) : (
+                "No Data Entered"
+              )}
+              {woredaData?.woreda_institution?.SCHOOL?.length > 0 ? (
+                <ResourceTable resources={woredaData.woreda_institution.SCHOOL} resourceName="School" />
+              ) : (
+                "No Data Entered"
+              )}
+              {woredaData?.woreda_institution?.HEALTH_FACILITY?.length > 0 ? (
+                <ResourceTable resources={woredaData.woreda_institution.HEALTH_FACILITY} resourceName="Health Facility" />
+              ) : (
+                "No Data Entered"
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
-};
+}  
