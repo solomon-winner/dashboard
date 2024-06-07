@@ -1,7 +1,7 @@
 import React from 'react';
 import KebeleResourceTable from './KebeleResourceTable';
 import LivelihoodTable from './LiveliHoodTable';
-import EnergyResourcesTable from './EnergyResourcesTable';
+import EnergyResourcesTable from './EnergyResourceTable';
 
 const RenderKebeleResourceTables = ({ resources }) => {
   return (

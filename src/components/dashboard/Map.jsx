@@ -5,7 +5,7 @@ import L from 'leaflet';
 import { useGetRegionGeojsonsQuery } from '../../redux/GeoJson/RegionGeoJsonApi';
 import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
 import {fetchRegionData, fetchSiteData} from '../Maps/FetchGeoJsonMap';
-import {SetAllRegions, SetAllSiteData, SetSelectedWoreda,SetSelectedRegion, SetSelectedSite, SetLocationInfo} from '../../redux/GeoJson/GeoJsonSlice'
+import {SetAllRegions, SetSelectedKebele, SetSelectedWoreda,SetSelectedRegion, SetSelectedSite, SetLocationInfo} from '../../redux/GeoJson/GeoJsonSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { setSiteId } from '../../redux/site/SiteByIdState';
 import { ZoomOut } from '@mui/icons-material';
@@ -184,7 +184,8 @@ var regionLayer,
           kebeleLayerGroup.eachLayer(function (kebeleLayer) {
               kebeleLayer.setStyle({
                   color: "#6c757d",
-                  fillOpacity: 0.1, weight:1,
+                  fillOpacity: 0.1,
+                  weight:1,
               });
           });
       
@@ -201,6 +202,7 @@ var regionLayer,
           siteLayerGroup.clearLayers();
           // drawSitesForKebele(feature.properties.RK_CODE);
           // updateSiteList(feature.properties.RK_CODE);
+          console.log("cjshdjsdgv",layer)
       });
       }
       

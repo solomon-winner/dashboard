@@ -12,7 +12,58 @@ export const KebeleLocationInfo = () => {
     const { data, isSuccess } = useGetKebeleByIdQuery(Kebele_id);
     const kebeleData = isSuccess && data.data;
 
-  
+    const dataRows = [
+        {
+          label: "Female Population",
+          value: kebeleData.kebele_data.female_population !== undefined && kebeleData.kebele_data.female_population !== null 
+            ? kebeleData.kebele_data.female_population 
+            : 'No Data',
+        },
+        {
+          label: "Male Population",
+          value: kebeleData.kebele_data.male_population !== undefined && kebeleData.kebele_data.male_population !== null 
+            ? kebeleData.kebele_data.male_population 
+            : 'No Data',
+        },
+        {
+          label: "Female Non-Employed",
+          value: kebeleData.kebele_data.female_non_employed !== undefined && kebeleData.kebele_data.female_non_employed !== null 
+            ? kebeleData.kebele_data.female_non_employed 
+            : 'No Data',
+        },
+        {
+          label: "Male Non-Employed",
+          value: kebeleData.kebele_data.male_non_employed !== undefined && kebeleData.kebele_data.male_non_employed !== null 
+            ? kebeleData.kebele_data.male_non_employed 
+            : 'No Data',
+        },
+        {
+          label: "MHF Land Owners",
+          value: kebeleData.kebele_data.mhf_land_owners !== undefined && kebeleData.kebele_data.mhf_land_owners !== null 
+            ? kebeleData.kebele_data.mhf_land_owners 
+            : 'No Data',
+        },
+        {
+          label: "FHF Land Owners",
+          value: kebeleData.kebele_data.fhf_land_owners !== undefined && kebeleData.kebele_data.fhf_land_owners !== null 
+            ? kebeleData.kebele_data.fhf_land_owners 
+            : 'No Data',
+        },
+        {
+          label: "MHF Land Lease",
+          value: kebeleData.kebele_data.mhf_land_lease !== undefined && kebeleData.kebele_data.mhf_land_lease !== null 
+            ? kebeleData.kebele_data.mhf_land_lease 
+            : 'No Data',
+        },
+        {
+          label: "FHF Land Lease",
+          value: kebeleData.kebele_data.fhf_land_lease !== undefined && kebeleData.kebele_data.fhf_land_lease !== null 
+            ? kebeleData.kebele_data.fhf_land_lease 
+            : 'No Data',
+        },
+      ];
+      
+    
   return (
     <div className="d-flex min-w-80">
         <div className="w-50" style={{ border: '1px solid gray' }}>
