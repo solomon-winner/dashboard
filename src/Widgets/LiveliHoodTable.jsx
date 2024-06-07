@@ -10,9 +10,9 @@ const LivelihoodTable = ({ livelihoods }) => {
       <table className="table-auto w-full">
         <thead>
           <tr>
-            <th className="px-4 py-2 font-bold text-lg">Type</th>
-            <th className="px-4 py-2 font-bold text-lg">Male Headed HH</th>
-            <th className="px-4 py-2 font-bold text-lg">Female Headed HH</th>
+            <th className="px-4 py-2 text-lg">Type</th>
+            <th className="px-4 py-2 text-lg">Male Headed HH</th>
+            <th className="px-4 py-2 text-lg">Female Headed HH</th>
           </tr>
         </thead>
         <tbody>

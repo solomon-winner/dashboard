@@ -14,8 +14,8 @@ const KebeleResourceTable = ({ resources, resourceName }) => {
         <thead>
           <tr>
             <th className="px-4 py-2"></th>
-            {hasAmount && <th className="px-4 py-2 font-bold text-lg">Amount</th>}
-            {hasCapacity && <th className="px-4 py-2 font-bold text-lg">Capacity</th>}
+            {hasAmount && <th className="px-4 py-2 text-lg">Amount</th>}
+            {hasCapacity && <th className="px-4 py-2 text-lg">Capacity</th>}
           </tr>
         </thead>
         <tbody>

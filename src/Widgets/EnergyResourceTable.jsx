@@ -10,8 +10,8 @@ const EnergyResourcesTable = ({ energyResources }) => {
       <table className="table-auto w-full">
         <thead>
           <tr>
-            <th className="px-4 py-2 font-bold text-lg">Type</th>
-            <th className="px-4 py-2 font-bold text-lg">Access Level</th>
+            <th className="px-4 py-2 text-lg">Type</th>
+            <th className="px-4 py-2 text-lg">Access Level</th>
           </tr>
         </thead>
         <tbody>
