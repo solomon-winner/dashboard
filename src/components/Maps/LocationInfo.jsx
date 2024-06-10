@@ -31,9 +31,9 @@ export const Default = () => {
       <div className="container project-container">
         <div className="card">
         <div className="bg-gray-200 border-gray-400">
-            <p className="text-lg font-bold ml-5">Detailed location Information</p>
+            <p className="text-lg font-bold ml-5 py-3">Detailed location Information</p>
           </div>
-          <div className="card-body">
+          <div className="card-body px-4">
             <p>Select a region to view detailed location information.</p>
             </div>
             </div>
