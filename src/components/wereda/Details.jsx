@@ -17,6 +17,7 @@ import DeleteButton from "../Resource/Utility/Delete/DeleteButton";
 import { EachMap } from "../Resource/Map/EachMap";
 import { CommonTable } from "../Resource/Utility/Table";
 import { useSelector } from "react-redux";
+import EmptyComponent from "../Resource/Utility/EmptyComponent";
 
 export const WeredaDetails = () => {
   const { id } = useParams();
@@ -133,7 +134,8 @@ export const WeredaDetails = () => {
                   </div>
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold text-customDark p-4">
-                      Demographic Information and Data
+                      Demographic Information and Data By Gender for the whole
+                      woreda
                     </h1>
                     <div className="border-b border-gray-300 rounded-md p-3 mb-4">
                       <div className="flex justify-between items-center">
@@ -153,7 +155,9 @@ export const WeredaDetails = () => {
                           Female:
                         </p>
                         <p className="text-sm text-gray-600">
-                          {new Intl.NumberFormat().format(woreda_data?.female_population)}
+                          {new Intl.NumberFormat().format(
+                            woreda_data?.female_population
+                          )}
                         </p>
                       </div>
                     </div>
@@ -163,8 +167,10 @@ export const WeredaDetails = () => {
                           Total Population:
                         </p>
                         <p className="text-sm text-gray-600">
-                          {new Intl.NumberFormat().format(woreda_data?.male_population +
-                            woreda_data?.female_population)}
+                          {new Intl.NumberFormat().format(
+                            woreda_data?.male_population +
+                              woreda_data?.female_population
+                          )}
                         </p>
                       </div>
                     </div>
@@ -172,53 +178,62 @@ export const WeredaDetails = () => {
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1 p-4">
-                      Land use with area
+                      Major Land use classification and size in Ha
                     </h1>
                     <div className="flex flex-col gap-2">
-                      {weredadata.data.woreda_resource.LAND?.map(
-                        (item, index) => (
-                          <div
-                            key={index}
-                            className="border-b border-gray-300 rounded-md p-3 mb-4"
-                          >
-                            <div className="flex justify-between items-center">
-                              <p
-                                key={index}
-                                className="text-sm font-medium text-customDark"
-                              >
-                                {item.value}:
-                              </p>
-                              <p className="text-sm text-gray-600">
-                                {new Intl.NumberFormat().format(item.amount)}
-                              </p>
+                      {weredadata.data.woreda_resource &&
+                      weredadata.data.woreda_resource.LAND.length > 0 ? (
+                        weredadata.data.woreda_resource.LAND?.map(
+                          (item, index) => (
+                            <div
+                              key={index}
+                              className="border-b border-gray-300 rounded-md p-3 mb-4"
+                            >
+                              <div className="flex justify-between items-center">
+                                <p
+                                  key={index}
+                                  className="text-sm font-medium text-customDark"
+                                >
+                                  {item.value}:
+                                </p>
+                                <p className="text-sm text-gray-600">
+                                  {new Intl.NumberFormat().format(item.amount)}
+                                </p>
+                              </div>
                             </div>
-                          </div>
+                          )
                         )
+                      ) : (
+                        <EmptyComponent />
                       )}
                     </div>
                   </div>
-
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1 p-4">
-                      Road
+                      Kind of Road and Distance in Km
                     </h1>
                     <div className="flex flex-col gap-2">
-                      {weredadata.data.woreda_resource.ROAD?.map(
-                        (item, index) => (
-                          <div
-                            key={index}
-                            className="border-b border-gray-300 rounded-md p-3 mb-4"
-                          >
-                            <div className="flex justify-between items-center">
-                              <p className="text-sm font-medium text-customDark">
-                                {item.value}:
-                              </p>
-                              <p className="text-sm text-gray-600">
-                                {new Intl.NumberFormat().format(item.amount)}
-                              </p>
+                      {weredadata.data.woreda_resource &&
+                      weredadata.data.woreda_resource.ROAD.length > 0 ? (
+                        weredadata.data.woreda_resource.ROAD?.map(
+                          (item, index) => (
+                            <div
+                              key={index}
+                              className="border-b border-gray-300 rounded-md p-3 mb-4"
+                            >
+                              <div className="flex justify-between items-center">
+                                <p className="text-sm font-medium text-customDark">
+                                  {item.value}:
+                                </p>
+                                <p className="text-sm text-gray-600">
+                                  {new Intl.NumberFormat().format(item.amount)}
+                                </p>
+                              </div>
                             </div>
-                          </div>
+                          )
                         )
+                      ) : (
+                        <EmptyComponent />
                       )}
                     </div>
                   </div>
@@ -228,22 +243,27 @@ export const WeredaDetails = () => {
                       School
                     </h1>
                     <div className="flex flex-col gap-2">
-                      {weredadata.data.woreda_institution.SCHOOL?.map(
-                        (item, index) => (
-                          <div
-                            key={index}
-                            className="border-b border-gray-300 rounded-md p-3 mb-4"
-                          >
-                            <div className="flex justify-between items-center">
-                              <p className="text-sm font-medium text-customDark">
-                                {item.value}:
-                              </p>
-                              <p className="text-sm text-gray-600">
-                                {new Intl.NumberFormat().format(item.amount)}
-                              </p>
+                      {weredadata.data.woreda_institution &&
+                      weredadata.data.woreda_institution.SCHOOL.length > 0 ? (
+                        weredadata.data.woreda_institution.SCHOOL?.map(
+                          (item, index) => (
+                            <div
+                              key={index}
+                              className="border-b border-gray-300 rounded-md p-3 mb-4"
+                            >
+                              <div className="flex justify-between items-center">
+                                <p className="text-sm font-medium text-customDark">
+                                  {item.value}:
+                                </p>
+                                <p className="text-sm text-gray-600">
+                                  {new Intl.NumberFormat().format(item.amount)}
+                                </p>
+                              </div>
                             </div>
-                          </div>
+                          )
                         )
+                      ) : (
+                        <EmptyComponent />
                       )}
                     </div>
                   </div>
@@ -253,22 +273,28 @@ export const WeredaDetails = () => {
                       Health Facilities
                     </h1>
                     <div className="flex flex-col gap-2">
-                      {weredadata.data.woreda_institution.HEALTH_FACILITY?.map(
-                        (item, index) => (
-                          <div
-                            key={index}
-                            className="border-b border-gray-300 rounded-md p-3 mb-4"
-                          >
-                            <div className="flex justify-between items-center">
-                              <p className="text-sm font-medium text-customDark">
-                                {item.value}:
-                              </p>
-                              <p className="text-sm text-gray-600">
-                                {new Intl.NumberFormat().format(item.amount)}
-                              </p>
+                      {weredadata?.data?.woreda_institution &&
+                      weredadata.data.woreda_institution.HEALTH_FACILITY
+                        .length > 0 ? (
+                        weredadata.data.woreda_institution.HEALTH_FACILITY.map(
+                          (item, index) => (
+                            <div
+                              key={index}
+                              className="border-b border-gray-300 rounded-md p-3 mb-4"
+                            >
+                              <div className="flex justify-between items-center">
+                                <p className="text-sm font-medium text-customDark">
+                                  {item.value}:
+                                </p>
+                                <p className="text-sm text-gray-600">
+                                  {new Intl.NumberFormat().format(item.amount)}
+                                </p>
+                              </div>
                             </div>
-                          </div>
+                          )
                         )
+                      ) : (
+                        <EmptyComponent />
                       )}
                     </div>
                   </div>

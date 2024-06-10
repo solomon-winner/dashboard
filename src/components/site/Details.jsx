@@ -17,6 +17,7 @@ import { EachMap } from "../Resource/Map/EachMap";
 import { deleteSiteData } from "../../redux/site/SiteByIdState";
 import { log } from "../Resource/Utility/Logger";
 import { useSelector } from "react-redux";
+import EmptyComponent from "../Resource/Utility/EmptyComponent";
 
 export const SiteDetails = () => {
   const { id } = useParams();
@@ -89,7 +90,9 @@ export const SiteDetails = () => {
           <div className="mx-auto max-w-2xl sm:text-center mb-10">
             <h2 className="text-xl font-bold tracking-tight text-gray-900">
               Site Name: {"  "}
-                  <span className=" text-lg font-medium">{data.data?.site_name}</span>
+              <span className=" text-lg font-medium">
+                {data.data?.site_name}
+              </span>
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-6">
@@ -97,23 +100,42 @@ export const SiteDetails = () => {
               <div className="p-8 text-gray-600">
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Region: {"  "}
-                  <a href={`/admin/region/${data.data?.region_id}`} className="text-sm font-medium">{data.data?.region_name}</a>
+                  <a
+                    href={`/admin/region/${data.data?.region_id}`}
+                    className="text-sm font-medium"
+                  >
+                    {data.data?.region_name}
+                  </a>
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Woreda: {"  "}
-                  <a href={`/admin/wereda/${data.data?.woreda_id}`} className="text-sm font-medium">{data.data?.woreda_name}</a>
+                  <a
+                    href={`/admin/wereda/${data.data?.woreda_id}`}
+                    className="text-sm font-medium"
+                  >
+                    {data.data?.woreda_name}
+                  </a>
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Kebele: {"  "}
-                  <a href={`/admin/kebele/${data.data?.kebele_id}`} className="text-sm font-medium">{data.data?.kebele_name}</a>
+                  <a
+                    href={`/admin/kebele/${data.data?.kebele_id}`}
+                    className="text-sm font-medium"
+                  >
+                    {data.data?.kebele_name}
+                  </a>
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Micro-watershed: {"  "}
-                  <span className="text-sm font-medium">{data.data?.watershed_name}</span>
+                  <span className="text-sm font-medium">
+                    {data.data?.watershed_name}
+                  </span>
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Area: {"  "}
-                  <span className="text-sm font-medium">{new Intl.NumberFormat().format(data.data?.size_ha)} ha</span>
+                  <span className="text-sm font-medium">
+                    {new Intl.NumberFormat().format(data.data?.size_ha)} ha
+                  </span>
                 </h3>
               </div>
             </div>
@@ -125,10 +147,13 @@ export const SiteDetails = () => {
           <div className="grid gap-4 lg:grid-cols-3">
             <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
               <h4 className="text-base font-bold tracking-tight text-customDark my-1">
-                Current land use
+                Current land use status of the Sites
               </h4>
 
               {data?.data?.resources &&
+              data.data.resources.some(
+                (resource) => resource?.LAND?.length > 0
+              ) ? (
                 data?.data?.resources?.map((resource, index) =>
                   resource?.LAND?.map((item, idx) => (
                     <div
@@ -141,86 +166,121 @@ export const SiteDetails = () => {
                       </p>
                     </div>
                   ))
-                )}
+                )
+              ) : (
+                <EmptyComponent />
+              )}
             </div>
 
             <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                Indigenous Tree
+                Indigenous Tree which can grow in the site
               </h4>
-              {data?.data?.resources?.map((resource, index) =>
-                resource?.TREE?.filter((tree) => tree.indigenous === 1).map(
-                  (tree, idx) => (
+              {data?.data?.resources &&
+              data.data.resources.some((resource) =>
+                resource?.TREE?.some(
+                  (tree) => tree.indigenous === 1
+                )
+              ) ? (
+                data?.data?.resources?.map((resource, index) =>
+                  resource?.TREE?.filter((tree) => tree.indigenous === 1).map(
+                    (tree, idx) => (
+                      <div
+                        key={index}
+                        class="border-b border-gray-300 rounded-md p-3 mb-4"
+                      >
+                        <p key={index} className="font-normal text-xs">
+                          <Check style={{ fontSize: "large" }} />
+                          {tree.value}
+                        </p>
+                      </div>
+                    )
+                  )
+                )
+              ) : (
+                <EmptyComponent />
+              )}
+            </div>
+            <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
+              <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
+                Exotic Trees which can grow in the site
+              </h4>
+
+              {data?.data?.resources &&
+              data.data.resources.some((resource) =>
+                resource?.TREE?.some(
+                  (tree) => !tree.hasOwnProperty("indigenous")
+                )
+              ) ? (
+                data.data.resources.map((resource, index) =>
+                  resource?.TREE?.filter(
+                    (tree) => !tree.hasOwnProperty("indigenous")
+                  ).map((tree, idx) => (
+                    <div
+                      key={`${index}-${idx}`}
+                      className="border-b border-gray-300 rounded-md p-3 mb-4"
+                    >
+                      <p className="font-normal text-xs">
+                        <Check style={{ fontSize: "large" }} />
+                        {tree.value}
+                      </p>
+                    </div>
+                  ))
+                )
+              ) : (
+                <EmptyComponent />
+              )}
+            </div>
+            <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
+              <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
+                LiveliHood activities which the site can support
+              </h4>
+
+              {data?.data?.resources &&
+              data.data.resources.some(
+                (resource) => resource?.LIVELIHOOD?.length > 0
+              ) ? (
+                data?.data?.resources?.map((resource, index) =>
+                  resource?.LIVELIHOOD?.map((item, idx) => (
                     <div
                       key={index}
                       class="border-b border-gray-300 rounded-md p-3 mb-4"
                     >
                       <p key={index} className="font-normal text-xs">
                         <Check style={{ fontSize: "large" }} />
-                        {tree.value}
+                        {item.value}
                       </p>
                     </div>
-                  )
+                  ))
                 )
+              ) : (
+                <EmptyComponent />
               )}
             </div>
             <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
               <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                Exotic Trees
+                Forage/fodder that can grow in the site
               </h4>
 
-              {data?.data?.resources?.map((resource, index) =>
-                resource?.TREE?.filter(
-                  (tree) => !tree.hasOwnProperty("indigenous")
-                ).map((tree, idx) => (
-                  <div
-                    key={index}
-                    class="border-b border-gray-300 rounded-md p-3 mb-4"
-                  >
-                    <p key={index} className="font-normal text-xs">
-                      <Check style={{ fontSize: "large" }} />
-                      {tree.value}
-                    </p>
-                  </div>
-                ))
-              )}
-            </div>
-            <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
-              <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                LiveliHood
-              </h4>
-
-              {data?.data?.resources?.map((resource, index) =>
-                resource?.LIVELIHOOD?.map((item, idx) => (
-                  <div
-                    key={index}
-                    class="border-b border-gray-300 rounded-md p-3 mb-4"
-                  >
-                    <p key={index} className="font-normal text-xs">
-                      <Check style={{ fontSize: "large" }} />
-                      {item.value}
-                    </p>
-                  </div>
-                ))
-              )}
-            </div>
-            <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
-              <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                Forage
-              </h4>
-
-              {data?.data?.resources?.map((resource, index) =>
-                resource?.FORAGE?.map((item, idx) => (
-                  <div
-                    key={index}
-                    class="border-b border-gray-300 rounded-md p-3 mb-4"
-                  >
-                    <p key={index} className="font-normal text-xs">
-                      <Check style={{ fontSize: "large" }} />
-                      {item.value}
-                    </p>
-                  </div>
-                ))
+              {data?.data?.resources &&
+              data.data.resources.some(
+                (resource) => resource?.FORAGE?.length > 0
+              ) ? (
+                data.data.resources.map((resource, index) =>
+                  resource?.FORAGE?.map((item, idx) => (
+                    <div
+                      key={index}
+                      className="border-b border-gray-300 rounded-md p-3 mb-4"
+                    >
+                      <p key={idx} className="font-normal text-xs">
+                        <Check style={{ fontSize: "large" }} />
+                        {item.value}
+                      </p>
+                    </div>
+                  ))
+                )
+              ) : (
+                <EmptyComponent />
               )}
             </div>
           </div>
