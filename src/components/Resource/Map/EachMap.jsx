@@ -7,7 +7,7 @@ import { log } from "../Utility/Logger";
 export const EachMap = ({ geojsonData, SiteData }) => {
   const mapRef = useRef(null);
   var siteIcon = L.icon({
-    iconUrl: "/Marker.svg",
+    iconUrl: "/gps.png",
     iconSize: [20, 20],
     iconAnchor: [16, 16],
   });
@@ -38,7 +38,7 @@ export const EachMap = ({ geojsonData, SiteData }) => {
           const noDataMarker = L.marker([ethiopia.lat, ethiopia.lng], {
             icon: L.divIcon({
               className: 'no-data-marker',
-              html: '<div class="text-4xl text-black font-bold">NoData</div>',
+              html: '<div class="text-4xl text-black font-bold">NoShapeFile</div>',
               iconSize: [100, 40],
               iconAnchor: [50, 20],
             }),

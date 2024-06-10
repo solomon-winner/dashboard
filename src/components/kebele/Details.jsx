@@ -19,6 +19,7 @@ import { EachMap } from "../Resource/Map/EachMap";
 import { CommonTable } from "../Resource/Utility/Table";
 import { useSelector } from "react-redux";
 import { log } from "../Resource/Utility/Logger";
+import EmptyComponent from "../Resource/Utility/EmptyComponent";
 
 export const Details = () => {
   const { id } = useParams();
@@ -100,48 +101,64 @@ export const Details = () => {
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Region:
                   {"  "}
-                  <a href={`/admin/region/${data.data?.region_id}`} className="text-sm font-medium">
+                  <a
+                    href={`/admin/region/${data.data?.region_id}`}
+                    className="text-sm font-medium"
+                  >
                     {data.data.region_name}
                   </a>{" "}
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Woreda:
                   {"  "}
-                  <a href={`/admin/wereda/${data.data?.woreda_id}`} className="text-sm font-medium">
+                  <a
+                    href={`/admin/wereda/${data.data?.woreda_id}`}
+                    className="text-sm font-medium"
+                  >
                     {data.data.woreda_name}
                   </a>
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className=" text-base font-bold tracking-tight text-customDark my-1">
-                      Demographic Information and Data{" "}
+                      Demographic Information and Data By Gender for the whole
+                      kebele
                     </h1>
                     <p className="font-semibold text-sm">
                       Male:{" "}
                       <span className="font-normal text-xs">
-                        {new Intl.NumberFormat().format(data.data.kebele_data?.male_population)}
+                        {new Intl.NumberFormat().format(
+                          data.data.kebele_data?.male_population
+                        )}
                       </span>
                     </p>
                     <p className="font-semibold text-sm">
                       Female:{" "}
                       <span className="font-normal text-xs">
-                        {new Intl.NumberFormat().format(data.data.kebele_data?.female_population)}
+                        {new Intl.NumberFormat().format(
+                          data.data.kebele_data?.female_population
+                        )}
                       </span>
                     </p>
                     <p className="font-semibold text-sm">
                       Total Population:{" "}
                       <span className="font-normal text-xs">
-                        {new Intl.NumberFormat().format(data.data.kebele_data?.female_population +
-                          data.data.kebele_data?.male_population)}
+                        {new Intl.NumberFormat().format(
+                          data.data.kebele_data?.female_population +
+                            data.data.kebele_data?.male_population
+                        )}
                       </span>
                     </p>
                   </div>
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                      Current land use with area
+                      Current land use classification and size in Ha
                     </h1>
                     {data.data.resources &&
+                    data.data.resources.some(
+                      (resource) => resource?.LAND?.length > 0
+                    ) ? (
                       data.data.resources?.map((resource, index) =>
                         resource.LAND?.map((item, index) => (
                           <p key={index} className="font-semibold text-sm">
@@ -151,7 +168,10 @@ export const Details = () => {
                             </span>
                           </p>
                         ))
-                      )}
+                      )
+                    ) : (
+                      <EmptyComponent />
+                    )}
                   </div>
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">
@@ -160,30 +180,42 @@ export const Details = () => {
                     </h1>
                     <p className="font-bold text-sm">Male headed family:</p>
                     <span className="font-normal text-xs">
-                      Own land: {new Intl.NumberFormat().format(data.data.kebele_data?.mhf_land_owners)}{" "}
+                      Own land:{" "}
+                      {new Intl.NumberFormat().format(
+                        data.data.kebele_data?.mhf_land_owners
+                      )}{" "}
                     </span>
                     <span className="font-normal text-xs">
-                      Does'nt Own land: {new Intl.NumberFormat().format(data.data.kebele_data?.fhf_land_lease)}
+                      Does'nt Own land:{" "}
+                      {new Intl.NumberFormat().format(
+                        data.data.kebele_data?.fhf_land_lease
+                      )}
                     </span>
                     <p className="font-bold text-sm">Female headed family:</p>
                     <span className="font-normal text-xs">
-                      Own land: {new Intl.NumberFormat().format(data.data.kebele_data?.fhf_land_owners)}{" "}
+                      Own land:{" "}
+                      {new Intl.NumberFormat().format(
+                        data.data.kebele_data?.fhf_land_owners
+                      )}{" "}
                     </span>
                     <span className="font-normal text-xs">
-                      Does'nt Own land: {new Intl.NumberFormat().format(data.data.kebele_data?.fhf_land_lease)}{" "}
+                      Does'nt Own land:{" "}
+                      {new Intl.NumberFormat().format(
+                        data.data.kebele_data?.fhf_land_lease
+                      )}{" "}
                     </span>
                   </div>
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                      Major livelihood activities
+                      Major livelihood activities in the Kebele
                     </h1>
                     <Table data={data.data?.livelihoods} />
                   </div>
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                      Included indeginous tree
+                      Major indeginous tree growing in the local area
                     </h4>
                     <div className="h-px flex-auto bg-gray-100"></div>
 
@@ -192,6 +224,9 @@ export const Details = () => {
                       className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6"
                     >
                       {data.data.resources &&
+                      data.data.resources.some((resource) =>
+                        resource?.TREE?.some((tree) => tree.indigenous === 1)
+                      ) ? (
                         data.data.resources.map((resource, index) =>
                           resource.TREE?.filter(
                             (tree) => tree.indigenous === 1
@@ -201,12 +236,15 @@ export const Details = () => {
                               {tree.value}
                             </li>
                           ))
-                        )}
+                        )
+                      ) : (
+                        <EmptyComponent />
+                      )}
                     </ul>
                   </div>
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h4 className="flex-none text-sm font-semibold leading-6 text-customDark">
-                      Included Exotic tree
+                      Major Exotic tree growing in the local area
                     </h4>
                     <div className="h-px flex-auto bg-gray-100"></div>
 
@@ -215,6 +253,11 @@ export const Details = () => {
                       className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6"
                     >
                       {data.data.resources &&
+                      data.data.resources.some((resource) =>
+                        resource?.TREE?.some(
+                          (tree) => !tree.hasOwnProperty("indigenous")
+                        )
+                      ) ? (
                         data.data.resources.map((resource, index) =>
                           resource.TREE?.filter(
                             (tree) => !tree.hasOwnProperty("indigenous")
@@ -225,7 +268,10 @@ export const Details = () => {
                               {tree.value}
                             </li>
                           ))
-                        )}
+                        )
+                      ) : (
+                        <EmptyComponent />
+                      )}
                     </ul>
                   </div>
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
@@ -236,22 +282,29 @@ export const Details = () => {
                     <p className="font-semibold text-sm">
                       Male:{" "}
                       <span className="font-normal text-xs">
-                        {new Intl.NumberFormat().format(data.data.kebele_data?.male_non_employed)}
+                        {new Intl.NumberFormat().format(
+                          data.data.kebele_data?.male_non_employed
+                        )}
                       </span>
                     </p>
                     <p className="font-semibold text-sm">
                       Female:{" "}
                       <span className="font-normal text-xs">
-                        {new Intl.NumberFormat().format(data.data.kebele_data?.female_non_employed)}
+                        {new Intl.NumberFormat().format(
+                          data.data.kebele_data?.female_non_employed
+                        )}
                       </span>
                     </p>
                   </div>
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                      Number Livestock
+                      Number and type of Livestock in the kebele
                     </h1>
                     {data.data.resources &&
+                    data.data.resources.some(
+                      (resource) => resource?.LIVESTOCK?.length > 0
+                    ) ? (
                       data.data.resources.map((resource, index) =>
                         resource?.LIVESTOCK?.map((item, index) => (
                           <p key={index} className="font-semibold text-sm">
@@ -261,14 +314,20 @@ export const Details = () => {
                             </span>
                           </p>
                         ))
-                      )}
+                      )
+                    ) : (
+                      <EmptyComponent />
+                    )}
                   </div>
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                      Crop grown
+                      Crop types grown and area in Ha in the kebele
                     </h1>
                     {data.data.resources &&
+                    data.data.resources.some(
+                      (resource) => resource?.CROP?.length > 0
+                    ) ? (
                       data.data.resources.map((resource, index) =>
                         resource?.CROP?.map((item, index) => (
                           <p key={index} className="font-semibold text-sm">
@@ -278,14 +337,20 @@ export const Details = () => {
                             </span>
                           </p>
                         ))
-                      )}
+                      )
+                    ) : (
+                      <EmptyComponent />
+                    )}
                   </div>
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
-                    <h1 className="text-xl font-bold tracking-tight text-customDark my-1">
-                      Fruit grown
+                    <h1 className="text-base font-bold tracking-tight text-customDark my-1">
+                      Fruit types grown and area in Ha in the kebele
                     </h1>
                     {data.data.resources &&
+                    data.data.resources.some(
+                      (resource) => resource?.FRUIT?.length > 0
+                    ) ? (
                       data.data.resources.map((resource, index) =>
                         resource?.FRUIT?.map((item, index) => (
                           <p key={index} className="font-semibold text-sm">
@@ -295,52 +360,75 @@ export const Details = () => {
                             </span>
                           </p>
                         ))
-                      )}
+                      )
+                    ) : (
+                      <EmptyComponent />
+                    )}
                   </div>
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                      Nursery Availability
+                      Nursery Availability in the kebele
                     </h1>
                     {data.data.resources &&
+                    data.data.resources.some(
+                      (resource) => resource?.NURSERY?.length > 0
+                    ) ? (
                       data.data.resources.map((resource, index) =>
                         resource?.NURSERY?.map((item, index) => (
                           <p key={index} className="font-semibold text-sm">
                             {item.value}:{" "}
                             <span className="font-normal text-xs">
-                              number: {new Intl.NumberFormat().format(item.amount)} capacity: {new Intl.NumberFormat().format(item.capacity)}
+                              number:{" "}
+                              {new Intl.NumberFormat().format(item.amount)}{" "}
+                              capacity:{" "}
+                              {new Intl.NumberFormat().format(item.capacity)}
                             </span>
                           </p>
                         ))
-                      )}
+                      )
+                    ) : (
+                      <EmptyComponent />
+                    )}
                   </div>
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                      Major cause of deforestation
+                      Major cause of deforestation/ forest destruvtion in the
+                      kebele
                     </h1>
                     {data.data.resources &&
+                    data.data.resources.some(
+                      (resource) => resource?.CAUSE_OF_DEFORESTATION?.length > 0
+                    ) ? (
                       data.data.resources.map((resource, index) =>
                         resource?.CAUSE_OF_DEFORESTATION?.map((item, index) => (
                           <p key={index} className="font-semibold text-sm">
                             {item.value}
                           </p>
                         ))
-                      )}
+                      )
+                    ) : (
+                      <EmptyComponent />
+                    )}
                   </div>
 
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4 ">
                     <h1 className="text-base font-bold tracking-tight text-customDark my-1">
-                      Major cause of deforestation
+                      Source of energy for cooking and lighting in the Kebele
                     </h1>
-                    {data.data.energy_sources?.map((item, index) => (
-                      <p className="font-semibold text-sm">
-                        {item.value}:{" "}
-                        <span className="font-normal text-xs">
-                          {item.access_level}
-                        </span>
-                      </p>
-                    ))}
+                    {data.data.energy_sources ? (
+                      data.data.energy_sources?.map((item, index) => (
+                        <p className="font-semibold text-sm">
+                          {item.value}:{" "}
+                          <span className="font-normal text-xs">
+                            {item.access_level}
+                          </span>
+                        </p>
+                      ))
+                    ) : (
+                      <EmptyComponent />
+                    )}
                   </div>
                 </div>
               </div>
