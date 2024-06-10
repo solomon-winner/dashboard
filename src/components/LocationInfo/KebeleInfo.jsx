@@ -61,13 +61,13 @@ export const KebeleLocationInfo = () => {
         <div className="container project-container">
           <div className="card">
             <div className="bg-gray-200 border-gray-400">
-              <p className="text-lg font-bold ml-5 py-3">Detailed location Information</p>
+              <p className="text-lg font-bold px-2 py-3">Detailed location Information</p>
+
             </div>
+
+             <p className="text-lg font-bold ml-5 py-3">{kebeleData?.kebele_name ?? "No Data"}</p>
             <div className="card-body" style={{ overflowX: 'auto', overflowY: 'auto', maxHeight: '80vh' }}>
-              <hr />
-              <p className="text-lg font-bold ml-5 py-3">{kebeleData?.kebele_name ?? "No Data"}</p>
-            </div>
-            <div className="card-body" style={{ overflowX: 'auto', overflowY: 'auto', maxHeight: '80vh' }}>
+
               <hr />
               <table className="table-auto w-full">
                 <tbody>
