@@ -11,7 +11,7 @@ export const KebeleLocationInfo = () => {
   const { data, isSuccess, isFetching, isError } = useGetKebeleByIdQuery(Kebele_id);
 
   if (isFetching) {
-    return <p>Loading...</p>;
+    return <p className="font-bold">Loading...</p>;
   }
 
   if (isError) {
