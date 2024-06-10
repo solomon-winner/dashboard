@@ -36,10 +36,10 @@ export const Default = () => {
           <div className="card-body px-4">
             <p>Select a region to view detailed location information.</p>
             </div>
-            </div>
-            </div>
-            </div>
-            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -210,10 +210,7 @@ export const RegionLocationInfo = () => {
                {data && <div className="m-5"><strong className="text-2xl font-bold">{data.data.region_name}</strong>
                <table class="table-auto w-full">
                <thead>
-                 {/* <tr>
-                   <th class="px-4 py-2">Field</th>
-                   <th class="px-4 py-2">Value</th>
-                 </tr> */}
+ 
                </thead>
                <tbody>
                  <tr>
