@@ -57,7 +57,7 @@ export const KebeleLocationInfo = () => {
 
   return (
     <>
-      <p className="text-lg font-bold ml-5 py-3">{kebeleData?.kebele_name ?? "No Data"}</p>
+      <p className="text-xl font-bold ml-5 py-3">{kebeleData?.kebele_name ?? "No Data"}</p>
               <table className="table-auto w-full">
                 <tbody>
                   <RenderTableRows
@@ -70,7 +70,7 @@ export const KebeleLocationInfo = () => {
                 </tbody>
               </table>
               <hr />
-              <h6 className="px-4">Kebele Data</h6>
+              <h6 className="px-4 text-sm font-bold">Kebele Data</h6>
               <hr />
               <table className="table-auto w-full">
                 <tbody>
