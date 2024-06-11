@@ -21,9 +21,9 @@ const KebeleResourceTable = ({ resources, resourceName }) => {
         <tbody>
           {resources.map((resource, index) => (
             <tr key={index}>
-              <td className="border px-2 py-2 font-bold">{resource.value}</td>
-              {hasAmount && <td className="border px-2 py-2">{resource.amount || "No data"}</td>}
-              {hasCapacity && <td className="border px-2 py-2">{resource.capacity || "No data"}</td>}
+              <td className="border px-4 py-2 font-bold">{resource.value}</td>
+              {hasAmount && <td className="border px-4 py-2">{resource.amount || "No data"}</td>}
+              {hasCapacity && <td className="border px-4 py-2">{resource.capacity || "No data"}</td>}
             </tr>
           ))}
         </tbody>

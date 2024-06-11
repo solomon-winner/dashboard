@@ -17,8 +17,8 @@ const EnergyResourcesTable = ({ energyResources }) => {
         <tbody>
           {energyResources.map((resource, index) => (
             <tr key={index}>
-              <td className="border px-2 py-2 font-bold">{resource.value}</td>
-              <td className="border px-2 py-2">{resource.access_level}</td>
+              <td className="border px-4 py-2 font-bold">{resource.value}</td>
+              <td className="border px-4 py-2">{resource.access_level}</td>
             </tr>
           ))}
         </tbody>
