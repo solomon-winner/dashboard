@@ -3,7 +3,7 @@ export const ResourceTable = ({ resources, resourceName }) => {
       <>
         <h4 className="px-9 ">{resourceName}</h4>
         <hr />
-        <table className="table-auto w-full">
+        <table className="table-auto ">
           <tbody>
             {resources.map((resource, index) => (
               <tr key={index}>

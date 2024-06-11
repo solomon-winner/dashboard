@@ -7,7 +7,7 @@ const LivelihoodTable = ({ livelihoods }) => {
     <div>
       <h4  className="px-4">Livelihoods</h4>
       <hr />
-      <table className="table-auto w-full">
+      <table className="table-auto ">
         <thead>
           <tr>
             <th className="px-4 py-2 text-lg">Type</th>

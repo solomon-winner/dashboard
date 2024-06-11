@@ -10,7 +10,7 @@ const KebeleResourceTable = ({ resources, resourceName }) => {
     <div>
       <h4  className="px-4">{resourceName}</h4>
       <hr />
-      <table className="table-auto w-full">
+      <table className="table-auto ">
         <thead>
           <tr>
             <th className="px-4 py-2"></th>

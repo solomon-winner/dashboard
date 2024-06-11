@@ -7,7 +7,7 @@ const EnergyResourcesTable = ({ energyResources }) => {
     <div>
       <h4  className="px-4">Energy Resources</h4>
       <hr />
-      <table className="table-auto w-full">
+      <table className="table-auto ">
         <thead>
           <tr>
             <th className="px-2 py-2 text-lg">Type</th>
