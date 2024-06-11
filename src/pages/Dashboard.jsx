@@ -6,14 +6,12 @@ import { useGetInstitution } from '../redux/InitialState/GetInstitution'
 import { useGetResource } from '../redux/InitialState/GetResource'
 import { GetRoles } from '../redux/InitialState/GetRoles';
 import {ProfileInfo} from "../redux/InitialState/ProfileInfo"
-import { useDispatch, useSelector } from "react-redux";
-import { Filter } from '../components/Maps/Filter'
-import { SetZoom_out } from "../redux/GeoJson/GeoJsonSlice";
-import { log } from '../components/Resource/Utility/Logger'
+import { useSelector } from "react-redux";
 import { KebeleLocationInfo } from '../components/LocationInfo/KebeleInfo'
 import { SiteLocationInfo } from '../components/LocationInfo/SiteInfo'
 import { RegionLocationInfo } from '../components/LocationInfo/RegionInfo'
 import { WoredaLocationInfo } from '../components/LocationInfo/WoredaInfo'
+import { Default } from '../components/Maps/LocationInfo'
 
 export const Dashboard = () => {
 

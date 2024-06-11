@@ -2,6 +2,8 @@ import React from "react";
 import { useGetWeredaByIdQuery } from "../../redux/wereda/WeredaApiSlice";
 import { RenderTableRows } from "../../Widgets/renderTableRows";
 import { ResourceTable } from "../../Widgets/resourceTables";
+import { useSelector } from "react-redux";
+
 
 export const WoredaLocationInfo = () => {
     const Woreda_id = useSelector((state) => state.geoJson.GeoJson.SelectedWoreda);
