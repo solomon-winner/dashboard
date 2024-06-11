@@ -1,4 +1,8 @@
 import React from "react";
+import { SiteLocationInfo } from "../LocationInfo/SiteInfo";
+import { WoredaLocationInfo } from "../LocationInfo/WoredaInfo";
+import { useSelector } from "react-redux";
+import { KebeleLocationInfo } from "../LocationInfo/KebeleInfo";
 
 export const Default = () => {
   return(
@@ -20,6 +24,12 @@ export const Default = () => {
 }
 
 export const LocationInfo = () => {
+  const Region_id  = useSelector((state) => state.geoJson.GeoJson.SelectedRegion);
+  const defualtLocation  = useSelector((state) => state.geoJson.GeoJson.LocationInfo);
+  const Site_id  = useSelector((state) => state.geoJson.GeoJson.SelectedSite);
+  const Woreda_id = useSelector((state) => state.geoJson.GeoJson.SelectedWoreda);
+  const Kebele_id = useSelector((state) => state.geoJson.GeoJson.SelectedKebele);
+
   return(
     <div className="d-flex min-w-80">
     <div className="w-50" style={{ border: '1px solid gray' }}>
@@ -29,7 +39,9 @@ export const LocationInfo = () => {
             <p className="text-lg font-bold ml-5 py-3">Detailed location Information</p>
           </div>
           <div className="card-body" style={{ overflowX: 'auto', overflowY: 'auto', maxHeight: '80vh' }}>
-
+            {Site_id && <SiteLocationInfo/>}
+            {Woreda_id && <WoredaLocationInfo/>}
+            {Kebele_id && <KebeleLocationInfo/>}
             </div>
             </div>
             </div>

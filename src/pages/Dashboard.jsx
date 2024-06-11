@@ -11,7 +11,7 @@ import { KebeleLocationInfo } from '../components/LocationInfo/KebeleInfo'
 import { SiteLocationInfo } from '../components/LocationInfo/SiteInfo'
 import { RegionLocationInfo } from '../components/LocationInfo/RegionInfo'
 import { WoredaLocationInfo } from '../components/LocationInfo/WoredaInfo'
-import { Default } from '../components/Maps/LocationInfo'
+import { Default, LocationInfo } from '../components/Maps/LocationInfo'
 
 export const Dashboard = () => {
 
@@ -33,7 +33,6 @@ console.log("Woreda_id",Woreda_id)
   return (
     <div className="flex flex-col h-screen gap-6 bg-dashbordColor">
       <Cards />
-      {/* <Filter/> */}
       <div className='flex w-full gap-6 h-12 lg:px-8'>
         
         <div className='w-8/12 h-18'>
@@ -42,9 +41,8 @@ console.log("Woreda_id",Woreda_id)
           </div>
           </div>
           {defualtLocation && <Default/>}
-          { Site_id && <SiteLocationInfo />}
+          {<LocationInfo />}
        { Region_id && <RegionLocationInfo/>}
-      {Woreda_id && <WoredaLocationInfo/>}
       {Kebele_id && <KebeleLocationInfo/>}
       </div>
     </div>
