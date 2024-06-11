@@ -20,7 +20,7 @@ export const LocationInfo = () => {
           <div className="bg-gray-200 border-gray-400">
             <p className="text-lg font-bold ml-5 py-3">Detailed location Information</p>
           </div>
-          <div className="card-body" style={{ overflowX: 'auto', overflowY: 'auto', maxHeight: '80vh' }}>
+          <div className="card-body" style={{ overflowX: 'auto',maxWidth: '50vh', overflowY: 'auto', maxHeight: '80vh' }}>
             {defualtLocation &&          
              <div className="card-body px-4">
             <p>Select a region to view detailed location information.</p>
