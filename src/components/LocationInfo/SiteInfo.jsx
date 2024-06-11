@@ -32,70 +32,70 @@ export const SiteLocationInfo = () => {
                 {data && (
                   <div className="m-5">
                     <div className="flex align-bottom justify-between">
-                      <strong className="text-2xl font-bold">{data.data.site_name}</strong>
-                      <p>site Size: {data.data.size_ha} ha</p>
+                      <strong className="text-xl font-bold">{data.data.site_name}</strong>
+                     {data.data.size_ha && <p className="text-sm">site Size: {data.data.size_ha} ha</p>}
                     </div>
   
                     <div>
                       <hr />
-                      <h6 className="px-4 py-2 underline">Site Information</h6>
+                      <h6 className="px-7 py-2  font-bold text-sm">Site Information</h6>
            
                       <p className="px-2 py-2">
-                        <strong>Watershed: </strong>
-                        {siteData.watershed_name !== undefined ? siteData.watershed_name : "No data"}
+                        <strong className="text-sm">Watershed: </strong>
+                        <span className="text-xs">{siteData.watershed_name !== undefined ? siteData.watershed_name : "No data"}</span>
+                      </p>
+                      <p className="px-2 py-2 ">
+                        <strong className="text-sm">Kebele: </strong>
+                        <span className="text-xs">{siteData.kebele_name !== undefined ? siteData.kebele_name : "No data"}</span>
                       </p>
                       <p className="px-2 py-2">
-                        <strong>Kebele: </strong>
-                        {siteData.kebele_name !== undefined ? siteData.kebele_name : "No data"}
+                        <strong className="text-sm">Woreda: </strong>
+                        <span  className="text-xs">{siteData.woreda_name || "No data"}</span>
                       </p>
                       <p className="px-2 py-2">
-                        <strong>Woreda: </strong>
-                        {siteData.woreda_name || "No data"}
+                        <strong className="text-sm">Zone: </strong>
+                       <span  className="text-xs">{siteData.zone_name || "N/A"}</span> 
                       </p>
-                      <p className="px-2 py-2">
-                        <strong>Zone: </strong>
-                        {siteData.zone_name || "N/A"}
-                      </p>
-                      <h4 className="px-4 py-2 underline">Site Resource</h4>
+                      <h4 className="px-7 py-2 font-bold text-sm">Site Resource</h4>
                       <hr />
-                      <strong>Current land use</strong>
+                      <strong className="text-sm">Current land use</strong>
                       <hr />
                       {siteData.resources?.map((resource, resourceIndex) =>
                         resource.LAND?.map((item, itemIndex) => (
                           <div key={`${resourceIndex}-${itemIndex}`}>
-                            <p className="border px-4 py-2">{item.value}</p>
+                            <p className="border px-4 py-2 text-sm">{item.value}</p>
                           </div>
                         ))
                       )}
-                      <strong>TREE</strong>
+                      <strong className="text-sm">TREE</strong>
                       <hr />
-                      <p className="px-4 py-2 underline">Indigenous Tree</p>
+                      <p className="px-4 py-2 font-bold text-sm">Indigenous Tree</p>
                       {siteData.resources?.map((resource, resourceIndex) =>
                         resource.TREE?.filter(tree => tree.indigenous === 1).map((item, itemIndex) => (
                           <div key={`${resourceIndex}-${itemIndex}`}>
-                            <p className="border px-4 py-2">{item.value}</p>
+                            <p className="border px-4 py-2 text-sm">{item.value}</p>
                           </div>
                         ))
                       )}
-                      <p className="px-4 py-2 underline">Exotic Tree</p>
+                      <p className="px-4 py-2 font-bold text-sm">Exotic Tree</p>
                       <hr />
                       {siteData.resources?.map((resource, resourceIndex) =>
                         resource.TREE?.filter(tree => !tree.hasOwnProperty("indigenous")).map((item, itemIndex) => (
                           <div key={`${resourceIndex}-${itemIndex}`}>
-                            <p className="border px-4 py-2">{item.value}</p>
+                            <p className="border px-4 py-2 text-sm">{item.value}</p>
                           </div>
                         ))
                       )}
-                      <strong>LIVESTOCK</strong>
+                      <strong className="text-sm">LIVESTOCK</strong>
                       <hr />
                       {siteData.resources?.map((resource, resourceIndex) =>
                         resource.LIVESTOCK?.map((item, itemIndex) => (
                           <div key={`${resourceIndex}-${itemIndex}`}>
-                            <p className="border px-4 py-2">{item.value}</p>
+                            <p className="border px-4 py-2 text-sm">{item.value}</p>
                           </div>
                         ))
                       )}
-                      <strong>FORAGE</strong>
+                      <strong className="text-sm">FORAGE</strong>
                       <hr />
                       {siteData.resources?.some(resource => resource.FORAGE?.length === 0) ? (
                         <p>No Data Entered</p>
@@ -103,28 +103,28 @@ export const SiteLocationInfo = () => {
                         siteData.resources?.map((resource, resourceIndex) =>
                           resource.FORAGE?.map((item, itemIndex) => (
                             <div key={`${resourceIndex}-${itemIndex}`}>
-                              <p className="border px-4 py-2">{item.value}</p>
+                              <p className="border px-4 py-2 text-sm">{item.value}</p>
                             </div>
                           ))
                         )
                       )}
-                      <strong>Coordinates</strong>
+                      <strong className="text-sm">Coordinates</strong>
                       <hr />
                       {coordinates === "No Coordinate" ? (
-                        <p className="border px-4 py-2">No Coordinate</p>
+                        <p className="border px-4 py-2 text-sm">No Coordinate</p>
                       ) : (
                         <table className="table-auto w-full">
                           <thead>
                             <tr>
-                              <th>Latitude</th>
-                              <th>Longitude</th>
+                              <th className="text-sm">Latitude</th>
+                              <th className="text-sm">Longitude</th>
                             </tr>
                           </thead>
                           <tbody>
                             {coordinates.map((coords, index) => (
                               <tr key={index}>
-                                <td className="border px-4 py-2">{coords[0]}</td>
-                                <td className="border px-4 py-2">{coords[1]}</td>
+                                <td className="border px-4 py-2 text-sm">{coords[0]}</td>
+                                <td className="border px-4 py-2 text-sm">{coords[1]}</td>
                               </tr>
                             ))}
                           </tbody>

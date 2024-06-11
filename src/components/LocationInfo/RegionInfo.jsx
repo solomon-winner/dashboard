@@ -22,36 +22,36 @@ export const RegionLocationInfo = () => {
      return(
 
       <>
-                 {data && <div className="m-5"><strong className="text-2xl font-bold">{data.data.region_name}</strong>
+                 {data && <div className="m-5"><strong className="text-xl font-bold">{data.data.region_name}</strong>
                  <table class="table-auto w-full">
                  <thead>
    
                  </thead>
                  <tbody>
                    <tr>
-                     <td className="border px-4 py-2 font-bold">Region Name</td>
-                     <td className="border px-4 py-2">{data.data.region_name}</td>
+                     <td className="border px-4 py-2 font-bold text-sm">Region Name</td>
+                     <td className="border px-4 py-2 text-sm">{data.data.region_name}</td>
                    </tr>
   
                    <tr>
-                     <td className="border px-4 py-2 font-bold">Region Code</td>
-                     <td className="border px-4 py-2">{data.data.region_code}</td>
+                     <td className="border px-4 py-2 text-sm font-bold">Region Code</td>
+                     <td className="border px-4 py-2 text-sm">{data.data.region_code}</td>
                    </tr>
   
                    <tr>
-                     <td className="border px-4 py-2 font-bold">Number of site</td>
-                     <td className="border px-4 py-2">{data.data.sites}</td>
+                     <td className="border px-4 py-2 text-sm font-bold">Number of site</td>
+                     <td className="border px-4 py-2 text-sm">{data.data.sites}</td>
                    </tr>
   
                    <tr>
-                     <td className="border px-4 py-2 font-bold">Number of Kebele</td>
-                     <td className="border px-4 py-2">{Kebeles}</td>
+                     <td className="border px-4 py-2 text-sm font-bold">Number of Kebele</td>
+                     <td className="border px-4 py-2 text-sm">{Kebeles}</td>
                    </tr>
   
   
                    <tr>
-                     <td className="border px-4 py-2 font-bold">Number of Woredas</td>
-                     <td className="border px-4 py-2">{Woredas}</td>
+                     <td className="border px-4 py-2 text-sm font-bold">Number of Woredas</td>
+                     <td className="border px-4 py-2 text-sm">{Woredas}</td>
                    </tr>
   
   
