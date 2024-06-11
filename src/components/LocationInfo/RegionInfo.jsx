@@ -11,16 +11,8 @@ export const RegionLocationInfo = () => {
    const Woredas = isSuccess && data.data.woredas.length;
    
      return(
-         <div className="d-flex min-w-80">
-  
-         <div className="w-50" style={{ border: '1px solid gray' }}>
-           <div className="container project-container">
-             <div className="card">
-             <div className="bg-gray-200 border-gray-400">
-                 <p className="text-lg font-bold ml-5">Detailed location Information</p>
-               </div>
-               <div className="card-body">
-                 {!data && <p>Select a region to view detailed location information.</p>}
+
+      <>
                  {data && <div className="m-5"><strong className="text-2xl font-bold">{data.data.region_name}</strong>
                  <table class="table-auto w-full">
                  <thead>
@@ -60,14 +52,9 @@ export const RegionLocationInfo = () => {
                </div>
                  }
   
-               </div>
-               <div>
-  
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
+              
+              </>
+
     )
   }
   
