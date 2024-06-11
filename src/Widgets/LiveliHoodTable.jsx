@@ -5,14 +5,14 @@ const LivelihoodTable = ({ livelihoods }) => {
 
   return (
     <div>
-      <h4  className="px-4">Livelihoods</h4>
+      <h4  className="px-4 font-bold text-sm">Livelihoods</h4>
       <hr />
       <table className="table-auto ">
         <thead>
           <tr>
-            <th className="px-4 py-2 text-xl">Type</th>
-            <th className="px-4 py-2 text-xl">Male Headed HH</th>
-            <th className="px-4 py-2 text-xl">Female Headed HH</th>
+            <th className="px-4 py-2 text-sm">Type</th>
+            <th className="px-4 py-2 text-sm">Male Headed HH</th>
+            <th className="px-4 py-2 text-sm">Female Headed HH</th>
           </tr>
         </thead>
         <tbody>

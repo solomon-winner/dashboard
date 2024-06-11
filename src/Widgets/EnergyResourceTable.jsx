@@ -5,13 +5,13 @@ const EnergyResourcesTable = ({ energyResources }) => {
 
   return (
     <div>
-      <h4  className="px-4">Energy Resources</h4>
+      <h4  className="px-4 text-sm">Energy Resources</h4>
       <hr />
       <table className="table-auto ">
         <thead>
           <tr>
-            <th className="px-2 py-2 text-xl">Type</th>
-            <th className="px-2 py-2 text-xl">Access Level</th>
+            <th className="px-2 py-2 text-sm">Type</th>
+            <th className="px-2 py-2 text-sm">Access Level</th>
           </tr>
         </thead>
         <tbody>
