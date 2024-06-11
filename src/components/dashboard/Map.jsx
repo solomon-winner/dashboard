@@ -79,7 +79,7 @@ const Zoom_Out = () => {
           },
             onEachFeature: onEachRegionFeature,
           }).addTo(map);
-          
+
           function onEachRegionFeature(feature, layer) {
             layer.on("click", function (event) {
               regionLayer.resetStyle();
@@ -162,9 +162,9 @@ const Zoom_Out = () => {
 
               const kebeleId = KEBELE.match(/\/([^\/]+)\.geojson$/)[1];
 
-                    kebeleData.features.forEach(feature => {
-                        feature.properties.kebeleId = kebeleId;
-                    });
+                      kebeleData.features.forEach(feature => {
+                          feature.properties.kebeleId = kebeleId;
+                      });
 
                     L.geoJSON(kebeleData, {
               onEachFeature: onEachKebeleFeature,
