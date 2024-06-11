@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useGetSiteByIdQuery } from "../../redux/site/SiteApiSlice";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { Get_Coordinates } from "../Maps/FetchGeoJsonMap";
 
 export const SiteLocationInfo = () => {
     const [coordinates, setCoordinates] = useState(["Loading..."]);

@@ -24,7 +24,7 @@ export const fetchRegionData = async (url) => {
 
   export const Get_Coordinates = async (geoJSON) =>{
     try {
-      const response = await fetch(`https://tbrr.echnoserve.com${geoJSON}`);
+      const response = await fetch(`${storageUrl}${geoJSON}`);
       const data = await response.json();
       if (data.features && data.features.length > 0 && data.features[0].geometry && data.features[0].geometry.coordinates.length > 0) {
         return data.features[0].geometry.coordinates[0][0];
