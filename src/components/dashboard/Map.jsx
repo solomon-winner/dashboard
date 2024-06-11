@@ -205,7 +205,6 @@ const Zoom_Out = () => {
       
           siteLayerGroup.clearLayers();
 
-          console.log("cjshdjsdgv",layer.feature.properties.kebeleId)
           dispatch(SetSelectedKebele(layer.feature.properties.kebeleId))
       });
       }

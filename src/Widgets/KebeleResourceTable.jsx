@@ -8,22 +8,22 @@ const KebeleResourceTable = ({ resources, resourceName }) => {
 
   return (
     <div>
-      <h4  className="px-4">{resourceName}</h4>
-      <hr />
-      <table className="table-auto w-full">
+      <h4  className="px-9 text-sm font-bold">{resourceName}:</h4>
+      <hr/>
+      <table className="table-auto ">
         <thead>
           <tr>
             <th className="px-4 py-2"></th>
-            {hasAmount && <th className="px-4 py-2 text-lg">Amount</th>}
-            {hasCapacity && <th className="px-4 py-2 text-lg">Capacity</th>}
+            {hasAmount && <th className="px-2 py-2 text-sm font-bold">Amount</th>}
+            {hasCapacity && <th className="px-2 py-2 text-sm font-bold">Capacity</th>}
           </tr>
         </thead>
         <tbody>
           {resources.map((resource, index) => (
             <tr key={index}>
-              <td className="border px-4 py-2 font-bold">{resource.value}</td>
-              {hasAmount && <td className="border px-4 py-2">{resource.amount || "No data"}</td>}
-              {hasCapacity && <td className="border px-4 py-2">{resource.capacity || "No data"}</td>}
+              <td className="border px-4 py-2 font-bold text-sm">{resource.value}</td>
+              {hasAmount && <td className="border px-4 py-2 text-sm">{resource.amount || "No data"}</td>}
+              {hasCapacity && <td className="border px-4 py-2 text-sm">{resource.capacity || "No data"}</td>}
             </tr>
           ))}
         </tbody>

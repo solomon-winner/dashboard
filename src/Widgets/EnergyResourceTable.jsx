@@ -5,20 +5,20 @@ const EnergyResourcesTable = ({ energyResources }) => {
 
   return (
     <div>
-      <h4  className="px-4">Energy Resources</h4>
+      <h4  className="px-9 font-bold text-sm">Energy Resources:</h4>
       <hr />
-      <table className="table-auto w-full">
+      <table className="table-auto ">
         <thead>
           <tr>
-            <th className="px-4 py-2 text-lg">Type</th>
-            <th className="px-4 py-2 text-lg">Access Level</th>
+            <th className="px-2 py-2 text-sm">Type</th>
+            <th className="px-2 py-2 text-sm">Access Level</th>
           </tr>
         </thead>
         <tbody>
           {energyResources.map((resource, index) => (
             <tr key={index}>
-              <td className="border px-4 py-2 font-bold">{resource.value}</td>
-              <td className="border px-4 py-2">{resource.access_level}</td>
+              <td className="border px-4 py-2 text-sm font-bold">{resource.value}</td>
+              <td className="border px-4 py-2 text-sm">{resource.access_level}</td>
             </tr>
           ))}
         </tbody>
