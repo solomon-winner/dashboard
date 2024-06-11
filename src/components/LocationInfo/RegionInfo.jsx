@@ -1,3 +1,7 @@
+import React from "react";
+import { useSelector } from "react-redux";
+import { useGetRegionByIdQuery } from '../../redux/region/RegionApiSlice'
+
 
 export const RegionLocationInfo = () => {
     const Region  = useSelector((state) => state.geoJson.GeoJson.SelectedRegion);
