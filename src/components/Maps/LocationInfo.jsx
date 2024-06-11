@@ -40,6 +40,7 @@ export const LocationInfo = () => {
             <p className="text-lg font-bold ml-5 py-3">Detailed location Information</p>
           </div>
           <div className="card-body" style={{ overflowX: 'auto', overflowY: 'auto', maxHeight: '80vh' }}>
+            {defualtLocation && <Default/>}
             {Region_id && <RegionLocationInfo/>}
             {Site_id && <SiteLocationInfo/>}
             {Woreda_id && <WoredaLocationInfo/>}

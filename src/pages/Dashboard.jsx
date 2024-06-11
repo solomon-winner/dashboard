@@ -40,7 +40,6 @@ console.log("Woreda_id",Woreda_id)
             <Map />
           </div>
           </div>
-          {defualtLocation && <Default/>}
           {<LocationInfo />}
       </div>
     </div>

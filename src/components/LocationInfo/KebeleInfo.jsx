@@ -57,6 +57,7 @@ export const KebeleLocationInfo = () => {
 
   return (
     <>
+      <p className="text-lg font-bold ml-5 py-3">{kebeleData?.kebele_name ?? "No Data"}</p>
               <table className="table-auto w-full">
                 <tbody>
                   <RenderTableRows
