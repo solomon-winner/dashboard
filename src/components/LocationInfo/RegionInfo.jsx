@@ -6,10 +6,19 @@ import { useGetRegionByIdQuery } from '../../redux/region/RegionApiSlice'
 export const RegionLocationInfo = () => {
     const Region  = useSelector((state) => state.geoJson.GeoJson.SelectedRegion);
   
-    const { data, isSuccess, isFetching } = useGetRegionByIdQuery(Region);
+    const { data, isSuccess, isFetching, isError} = useGetRegionByIdQuery(Region);
    const Kebeles = isSuccess && data.data.kebeles.length;
    const Woredas = isSuccess && data.data.woredas.length;
    
+   if (isFetching) {
+    return (
+      <p className="font-bold">Loading...</p>
+    )
+   }
+
+   if (isError) {
+    return <p>Error loading data</p>;
+  }
      return(
 
       <>

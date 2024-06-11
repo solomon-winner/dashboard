@@ -3,6 +3,7 @@ import { SiteLocationInfo } from "../LocationInfo/SiteInfo";
 import { WoredaLocationInfo } from "../LocationInfo/WoredaInfo";
 import { useSelector } from "react-redux";
 import { KebeleLocationInfo } from "../LocationInfo/KebeleInfo";
+import { RegionLocationInfo } from "../LocationInfo/RegionInfo";
 
 export const Default = () => {
   return(
@@ -39,6 +40,7 @@ export const LocationInfo = () => {
             <p className="text-lg font-bold ml-5 py-3">Detailed location Information</p>
           </div>
           <div className="card-body" style={{ overflowX: 'auto', overflowY: 'auto', maxHeight: '80vh' }}>
+            {Region_id && <RegionLocationInfo/>}
             {Site_id && <SiteLocationInfo/>}
             {Woreda_id && <WoredaLocationInfo/>}
             {Kebele_id && <KebeleLocationInfo/>}
