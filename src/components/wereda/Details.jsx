@@ -182,7 +182,7 @@ export const WeredaDetails = () => {
                     </h1>
                     <div className="flex flex-col gap-2">
                       {weredadata.data.woreda_resource &&
-                      weredadata.data.woreda_resource.LAND.length > 0 ? (
+                      weredadata.data.woreda_resource.LAND ? (
                         weredadata.data.woreda_resource.LAND?.map(
                           (item, index) => (
                             <div
@@ -214,7 +214,7 @@ export const WeredaDetails = () => {
                     </h1>
                     <div className="flex flex-col gap-2">
                       {weredadata.data.woreda_resource &&
-                      weredadata.data.woreda_resource.ROAD.length > 0 ? (
+                      weredadata.data.woreda_resource.ROAD ? (
                         weredadata.data.woreda_resource.ROAD?.map(
                           (item, index) => (
                             <div
@@ -244,7 +244,7 @@ export const WeredaDetails = () => {
                     </h1>
                     <div className="flex flex-col gap-2">
                       {weredadata.data.woreda_institution &&
-                      weredadata.data.woreda_institution.SCHOOL.length > 0 ? (
+                      weredadata.data.woreda_institution.SCHOOL ? (
                         weredadata.data.woreda_institution.SCHOOL?.map(
                           (item, index) => (
                             <div
@@ -274,8 +274,7 @@ export const WeredaDetails = () => {
                     </h1>
                     <div className="flex flex-col gap-2">
                       {weredadata?.data?.woreda_institution &&
-                      weredadata.data.woreda_institution.HEALTH_FACILITY
-                        .length > 0 ? (
+                      weredadata.data.woreda_institution.HEALTH_FACILITY ? (
                         weredadata.data.woreda_institution.HEALTH_FACILITY.map(
                           (item, index) => (
                             <div
