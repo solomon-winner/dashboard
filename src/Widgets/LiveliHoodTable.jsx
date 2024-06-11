@@ -10,17 +10,17 @@ const LivelihoodTable = ({ livelihoods }) => {
       <table className="table-auto ">
         <thead>
           <tr>
-            <th className="px-4 py-2 text-lg">Type</th>
-            <th className="px-4 py-2 text-lg">Male Headed HH</th>
-            <th className="px-4 py-2 text-lg">Female Headed HH</th>
+            <th className="px-4 py-2 text-xl">Type</th>
+            <th className="px-4 py-2 text-xl">Male Headed HH</th>
+            <th className="px-4 py-2 text-xl">Female Headed HH</th>
           </tr>
         </thead>
         <tbody>
           {livelihoods.map((livelihood, index) => (
             <tr key={index}>
-              <td className="border px-4 py-2 font-bold">{livelihood.value}</td>
-              <td className="border px-4 py-2">{livelihood.male_headed_hh}</td>
-              <td className="border px-4 py-2">{livelihood.female_headed_hh}</td>
+              <td className="border px-4 py-2 text-sm font-bold">{livelihood.value}</td>
+              <td className="border px-4 py-2 text-sm">{livelihood.male_headed_hh}</td>
+              <td className="border px-4 py-2 text-sm">{livelihood.female_headed_hh}</td>
             </tr>
           ))}
         </tbody>
