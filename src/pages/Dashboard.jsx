@@ -42,8 +42,6 @@ console.log("Woreda_id",Woreda_id)
           </div>
           {defualtLocation && <Default/>}
           {<LocationInfo />}
-       { Region_id && <RegionLocationInfo/>}
-      {Kebele_id && <KebeleLocationInfo/>}
       </div>
     </div>
   );
