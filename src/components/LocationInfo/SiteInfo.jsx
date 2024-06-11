@@ -24,7 +24,7 @@ export const SiteLocationInfo = () => {
     }, [siteData]);
   
     if (isFetching) {
-      return <p>Loading...</p>;
+      return <p >Loading...</p>;
     }
   
     return (
