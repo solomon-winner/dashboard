@@ -10,15 +10,15 @@ const EnergyResourcesTable = ({ energyResources }) => {
       <table className="table-auto ">
         <thead>
           <tr>
-            <th className="px-2 py-2 text-lg">Type</th>
-            <th className="px-2 py-2 text-lg">Access Level</th>
+            <th className="px-2 py-2 text-xl">Type</th>
+            <th className="px-2 py-2 text-xl">Access Level</th>
           </tr>
         </thead>
         <tbody>
           {energyResources.map((resource, index) => (
             <tr key={index}>
-              <td className="border px-4 py-2 font-bold">{resource.value}</td>
-              <td className="border px-4 py-2">{resource.access_level}</td>
+              <td className="border px-4 py-2 text-sm font-bold">{resource.value}</td>
+              <td className="border px-4 py-2 text-sm">{resource.access_level}</td>
             </tr>
           ))}
         </tbody>
