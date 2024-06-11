@@ -5,9 +5,8 @@ import L from 'leaflet';
 import { useGetRegionGeojsonsQuery } from '../../redux/GeoJson/RegionGeoJsonApi';
 import { useGetSiteGeojsonsQuery } from '../../redux/GeoJson/SiteGeoJsonApi';
 import {fetchRegionData, fetchSiteData} from '../Maps/FetchGeoJsonMap';
-import {SetAllRegions, SetSelectedKebele, SetSelectedWoreda,SetSelectedRegion, SetSelectedSite, SetLocationInfo} from '../../redux/GeoJson/GeoJsonSlice'
+import {SetSelectedKebele, SetSelectedWoreda,SetSelectedRegion, SetSelectedSite, SetLocationInfo} from '../../redux/GeoJson/GeoJsonSlice'
 import { useDispatch, useSelector } from 'react-redux';
-import { setSiteId } from '../../redux/site/SiteByIdState';
 import { ZoomOut } from '@mui/icons-material';
 import { log } from '../Resource/Utility/Logger';
 
@@ -33,7 +32,6 @@ export const Map = () => {
   const All_Regions = []
   const Woredas = []
 const Kebeles = []
-const Sites = []
 const Zoom_Out = () => {
   dispatch(SetSelectedRegion(null));
   dispatch(SetSelectedSite(null));
@@ -81,6 +79,7 @@ const Zoom_Out = () => {
           },
             onEachFeature: onEachRegionFeature,
           }).addTo(map);
+          
           function onEachRegionFeature(feature, layer) {
             layer.on("click", function (event) {
               regionLayer.resetStyle();
