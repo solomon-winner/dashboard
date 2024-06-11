@@ -34,7 +34,7 @@ export const WoredaLocationInfo = () => {
                   </tbody>
                 </table>
                 <hr />
-                <h2 className="px-3">Woreda Data:</h2>
+                <h2 className="px-3 text-sm font-bold">Woreda Data:</h2>
                 <hr />
                 <table className="table-auto w-full">
                   <tbody>
@@ -42,10 +42,10 @@ export const WoredaLocationInfo = () => {
                   </tbody>
                 </table>
                 <hr />
-                <h2 className="font-bold px-3 py-3">Woreda Resource:</h2>
+                <h2 className="font-bold px-3 py-3 text-sm font-bold">Woreda Resource:</h2>
                 <hr />
                 {woredaData?.woreda_resource?.length === 0 ? (
-                  <p className="px-4">No Data Entered</p>
+                  <p className="px-4 text-sm">No Data Entered</p>
                 ) : (
                   <>
                     {woredaData?.woreda_resource?.LAND?.length > 0 ? (
@@ -61,10 +61,10 @@ export const WoredaLocationInfo = () => {
                   </>
                 )}
                 <hr />
-                <h2 className="font-bold px-3 py-3">Woreda Institution:</h2>
+                <h2 className="font-bold px-3 py-3 text-sm font-bold">Woreda Institution:</h2>
                 <hr />
                 {woredaData?.woreda_institution?.length === 0 ? (
-                  <p className="px-4">No Data Entered</p>
+                  <p className="px-4 text-sm">No Data Entered</p>
                 ) : (
                   <>
                     {woredaData?.woreda_institution?.SCHOOL?.length > 0 ? (
