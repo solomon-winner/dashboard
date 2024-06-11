@@ -6,12 +6,14 @@ import { useGetInstitution } from '../redux/InitialState/GetInstitution'
 import { useGetResource } from '../redux/InitialState/GetResource'
 import { GetRoles } from '../redux/InitialState/GetRoles';
 import {ProfileInfo} from "../redux/InitialState/ProfileInfo"
-import { Default, LocationInfo, RegionLocationInfo, WoredaLocationInfo} from '../components/Maps/LocationInfo'
 import { useDispatch, useSelector } from "react-redux";
 import { Filter } from '../components/Maps/Filter'
 import { SetZoom_out } from "../redux/GeoJson/GeoJsonSlice";
 import { log } from '../components/Resource/Utility/Logger'
 import { KebeleLocationInfo } from '../components/LocationInfo/KebeleInfo'
+import { SiteLocationInfo } from '../components/LocationInfo/SiteInfo'
+import { RegionLocationInfo } from '../components/LocationInfo/RegionInfo'
+import { WoredaLocationInfo } from '../components/LocationInfo/WoredaInfo'
 
 export const Dashboard = () => {
 
@@ -23,7 +25,6 @@ export const Dashboard = () => {
   const Kebele_id = useSelector((state) => state.geoJson.GeoJson.SelectedKebele);
 
 console.log("Woreda_id",Woreda_id)
-  // const Site_id = useSelector((state) => state.siteById.Id);
   useGetRegion();
   GetRoles();
   useGetInstitution();
@@ -43,7 +44,7 @@ console.log("Woreda_id",Woreda_id)
           </div>
           </div>
           {defualtLocation && <Default/>}
-          { Site_id && <LocationInfo />}
+          { Site_id && <SiteLocationInfo />}
        { Region_id && <RegionLocationInfo/>}
       {Woreda_id && <WoredaLocationInfo/>}
       {Kebele_id && <KebeleLocationInfo/>}
