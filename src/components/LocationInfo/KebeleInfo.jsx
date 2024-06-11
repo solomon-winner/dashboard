@@ -70,7 +70,7 @@ export const KebeleLocationInfo = () => {
                 </tbody>
               </table>
               <hr />
-              <h6 className="px-9 text-sm font-bold">Kebele Data</h6>
+              <h6 className="px-9 text-sm font-bold">Kebele Data:</h6>
               <hr />
               <table className="table-auto w-full">
                 <tbody>

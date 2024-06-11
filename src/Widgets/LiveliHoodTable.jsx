@@ -5,7 +5,7 @@ const LivelihoodTable = ({ livelihoods }) => {
 
   return (
     <div>
-      <h4  className="px-9 font-bold text-sm">Livelihoods</h4>
+      <h4  className="px-9 font-bold text-sm">Livelihoods:</h4>
       <hr />
       <table className="table-auto ">
         <thead>

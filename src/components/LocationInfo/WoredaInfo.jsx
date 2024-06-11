@@ -34,7 +34,7 @@ export const WoredaLocationInfo = () => {
                   </tbody>
                 </table>
                 <hr />
-                <h2 className="px-3 text-sm font-bold">Woreda Data:</h2>
+                <h2 className="px-9 text-sm font-bold">Woreda Data:</h2>
                 <hr />
                 <table className="table-auto w-full">
                   <tbody>

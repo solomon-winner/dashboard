@@ -8,8 +8,8 @@ const KebeleResourceTable = ({ resources, resourceName }) => {
 
   return (
     <div>
-      <h4  className="px-7 text-sm font-bold">{resourceName}</h4>
-      <hr />
+      <h4  className="px-9 text-sm font-bold">{resourceName}:</h4>
+      <hr/>
       <table className="table-auto ">
         <thead>
           <tr>

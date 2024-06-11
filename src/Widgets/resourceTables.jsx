@@ -1,7 +1,7 @@
 export const ResourceTable = ({ resources, resourceName }) => {
     return (
       <>
-        <h4 className="px-9 ">{resourceName}</h4>
+        <h4 className="px-9 font-bold text-sm">{resourceName}:</h4>
         <hr />
         <table className="table-auto ">
           <tbody>
