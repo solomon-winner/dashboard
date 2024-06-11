@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Cards } from '../components/dashboard/Cards'
 import { Map } from '../components/dashboard/Map'
 import { useGetRegion } from '../redux/InitialState/GetRegion'
