@@ -5,7 +5,7 @@ const EnergyResourcesTable = ({ energyResources }) => {
 
   return (
     <div>
-      <h4  className="px-4 text-sm">Energy Resources</h4>
+      <h4  className="px-9 text-sm">Energy Resources</h4>
       <hr />
       <table className="table-auto ">
         <thead>
