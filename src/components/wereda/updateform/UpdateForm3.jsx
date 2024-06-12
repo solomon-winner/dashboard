@@ -9,109 +9,51 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
   const { school, healthFacility, isLoadingInstitutions } = useSelector(
     (state) => state.institution
   );
-  const initialAdditionalFields = extractAdditionalFieldsData(
-    "schooltype",
-    formData,
-    "schoolnumber"
-  );
-  const initialAdditionalFields2 = extractAdditionalFieldsData(
-    "healthFacilitytype",
-    formData,
-    "healthFacilitynumber"
-  );
-  const [additionalFields, setAdditionalFields] = useState(
-    initialAdditionalFields
-  );
-  const [additionalFields2, setAdditionalFields2] = useState(
-    initialAdditionalFields2
-  );
-  const addField = () => {
-    const highestId = additionalFields.reduce(
-      (highest, field) => Math.max(highest, field.id),
-      0
-    );
-    setAdditionalFields([
-      ...additionalFields,
-      { id: highestId + 1, schooltype: "", schoolnumber: "" },
-    ]);
+  
+  const initialAdditionalFields = extractAdditionalFieldsData("schooltype", formData, "schoolnumber");
+  const initialAdditionalFields2 = extractAdditionalFieldsData("healthFacilitytype", formData, "healthFacilitynumber");
+  
+  const [additionalFields, setAdditionalFields] = useState(initialAdditionalFields);
+  const [additionalFields2, setAdditionalFields2] = useState(initialAdditionalFields2);
+
+  const addField = (fields, setFields, type) => {
+    const highestId = fields.reduce((highest, field) => Math.max(highest, field.id), 0);
+    setFields([...fields, { id: highestId + 1, [`${type}type`]: "", [`${type}number`]: "" }]);
   };
-  const removeField = (id) => {
-    setAdditionalFields(additionalFields.filter((field) => field.id !== id));
+
+  const removeField = (id, fields, setFields, type) => {
+    setFields(fields.filter((field) => field.id !== id));
     const updatedFormData = { ...formData };
-    delete updatedFormData[`schooltype${id + 1}`];
-    delete updatedFormData[`schoolnumber${id + 1}`];
+    delete updatedFormData[`${type}type${id + 1}`];
+    delete updatedFormData[`${type}number${id + 1}`];
     let newFormData = {};
-    let schooltypeIndex = 1;
-    let schoolnumberIndex = 1;
+    let typeIndex = 1;
+    let numberIndex = 1;
     for (let key in updatedFormData) {
-      if (key.startsWith("schooltype") && key !== `schooltype${id + 1}`) {
-        newFormData[`schooltype${schooltypeIndex}`] = updatedFormData[key];
-        schooltypeIndex++;
-      } else if (
-        key.startsWith("schoolnumber") &&
-        key !== `schoolnumber${id + 1}`
-      ) {
-        newFormData[`schoolnumber${schoolnumberIndex}`] = updatedFormData[key];
-        schoolnumberIndex++;
+      if (key.startsWith(`${type}type`) && key !== `${type}type${id + 1}`) {
+        newFormData[`${type}type${typeIndex}`] = updatedFormData[key];
+        typeIndex++;
+      } else if (key.startsWith(`${type}number`) && key !== `${type}number${id + 1}`) {
+        newFormData[`${type}number${numberIndex}`] = updatedFormData[key];
+        numberIndex++;
       }
     }
     setFormData(newFormData);
   };
-  const addField2 = () => {
-    const highestId = additionalFields2.reduce(
-      (highest, field) => Math.max(highest, field.id),
-      0
-    );
-    setAdditionalFields2([
-      ...additionalFields2,
-      { id: highestId + 1, healthFacilitytype: "", healthFacilitynumber: "" },
-    ]);
-  };
-  const removeField2 = (id) => {
-    setAdditionalFields2(additionalFields2.filter((field) => field.id !== id));
-    const updatedFormData = { ...formData };
-    delete updatedFormData[`healthFacilitytype${id + 1}`];
-    delete updatedFormData[`healthFacilitynumber${id + 1}`];
-    let newFormData = {};
-    let healthFacilitytypeIndex = 1;
-    let healthFacilitynumberIndex = 1;
-    for (let key in updatedFormData) {
-      if (
-        key.startsWith("healthFacilitytype") &&
-        key !== `healthFacilitytype${id + 1}`
-      ) {
-        newFormData[`healthFacilitytype${healthFacilitytypeIndex}`] =
-          updatedFormData[key];
-        healthFacilitytypeIndex++;
-      } else if (
-        key.startsWith("healthFacilitynumber") &&
-        key !== `healthFacilitynumber${id + 1}`
-      ) {
-        newFormData[`healthFacilitynumber${healthFacilitynumberIndex}`] =
-          updatedFormData[key];
-        healthFacilitynumberIndex++;
-      }
-    }
-    setFormData(newFormData);
-  };
+
   const handleChanges = (e) => {
     const { name, value } = e.target;
-    // Check if the name is 'area' or 'distance' and parse the value as a number
-    const parsedValue =
-      name.includes("schoolnumber") || name.includes("healthFacilitynumber")
-        ? parseFloat(value)
-        : value;
+    const parsedValue = name.includes("number") ? parseFloat(value) : value;
     setFormData({
       ...formData,
       [name]: parsedValue,
     });
     handleChange(e);
   };
+
   return (
     <div>
-      <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
-        School
-      </h6>
+      <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">School</h6>
       <div className="flex flex-wrap">
         {additionalFields.map((field, index) => (
           <React.Fragment key={field.id}>
@@ -122,26 +64,10 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
               placeholder="Select School Type"
               options={
                 isLoadingInstitutions
-                  ? [
-                      {
-                        value: "loading",
-                        label: (
-                          <div className="flex justify-center">
-                            <Loadings />
-                          </div>
-                        ),
-                      },
-                    ]
-                  : school.map((schools, index) => ({
-                      label: schools.name,
-                      value: schools.id,
-                    }))
+                  ? [{ value: "loading", label: <div className="flex justify-center"><Loadings /></div> }]
+                  : school.map((schools) => ({ label: schools.name, value: schools.id }))
               }
-              value={
-                school.find(
-                  (school) => school.id === formData[`schooltype${index + 1}`]
-                )?.name || ""
-              }
+              value={school.find((school) => school.id === formData[`schooltype${index + 1}`])?.name || ""}
               handleChange={handleChanges}
               onChange={(option) => {
                 handleChanges({
@@ -153,7 +79,7 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
               }}
             />
             <FormField
-              label="Public University/College"
+              label="Number of School"
               name={`schoolnumber${index + 1}`}
               type="number"
               placeholder="Number of School"
@@ -161,15 +87,13 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
               value={formData[`schoolnumber${index + 1}`] || ""}
               handleChange={handleChanges}
             />
-            <Delete onClick={() => removeField(field.id)} className="lg:mt-8" />
+            <Delete onClick={() => removeField(field.id, additionalFields, setAdditionalFields, 'school')} className="lg:mt-8" />
           </React.Fragment>
         ))}
-        <AddCircleOutline onClick={addField} className="lg:mt-8" />
+        <AddCircleOutline onClick={() => addField(additionalFields, setAdditionalFields, 'school')} className="lg:mt-8" />
       </div>
 
-      <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
-        Health Facilities
-      </h6>
+      <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">Health Facilities</h6>
       <div className="flex flex-wrap">
         {additionalFields2.map((field, index) => (
           <React.Fragment key={field.id}>
@@ -180,28 +104,10 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
               placeholder="Select Hospital Type"
               options={
                 isLoadingInstitutions
-                  ? [
-                      {
-                        value: "loading",
-                        label: (
-                          <div className="flex justify-center">
-                            <Loadings />
-                          </div>
-                        ),
-                      },
-                    ]
-                  : healthFacility.map((healthFacilitys, index) => ({
-                      label: healthFacilitys.name,
-                      value: healthFacilitys.id,
-                    }))
+                  ? [{ value: "loading", label: <div className="flex justify-center"><Loadings /></div> }]
+                  : healthFacility.map((healthFacilitys) => ({ label: healthFacilitys.name, value: healthFacilitys.id }))
               }
-              value={
-                healthFacility.find(
-                  (healthFacility) =>
-                    healthFacility.id ===
-                    formData[`healthFacilitytype${index + 1}`]
-                )?.name || ""
-              }
+              value={healthFacility.find((healthFacility) => healthFacility.id === formData[`healthFacilitytype${index + 1}`])?.name || ""}
               handleChange={handleChanges}
               onChange={(option) => {
                 handleChanges({
@@ -213,7 +119,7 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
               }}
             />
             <FormField
-              label="Public University/College"
+              label="Number of healthFacility"
               name={`healthFacilitynumber${index + 1}`}
               type="number"
               placeholder="Number of healthFacility"
@@ -221,13 +127,10 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
               value={formData[`healthFacilitynumber${index + 1}`] || ""}
               handleChange={handleChanges}
             />
-            <Delete
-              onClick={() => removeField2(field.id)}
-              className="lg:mt-8"
-            />
+            <Delete onClick={() => removeField(field.id, additionalFields2, setAdditionalFields2, 'healthFacility')} className="lg:mt-8" />
           </React.Fragment>
         ))}
-        <AddCircleOutline onClick={addField2} className="lg:mt-8" />
+        <AddCircleOutline onClick={() => addField(additionalFields2, setAdditionalFields2, 'healthFacility')} className="lg:mt-8" />
       </div>
     </div>
   );

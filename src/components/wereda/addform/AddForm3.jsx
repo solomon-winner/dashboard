@@ -93,7 +93,7 @@ export const AddForm3 = ({ handleChange, formData, setFormData }) => {
               }}
             />
             <FormField
-              label="Public University/College"
+              label="Number of School"
               name={`schoolnumber${index + 1}`}
               type="number"
               placeholder="Number of School"
@@ -153,7 +153,7 @@ export const AddForm3 = ({ handleChange, formData, setFormData }) => {
               }}
             />
             <FormField
-              label="Public University/College"
+              label="Number of Health Facilities"
               name={`healthFacilitynumber${index + 1}`}
               type="number"
               placeholder="Number of healthFacility"
