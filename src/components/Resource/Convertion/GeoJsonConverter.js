@@ -3,7 +3,7 @@ import UTM from 'utm-latlng';
 import { log } from '../Utility/Logger';
 
 const GeoJsonConverter = {
-  convert: async (geojsonFile,name,watershed) => {
+  convert: async (geojsonFile, name, watershed) => {
     try {
       const geoJson = await GeoJsonConverter.readFile(geojsonFile);
       if (GeoJsonConverter.isLatLngFormat(geoJson)) {
@@ -11,7 +11,8 @@ const GeoJsonConverter = {
         return await GeoJsonConverter.createFile(geoJson);
       } else {
         log('GeoJSON is in UTM format, converting to latlng...');
-        const convertedGeoJson = await GeoJsonConverter.convertToLatLng(geoJson,name,watershed);
+        const utmZone = GeoJsonConverter.extractUTMZone(geoJson);
+        const convertedGeoJson = await GeoJsonConverter.convertToLatLng(geoJson, name, watershed, utmZone);
         return await GeoJsonConverter.createFile(convertedGeoJson);
       }
     } catch (error) {
@@ -40,11 +41,25 @@ const GeoJsonConverter = {
     return isLatLng;
   },
 
-  convertToLatLng: async (geoJson,name,watershed) => {
+  extractUTMZone: (geoJson) => {
+    const crs = geoJson.crs;
+    if (crs && crs.properties && crs.properties.name) {
+      const match = crs.properties.name.match(/EPSG::(\d+)/);
+      if (match) {
+        const epsgCode = parseInt(match[1], 10);
+        if (epsgCode >= 32601 && epsgCode <= 32660) {
+          return epsgCode - 32600; // Extracting UTM zone number
+        }
+      }
+    }
+    throw new Error('Unable to determine UTM zone from GeoJSON CRS.');
+  },
+
+  convertToLatLng: async (geoJson, name, watershed, zoneNumber) => {
     const convertedGeoJson = { ...geoJson };
 
     function utmToLatLon(utmCoords) {
-      const { easting, northing, zoneNumber, zoneLetter } = utmCoords;
+      const { easting, northing, zoneLetter } = utmCoords;
       const utm = new UTM();
       const latLon = utm.convertUtmToLatLng(easting, northing, zoneNumber, zoneLetter);
       return { latitude: latLon.lat, longitude: latLon.lng };
@@ -56,7 +71,7 @@ const GeoJsonConverter = {
         const convertedCoordinates = geometry.coordinates.map(polygon => {
           return polygon.map(ring => {
             return ring.map(point => {
-              const utmCoords = { easting: point[0], northing: point[1], zoneNumber: 37, zoneLetter: 'N' };
+              const utmCoords = { easting: point[0], northing: point[1], zoneNumber, zoneLetter: 'N' };
               const latLon = utmToLatLon(utmCoords);
               return [latLon.longitude, latLon.latitude];
             });
@@ -81,8 +96,7 @@ const GeoJsonConverter = {
     // Create a File object from the Blob
     const file = new File([blob], 'convertedGeoJson.json', { type: 'application/json' });
     return file;
-   },
+  },
 };
 
 export default GeoJsonConverter;
-
