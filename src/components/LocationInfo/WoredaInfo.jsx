@@ -3,11 +3,12 @@ import { useGetWeredaByIdQuery } from "../../redux/wereda/WeredaApiSlice";
 import { RenderTableRows } from "../../Widgets/renderTableRows";
 import { ResourceTable } from "../../Widgets/resourceTables";
 import { useSelector } from "react-redux";
+import Loadings from "../Resource/Loading/Loadings";
 
 
 export const WoredaLocationInfo = () => {
     const Woreda_id = useSelector((state) => state.geoJson.GeoJson.SelectedWoreda);
-    const { data, isSuccess } = useGetWeredaByIdQuery(Woreda_id);
+    const { data, isSuccess, isFetching  } = useGetWeredaByIdQuery(Woreda_id);
     const woredaData = isSuccess && data.data;
   
     const dataRows = [
@@ -18,7 +19,9 @@ export const WoredaLocationInfo = () => {
       { label: "male_hh", value: woredaData?.woreda_data?.male_hh ?? "No data" },
       { label: "female_hh", value: woredaData?.woreda_data?.female_hh?? "No data" },
     ];
-  
+  if (isFetching) {
+    return <Loadings/>
+  }
     return (
      <>
           <p className="text-xl font-bold ml-5 py-3">{woredaData?.woreda_name ?? "No Data"}</p>

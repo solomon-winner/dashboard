@@ -3,12 +3,12 @@ import { useGetSiteByIdQuery } from "../../redux/site/SiteApiSlice";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Get_Coordinates } from "../Maps/FetchGeoJsonMap";
+import Loadings from "../Resource/Loading/Loadings";
 
 export const SiteLocationInfo = () => {
     const [coordinates, setCoordinates] = useState(["Loading..."]);
   
     const Site_id = useSelector((state) => state.geoJson.GeoJson.SelectedSite);
-    console.log("the location information of the site...", Site_id);
     const { data, isSuccess, isFetching } = useGetSiteByIdQuery(Site_id);
     const siteData = isSuccess && data.data;
   
@@ -24,7 +24,7 @@ export const SiteLocationInfo = () => {
     }, [siteData]);
   
     if (isFetching) {
-      return <p >Loading...</p>;
+      return <Loadings/>;
     }
   
     return (

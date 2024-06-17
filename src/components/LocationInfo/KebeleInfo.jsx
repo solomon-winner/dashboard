@@ -5,13 +5,14 @@ import { RenderTableRows } from "../../Widgets/renderTableRows";
 import RenderKebeleResourceTables from "../../Widgets/RenderKebeleResourceTable";
 import LivelihoodTable from "../../Widgets/LiveliHoodTable";
 import EnergyResourcesTable from "../../Widgets/EnergyResourceTable";
+import Loadings from "../Resource/Loading/Loadings";
 
 export const KebeleLocationInfo = () => {
   const Kebele_id = useSelector((state) => state.geoJson.GeoJson.SelectedKebele);
   const { data, isSuccess, isFetching, isError } = useGetKebeleByIdQuery(Kebele_id);
 
   if (isFetching) {
-    return <p className="font-bold">Loading...</p>;
+    return <Loadings/>
   }
 
   if (isError) {
