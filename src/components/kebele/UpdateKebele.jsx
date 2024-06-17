@@ -50,6 +50,7 @@ export const UpdateKebele = () => {
   const handleBack = () => {
     setStep(step - 1);
   };
+
   const handleSubmit = async (values) => {
     const energy_sourceArray = [];
     let i = 1;
@@ -410,7 +411,7 @@ export const UpdateKebele = () => {
               initialValues={formData}
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
-              
+              enableReinitialize
             >
               {({ handleChange }) => (
                 <Form>

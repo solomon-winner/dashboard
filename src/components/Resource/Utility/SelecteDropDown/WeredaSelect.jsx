@@ -58,6 +58,7 @@ const WeredaSelect = ({
             });
             setFormData({
               ...formData,
+              woreda_id: option.value,
               selectedWeredaName: option.label,
             });
           }}

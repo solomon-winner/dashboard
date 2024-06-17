@@ -8,6 +8,7 @@ import Loadings from "../../Resource/Loading/Loadings";
 import KebeleSelect from "../../Resource/Utility/SelecteDropDown/KebeleSelect";
 import WeredaSelect from "../../Resource/Utility/SelecteDropDown/WeredaSelect";
 import RegionSelect from "../../Resource/Utility/SelecteDropDown/RegionSelect";
+import FieldComponent from "../../Resource/Utility/AddRemoveForm/FieldComponent";
 
 export const AddForm = ({ handleChange, formData, setFormData }) => {
   const [selectedRegion, setSelectedRegion] = useState("");
@@ -24,23 +25,6 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
       { id: selectedWereda, with_sites: true },
       { skip: !selectedWereda }
     );
-  const [additionalFields, setAdditionalFields] = useState([
-    { id: 0, type: "", area: "" },
-  ]);
-
-  const addField = () => {
-    const highestId = additionalFields.reduce(
-      (highest, field) => Math.max(highest, field.id),
-      0
-    );
-    setAdditionalFields([
-      ...additionalFields,
-      { id: highestId + 1, type: "", area: "" },
-    ]);
-  };
-  const removeField = (id) => {
-    setAdditionalFields(additionalFields.filter((field) => field.id !== id));
-  };
   const handleChanges = (e) => {
     setFormData({
       ...formData,
@@ -130,60 +114,44 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
         LandUse
       </h6>
-      <div className="flex flex-wrap">
-        {additionalFields.map((field, index) => (
-          <React.Fragment key={field.id}>
-            <FormField
-              label="Type"
-              name={`type${index + 1}`}
-              type="dropdown"
-              placeholder="Select Land Type"
-              options={
-                isLoadingLanduse
-                  ? [
-                      {
-                        value: "loading",
-                        label: (
-                          <div className="flex justify-center">
-                            <Loadings />
-                          </div>
-                        ),
-                      },
-                    ]
-                  : landuse.map((landuse, index) => ({
-                      label: landuse.name,
-                      value: landuse.id,
-                    }))
-              }
-              value={
-                landuse.find(
-                  (landuse) => landuse.id === formData[`type${index + 1}`]
-                )?.name || ""
-              }
-              handleChange={handleChanges}
-              onChange={(option) => {
-                handleChanges({
-                  target: {
-                    name: `type${index + 1}`,
-                    value: option.target.value.value,
-                  },
-                });
-              }}
-            />
-            <FormField
-              label="Area"
-              name={`area${index + 1}`}
-              type="number"
-              placeholder="Area"
-              value={formData[`area${index + 1}`] || ""}
-              handleChange={handleChanges}
-              step={0.01}
-            />
-            <Delete onClick={() => removeField(field.id)} className="lg:mt-8" />
-          </React.Fragment>
-        ))}
-        <AddCircleOutline onClick={addField} className="lg:mt-8" />
-      </div>
+      <FieldComponent
+      initialValues={formData}
+      placeholder={["Select Land Type", "Enter Area"]}
+      type={["dropdown", "number"]}
+      label={["type", "area"]}
+      options={
+        isLoadingLanduse
+          ? [
+              {
+                value: "loading",
+                label: (
+                  <div className="flex justify-center">
+                    <Loadings />
+                  </div>
+                ),
+              },
+            ]
+          : landuse.map((landuse, index) => ({
+              label: landuse.name,
+              value: landuse.id,
+            }))
+      }
+      onValueChange={(id, name, value) => {
+        const values = name === "type" && typeof value === "object" ? value.value : value;
+        const keyToUpdate = name === "type" ? `type${id}` : `area${id}`;
+        setFormData((prevState) => ({
+          ...prevState,
+          [keyToUpdate]: values,  
+        }));
+      }}
+      onremove={(id) => {
+        setFormData((prevState) => ({
+          ...prevState,
+          [`type${id}`]: "",
+          [`area${id}`]: "",
+        }));
+      }}
+      />
     </div>
   );
 };

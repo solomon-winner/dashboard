@@ -81,11 +81,12 @@ export const AddSite = () => {
     site: "",
     sizeofsite: "",
     file: null,
-    indegeneoustype: "",
-    exotictype: "",
+    indegeneoustype1: "",
+    exotictype1: "",
+    currentlanduse1: "",
     landUse: "",
-    forage: "",
-    livelihoodSupport: "",
+    forage1: "",
+    livelihood1: "",
   });
   const handleNext = (e) => {
     e.preventDefault();
@@ -245,6 +246,7 @@ export const AddSite = () => {
             initialValues={formData}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
+            enableReinitialize
           >
             {({ handleChange }) => (
               <Form>

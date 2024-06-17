@@ -58,6 +58,7 @@ const SiteSelect = ({
             });
             setFormData({
               ...formData,
+              site_id: option.value,
               selectedSite: option.label,
             });
           }}

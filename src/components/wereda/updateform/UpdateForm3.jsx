@@ -4,6 +4,7 @@ import { FormField } from "../../Resource/Utility/FormField";
 import Loadings from "../../Resource/Loading/Loadings";
 import { useSelector } from "react-redux";
 import { extractAdditionalFieldsData } from "./UpdateForm2";
+import FieldComponent from "../../Resource/Utility/AddRemoveForm/FieldComponent";
 
 export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
   const { school, healthFacility, isLoadingInstitutions } = useSelector(
@@ -54,84 +55,61 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
   return (
     <div>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">School</h6>
-      <div className="flex flex-wrap">
-        {additionalFields.map((field, index) => (
-          <React.Fragment key={field.id}>
-            <FormField
-              label="Type"
-              name={`schooltype${index + 1}`}
-              type="dropdown"
-              placeholder="Select School Type"
-              options={
-                isLoadingInstitutions
-                  ? [{ value: "loading", label: <div className="flex justify-center"><Loadings /></div> }]
-                  : school.map((schools) => ({ label: schools.name, value: schools.id }))
-              }
-              value={school.find((school) => school.id === formData[`schooltype${index + 1}`])?.name || ""}
-              handleChange={handleChanges}
-              onChange={(option) => {
-                handleChanges({
-                  target: {
-                    name: `schooltype${index + 1}`,
-                    value: option.target.value.value,
-                  },
-                });
-              }}
-            />
-            <FormField
-              label="Number of School"
-              name={`schoolnumber${index + 1}`}
-              type="number"
-              placeholder="Number of School"
-              icon={School}
-              value={formData[`schoolnumber${index + 1}`] || ""}
-              handleChange={handleChanges}
-            />
-            <Delete onClick={() => removeField(field.id, additionalFields, setAdditionalFields, 'school')} className="lg:mt-8" />
-          </React.Fragment>
-        ))}
-        <AddCircleOutline onClick={() => addField(additionalFields, setAdditionalFields, 'school')} className="lg:mt-8" />
-      </div>
+      <FieldComponent
+       initialValues={formData}
+       placeholder={["Select School Type", "Number of School"]}
+       type={["dropdown", "number"]}
+       label={["schooltype", "schoolnumber"]}
+       options={
+         isLoadingInstitutions
+           ? [{ value: "loading", label: <div className="flex justify-center"><Loadings /></div> }]
+           : school.map((schools) => ({ label: schools.name, value: schools.id }))
+       }
+       onValueChange={(id, name, value) => {
+         const values = name === "schooltype" && typeof value === "object" ? value.value : value;
+         const keyToUpdate = name === "schooltype" ? `schooltype${id}` : `schoolnumber${id}`;
+         setFormData((prevState) => ({
+           ...prevState,
+           [keyToUpdate]: values,
+         }));
+       }}
+       onremove={(id) => {
+         setFormData((prevState) => ({
+           ...prevState,
+           [`schooltype${id}`]: "",
+           [`schoolnumber${id}`]: "",
+         }));
+       }}
+      />
 
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">Health Facilities</h6>
-      <div className="flex flex-wrap">
-        {additionalFields2.map((field, index) => (
-          <React.Fragment key={field.id}>
-            <FormField
-              label="Type"
-              name={`healthFacilitytype${index + 1}`}
-              type="dropdown"
-              placeholder="Select Hospital Type"
-              options={
-                isLoadingInstitutions
-                  ? [{ value: "loading", label: <div className="flex justify-center"><Loadings /></div> }]
-                  : healthFacility.map((healthFacilitys) => ({ label: healthFacilitys.name, value: healthFacilitys.id }))
-              }
-              value={healthFacility.find((healthFacility) => healthFacility.id === formData[`healthFacilitytype${index + 1}`])?.name || ""}
-              handleChange={handleChanges}
-              onChange={(option) => {
-                handleChanges({
-                  target: {
-                    name: `healthFacilitytype${index + 1}`,
-                    value: option.target.value.value,
-                  },
-                });
-              }}
-            />
-            <FormField
-              label="Number of healthFacility"
-              name={`healthFacilitynumber${index + 1}`}
-              type="number"
-              placeholder="Number of healthFacility"
-              icon={School}
-              value={formData[`healthFacilitynumber${index + 1}`] || ""}
-              handleChange={handleChanges}
-            />
-            <Delete onClick={() => removeField(field.id, additionalFields2, setAdditionalFields2, 'healthFacility')} className="lg:mt-8" />
-          </React.Fragment>
-        ))}
-        <AddCircleOutline onClick={() => addField(additionalFields2, setAdditionalFields2, 'healthFacility')} className="lg:mt-8" />
-      </div>
+
+      <FieldComponent
+      initialValues={formData}
+      placeholder={["Select Hospital Type", "Number of Hospital"]}
+      type={["dropdown", "number"]}
+      label={["healthFacilitytype", "healthFacilitynumber"]}
+      options={
+        isLoadingInstitutions
+          ? [{ value: "loading", label: <div className="flex justify-center"><Loadings /></div> }]
+          : healthFacility.map((healthFacilitys) => ({ label: healthFacilitys.name, value: healthFacilitys.id }))
+      }
+      onValueChange={(id, name, value) => {
+        const values = name === "healthFacilitytype" && typeof value === "object" ? value.value : value;
+        const keyToUpdate = name === "healthFacilitytype" ? `healthFacilitytype${id}` : `healthFacilitynumber${id}`;
+        setFormData((prevState) => ({
+          ...prevState,
+          [keyToUpdate]: values,
+        }));
+      }}
+      onremove={(id) => {
+        setFormData((prevState) => ({
+          ...prevState,
+          [`healthFacilitytype${id}`]: "",
+          [`healthFacilitynumber${id}`]: "",
+        }));
+          }}
+      />
     </div>
   );
 };
