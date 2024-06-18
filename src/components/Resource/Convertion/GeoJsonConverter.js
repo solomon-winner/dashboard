@@ -44,16 +44,19 @@ const GeoJsonConverter = {
   extractUTMZone: (geoJson) => {
     const crs = geoJson.crs;
     if (crs && crs.properties && crs.properties.name) {
-      const match = crs.properties.name.match(/EPSG::(\d+)/);
-      if (match) {
-        const epsgCode = parseInt(match[1], 10);
-        if (epsgCode >= 32601 && epsgCode <= 32660) {
-          return epsgCode - 32600; // Extracting UTM zone number
+        const match = crs.properties.name.match(/EPSG::(\d+)/);
+        if (match) {
+            const epsgCode = parseInt(match[1], 10);
+            const zone = epsgCode % 100; // Extracting the last two digits
+            if (zone >= 1 && zone <= 60) {
+              console.log('UTM zone number:', zone);
+                return zone; // Valid UTM zone number
+            }
         }
-      }
     }
     throw new Error('Unable to determine UTM zone from GeoJSON CRS.');
-  },
+},
+
 
   convertToLatLng: async (geoJson, name, watershed, zoneNumber) => {
     const convertedGeoJson = { ...geoJson };
