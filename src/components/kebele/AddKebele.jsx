@@ -41,6 +41,27 @@ export const AddKebele = () => {
     doesnotownfemale2: "",
     unemployedmale3: "",
     unemployedfemale3: "",
+    type1: "",
+    area1: "",
+    livelihood1: "",
+    livelihoodmale1: "",
+    livelihoodfemale1: "",
+    livestock1: "",
+    numberlivestock1: "",
+    forgetype1: "",
+    forgearea1: "",
+    croptype1: "",
+    croparea1: "",
+    fruittype1: "",
+    fruitarea1: "",
+    indegeneoustype1: "",
+    exotictype1: "",
+    nurserytype1: "",
+    amount1: "",
+    capacity1: "",
+    causeofdeforestation1: "",
+    energy_sourcetype1: "",
+    energy_source1: "",
   });
 
   const handleNext = (e) => {
@@ -53,6 +74,7 @@ export const AddKebele = () => {
   };
 
   const handleSubmit = async (values) => {
+
     const energy_sourceArray = [];
     let i = 1;
     while (true) {
@@ -404,6 +426,7 @@ export const AddKebele = () => {
             initialValues={formData}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
+            enableReinitialize
           >
             {({ handleChange }) => (
               <Form>

@@ -58,6 +58,7 @@ const KebeleSelect = ({
             });
             setFormData({
               ...formData,
+              kebele_id: option.value,
               selectedKebele: option.label,
             });
           }}

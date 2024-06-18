@@ -103,6 +103,11 @@ const UserAccount = () => {
     setAccountsPerPage(parseInt(event.target.value, 10));
   };
 
+  const handleSearchChange = (e) => {
+    const searchTerm = e.target.value;
+    setSearchTerm(searchTerm);
+    setCurrentPage(1); // Reset to the first page when the search term changes
+  };
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 ">
       <div className="flex flex-col sm:flex-row justify-between items-center bg-green-50 p-4 mb-4 rounded-md">
@@ -148,7 +153,7 @@ const UserAccount = () => {
                 className="border rounded-md px-4 py-2 w-full focus:outline-none focus:border-blue-500"
                 placeholder="Search Members..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={handleSearchChange} 
               />
               <button className="absolute right-0 top-0 h-full px-3 bg-blue-500 text-white rounded-r-md">
                 🔍

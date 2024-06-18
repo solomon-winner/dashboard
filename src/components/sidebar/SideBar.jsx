@@ -149,76 +149,86 @@ export const SideBar = () => {
                       <span className="ml-3">Dashboard</span>
                     </NavLink>
                   </li>
-                  <li className="pl-3 text-sm  text-white font-semibold">
-                    Inputs
-                  </li>
-                  {all_permissions?.includes("view_regions") && (            
-                  <li>
-                    <NavLink
-                      to="/admin/region"
-                      className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group "
-                    >
-                      <MapsHomeWorkIcon style={{ fontSize: "large" }} />
-                      <span className="ml-3 flex-1 whitespace-nowrap">
-                        Region
-                      </span>
-                    </NavLink>
-                  </li>
+                  {(all_permissions?.includes("view_regions") ||
+                    all_permissions?.includes("view_woredas") ||
+                    all_permissions?.includes("view_kebeles") ||
+                    all_permissions?.includes("view_sites")) && (
+                    <>
+                      <li className="pl-3 text-sm text-white font-semibold">
+                        Inputs
+                      </li>
+                      {all_permissions?.includes("view_regions") && (
+                        <li>
+                          <NavLink
+                            to="/admin/region"
+                            className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group"
+                          >
+                            <MapsHomeWorkIcon style={{ fontSize: "large" }} />
+                            <span className="ml-3 flex-1 whitespace-nowrap">
+                              Region
+                            </span>
+                          </NavLink>
+                        </li>
+                      )}
+                      {all_permissions?.includes("view_woredas") && (
+                        <li>
+                          <NavLink
+                            to="/admin/wereda"
+                            className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group"
+                          >
+                            <StreetviewIcon style={{ fontSize: "large" }} />
+                            <span className="ml-3 flex-1 whitespace-nowrap">
+                              Wereda
+                            </span>
+                          </NavLink>
+                        </li>
+                      )}
+                      {all_permissions?.includes("view_kebeles") && (
+                        <li>
+                          <NavLink
+                            to="/admin/kebele"
+                            className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group"
+                          >
+                            <GpsFixedRoundedIcon
+                              style={{ fontSize: "large" }}
+                            />
+                            <span className="ml-3 flex-1 whitespace-nowrap">
+                              Kebele
+                            </span>
+                          </NavLink>
+                        </li>
+                      )}
+                      {all_permissions?.includes("view_sites") && (
+                        <li>
+                          <NavLink
+                            to="/admin/site"
+                            className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group"
+                          >
+                            <LocationOnIcon style={{ fontSize: "large" }} />
+                            <span className="ml-3 flex-1 whitespace-nowrap">
+                              Site
+                            </span>
+                          </NavLink>
+                        </li>
+                      )}
+                    </>
                   )}
-                  {all_permissions?.includes("view_woredas") && (  
-                  <li>
-                    <NavLink
-                      to="/admin/wereda"
-                      className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group "
-                    >
-                      <StreetviewIcon style={{ fontSize: "large" }} />
-                      <span className="ml-3 flex-1 whitespace-nowrap">
-                        Wereda
-                      </span>
-                    </NavLink>
-                  </li>
-                  )}
-                  {all_permissions?.includes("view_kebeles") && ( 
-                  <li>
-                    <NavLink
-                      to="/admin/kebele"
-                      className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group "
-                    >
-                      <GpsFixedRoundedIcon style={{ fontSize: "large" }} />
-                      <span className="ml-3 flex-1 whitespace-nowrap">
-                        Kebele
-                      </span>
-                    </NavLink>
-                  </li>
-                  )}
-                  {all_permissions?.includes("view_sites") && (                   
-                  <li>
-                    <NavLink
-                      to="/admin/site"
-                      className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group"
-                    >
-                      <LocationOnIcon style={{ fontSize: "large" }} />
-                      <span className="ml-3 flex-1 whitespace-nowrap">
-                        Site
-                      </span>
-                    </NavLink>
-                  </li>
-                  )}
+
                   <li className="pl-3 text-sm text-white font-semibold">
                     User management
                   </li>
-                  {all_permissions?.includes('view_users') && (              
-                  <li>
-                    <NavLink
-                      to="/admin/Accounts"
-                      className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group "
-                    >
-                      <PeopleAltRoundedIcon style={{ fontSize: "large" }} />
-                      <span className="ml-3 flex-1 whitespace-nowrap">
-                        Accounts
-                      </span>
-                    </NavLink>
-                  </li>
+                  {all_permissions?.includes("view_users") && (
+                    <li>
+                      <NavLink
+                        to="/admin/Accounts"
+                        className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group "
+                      >
+                        <PeopleAltRoundedIcon style={{ fontSize: "large" }} />
+                        <span className="ml-3 flex-1 whitespace-nowrap">
+                          Accounts
+                        </span>
+                      </NavLink>
+                    </li>
                   )}
                   <li>
                     <NavLink
@@ -231,18 +241,18 @@ export const SideBar = () => {
                       </span>
                     </NavLink>
                   </li>
-                  {all_permissions?.includes('view_roles') && (
-                  <li>
-                    <NavLink
-                      to="/admin/roles"
-                      className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group "
-                    >
-                      <MeetingRoom style={{ fontSize: "large" }} />
-                      <span className="ml-3 flex-1 whitespace-nowrap">
-                        Roles
-                      </span>
-                    </NavLink>
-                  </li>
+                  {all_permissions?.includes("view_roles") && (
+                    <li>
+                      <NavLink
+                        to="/admin/roles"
+                        className="text-sm text-white font-normal rounded-lg hover:bg-hoverColor flex items-center p-2 group "
+                      >
+                        <MeetingRoom style={{ fontSize: "large" }} />
+                        <span className="ml-3 flex-1 whitespace-nowrap">
+                          Roles
+                        </span>
+                      </NavLink>
+                    </li>
                   )}
                 </ul>
               </div>

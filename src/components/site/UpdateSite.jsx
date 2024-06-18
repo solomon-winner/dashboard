@@ -43,8 +43,8 @@ export const UpdateSite = () => {
   const handleBack = () => {
     setStep(step - 1);
   };
+
   const handleSubmit = async (values) => {
-    log(values);
     const indegeneoustreeArray = [];
     let i = 1;
     while (true) {
@@ -200,7 +200,7 @@ export const UpdateSite = () => {
               initialValues={formData}
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
-              enableReinitialize={true}
+              enableReinitialize
             >
               {({ handleChange }) => (
                 <Form>

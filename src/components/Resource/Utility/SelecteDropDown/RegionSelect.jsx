@@ -27,7 +27,6 @@ const RegionSelect = ({
         value: region.id,
         label: region.region_name,
       }));
-
   return (
     <div className="w-full lg:w-2/5 px-4">
       <div className="relative w-full mb-3">
@@ -58,6 +57,7 @@ const RegionSelect = ({
             });
             setFormData({
               ...formData,
+              region_id: option.value,
               selectedRegionName: option.label,
               selectedWeredaName: "",
               selectedKebele: "",

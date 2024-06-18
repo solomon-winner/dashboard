@@ -11,6 +11,7 @@ import SiteSelect from "../../Resource/Utility/SelecteDropDown/SiteSelect";
 import KebeleSelect from "../../Resource/Utility/SelecteDropDown/KebeleSelect";
 import WeredaSelect from "../../Resource/Utility/SelecteDropDown/WeredaSelect";
 import RegionSelect from "../../Resource/Utility/SelecteDropDown/RegionSelect";
+import FieldComponent from "../../Resource/Utility/AddRemoveForm/FieldComponent";
 export const AddForm = ({ handleChange, formData, setFormData }) => {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedWereda, setSelectedWereda] = useState("");
@@ -29,38 +30,6 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
   const { data: getsitesByKebele, isFetching: siteFetching } =
     useGetSiteByKebeleQuery(selectedKebele, { skip: !selectedKebele });
   const { tree, isLoadingTree } = useSelector((state) => state.resource);
-  const [additionalFields, setAdditionalFields] = useState([
-    { id: 0, indegeneoustype: "" },
-  ]);
-  const [additionalFields2, setAdditionalFields2] = useState([
-    { id: 0, exotictype: "" },
-  ]);
-  const addField = () => {
-    const highestId = additionalFields.reduce(
-      (highest, field) => Math.max(highest, field.id),
-      0
-    );
-    setAdditionalFields([
-      ...additionalFields,
-      { id: highestId + 1, indegeneoustype: "" },
-    ]);
-  };
-  const removeField = (id) => {
-    setAdditionalFields(additionalFields.filter((field) => field.id !== id));
-  };
-  const addField2 = () => {
-    const highestId = additionalFields2.reduce(
-      (highest, field) => Math.max(highest, field.id),
-      0
-    );
-    setAdditionalFields2([
-      ...additionalFields2,
-      { id: highestId + 1, exotictype: "" },
-    ]);
-  };
-  const removeField2 = (id) => {
-    setAdditionalFields2(additionalFields2.filter((field) => field.id !== id));
-  };
 
   const handleChanges = (e) => {
     setFormData({
@@ -118,107 +87,86 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
         <h6 className="text-blueGray-400 text-sm mt-3 mb-4 uppercase">
           Indegeneous
         </h6>
-        <div className="flex flex-wrap">
-          {additionalFields.map((field, index) => (
-            <React.Fragment key={field.id}>
-              <FormField
-                label="Type"
-                name={`indegeneoustype${index + 1}`}
-                type="dropdown"
-                placeholder="Type of Indegeneous"
-                options={
-                  isLoadingTree
-                    ? [
-                        {
-                          value: "loading",
-                          label: (
-                            <div className="flex justify-center">
-                              <Loadings />
-                            </div>
-                          ),
-                        },
-                      ]
-                    : tree.map((indegeneous, index) => ({
-                        label: indegeneous.name,
-                        value: indegeneous.id,
-                      }))
-                }
-                value={
-                  tree.find(
-                    (tree) =>
-                      tree.id === formData[`indegeneoustype${index + 1}`]
-                  )?.name || ""
-                }
-                handleChange={handleChanges}
-                onChange={(option) => {
-                  handleChanges({
-                    target: {
-                      name: `indegeneoustype${index + 1}`,
-                      value: option.target.value.value,
-                    },
-                  });
-                }}
-              />
-              <Delete
-                onClick={() => removeField(field.id)}
-                className="lg:mt-8"
-              />
-            </React.Fragment>
-          ))}
-          <AddCircleOutline onClick={addField} className="lg:mt-8" />
-        </div>
+
+        <FieldComponent
+        initialValues={formData}
+        placeholder={["Type of Indegeneous"]}
+        type={["dropdown"]}
+        label={["indegeneoustype"]}
+        options={
+          isLoadingTree
+            ? [
+                {
+                  value: "loading",
+                  label: (
+                    <div className="flex justify-center">
+                      <Loadings />
+                    </div>
+                  ),
+                },
+              ]
+            : tree.map((indegeneous, index) => ({
+                label: indegeneous.name,
+                value: indegeneous.id,
+              }))
+        }
+        onValueChange={(id, name, value) => {
+          const values = name === "indegeneoustype" && typeof value === "object" ? value.value : value;
+          const keyToUpdate = name === "indegeneoustype" ? `indegeneoustype${id}` : "";
+          setFormData({
+            ...formData,
+            [keyToUpdate]: values,
+          });
+        }}
+        onremove={(id) => {
+          setFormData((prevState) => ({
+            ...prevState,
+            [`indegeneoustype${id}`]: "",
+          }));
+        }}
+        />
 
         <h6 className="text-blueGray-400 text-sm mt-3 mb-4 uppercase">
           Exotic
         </h6>
-        <div className="flex flex-wrap">
-          {additionalFields2.map((field, index) => (
-            <React.Fragment key={field.id}>
-              <FormField
-                label="Type"
-                name={`exotictype${index + 1}`}
-                type="dropdown"
-                placeholder="Type of Exotic"
-                options={
-                  isLoadingTree
-                    ? [
-                        {
-                          value: "loading",
-                          label: (
-                            <div className="flex justify-center">
-                              <Loadings />
-                            </div>
-                          ),
-                        },
-                      ]
-                    : tree.map((exotic, index) => ({
-                        label: exotic.name,
-                        value: exotic.id,
-                      }))
-                }
-                handleChange={handleChanges}
-                value={
-                  tree.find(
-                    (tree) => tree.id === formData[`exotictype${index + 1}`]
-                  )?.name || ""
-                }
-                onChange={(option) => {
-                  handleChanges({
-                    target: {
-                      name: `exotictype${index + 1}`,
-                      value: option.target.value.value,
-                    },
-                  });
-                }}
-              />
-              <Delete
-                onClick={() => removeField2(field.id)}
-                className="lg:mt-8"
-              />
-            </React.Fragment>
-          ))}
-          <AddCircleOutline onClick={addField2} className="lg:mt-8" />
-        </div>
+
+        <FieldComponent
+        initialValues={formData}
+        placeholder={["Type of Exotic"]}
+        type={["dropdown"]}
+        label={["exotictype"]}
+        options={
+          isLoadingTree
+            ? [
+                {
+                  value: "loading",
+                  label: (
+                    <div className="flex justify-center">
+                      <Loadings />
+                    </div>
+                  ),
+                },
+              ]
+            : tree.map((exotic, index) => ({
+                label: exotic.name,
+                value: exotic.id,
+              }))
+        }
+        onValueChange={(id, name, value) => {
+          const values = name === "exotictype" && typeof value === "object" ? value.value : value;
+          const keyToUpdate = name === "exotictype" ? `exotictype${id}` : "";
+          setFormData({
+            ...formData,
+            [keyToUpdate]: values,
+          });
+        }}
+        onremove={(id) => {
+          setFormData((prevState) => ({
+            ...prevState,
+            [`exotictype${id}`]: "",
+          }));
+        }}
+        />
       </div>
     </div>
   );

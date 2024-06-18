@@ -216,6 +216,7 @@ export const Addwereda = () => {
             initialValues={formData}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
+            enableReinitialize
           >
             {({ handleChange }) => (
               <Form>
