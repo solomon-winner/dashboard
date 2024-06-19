@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useGetRegionByIdQuery } from '../../redux/region/RegionApiSlice'
+import Loadings from "../Resource/Loading/Loadings";
 
 
 export const RegionLocationInfo = () => {
@@ -11,9 +12,7 @@ export const RegionLocationInfo = () => {
    const Woredas = isSuccess && data.data.woredas.length;
    
    if (isFetching) {
-    return (
-      <p className="font-bold">Loading...</p>
-    )
+    return <Loadings/>
    }
 
    if (isError) {

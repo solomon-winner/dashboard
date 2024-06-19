@@ -47,4 +47,5 @@ export const accountApiSlice = apiSlice.injectEndpoints({
     })
 })
 
-export const { useGetAccountsQuery, useGetUserQuery, useAddAccountMutation, useDeleteAccountMutation, useGetUserByIdQuery, useUpdateUserMutation } = accountApiSlice
+export const { useGetAccountsQuery, useGetUserQuery, useAddAccountMutation,
+     useDeleteAccountMutation, useGetUserByIdQuery, useUpdateUserMutation } = accountApiSlice
