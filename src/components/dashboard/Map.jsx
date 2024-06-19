@@ -21,10 +21,7 @@ export const Map = () => {
   const { data: RegiongeojsonUrls, isSuccess:isRegionSuccess } = useGetRegionGeojsonsQuery();
   const { data: SitegeojsonUrls, isSuccess:isSiteSuccess } = useGetSiteGeojsonsQuery();
   const dispatch = useDispatch();
-  const AllSite = useSelector((state) => state.geoJson.GeoJson.AllSite);
-  const SelectedRegion = useSelector((state) => state.geoJson.GeoJson.SelectedRegion);
-  const SelectedWoreda = useSelector((state) => state.geoJson.GeoJson.selectedWoreda);
-
+ 
 
   const [Zoom,setZoom]  = useState(false);
   const RegionGeoJSONUrl = isRegionSuccess && RegiongeojsonUrls.data;
@@ -232,6 +229,7 @@ const Zoom_Out = () => {
           
             siteMarker.on("click", function() {
               const Site_id = parseInt(url.match(/\d+/)[0], 10); 
+              console.log("sgvhsdv",Site_id)
               dispatch(SetSelectedSite(Site_id))
               Zoomer(layer);
           })
