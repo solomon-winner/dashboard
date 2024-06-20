@@ -33,11 +33,6 @@ export const RegionLocationInfo = () => {
                    </tr>
   
                    <tr>
-                     <td className="border px-4 py-2 text-sm font-bold">Region Code</td>
-                     <td className="border px-4 py-2 text-sm">{data.data.region_code}</td>
-                   </tr>
-  
-                   <tr>
                      <td className="border px-4 py-2 text-sm font-bold">Number of site</td>
                      <td className="border px-4 py-2 text-sm">{data.data.sites}</td>
                    </tr>
