@@ -64,7 +64,6 @@ const FieldComponent = ({
     );
     onValueChange(id, name, value);
   };
-  console.log(fields);
   return (
     <div>
       {fields.map((field) => (
