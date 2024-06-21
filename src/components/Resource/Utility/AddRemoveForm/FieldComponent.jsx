@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormField from "./FormField";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
 import { RadioButtonGroup } from "../../../site/AddSite";
@@ -33,6 +33,7 @@ const FieldComponent = ({
   // Parse initial values
   const dynamicValues = parseInitialValues(initialValues, label);
   const [fields, setFields] = useState(Object.values(dynamicValues));
+  const [remove, setRemove] = useState();
 
   const addField = () => {
     const highestId = fields.reduce(
@@ -50,8 +51,14 @@ const FieldComponent = ({
   };
 
   const removeField = (id) => {
-    setFields(fields.filter((field) => field.id !== id));
+    const updatedFields = fields.filter((field) => field.id !== id);
+    const reindexedFields = updatedFields.map((field, index) => ({
+      ...field,
+      id: index + 1,
+    }));
+    setFields(reindexedFields);
     onremove(id);
+    setRemove(id);
   };
 
   const handleChange = (id, name, value) => {
@@ -64,6 +71,7 @@ const FieldComponent = ({
     );
     onValueChange(id, name, value);
   };
+
   return (
     <div>
       {fields.map((field) => (

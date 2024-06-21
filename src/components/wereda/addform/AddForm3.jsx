@@ -45,11 +45,26 @@ export const AddForm3 = ({ handleChange, formData, setFormData }) => {
          }));
        }}
        onremove={(id) => {
-         setFormData((prevState) => ({
-           ...prevState,
-           [`schooltype${id}`]: "",
-           [`schoolnumber${id}`]: "",
-         }));
+        const updatedFormData = { ...formData };
+        delete updatedFormData[`schooltype${id}`];
+        delete updatedFormData[`schoolnumber${id}`];
+        let newFormData = {};
+        let schooltypeIndex = 1;
+        let schoolnumberIndex = 1;
+
+        for (let key in updatedFormData) {
+          if (key.startsWith("schooltype")) {
+            newFormData[`schooltype${schooltypeIndex}`] = updatedFormData[key];
+            schooltypeIndex++;
+          } else if (key.startsWith("schoolnumber")) {
+            newFormData[`schoolnumber${schoolnumberIndex}`] = updatedFormData[key];
+            schoolnumberIndex++;
+          } else {
+            newFormData[key] = updatedFormData[key];
+          }
+        }
+
+        setFormData(newFormData);
        }}
       />
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
@@ -86,11 +101,26 @@ export const AddForm3 = ({ handleChange, formData, setFormData }) => {
         }));
       }}
       onremove={(id) => {
-        setFormData((prevState) => ({
-          ...prevState,
-          [`healthFacilitytype${id}`]: "",
-          [`healthFacilitynumber${id}`]: "",
-        }));
+        const updatedFormData = { ...formData };
+        delete updatedFormData[`healthFacilitytype${id}`];
+        delete updatedFormData[`healthFacilitynumber${id}`];
+        let newFormData = {};
+        let healthFacilitytypeIndex = 1;
+        let healthFacilitynumberIndex = 1;
+
+        for (let key in updatedFormData) {
+          if (key.startsWith("healthFacilitytype")) {
+            newFormData[`healthFacilitytype${healthFacilitytypeIndex}`] = updatedFormData[key];
+            healthFacilitytypeIndex++;
+          } else if (key.startsWith("healthFacilitynumber")) {
+            newFormData[`healthFacilitynumber${healthFacilitynumberIndex}`] = updatedFormData[key];
+            healthFacilitynumberIndex++;
+          } else {
+            newFormData[key] = updatedFormData[key];
+          }
+        }
+
+        setFormData(newFormData);
       }}
       />
     </div>

@@ -119,42 +119,58 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
         LandUse
       </h6>
       <FieldComponent
-      initialValues={formData}
-      placeholder={["Select Land Type", "Enter Area"]}
-      type={["dropdown", "number"]}
-      label={["type", "area"]}
-      options={
-        isLoadingLanduse
-          ? [
-              {
-                value: "loading",
-                label: (
-                  <div className="flex justify-center">
-                    <Loadings />
-                  </div>
-                ),
-              },
-            ]
-          : landuse.map((landuse, index) => ({
-              label: landuse.name,
-              value: landuse.id,
-            }))
-      }
-      onValueChange={(id, name, value) => {
-        const values = name === "type" && typeof value === "object" ? value.value : value;
-        const keyToUpdate = name === "type" ? `type${id}` : `area${id}`;
-        setFormData((prevState) => ({
-          ...prevState,
-          [keyToUpdate]: values,  
-        }));
-      }}
-      onremove={(id) => {
-        setFormData((prevState) => ({
-          ...prevState,
-          [`type${id}`]: "",
-          [`area${id}`]: "",
-        }));
-      }}
+        initialValues={formData}
+        placeholder={["Select Land Type", "Enter Area"]}
+        type={["dropdown", "number"]}
+        label={["type", "area"]}
+        options={
+          isLoadingLanduse
+            ? [
+                {
+                  value: "loading",
+                  label: (
+                    <div className="flex justify-center">
+                      <Loadings />
+                    </div>
+                  ),
+                },
+              ]
+            : landuse.map((landuse, index) => ({
+                label: landuse.name,
+                value: landuse.id,
+              }))
+        }
+        onValueChange={(id, name, value) => {
+          const values =
+            name === "type" && typeof value === "object" ? value.value : value;
+          const keyToUpdate = name === "type" ? `type${id}` : `area${id}`;
+          setFormData((prevState) => ({
+            ...prevState,
+            [keyToUpdate]: values,
+          }));
+        }}
+        onremove={(id) => {
+          const updatedFormData = { ...formData };
+          delete updatedFormData[`type${id}`];
+          delete updatedFormData[`area${id}`];
+          let newFormData = {};
+          let typeIndex = 1;
+          let areaIndex = 1;
+
+          for (let key in updatedFormData) {
+            if (key.startsWith("type")) {
+              newFormData[`type${typeIndex}`] = updatedFormData[key];
+              typeIndex++;
+            } else if (key.startsWith("area")) {
+              newFormData[`area${areaIndex}`] = updatedFormData[key];
+              areaIndex++;
+            } else {
+              newFormData[key] = updatedFormData[key];
+            }
+          }
+
+          setFormData(newFormData);
+        }}
       />
     </div>
   );

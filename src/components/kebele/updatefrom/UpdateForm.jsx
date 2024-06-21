@@ -121,11 +121,26 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
             }));
           }}
           onremove={(id) => {
-            setFormData((prevState) => ({
-              ...prevState,
-              [`type${id}`]: "",
-              [`area${id}`]: "",
-            }));
+            const updatedFormData = { ...formData };
+            delete updatedFormData[`type${id}`];
+            delete updatedFormData[`area${id}`];
+            let newFormData = {};
+            let typeIndex = 1;
+            let areaIndex = 1;
+  
+            for (let key in updatedFormData) {
+              if (key.startsWith("type")) {
+                newFormData[`type${typeIndex}`] = updatedFormData[key];
+                typeIndex++;
+              } else if (key.startsWith("area")) {
+                newFormData[`area${areaIndex}`] = updatedFormData[key];
+                areaIndex++;
+              } else {
+                newFormData[key] = updatedFormData[key];
+              }
+            }
+  
+            setFormData(newFormData);
           }}
           />
         </div>

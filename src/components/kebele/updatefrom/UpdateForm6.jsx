@@ -49,12 +49,33 @@ export const UpdateForm6 = ({ handleChange, formData, setFormData }) => {
         }));
       }}
       onremove={(id) => {
-        setFormData((prevState) => ({
-          ...prevState,
-          [`nurserytype${id}`]: "",
-          [`amount${id}`]: "",
-          [`capacity${id}`]: ""
-        }));
+        const updatedFormData = { ...formData };
+        delete updatedFormData[`nurserytype${id}`];
+        delete updatedFormData[`amount${id}`];
+        delete updatedFormData[`capacity${id}`];
+        let newFormData = {};
+        let nurserytypeIndex = 1;
+        let amountIndex = 1;
+        let capacityIndex = 1;
+
+        for (let key in updatedFormData) {
+          if (key.startsWith("nurserytype")) {
+            newFormData[`nurserytype${nurserytypeIndex}`] = updatedFormData[key];
+            nurserytypeIndex++;
+          } else if (key.startsWith("amount")) {
+            newFormData[`amount${amountIndex}`] = updatedFormData[key];
+            amountIndex++;
+          } else if (key.startsWith("capacity")) {
+            newFormData[`capacity${capacityIndex}`] = updatedFormData[key];
+            capacityIndex++;
+          } 
+          else {
+            newFormData[key] = updatedFormData[key];
+          }
+        }
+
+        setFormData(newFormData);
+       
       }}
       icon={Medication}
       />
@@ -94,10 +115,23 @@ export const UpdateForm6 = ({ handleChange, formData, setFormData }) => {
         }));
       }}
       onremove={(id) => {
-        setFormData((prevState) => ({
-          ...prevState,
-          [`causeofdeforestationtype${id}`]: "",
-        }));
+        const updatedFormData = { ...formData };
+        delete updatedFormData[`causeofdeforestationtype${id}`];
+        let newFormData = {};
+        let causeofdeforestationtypeIndex = 1;
+
+        for (let key in updatedFormData) {
+          if (key.startsWith("causeofdeforestationtype")) {
+            newFormData[`causeofdeforestationtype${causeofdeforestationtypeIndex}`] = updatedFormData[key];
+            causeofdeforestationtypeIndex++;
+          } 
+           else {
+            newFormData[key] = updatedFormData[key];
+          }
+        }
+
+        setFormData(newFormData);
+        
       }}
       icon={Medication}
       />

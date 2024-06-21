@@ -47,11 +47,27 @@ export const UpdateForm5 = ({ handleChange, formData, setFormData }) => {
           }));
         }}
         onremove={(id) => {
-          setFormData((prevState) => ({
-            ...prevState,
-            [`croptype${id}`]: "",
-            [`croparea${id}`]: "",
-          }));
+          const updatedFormData = { ...formData };
+          delete updatedFormData[`croptype${id}`];
+          delete updatedFormData[`croparea${id}`];
+          let newFormData = {};
+          let croptypeIndex = 1;
+          let cropareaIndex = 1;
+
+          for (let key in updatedFormData) {
+            if (key.startsWith("croptype")) {
+              newFormData[`croptype${croptypeIndex}`] = updatedFormData[key];
+              croptypeIndex++;
+            } else if (key.startsWith("croparea")) {
+              newFormData[`croparea${cropareaIndex}`] = updatedFormData[key];
+              cropareaIndex++;
+            } else {
+              newFormData[key] = updatedFormData[key];
+            }
+          }
+
+          setFormData(newFormData);
+         
         }}
         icon={Grass}
         />
@@ -92,11 +108,26 @@ export const UpdateForm5 = ({ handleChange, formData, setFormData }) => {
           }));
         }}
         onremove={(id) => {
-          setFormData((prevState) => ({
-            ...prevState,
-            [`fruittype${id}`]: "",
-            [`fruitarea${id}`]: "",
-          }));
+          const updatedFormData = { ...formData };
+          delete updatedFormData[`fruittype${id}`];
+          delete updatedFormData[`fruitarea${id}`];
+          let newFormData = {};
+          let fruittypeIndex = 1;
+          let fruitareaIndex = 1;
+
+          for (let key in updatedFormData) {
+            if (key.startsWith("fruittype")) {
+              newFormData[`fruittype${fruittypeIndex}`] = updatedFormData[key];
+              fruittypeIndex++;
+            } else if (key.startsWith("fruitarea")) {
+              newFormData[`fruitarea${fruitareaIndex}`] = updatedFormData[key];
+              fruitareaIndex++;
+            } else {
+              newFormData[key] = updatedFormData[key];
+            }
+          }
+
+          setFormData(newFormData);
         }}
         icon={Grass}
         />
@@ -139,10 +170,23 @@ export const UpdateForm5 = ({ handleChange, formData, setFormData }) => {
           }));
         }}
         onremove={(id) => {
-          setFormData((prevState) => ({
-            ...prevState,
-            [`indegeneoustype${id}`]: "",
-          }));
+          const updatedFormData = { ...formData };
+          delete updatedFormData[`indegeneoustype${id}`];
+
+          let newFormData = {};
+          let indegeneoustypeIndex = 1;
+
+          for (let key in updatedFormData) {
+            if (key.startsWith("indegeneoustype")) {
+              newFormData[`indegeneoustype${indegeneoustypeIndex}`] = updatedFormData[key];
+              indegeneoustypeIndex++;
+            }  else {
+              newFormData[key] = updatedFormData[key];
+            }
+          }
+
+          setFormData(newFormData);
+         
         }}
         />
 
@@ -181,10 +225,22 @@ export const UpdateForm5 = ({ handleChange, formData, setFormData }) => {
           }));
         }}
         onremove={(id) => {
-          setFormData((prevState) => ({
-            ...prevState,
-            [`exotictype${id}`]: "",
-          }));
+          const updatedFormData = { ...formData };
+          delete updatedFormData[`exotictype${id}`];
+
+          let newFormData = {};
+          let exotictypeIndex = 1;
+
+          for (let key in updatedFormData) {
+            if (key.startsWith("exotictype")) {
+              newFormData[`exotictype${exotictypeIndex}`] = updatedFormData[key];
+              exotictypeIndex++;
+            }  else {
+              newFormData[key] = updatedFormData[key];
+            }
+          }
+
+          setFormData(newFormData);
         }}
         />
       </div>
