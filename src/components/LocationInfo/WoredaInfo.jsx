@@ -48,18 +48,18 @@ export const WoredaLocationInfo = () => {
                 <h2 className="px-7 py-3 text-sm font-bold">Woreda Resource:</h2>
                 <hr />
                 {woredaData?.woreda_resource?.length === 0 ? (
-                  <p className="px-4 text-sm">No Data Entered</p>
+                  <p className="px-4 text-sm">No Resource Data Entered</p>
                 ) : (
                   <>
                     {woredaData?.woreda_resource?.LAND?.length > 0 ? (
                       <ResourceTable resources={woredaData.woreda_resource.LAND} resourceName="LAND" />
                     ) : (
-                      "No Data Entered"
+                      "No LAND Data Entered"
                     )}
                     {woredaData?.woreda_resource?.ROAD?.length > 0 ? (
                       <ResourceTable resources={woredaData.woreda_resource.ROAD} resourceName="ROAD" />
                     ) : (
-                      "No Data Entered"
+                      "No ROAD Data Entered"
                     )}
                   </>
                 )}
@@ -67,18 +67,18 @@ export const WoredaLocationInfo = () => {
                 <h2 className="px-7 py-3 text-sm font-bold">Woreda Institution:</h2>
                 <hr />
                 {woredaData?.woreda_institution?.length === 0 ? (
-                  <p className="px-4 text-sm">No Data Entered</p>
+                  <p className="px-4 text-sm">No Institution Data Entered</p>
                 ) : (
                   <>
                     {woredaData?.woreda_institution?.SCHOOL?.length > 0 ? (
                       <ResourceTable resources={woredaData.woreda_institution.SCHOOL} resourceName="School" />
                     ) : (
-                      "No Data Entered"
+                      "No School Data Entered"
                     )}
                     {woredaData?.woreda_institution?.HEALTH_FACILITY?.length > 0 ? (
                       <ResourceTable resources={woredaData.woreda_institution.HEALTH_FACILITY} resourceName="Health Facility" />
                     ) : (
-                      "No Data Entered"
+                      "No Health Facility Data Entered"
                     )}
                   </>
                 )}
