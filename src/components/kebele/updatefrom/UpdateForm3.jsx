@@ -54,12 +54,32 @@ export const UpdateForm3 = ({ handleChange, formData, setFormData }) => {
           }));
         }}
         onremove={(id) => {
-          setFormData((prevState) => ({
-            ...prevState,
-            [`livelihoodtype${id}`]: "",
-            [`livelihoodmale${id}`]: "",
-            [`livelihoodfemale${id}`]: "",
-          }));
+          const updatedFormData = { ...formData };
+          delete updatedFormData[`livelihoodtype${id}`];
+          delete updatedFormData[`livelihoodmale${id}`];
+          delete updatedFormData[`livelihoodfemale${id}`];
+          let newFormData = {};
+          let livelihoodtypeIndex = 1;
+          let livelihoodmaleIndex = 1;
+          let livelihoodfemaleIndex = 1;
+
+          for (let key in updatedFormData) {
+            if (key.startsWith("livelihoodtype")) {
+              newFormData[`livelihoodtype${livelihoodtypeIndex}`] = updatedFormData[key];
+              livelihoodtypeIndex++;
+            } else if (key.startsWith("livelihoodmale")) {
+              newFormData[`livelihoodmale${livelihoodmaleIndex}`] = updatedFormData[key];
+              livelihoodmaleIndex++;
+            } else if (key.startsWith("livelihoodfemale")) {
+              newFormData[`livelihoodfemale${livelihoodfemaleIndex}`] = updatedFormData[key];
+              livelihoodfemaleIndex++;
+            }
+             else {
+              newFormData[key] = updatedFormData[key];
+            }
+          }
+
+          setFormData(newFormData);
         }}
         icon={FamilyRestroom}
       />

@@ -127,6 +127,7 @@ export const RegionUpdate = () => {
                     placeholder="Male Population"
                     value={formData.male_population}
                     handleChange={handleChanges}
+                    min="0"
                   />
                   <FormField
                     label="Female Population"
@@ -135,6 +136,7 @@ export const RegionUpdate = () => {
                     placeholder="Female Population"
                     value={formData.female_population}
                     handleChange={handleChanges}
+                    min="0"
                   />
                                     <div className="flex justify-between flex-grow">
                     <div className="mb-4 w-full lg:w-2/5 px-4">

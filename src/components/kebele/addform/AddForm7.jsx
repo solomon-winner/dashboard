@@ -50,11 +50,26 @@ export const AddForm7 = ({ handleChange, formData, setFormData }) => {
           }));
         }}
         onremove={(id) => {
-          setFormData((prevState) => ({
-            ...prevState,
-            [`energy_sourcetype${id}`]: "",
-            [`energy_source${id}`]: "",
-          }));
+          const updatedFormData = { ...formData };
+          delete updatedFormData[`energy_sourcetype${id}`];
+          delete updatedFormData[`energy_source${id}`];
+          let newFormData = {};
+          let energy_sourcetypeIndex = 1;
+          let energy_sourceIndex = 1;
+
+          for (let key in updatedFormData) {
+            if (key.startsWith("energy_sourcetype")) {
+              newFormData[`energy_sourcetype${energy_sourcetypeIndex}`] = updatedFormData[key];
+              energy_sourcetypeIndex++;
+            } else if (key.startsWith("energy_source")) {
+              newFormData[`energy_source${energy_sourceIndex}`] = updatedFormData[key];
+              energy_sourceIndex++;
+            } else {
+              newFormData[key] = updatedFormData[key];
+            }
+          }
+
+          setFormData(newFormData);
         }}
       />
     </div>

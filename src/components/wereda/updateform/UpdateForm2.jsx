@@ -58,11 +58,27 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
         }));
       }}
       onremove={(id) => {
-        setFormData((prevState) => ({
-          ...prevState,
-          [`type${id}`]: "",
-          [`area${id}`]: "",
-        }));
+        const updatedFormData = { ...formData };
+        delete updatedFormData[`type${id}`];
+        delete updatedFormData[`area${id}`];
+        let newFormData = {};
+        let typeIndex = 1;
+        let areaIndex = 1;
+
+        for (let key in updatedFormData) {
+          if (key.startsWith("type")) {
+            newFormData[`type${typeIndex}`] = updatedFormData[key];
+            typeIndex++;
+          } else if (key.startsWith("area")) {
+            newFormData[`area${areaIndex}`] = updatedFormData[key];
+            areaIndex++;
+          } else {
+            newFormData[key] = updatedFormData[key];
+          }
+        }
+
+        setFormData(newFormData);
+        
       }}
       />
 
@@ -101,11 +117,27 @@ export const UpdateForm2 = ({ handleChange, formData, setFormData }) => {
         }));
       }}
       onremove={(id) => {
-        setFormData((prevState) => ({
-          ...prevState,
-          [`roadtype${id}`]: "",
-          [`distance${id}`]: "",
-        }));
+        const updatedFormData = { ...formData };
+        delete updatedFormData[`roadtype${id}`];
+        delete updatedFormData[`distance${id}`];
+        let newFormData = {};
+        let roadtypeIndex = 1;
+        let distanceIndex = 1;
+
+        for (let key in updatedFormData) {
+          if (key.startsWith("roadtype")) {
+            newFormData[`roadtype${roadtypeIndex}`] = updatedFormData[key];
+            roadtypeIndex++;
+          } else if (key.startsWith("distance")) {
+            newFormData[`distance${distanceIndex}`] = updatedFormData[key];
+            distanceIndex++;
+          } else {
+            newFormData[key] = updatedFormData[key];
+          }
+        }
+
+        setFormData(newFormData);
+        
       }}
       />
      </div>

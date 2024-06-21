@@ -76,6 +76,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
           icon={FamilyRestroom}
           value={formData.populationmale}
           handleChange={handleChanges}
+          min="0"
         />
         <FormField
           label="Female"
@@ -85,6 +86,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
           icon={FamilyRestroom}
           value={formData.populationfemale}
           handleChange={handleChanges}
+          min="0"
         />
       </div>
 
@@ -100,6 +102,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
           icon={FamilyRestroom}
           value={formData.householdmale2}
           handleChange={handleChanges}
+          min="0"
         />
         <FormField
           label="Female"
@@ -109,48 +112,65 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
           icon={FamilyRestroom}
           value={formData.householdfemale2}
           handleChange={handleChanges}
+          min="0"
         />
       </div>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
         LandUse
       </h6>
       <FieldComponent
-      initialValues={formData}
-      placeholder={["Select Land Type", "Enter Area"]}
-      type={["dropdown", "number"]}
-      label={["type", "area"]}
-      options={
-        isLoadingLanduse
-          ? [
-              {
-                value: "loading",
-                label: (
-                  <div className="flex justify-center">
-                    <Loadings />
-                  </div>
-                ),
-              },
-            ]
-          : landuse.map((landuse, index) => ({
-              label: landuse.name,
-              value: landuse.id,
-            }))
-      }
-      onValueChange={(id, name, value) => {
-        const values = name === "type" && typeof value === "object" ? value.value : value;
-        const keyToUpdate = name === "type" ? `type${id}` : `area${id}`;
-        setFormData((prevState) => ({
-          ...prevState,
-          [keyToUpdate]: values,  
-        }));
-      }}
-      onremove={(id) => {
-        setFormData((prevState) => ({
-          ...prevState,
-          [`type${id}`]: "",
-          [`area${id}`]: "",
-        }));
-      }}
+        initialValues={formData}
+        placeholder={["Select Land Type", "Enter Area"]}
+        type={["dropdown", "number"]}
+        label={["type", "area"]}
+        options={
+          isLoadingLanduse
+            ? [
+                {
+                  value: "loading",
+                  label: (
+                    <div className="flex justify-center">
+                      <Loadings />
+                    </div>
+                  ),
+                },
+              ]
+            : landuse.map((landuse, index) => ({
+                label: landuse.name,
+                value: landuse.id,
+              }))
+        }
+        onValueChange={(id, name, value) => {
+          const values =
+            name === "type" && typeof value === "object" ? value.value : value;
+          const keyToUpdate = name === "type" ? `type${id}` : `area${id}`;
+          setFormData((prevState) => ({
+            ...prevState,
+            [keyToUpdate]: values,
+          }));
+        }}
+        onremove={(id) => {
+          const updatedFormData = { ...formData };
+          delete updatedFormData[`type${id}`];
+          delete updatedFormData[`area${id}`];
+          let newFormData = {};
+          let typeIndex = 1;
+          let areaIndex = 1;
+
+          for (let key in updatedFormData) {
+            if (key.startsWith("type")) {
+              newFormData[`type${typeIndex}`] = updatedFormData[key];
+              typeIndex++;
+            } else if (key.startsWith("area")) {
+              newFormData[`area${areaIndex}`] = updatedFormData[key];
+              areaIndex++;
+            } else {
+              newFormData[key] = updatedFormData[key];
+            }
+          }
+
+          setFormData(newFormData);
+        }}
       />
     </div>
   );

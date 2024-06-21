@@ -90,6 +90,7 @@ export const Regions = () => {
                     type="number"
                     placeholder="Male Population"
                     handleChange={handleChange}
+                    min="0"
                   />
                   <FormField
                     label="Female Population"
@@ -97,6 +98,7 @@ export const Regions = () => {
                     type="number"
                     placeholder="Female Population"
                     handleChange={handleChange}
+                    min="0"
                   />
                 </div>
                 <button

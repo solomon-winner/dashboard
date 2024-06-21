@@ -38,50 +38,76 @@ export const AddForm3 = ({ handleChange, formData, setFormData }) => {
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
         Livelihood
       </h6>
-        <FieldComponent
-          initialValues={formData}
-          placeholder={[
-            "LiveHood site can support",
-            "Total Number of Male headed house holds",
-            "Total Number of Female headed house holds",
-          ]}
-          type={["dropdown", "number", "number"]}
-          label={["livelihood", "livelihoodmale", "livelihoodfemale"]}
-          options={
-            isLoadingLivelihood
-              ? [
-                  {
-                    value: "loading",
-                    label: (
-                      <div className="flex justify-center">
-                        <Loadings />
-                      </div>
-                    ),
-                  },
-                ]
-              : livelihood.map((livelihood, index) => ({
-                  label: livelihood.name,
-                  value: livelihood.id,
-                }))
+      <FieldComponent
+        initialValues={formData}
+        placeholder={[
+          "LiveHood site can support",
+          "Total Number of Male headed house holds",
+          "Total Number of Female headed house holds",
+        ]}
+        type={["dropdown", "number", "number"]}
+        label={["livelihood", "livelihoodmale", "livelihoodfemale"]}
+        options={
+          isLoadingLivelihood
+            ? [
+                {
+                  value: "loading",
+                  label: (
+                    <div className="flex justify-center">
+                      <Loadings />
+                    </div>
+                  ),
+                },
+              ]
+            : livelihood.map((livelihood, index) => ({
+                label: livelihood.name,
+                value: livelihood.id,
+              }))
+        }
+        onValueChange={(id, name, value) => {
+          const values =
+            name === "livelihood" && typeof value === "object"
+              ? value.value
+              : value;
+          const keyToUpdate =
+            name === "livelihood" ? `livelihood${id}` : `${name}${id}`;
+          setFormData((prevState) => ({
+            ...prevState,
+            [keyToUpdate]: values,
+          }));
+        }}
+        onremove={(id) => {
+          const updatedFormData = { ...formData };
+          delete updatedFormData[`livelihood${id}`];
+          delete updatedFormData[`livelihoodmale${id}`];
+          delete updatedFormData[`livelihoodfemale${id}`];
+          let newFormData = {};
+          let livelihoodIndex = 1;
+          let livelihoodmaleIndex = 1;
+          let livelihoodfemaleIndex = 1;
+
+          for (let key in updatedFormData) {
+            if (key.startsWith("livelihood")) {
+              newFormData[`livelihood${livelihoodIndex}`] =
+                updatedFormData[key];
+              livelihoodIndex++;
+            } else if (key.startsWith("livelihoodmale")) {
+              newFormData[`livelihoodmale${livelihoodmaleIndex}`] =
+                updatedFormData[key];
+              livelihoodmaleIndex++;
+            } else if (key.startsWith("livelihoodfemale")) {
+              newFormData[`livelihoodfemale${livelihoodfemaleIndex}`] =
+                updatedFormData[key];
+              livelihoodfemaleIndex++;
+            } else {
+              newFormData[key] = updatedFormData[key];
+            }
           }
-         onValueChange={(id, name, value) => {
-            const values = name === "livelihood" && typeof value === "object" ? value.value : value;
-            const keyToUpdate = name === "livelihood"? `livelihood${id}` : `${name}${id}`;
-            setFormData((prevState) => ({
-              ...prevState,
-              [keyToUpdate]: values,
-            }));
-          }}
-          onremove={(id) => {
-            setFormData((prevState) => ({
-              ...prevState,
-              [`livelihood${id}`]: "",
-              [`livelihoodmale${id}`]: "",
-              [`livelihoodfemale${id}`]: "",
-            }));
-          }}
-          icon={FamilyRestroom}
-        />
+
+          setFormData(newFormData);
+        }}
+        icon={FamilyRestroom}
+      />
     </div>
   );
 };

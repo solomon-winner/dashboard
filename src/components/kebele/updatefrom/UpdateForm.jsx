@@ -47,6 +47,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
               icon={FamilyRestroom}
               value={formData.populationmale}
               handleChange={handleChanges}
+              min="0"
             />
             <FormField
               label="Female"
@@ -56,6 +57,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
               icon={FamilyRestroom}
               value={formData.populationfemale}
               handleChange={handleChanges}
+              min="0"
             />
           </div>
 
@@ -71,6 +73,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
               icon={FamilyRestroom}
               value={formData.householdmale2}
               handleChange={handleChanges}
+              min="0"
             />
             <FormField
               label="Female"
@@ -80,6 +83,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
               icon={FamilyRestroom}
               value={formData.householdfemale2}
               handleChange={handleChanges}
+              min="0"
             />
           </div>
           <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
@@ -117,11 +121,26 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
             }));
           }}
           onremove={(id) => {
-            setFormData((prevState) => ({
-              ...prevState,
-              [`type${id}`]: "",
-              [`area${id}`]: "",
-            }));
+            const updatedFormData = { ...formData };
+            delete updatedFormData[`type${id}`];
+            delete updatedFormData[`area${id}`];
+            let newFormData = {};
+            let typeIndex = 1;
+            let areaIndex = 1;
+  
+            for (let key in updatedFormData) {
+              if (key.startsWith("type")) {
+                newFormData[`type${typeIndex}`] = updatedFormData[key];
+                typeIndex++;
+              } else if (key.startsWith("area")) {
+                newFormData[`area${areaIndex}`] = updatedFormData[key];
+                areaIndex++;
+              } else {
+                newFormData[key] = updatedFormData[key];
+              }
+            }
+  
+            setFormData(newFormData);
           }}
           />
         </div>

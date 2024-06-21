@@ -52,10 +52,21 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
         });
       }}
       onremove={(id) => {
-        setFormData((prevState) => ({
-          ...prevState,
-          [`currentlanduse${id}`]: "",
-        }));
+        const updatedFormData = { ...formData };
+        delete updatedFormData[`currentlanduse${id}`];
+        let newFormData = {};
+        let currentlanduseIndex = 1;
+
+        for (let key in updatedFormData) {
+          if (key.startsWith("currentlanduse")) {
+            newFormData[`currentlanduse${currentlanduseIndex}`] = updatedFormData[key];
+            currentlanduseIndex++;
+          }  else {
+            newFormData[key] = updatedFormData[key];
+          }
+        }
+
+        setFormData(newFormData);
       }}
       />
 
@@ -94,10 +105,21 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
         });
       }}
       onremove={(id) => {
-        setFormData((prevState) => ({
-          ...prevState,
-          [`forage${id}`]: "",
-        }));
+        const updatedFormData = { ...formData };
+        delete updatedFormData[`forage${id}`];
+        let newFormData = {};
+        let forageIndex = 1;
+
+        for (let key in updatedFormData) {
+          if (key.startsWith("forage")) {
+            newFormData[`forage${forageIndex}`] = updatedFormData[key];
+            forageIndex++;
+          }  else {
+            newFormData[key] = updatedFormData[key];
+          }
+        }
+
+        setFormData(newFormData);
       }}
       />
 
@@ -136,10 +158,22 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
         });
       }}
       onremove={(id) => {
-        setFormData((prevState) => ({
-          ...prevState,
-          [`livelihood${id}`]: "",
-        }));
+        const updatedFormData = { ...formData };
+        delete updatedFormData[`livelihood${id}`];
+        let newFormData = {};
+        let livelihoodIndex = 1;
+
+        for (let key in updatedFormData) {
+          if (key.startsWith("livelihood")) {
+            newFormData[`livelihood${livelihoodIndex}`] = updatedFormData[key];
+            livelihoodIndex++;
+          }  else {
+            newFormData[key] = updatedFormData[key];
+          }
+        }
+
+        setFormData(newFormData);
+
       }}
       />
     </div>

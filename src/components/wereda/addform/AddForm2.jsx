@@ -10,6 +10,7 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
   const { road, landuse, isLoadingLanduse, isLoadingRoad } = useSelector(
     (state) => state.resource
   );
+  console.log(formData);
   return (
     <div>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
@@ -46,11 +47,26 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
           }));
         }}
         onremove={(id) => {
-          setFormData((prevState) => ({
-            ...prevState,
-            [`type${id}`]: "",
-            [`area${id}`]: "",
-          }));
+          const updatedFormData = {...formData };
+          delete updatedFormData[`type${id}`];
+          delete updatedFormData[`area${id}`];
+          let newFormData = {};
+          let typeIndex = 1;
+          let areaIndex = 1;
+        
+          for (let key in updatedFormData) {
+            if (key.startsWith("type")) {
+              newFormData[`type${typeIndex}`] = updatedFormData[key];
+              typeIndex++;
+            } else if (key.startsWith("area")) {
+              newFormData[`area${areaIndex}`] = updatedFormData[key];
+              areaIndex++;
+            } else {
+              newFormData[key] = updatedFormData[key];
+            }
+          }
+        
+          setFormData(newFormData);
         }}
       />
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
@@ -61,7 +77,7 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
         initialValues={formData}
         placeholder={["Select Road Type", "Distance"]}
         type={["dropdown", "number"]}
-        label={["type", "distance"]}
+        label={["roadtype", "distance"]}
         options={
           isLoadingRoad
             ? [
@@ -80,20 +96,36 @@ export const AddForm2 = ({ handleChange, formData, setFormData }) => {
               }))
         }
         onValueChange={(id, name, value) => {
-          const values = name === "type" && typeof value === "object" ? value.value : value;
-          const keyToUpdate = name === "type" ? `roadtype${id}` : `distance${id}`;
+          const values = name === "roadtype" && typeof value === "object" ? value.value : value;
+          const keyToUpdate = name === "roadtype" ? `roadtype${id}` : `distance${id}`;
           setFormData((prevState) => ({
             ...prevState,
             [keyToUpdate]: values,
           }));
         }}
         onremove={(id) => {
-          setFormData((prevState) => ({
-            ...prevState,
-            [`roadtype${id}`]: "",
-            [`distance${id}`]: "",
-          }));
+          const updatedFormData = {...formData };
+          delete updatedFormData[`roadtype${id}`];
+          delete updatedFormData[`distance${id}`];
+          let newFormData = {};
+          let roadtypeIndex = 1;
+          let distanceIndex = 1;
+        
+          for (let key in updatedFormData) {
+            if (key.startsWith("roadtype")) {
+              newFormData[`roadtype${roadtypeIndex}`] = updatedFormData[key];
+              roadtypeIndex++;
+            } else if (key.startsWith("distance")) {
+              newFormData[`distance${distanceIndex}`] = updatedFormData[key];
+              distanceIndex++;
+            } else {
+              newFormData[key] = updatedFormData[key];
+            }
+          }
+        
+          setFormData(newFormData);
         }}
+          
       />
     </div>
   );

@@ -119,10 +119,21 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
           });
         }}
         onremove={(id) => {
-          setFormData((prevState) => ({
-            ...prevState,
-            [`indegeneoustype${id}`]: "",
-          }));
+          const updatedFormData = { ...formData };
+          delete updatedFormData[`indegeneoustype${id}`];
+          let newFormData = {};
+          let indegeneoustypeIndex = 1;
+
+          for (let key in updatedFormData) {
+            if (key.startsWith("indegeneoustype")) {
+              newFormData[`indegeneoustype${indegeneoustypeIndex}`] = updatedFormData[key];
+              indegeneoustypeIndex++;
+            } else {
+              newFormData[key] = updatedFormData[key];
+            }
+          }
+
+          setFormData(newFormData);
         }}
         />
 
@@ -161,10 +172,21 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
           });
         }}
         onremove={(id) => {
-          setFormData((prevState) => ({
-            ...prevState,
-            [`exotictype${id}`]: "",
-          }));
+          const updatedFormData = { ...formData };
+          delete updatedFormData[`exotictype${id}`];
+          let newFormData = {};
+          let exotictypeIndex = 1;
+
+          for (let key in updatedFormData) {
+            if (key.startsWith("exotictype")) {
+              newFormData[`exotictype${exotictypeIndex}`] = updatedFormData[key];
+              exotictypeIndex++;
+            } else {
+              newFormData[key] = updatedFormData[key];
+            }
+          }
+
+          setFormData(newFormData);
         }}
         />
       </div>

@@ -45,11 +45,26 @@ export const UpdateForm4 = ({ handleChange, formData, setFormData }) => {
         }));
       }}
       onremove={(id) => {
-        setFormData((prevState) => ({
-          ...prevState,
-          [`livestock${id}`]: "",
-          [`numberlivestock${id}`]: "",
-        }));
+        const updatedFormData = { ...formData };
+        delete updatedFormData[`livestock${id}`];
+        delete updatedFormData[`numberlivestock${id}`];
+        let newFormData = {};
+        let livestockIndex = 1;
+        let numberlivestockIndex = 1;
+
+        for (let key in updatedFormData) {
+          if (key.startsWith("livestock")) {
+            newFormData[`livestock${livestockIndex}`] = updatedFormData[key];
+            livestockIndex++;
+          } else if (key.startsWith("numberlivestock")) {
+            newFormData[`numberlivestock${numberlivestockIndex}`] = updatedFormData[key];
+            numberlivestockIndex++;
+          } else {
+            newFormData[key] = updatedFormData[key];
+          }
+        }
+
+        setFormData(newFormData);
       }}
       />
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">
@@ -87,11 +102,26 @@ export const UpdateForm4 = ({ handleChange, formData, setFormData }) => {
         }));
       }}
       onremove={(id) => {
-        setFormData((prevState) => ({
-          ...prevState,
-          [`foragetype${id}`]: "",
-          [`forgearea${id}`]: "",
-        }));
+        const updatedFormData = { ...formData };
+        delete updatedFormData[`foragetype${id}`];
+        delete updatedFormData[`forgearea${id}`];
+        let newFormData = {};
+        let foragetypeIndex = 1;
+        let forgeareaIndex = 1;
+
+        for (let key in updatedFormData) {
+          if (key.startsWith("foragetype")) {
+            newFormData[`foragetype${foragetypeIndex}`] = updatedFormData[key];
+            foragetypeIndex++;
+          } else if (key.startsWith("forgearea")) {
+            newFormData[`forgearea${forgeareaIndex}`] = updatedFormData[key];
+            forgeareaIndex++;
+          } else {
+            newFormData[key] = updatedFormData[key];
+          }
+        }
+
+        setFormData(newFormData);
       }}
       />
     </div>
