@@ -4,6 +4,7 @@ import { RenderTableRows } from "../../Widgets/renderTableRows";
 import { ResourceTable } from "../../Widgets/resourceTables";
 import { useSelector } from "react-redux";
 import Loadings from "../Resource/Loading/Loadings";
+import { No_Data } from "../../Widgets/No_Data";
 
 
 export const WoredaLocationInfo = () => {
@@ -54,7 +55,7 @@ export const WoredaLocationInfo = () => {
                     {woredaData?.woreda_resource?.LAND?.length > 0 ? (
                       <ResourceTable resources={woredaData.woreda_resource.LAND} resourceName="LAND" />
                     ) : (
-                      "No LAND Data Entered"
+                      <No_Data/>
                     )}
                     {woredaData?.woreda_resource?.ROAD?.length > 0 ? (
                       <ResourceTable resources={woredaData.woreda_resource.ROAD} resourceName="ROAD" />
