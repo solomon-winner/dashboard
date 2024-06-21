@@ -161,6 +161,7 @@ const Zoom_Out = () => {
 
                       kebeleData.features.forEach(feature => {
                           feature.properties.kebeleId = kebeleId;
+                          feature.kebeleId = kebeleId
                       });
 
                     L.geoJSON(kebeleData, {
@@ -180,7 +181,8 @@ const Zoom_Out = () => {
       
        
       function onEachKebeleFeature(feature, layer) {
-      Kebeles.push(layer);
+      layer.kebeleId = feature.kebeleId
+      Kebeles.push(layer)
 
       layer.on("click", function () {
           kebeleLayerGroup.eachLayer(function (kebeleLayer) {
@@ -229,7 +231,6 @@ const Zoom_Out = () => {
           
             siteMarker.on("click", function() {
               const Site_id = parseInt(url.match(/\d+/)[0], 10); 
-              console.log("sgvhsdv",Site_id)
               dispatch(SetSelectedSite(Site_id))
               Zoomer(layer);
           })
