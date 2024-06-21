@@ -80,7 +80,7 @@ export const WoredaLocationInfo = () => {
                     {woredaData?.woreda_institution?.HEALTH_FACILITY?.length > 0 ? (
                       <ResourceTable resources={woredaData.woreda_institution.HEALTH_FACILITY} resourceName="Health Facility" />
                     ) : (
-                      "No Health Facility Data Entered"
+                      <No_Data resourceName="Health Facility"/>
                     )}
                   </>
                 )}
