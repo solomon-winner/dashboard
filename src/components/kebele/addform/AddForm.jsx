@@ -76,6 +76,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
           icon={FamilyRestroom}
           value={formData.populationmale}
           handleChange={handleChanges}
+          min="0"
         />
         <FormField
           label="Female"
@@ -85,6 +86,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
           icon={FamilyRestroom}
           value={formData.populationfemale}
           handleChange={handleChanges}
+          min="0"
         />
       </div>
 
@@ -100,6 +102,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
           icon={FamilyRestroom}
           value={formData.householdmale2}
           handleChange={handleChanges}
+          min="0"
         />
         <FormField
           label="Female"
@@ -109,6 +112,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
           icon={FamilyRestroom}
           value={formData.householdfemale2}
           handleChange={handleChanges}
+          min="0"
         />
       </div>
       <h6 className="text-blueGray-400 text-sm mt-3 mb-4 font-bold uppercase">

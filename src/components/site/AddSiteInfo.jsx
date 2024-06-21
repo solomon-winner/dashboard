@@ -294,6 +294,7 @@ export const AddSiteInfo = () => {
                     placeholder="Size of Site in ha"
                     handleChange={handleChange}
                     step={0.01}
+                    min="0"
                   />
                   <FormField
                     label="Site GeoJSON"

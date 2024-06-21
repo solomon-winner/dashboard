@@ -25,6 +25,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
           icon={Apartment}
           value={formData.urban_kebeles}
           handleChange={handleChanges}
+          min="0"
         />
         <FormField
           label="Rural"
@@ -34,6 +35,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
           icon={Landscape}
           value={formData.rural_kebeles}
           handleChange={handleChanges}
+          min="0"
         />
       </div>
 
@@ -49,6 +51,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
           icon={FamilyRestroom}
           value={formData.male_hh}
           handleChange={handleChanges}
+          min="0"
         />
         <FormField
           label="Female"
@@ -58,6 +61,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
           icon={FamilyRestroom}
           value={formData.female_hh}
           handleChange={handleChanges}
+          min="0"
         />
       </div>
 
@@ -73,6 +77,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
           icon={FamilyRestroom}
           value={formData.male_population}
           handleChange={handleChanges}
+          min="0"
         />
         <FormField
           label="Female"
@@ -82,6 +87,7 @@ export const UpdateForm = ({ handleChange, formData, setFormData }) => {
           icon={FamilyRestroom}
           value={formData.female_population}
           handleChange={handleChanges}
+          min="0"
         />
       </div>
     </div>

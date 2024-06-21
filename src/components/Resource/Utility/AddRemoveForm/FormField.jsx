@@ -59,6 +59,7 @@ const FormField = ({
           onChange={handleInputChange}
           accept={accept}
           step={step}
+          min={0}
         />
       );
     }

@@ -409,6 +409,7 @@ export const UpdateSiteForm = () => {
                       placeholder="Size of Site in ha"
                       value={formData.size_ha}
                       handleChange={handleChanges}
+                      min="0"
                     />
                   </div>
                   <div className="flex justify-between flex-grow">
