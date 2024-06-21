@@ -20,7 +20,6 @@ const parseInitialValues = (initialValues, labels) => {
 
   return Object.values(dynamicValues);
 };
-
 const FieldComponent = ({
   initialValues = {},
   placeholder,
@@ -51,12 +50,7 @@ const FieldComponent = ({
   };
 
   const removeField = (id) => {
-    const updatedFields = fields.filter((field) => field.id !== id);
-    const reindexedFields = updatedFields.map((field, index) => ({
-      ...field,
-      id: index + 1,
-    }));
-    setFields(reindexedFields);
+    setFields(fields.filter((field) => field.id !== id));
     onremove(id);
   };
 
@@ -70,7 +64,7 @@ const FieldComponent = ({
     );
     onValueChange(id, name, value);
   };
-
+  console.log(fields);
   return (
     <div>
       {fields.map((field) => (
@@ -105,7 +99,7 @@ const FieldComponent = ({
                 options={options}
                 onChange={(e) => handleChange(field.id, name, e.target.value)}
                 icon={icon}
-                step={0.001}
+                step={0.01}
               />
             )
           )}
