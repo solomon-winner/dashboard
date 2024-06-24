@@ -4,6 +4,8 @@ import { RenderTableRows } from "../../Widgets/renderTableRows";
 import { ResourceTable } from "../../Widgets/resourceTables";
 import { useSelector } from "react-redux";
 import Loadings from "../Resource/Loading/Loadings";
+import { No_Data } from "../../Widgets/No_Data";
+import EmptyComponent from "../Resource/Utility/EmptyComponent";
 
 
 export const WoredaLocationInfo = () => {
@@ -48,18 +50,18 @@ export const WoredaLocationInfo = () => {
                 <h2 className="px-7 py-3 text-sm font-bold">Woreda Resource:</h2>
                 <hr />
                 {woredaData?.woreda_resource?.length === 0 ? (
-                  <p className="px-4 text-sm">No Data Entered</p>
+                  <EmptyComponent/>
                 ) : (
                   <>
                     {woredaData?.woreda_resource?.LAND?.length > 0 ? (
                       <ResourceTable resources={woredaData.woreda_resource.LAND} resourceName="LAND" />
                     ) : (
-                      "No Data Entered"
+                      <No_Data resourceName="LAND"/>
                     )}
                     {woredaData?.woreda_resource?.ROAD?.length > 0 ? (
                       <ResourceTable resources={woredaData.woreda_resource.ROAD} resourceName="ROAD" />
                     ) : (
-                      "No Data Entered"
+                      <No_Data resourceName="ROAD"/>
                     )}
                   </>
                 )}
@@ -67,18 +69,18 @@ export const WoredaLocationInfo = () => {
                 <h2 className="px-7 py-3 text-sm font-bold">Woreda Institution:</h2>
                 <hr />
                 {woredaData?.woreda_institution?.length === 0 ? (
-                  <p className="px-4 text-sm">No Data Entered</p>
+                  <EmptyComponent/>
                 ) : (
                   <>
                     {woredaData?.woreda_institution?.SCHOOL?.length > 0 ? (
                       <ResourceTable resources={woredaData.woreda_institution.SCHOOL} resourceName="School" />
                     ) : (
-                      "No Data Entered"
+                      <No_Data resourceName="School"/>
                     )}
                     {woredaData?.woreda_institution?.HEALTH_FACILITY?.length > 0 ? (
                       <ResourceTable resources={woredaData.woreda_institution.HEALTH_FACILITY} resourceName="Health Facility" />
                     ) : (
-                      "No Data Entered"
+                      <No_Data resourceName="Health Facility"/>
                     )}
                   </>
                 )}

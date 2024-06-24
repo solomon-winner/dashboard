@@ -130,13 +130,13 @@ const Zoom_Out = () => {
                 woredaLayerGroup.eachLayer(function (woredaLayer) {
                     woredaLayer.setStyle({
                         color: "#803d00",
-                        fillOpacity: 0.1,weight:1,
+                        fillOpacity: 0,weight:2,
                     });
                 });
             
                 layer.setStyle({
                     color: "#803d00",
-                    fillOpacity: 0.6, weight:1,
+                    fillOpacity: 0, weight:3,
                 });
             
             
@@ -161,6 +161,7 @@ const Zoom_Out = () => {
 
                       kebeleData.features.forEach(feature => {
                           feature.properties.kebeleId = kebeleId;
+                          feature.kebeleId = kebeleId
                       });
 
                     L.geoJSON(kebeleData, {
@@ -180,20 +181,21 @@ const Zoom_Out = () => {
       
        
       function onEachKebeleFeature(feature, layer) {
-      Kebeles.push(layer);
+      layer.kebeleId = feature.kebeleId
+      Kebeles.push(layer)
 
       layer.on("click", function () {
           kebeleLayerGroup.eachLayer(function (kebeleLayer) {
               kebeleLayer.setStyle({
                   color: "#6c757d",
-                  fillOpacity: 0.1,
-                  weight:1,
+                  fillOpacity: 0,
+                  weight:3,
               });
           });
       
           layer.setStyle({
               color: "#4CAF50",
-              fillOpacity: 0.6,weight:1,
+              fillOpacity: 0,weight:3,
           });
       
 
@@ -228,8 +230,22 @@ const Zoom_Out = () => {
           });
           
             siteMarker.on("click", function() {
+              siteLayerGroup.clearLayers()
+              siteLayerGroup.addLayer(layer);
+              
+              var allSiteLayerStyle = {
+                fillColor: "#ffd700",
+                fillOpacity: 0,
+                color: "#ffd700",
+                weight: 3,
+              };
+
+              siteLayerGroup.eachLayer((layer) => {
+                layer.setStyle(allSiteLayerStyle);
+                console.log("vskhvbshvbs",layer)
+              });
+              console.log("hfsdbjfsgvfd",siteLayerGroup)
               const Site_id = parseInt(url.match(/\d+/)[0], 10); 
-              console.log("sgvhsdv",Site_id)
               dispatch(SetSelectedSite(Site_id))
               Zoomer(layer);
           })
