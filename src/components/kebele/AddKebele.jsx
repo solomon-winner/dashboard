@@ -27,6 +27,7 @@ export const AddKebele = () => {
   const [addResource] = useAddResourceMutation();
   const [AddKebeleData] = useAddKebeleDataMutation();
   const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     region_id: "",
     woreda_id: "",
@@ -74,7 +75,7 @@ export const AddKebele = () => {
   };
 
   const handleSubmit = async (values) => {
-
+    setIsSubmitting(true);
     const energy_sourceArray = [];
     let i = 1;
     while (true) {
@@ -405,12 +406,19 @@ export const AddKebele = () => {
       female_non_employed: values.unemployedfemale3,
     };
     const value = { energy_source, data, livelihood, resource };
+    try {
     const response = await AddKebeleData({ ...value, id: values.kebele_id });
     log(response);
     if (response.data) {
       toast.success("Kebele added successfully");
       window.location.href = `/admin/kebele`;
     }
+  } catch (error) {
+    log.error(error);
+    // Handle error (e.g., show a notification)
+  } finally {
+    setIsSubmitting(false); // End submission
+  }
  log({ ...value, id: values.kebele_id });
   };
 
@@ -487,6 +495,7 @@ export const AddKebele = () => {
                   ) : (
                     <button
                       type="submit"
+                      disabled={isSubmitting}
                       className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
                     >
                       Submit

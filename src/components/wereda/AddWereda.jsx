@@ -25,6 +25,7 @@ export const Addwereda = () => {
   const [addInstution] = useAddInstitutionMutation();
   const [step, setStep] = useState(1);
   const [addweredadata] = useAddWoredaDataMutation();
+  const [isSubmitting, setIsSubmitting] = useState(false); // New state for submission status
   const [formData, setFormData] = useState({
     region_id: "",
     woreda_id: "",
@@ -62,6 +63,7 @@ export const Addwereda = () => {
   };
 
   const handleSubmit = async (values) => {
+    setIsSubmitting(true);
     log(values);
     const landArray = [];
     let i = 1;
@@ -189,6 +191,7 @@ export const Addwereda = () => {
     };
 
     log(value);
+    try {
     // Check if it's the last step before submitting
     const response = await addweredadata({ ...value, id: values.woreda_id });
     log(response);
@@ -196,6 +199,12 @@ export const Addwereda = () => {
       toast.success("Data Added Successfully");
       window.location.href = `/admin/wereda`;
     }
+  } catch (error) {
+    log.error(error);
+    // Handle error (e.g., show a notification)
+  } finally {
+    setIsSubmitting(false); // End submission
+  }
   };
   const handleChange = (e) => {
     setFormData({
@@ -249,6 +258,7 @@ export const Addwereda = () => {
                   ) : (
                     <button
                       type="submit"
+                      disabled={isSubmitting}
                       className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
                     >
                       Submit

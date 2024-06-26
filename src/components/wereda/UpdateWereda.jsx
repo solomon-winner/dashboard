@@ -33,6 +33,7 @@ export const Updatewereda = () => {
   const [addInstution] = useAddInstitutionMutation();
   const [addweredadata] = useAddWoredaDataMutation();
   const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState(weredas); // Initialize formData as an empty object
 
   // Use useEffect to update formData when woredadata is successfully fetched
@@ -52,6 +53,7 @@ export const Updatewereda = () => {
   };
 
   const handleSubmit = async (values) => {
+    setIsSubmitting(true);
     log(values);
     const landArray = [];
     let i = 1;
@@ -179,7 +181,7 @@ export const Updatewereda = () => {
     };
 
     log(value);
-
+    try {
     const response = await addweredadata({ ...value, id });
     log(response);
     if (response.data) {
@@ -187,6 +189,12 @@ export const Updatewereda = () => {
       window.location.href = `/admin/wereda/${id}`;
       // window.history.back();
     }
+  } catch (error) {
+    log.error(error);
+    // Handle error (e.g., show a notification)
+  } finally {
+    setIsSubmitting(false); // End submission
+  }
   };
   return (
     <div className="bg-dashbordColor min-h-screen">
@@ -238,6 +246,7 @@ export const Updatewereda = () => {
                     ) : (
                       <button
                         type="submit"
+                        disabled={isSubmitting}
                         className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
                       >
                         Update
