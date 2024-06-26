@@ -7,10 +7,12 @@ import { AddButton } from "../Resource/Utility/AddButton";
 import { AddDataButton } from "../Resource/Utility/AddDataButton";
 import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
 import { useSelector } from "react-redux";
+import useDebounce from "../../hooks/useDebounce";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
+  const debouncedSearchTerm = useDebounce(searchInput, 500); // 500ms delay
   const all_permissions = useSelector((state) => state.auth.all_permissions);
   const {
     data: wereda,
@@ -19,8 +21,8 @@ export const View = () => {
   } = useGetWoredaQuery({
     page: currentPage,
     per_page: 20,
-    has_sites: "true",
-    ...(searchInput && { search: searchInput }),
+    has_sites: debouncedSearchTerm === ""? "true" : "false",
+   ...(debouncedSearchTerm && { search: debouncedSearchTerm }),
   });
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);

@@ -147,6 +147,7 @@ export const UpdateKebele = () => {
             name: values[typeKey],
             resource_type: "LIVESTOCK",
           });
+          console.log(response)
           if (response.data) {
             toast.success("Resource added successfully");
             values[typeKey] = response.data.data.id;
