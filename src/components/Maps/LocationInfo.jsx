@@ -13,8 +13,8 @@ export const LocationInfo = () => {
   const Kebele_id = useSelector((state) => state.geoJson.GeoJson.SelectedKebele);
 
   return(
-    <div className="d-flex min-w-80">
-    <div className="w-50" style={{ border: '1px solid gray' }}>
+<div className="d-flex min-w-80" style={{ marginTop: '60px' }}>
+<div className="w-50" style={{ border: '1px solid gray' }}>
       <div className="container project-container">
         <div className="card">
           <div className="bg-gray-200 border-gray-400">
