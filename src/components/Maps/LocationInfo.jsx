@@ -13,11 +13,11 @@ export const LocationInfo = () => {
   const Kebele_id = useSelector((state) => state.geoJson.GeoJson.SelectedKebele);
 
   return(
-<div className="d-flex min-w-80" style={{ marginTop: '60px' }}>
+<div className="d-flex h-screen min-w-80" style={{ marginTop: '60px' }}>
 <div className="w-50" style={{ border: '1px solid gray' }}>
       <div className="container project-container">
         <div className="card">
-          <div className="bg-gray-200 border-gray-400">
+          <div className="bg-gray-200 border-gray-400" style={{ overflowX: 'auto',maxWidth: '50vh', overflowY: 'auto', maxHeight: '80vh' }}>
             <p className="text-lg font-bold ml-5 py-3">Detailed location Information</p>
           </div>
           <div className="card-body" style={{ overflowX: 'auto',maxWidth: '50vh', overflowY: 'auto', maxHeight: '80vh' }}>
