@@ -250,6 +250,7 @@ const Zoom_Out = () => {
               Zoomer(layer);
           })
           });
+          
         }).catch(error => {
           log("Error fetching data for URL:", url, error);
         });
