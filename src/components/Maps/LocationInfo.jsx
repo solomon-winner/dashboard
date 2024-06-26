@@ -23,7 +23,7 @@ export const LocationInfo = () => {
           <div className="card-body" style={{ overflowX: 'auto',maxWidth: '50vh', overflowY: 'auto', maxHeight: '80vh' }}>
             {defualtLocation &&          
              <div className="card-body px-4">
-            <p>Click a layer to view detailed location information.</p>
+            <p className="py-2">Click a layer to view detailed location information.</p>
             </div>}
             {Region_id && <RegionLocationInfo/>}
             {Site_id && <SiteLocationInfo/>}
