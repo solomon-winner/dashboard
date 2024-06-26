@@ -106,7 +106,7 @@ const FieldComponent = ({
                 options={options}
                 onChange={(e) => handleChange(field.id, name, e.target.value)}
                 icon={icon}
-                step={0.01}
+                step={0.001}
               />
             )
           )}

@@ -8,16 +8,18 @@ import { AddDataButton } from "../Resource/Utility/AddDataButton";
 import { LoadingSkeleton } from "../Resource/Loading/LoadingSkeleton";
 import { log } from "../Resource/Utility/Logger";
 import { useSelector } from "react-redux";
+import useDebounce from "../../hooks/useDebounce";
 
 export const View = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
+  const debouncedSearchTerm = useDebounce(searchInput, 500); // 500ms delay
   const all_permissions = useSelector((state) => state.auth.all_permissions);
   const { data, error, isLoading, isSuccess } = useGetKebeleQuery({
     page: currentPage,
     per_page: 20,
-    has_sites: "true",
-    ...(searchInput && { search: searchInput }),
+    has_sites: "false",
+    ...(debouncedSearchTerm && { search: debouncedSearchTerm }),
   });
 
   const handleSearchInput = (event) => {
