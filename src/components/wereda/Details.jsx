@@ -34,7 +34,7 @@ export const WeredaDetails = () => {
   const [deleteWereda] = useDeleteWeredaByIdMutation();
   useEffect(() => {
     if (!id) {
-      navigate('/'); // Redirect if no ID is provided
+      navigate('/admin/wereda'); // Redirect if no ID is provided
     }
   }, [id, navigate]);
   if (!isSuccess || isFetching || !weredadata || !KebeleData || !wereda) {
