@@ -231,8 +231,8 @@ export const UpdateKebele = () => {
     const forageArray = [];
     let n = 1;
     while (true) {
-      const typeKey = `forgetype${n}`;
-      const areaKey = `forgearea${n}`;
+      const typeKey = `foragetype${n}`;
+      const areaKey = `foragearea${n}`;
       if (values[typeKey] && values[areaKey]) {
         if (isNaN(values[typeKey])) {
           const response = await addResource({
@@ -412,7 +412,7 @@ export const UpdateKebele = () => {
   }
     log({ ...value, id: Number(id) });
   };
-
+console.log(formData)
   return (
     <div className="bg-dashbordColor min-h-screen">
       <div className="pt-6 pl-4">
