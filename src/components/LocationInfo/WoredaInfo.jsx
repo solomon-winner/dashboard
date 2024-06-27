@@ -26,7 +26,10 @@ export const WoredaLocationInfo = () => {
   }
     return (
      <>
-          <p className="text-sm font-bold ml-5 py-3">{woredaData?.woreda_name ?? "No Data"}</p>
+          <p className="text-sm font-bold ml-5 py-1">{woredaData?.woreda_name ?? "No Data"}</p>
+          <hr/>
+      <p className="text-sm  ml-10 py-2 ">Woreda Information</p>
+
                 <table className="table-auto w-full">
                   <tbody>
                     <RenderTableRows
