@@ -71,13 +71,15 @@ export const CommonTable = ({ data, title, name, urlName, className }) => {
               <tr key={item.id}>
                 <td className="px-6 py-4 whitespace-nowrap flex items-center">
                   <Link
-                    to={`/admin/${urlName}/${item.id}`}
+                    to={`/admin/${urlName}/details`}
+                    state={{ id: item.id }}
                     className="text-sm font-medium text-green-600 hover:text-green-900"
                   >
                     {item[name]}
                   </Link>
                   <Link
-                    to={`/admin/${urlName}/${item.id}`}
+                    to={`/admin/${urlName}/details`}
+                    state={{ id: item.id }}
                     className=" text-xl p-2 text-green-600 hover:text-green-900"
                     title="View Detail"
                   >
@@ -92,7 +94,8 @@ export const CommonTable = ({ data, title, name, urlName, className }) => {
                       {item.sites.map((site) => (
                         <div key={site.id} className="mb-2">
                           <Link
-                            to={`/admin/site/${site.id}`}
+                            to={`/admin/site/details`}
+                            state={{ id: site.id }}
                             className="text-sm font-medium text-green-600 hover:text-green-900"
                           >
                             {site.site_name}
@@ -102,7 +105,8 @@ export const CommonTable = ({ data, title, name, urlName, className }) => {
                             {site.watershed_name}
                           </p>
                           <Link
-                            to={`/admin/site/${site.id}`}
+                            to={`/admin/site/details`}
+                            state={{ id: site.id }}
                             className={
                               site.geojson
                                 ? "text-green-600 hover:text-green-900"

@@ -81,7 +81,8 @@ const View = () => {
                         <div className="flex justify-end items-center space-x-3">
                           {all_permissions?.includes("edit_roles") && (
                           <Link
-                            to={`/admin/update-roles/${role.id}`}
+                            to={`/admin/update-roles/update`}
+                            state={{id: role.id}}
                             className="text-green-600 hover:text-green-700 transition duration-300"
                           >
                             <EditOutlined />

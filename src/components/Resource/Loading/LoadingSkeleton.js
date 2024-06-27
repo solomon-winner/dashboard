@@ -4,7 +4,7 @@ import { AddDataButton } from "../Utility/AddDataButton";
 
 export const LoadingSkeleton = ({ searchInput, handleSearchInput, url, urlData , name }) => {
   return (
-    <div className="flex flex-col gap-4 py-6 px-10 bg-dashbordColor">
+    <div className="flex flex-col gap-4 py-6 px-10 bg-dashbordColor h-screen overflow-hidden">
       <div className="flex justify-between items-center">
         <div>
           <form action="#" method="GET" className="hidden lg:block">

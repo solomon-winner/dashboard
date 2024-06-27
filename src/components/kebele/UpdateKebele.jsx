@@ -14,7 +14,7 @@ import {
   useGetKebeleByIdQuery,
 } from "../../redux/kebele/KebeleApiSlice";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import { useInitialValueKebele } from "../../redux/InitialState/initalValueKebele";
 import { useSelector } from "react-redux";
@@ -29,14 +29,21 @@ const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
 export const UpdateKebele = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = location.state || {};
   useInitialValueKebele(id);
   const { kebeleData, loading } = useSelector((state) => state.kebeleById);
   const [addResource] = useAddResourceMutation();
   const [AddKebeleData] = useAddKebeleDataMutation();
   const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState(kebeleData);
-
+  useEffect(() => {
+    if (!id) {
+      navigate('/'); // Redirect if no ID is provided
+    }
+  }, [id, navigate]);
   useEffect(() => {
     if (!loading && kebeleData) {
       setFormData(kebeleData);
@@ -52,6 +59,7 @@ export const UpdateKebele = () => {
   };
 
   const handleSubmit = async (values) => {
+    setIsSubmitting(true);
     const energy_sourceArray = [];
     let i = 1;
     while (true) {
@@ -388,12 +396,19 @@ export const UpdateKebele = () => {
 
     };
     const value = { energy_source, data, livelihood, resource };
+    try {
     const response = await AddKebeleData({ ...value, id: id });
     if (response.data) {
       toast.success("Kebele added successfully");
       window.location.href = `/admin/kebele/${id}`;
       // window.history.back();
     }
+  } catch (error) {
+    log.error(error);
+    // Handle error (e.g., show a notification)
+  } finally {
+    setIsSubmitting(false); // End submission
+  }
     log({ ...value, id: Number(id) });
   };
 
@@ -475,6 +490,7 @@ export const UpdateKebele = () => {
                     ) : (
                       <button
                         type="submit"
+                        disabled={isSubmitting}
                         className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
                       >
                         Submit

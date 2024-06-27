@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import {
   useDeleteSiteMutation,
@@ -20,14 +20,20 @@ import { useSelector } from "react-redux";
 import EmptyComponent from "../Resource/Utility/EmptyComponent";
 
 export const SiteDetails = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = location.state || {};
   useInitialValueSite(id);
   const { data, isSuccess, isFetching } = useGetSiteByIdQuery(id);
   const { data: site } = useGetSiteQuery({ all: true });
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [deleteSite, { isLoading }] = useDeleteSiteMutation();
   const all_permissions = useSelector((state) => state.auth.all_permissions);
-
+  useEffect(() => {
+    if (!id) {
+      navigate('/'); // Redirect if no ID is provided
+    }
+  }, [id, navigate]);
   if (!isSuccess || isFetching || !data || !site) {
     return (
       <div className="flex justify-center items-center h-screen">

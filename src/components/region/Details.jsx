@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   useDeleteRegionMutation,
   useGetRegionByIdQuery,
@@ -15,12 +15,20 @@ import { log } from "../Resource/Utility/Logger";
 import { useSelector } from "react-redux";
 
 export const RegionDetails = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = location.state || {};
   const all_permissions = useSelector((state) => state.auth.all_permissions);
   const { data: regionData, isSuccess, isFetching } = useGetRegionByIdQuery(id);
   const { data: woredaData, isSuccess: werdaFetched } =
     useGetWeredaByRegionQuery({ id: id, with_sites: false });
   const [deleteRegion] = useDeleteRegionMutation();
+  useEffect(() => {
+    if (!id) {
+      navigate('/admin/region'); // Redirect if no ID is provided
+    }
+  }, [id, navigate]);
+  
   if (!isSuccess || isFetching || !werdaFetched) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -40,7 +48,8 @@ export const RegionDetails = () => {
           )}
           {all_permissions?.includes("edit_regions") && (
           <Link
-            to={`/admin/update-regions/${id}`}
+            to={`/admin/update-regions/update`}
+            state={{ id: id }}
             className=" text-sm py-1 px-4 rounded-md bg-updatecolor hover:bg-customDark text-white font-semibold"
           >
             <Edit />

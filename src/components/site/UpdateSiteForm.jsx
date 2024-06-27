@@ -16,7 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import { useSelector } from "react-redux";
 import Loadings from "../Resource/Loading/Loadings";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useGetWeredaByIdQuery } from "../../redux/wereda/WeredaApiSlice";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
@@ -39,7 +39,9 @@ const validationSchema = Yup.object().shape({
   // ), // Assuming a max file size of 1MB
 });
 export const UpdateSiteForm = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = location.state || {};
   const {
     data: sites,
     isSuccess,
@@ -88,7 +90,11 @@ export const UpdateSiteForm = () => {
     woreda_id: "",
     region_id: "",
   });
-
+  useEffect(() => {
+    if (!id) {
+      navigate('/'); // Redirect if no ID is provided
+    }
+  }, [id, navigate]);
   useEffect(() => {
     if (isSuccess && sites) {
       log(sites.data);

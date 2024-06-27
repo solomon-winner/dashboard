@@ -73,6 +73,7 @@ export const AddSite = () => {
   const [addSiteData] = useAddSiteDataMutation();
   const [addResource] = useAddResourceMutation();
   const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     region: "",
     wereda: "",
@@ -97,6 +98,7 @@ export const AddSite = () => {
     setStep(step - 1);
   };
   const handleSubmit = async (values) => {
+    setIsSubmitting(true);
     const indegeneoustreeArray = [];
     let i = 1;
     while (true) {
@@ -227,12 +229,19 @@ export const AddSite = () => {
     ];
     const value = { resource };
     log(value);
+    try {
     const response = await addSiteData({ ...value, id: values.site_id });
     log(response);
     if (response.data) {
       toast.success("Site added successfully");
       window.location.href = "/admin/site";
     }
+  } catch (error) {
+    log.error(error);
+    // Handle error (e.g., show a notification)
+  } finally {
+    setIsSubmitting(false); // End submission
+  }
   };
   return (
     <div className="bg-dashbordColor min-h-screen">
@@ -272,6 +281,7 @@ export const AddSite = () => {
                   ) : (
                     <button
                       type="submit"
+                      disabled={isSubmitting}
                       className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
                     >
                       Submit
