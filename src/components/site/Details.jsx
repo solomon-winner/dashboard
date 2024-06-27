@@ -31,7 +31,7 @@ export const SiteDetails = () => {
   const all_permissions = useSelector((state) => state.auth.all_permissions);
   useEffect(() => {
     if (!id) {
-      navigate('/'); // Redirect if no ID is provided
+      navigate('/admin/site'); // Redirect if no ID is provided
     }
   }, [id, navigate]);
   if (!isSuccess || isFetching || !data || !site) {
