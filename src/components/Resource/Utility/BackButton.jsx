@@ -29,6 +29,7 @@ const BackButton = () => {
 
     // If the previous URL doesn't start with any of the prefixes, go back once
     window.history.back();
+    window.location.reload();
   };
 
   return (

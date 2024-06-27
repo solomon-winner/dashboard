@@ -65,7 +65,7 @@ const UpdateKebeleForm = () => {
   });
   useEffect(() => {
     if (!id) {
-      navigate('/'); // Redirect if no ID is provided
+      navigate('/admin/kebele'); // Redirect if no ID is provided
     }
   }, [id, navigate]);
   useEffect(() => {
@@ -149,7 +149,8 @@ const UpdateKebeleForm = () => {
     log(kebele);
     if (kebele.data) {
       toast.success("Kebele Updated successfully!");
-      window.location.href = `/admin/kebele/${id}`;
+      navigate("/admin/kebele/details", { state: { id: id } });
+      window.location.reload();
       // window.history.back();
     }
   };

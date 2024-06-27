@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 import {
   useDeleteWeredaByIdMutation,
@@ -104,12 +104,13 @@ export const WeredaDetails = () => {
               <div className="p-8 text-gray-600 sm:p-10 lg:flex-auto">
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Region: {"  "}
-                  <a
-                    href={`/admin/region/${weredadata.data?.region_id}`}
+                  <Link
+                    to={`/admin/region/details`}
+                    state={{ id: weredadata.data?.region_id }}
                     className="text-sm font-medium"
                   >
                     {region_name}
-                  </a>
+                  </Link>
                 </h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">

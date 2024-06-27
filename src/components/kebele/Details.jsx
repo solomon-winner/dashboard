@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Table } from "./Table";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   useDeleteKebeleMutation,
   useGetKebeleByIdQuery,
@@ -108,22 +108,24 @@ export const Details = () => {
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Region:
                   {"  "}
-                  <a
-                    href={`/admin/region/${data.data?.region_id}`}
+                  <Link
+                    to={`/admin/region/details`}
+                    state={{ id: data.data?.region_id }}
                     className="text-sm font-medium"
                   >
                     {data.data.region_name}
-                  </a>{" "}
+                  </Link>{" "}
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Woreda:
                   {"  "}
-                  <a
-                    href={`/admin/wereda/${data.data?.woreda_id}`}
+                  <Link
+                    to={`/admin/wereda/details`}
+                    state={{ id: data.data?.woreda_id }}
                     className="text-sm font-medium"
                   >
                     {data.data.woreda_name}
-                  </a>
+                  </Link>
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                   <div className="bg-white border border-opacity-35 border-sideboard shadow-custom rounded-md p-4">

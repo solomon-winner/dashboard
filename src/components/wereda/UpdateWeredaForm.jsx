@@ -47,7 +47,7 @@ export const UpdateWeredaForm = () => {
 
   useEffect(() => {
     if (!id) {
-      navigate('/'); // Redirect if no ID is provided
+      navigate('/admin/wereda'); // Redirect if no ID is provided
     }
   }, [id, navigate]);
   useEffect(() => {
@@ -99,7 +99,8 @@ export const UpdateWeredaForm = () => {
     log(wereda);
     if (wereda.data) {
       toast.success("Wereda updated successfully!");
-      window.location.href = `/admin/wereda/${id}`;
+      navigate("/admin/wereda/details", { state: { id: id } });
+      window.location.reload();
       // window.history.back();
     }
   };

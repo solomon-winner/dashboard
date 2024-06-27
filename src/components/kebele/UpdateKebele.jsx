@@ -41,7 +41,7 @@ export const UpdateKebele = () => {
   const [formData, setFormData] = useState(kebeleData);
   useEffect(() => {
     if (!id) {
-      navigate('/'); // Redirect if no ID is provided
+      navigate('/admin/kebele'); // Redirect if no ID is provided
     }
   }, [id, navigate]);
   useEffect(() => {
@@ -400,7 +400,8 @@ export const UpdateKebele = () => {
     const response = await AddKebeleData({ ...value, id: id });
     if (response.data) {
       toast.success("Kebele added successfully");
-      window.location.href = `/admin/kebele/${id}`;
+     navigate("/admin/kebele/details", { state: { id: id } });
+      window.location.reload();
       // window.history.back();
     }
   } catch (error) {

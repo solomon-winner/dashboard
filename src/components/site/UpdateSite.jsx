@@ -33,7 +33,7 @@ export const UpdateSite = () => {
 
   useEffect(() => {
     if (!id) {
-      navigate('/'); // Redirect if no ID is provided
+      navigate('/admin/site'); // Redirect if no ID is provided
     }
   }, [id, navigate]);
   useEffect(() => {
@@ -189,7 +189,8 @@ export const UpdateSite = () => {
     log(response);
     if (response.data) {
       toast.success("Site added successfully");
-      window.location.href = `/admin/site/${id}`;
+      navigate(`/admin/site/details`,{ state: { id: id } });
+      window.location.reload();
       // window.history.back();
    
     }
