@@ -20,6 +20,7 @@ const parseInitialValues = (initialValues, labels) => {
 
   return Object.values(dynamicValues);
 };
+
 const FieldComponent = ({
   initialValues = {},
   placeholder,
@@ -30,10 +31,8 @@ const FieldComponent = ({
   onremove,
   icon,
 }) => {
-  // Parse initial values
   const dynamicValues = parseInitialValues(initialValues, label);
-  const [fields, setFields] = useState(Object.values(dynamicValues));
-  const [remove, setRemove] = useState();
+  const [fields, setFields] = useState(dynamicValues);
 
   const addField = () => {
     const highestId = fields.reduce(
@@ -52,13 +51,8 @@ const FieldComponent = ({
 
   const removeField = (id) => {
     const updatedFields = fields.filter((field) => field.id !== id);
-    const reindexedFields = updatedFields.map((field, index) => ({
-      ...field,
-      id: index + 1,
-    }));
-    setFields(reindexedFields);
+    setFields(updatedFields);
     onremove(id);
-    setRemove(id);
   };
 
   const handleChange = (id, name, value) => {
