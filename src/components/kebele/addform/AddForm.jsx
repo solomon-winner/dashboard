@@ -32,6 +32,7 @@ export const AddForm = ({ handleChange, formData, setFormData }) => {
     });
     handleChange(e);
   };
+
   return (
     <div>
       <div className="flex flex-wrap">

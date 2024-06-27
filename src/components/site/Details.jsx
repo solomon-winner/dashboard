@@ -106,30 +106,33 @@ export const SiteDetails = () => {
               <div className="p-8 text-gray-600">
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Region: {"  "}
-                  <a
-                    href={`/admin/region/${data.data?.region_id}`}
+                  <Link
+                    to={`/admin/region/details`}
+                    state={{ id: data.data?.region_id }}
                     className="text-sm font-medium"
                   >
                     {data.data?.region_name}
-                  </a>
+                  </Link>
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Woreda: {"  "}
-                  <a
-                    href={`/admin/wereda/${data.data?.woreda_id}`}
+                  <Link
+                    to={`/admin/wereda/details`}
+                    state={{ id: data.data?.woreda_id }}
                     className="text-sm font-medium"
                   >
                     {data.data?.woreda_name}
-                  </a>
+                  </Link>
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Kebele: {"  "}
-                  <a
-                    href={`/admin/kebele/${data.data?.kebele_id}`}
+                  <Link
+                    to={`/admin/kebele/details`}
+                    state={{ id: data.data?.kebele_id }}
                     className="text-sm font-medium"
                   >
                     {data.data?.kebele_name}
-                  </a>
+                  </Link>
                 </h3>
                 <h3 className="text-base font-bold tracking-tight text-customDark ">
                   Micro-watershed: {"  "}

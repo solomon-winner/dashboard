@@ -39,7 +39,7 @@ export const Updatewereda = () => {
   const [formData, setFormData] = useState(weredas); // Initialize formData as an empty object
   useEffect(() => {
     if (!id) {
-      navigate('/'); // Redirect if no ID is provided
+      navigate('/admin/wereda'); // Redirect if no ID is provided
     }
   }, [id, navigate]);
   // Use useEffect to update formData when woredadata is successfully fetched
@@ -192,7 +192,8 @@ export const Updatewereda = () => {
     log(response);
     if (response.data) {
       toast.success("Data Added Successfully");
-      window.location.href = `/admin/wereda/${id}`;
+      navigate("/admin/wereda/details", { state: { id: id } });
+      window.location.reload();
       // window.history.back();
     }
   } catch (error) {
