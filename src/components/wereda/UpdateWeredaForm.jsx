@@ -12,7 +12,7 @@ import Select from "react-select";
 import { useSelector } from "react-redux";
 import Loadings from "../Resource/Loading/Loadings";
 import { MainLoading } from "../Resource/Loading/Loadings";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import BackButton from "../Resource/Utility/BackButton";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
 import { log } from "../Resource/Utility/Logger";
@@ -25,7 +25,9 @@ const validationSchema = Yup.object().shape({
 });
 
 export const UpdateWeredaForm = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = location.state || {};
   const {
     data: woredadata,
     isSuccess,
@@ -43,7 +45,11 @@ export const UpdateWeredaForm = () => {
     selectedRegionName: "",
   });
 
-
+  useEffect(() => {
+    if (!id) {
+      navigate('/'); // Redirect if no ID is provided
+    }
+  }, [id, navigate]);
   useEffect(() => {
     if (isSuccess && woredadata) {
       const woredaData = woredadata.data;

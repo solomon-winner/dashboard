@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { useAddSiteDataMutation } from "../../redux/site/SiteApiSlice";
 import { toast } from "react-toastify";
 import { useAddResourceMutation } from "../../redux/resource/ResourceApiSlice";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useInitialValueSite } from "../../redux/InitialState/initalValueSite";
 import { useSelector } from "react-redux";
 import { MainLoading } from "../Resource/Loading/Loadings";
@@ -20,7 +20,9 @@ const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
 export const UpdateSite = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = location.state || {};
   useInitialValueSite(id);
   const { siteData, loading } = useSelector((state) => state.siteById);
   const [addSiteData] = useAddSiteDataMutation();
@@ -29,7 +31,11 @@ export const UpdateSite = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState(siteData);
 
-
+  useEffect(() => {
+    if (!id) {
+      navigate('/'); // Redirect if no ID is provided
+    }
+  }, [id, navigate]);
   useEffect(() => {
     if (!loading && siteData) {
       setFormData(siteData);

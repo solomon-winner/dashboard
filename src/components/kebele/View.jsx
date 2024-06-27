@@ -60,7 +60,8 @@ export const View = () => {
               className="w-full md:w-1/2 md:mt-4 lg:w-1/3 h-auto px-4"
             >
               <Link
-                to={`/admin/kebele/${item.id}`}
+                to={`/admin/kebele/details`}
+                state={{ id: item.id }}
                 className="group p-4 pt-9 h-full md:px-7 xl:px-10 bg-white shadow-md border border-custumBlue hover:shadow-lg hover:bg-mainColor hover:text-white transition duration-300 ease-in-out flex flex-col justify-center relative group overflow-hidden rounded"
               >
                 <h4 className="relative z-10 font-base font-raleway text-base text-dark mb-3">

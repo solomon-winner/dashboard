@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { UpdateForm } from "./updateform/UpdateForm";
 import { UpdateForm2 } from "./updateform/UpdateForm2";
 import { UpdateForm3 } from "./updateform/UpdateForm3";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   useAddWoredaDataMutation,
   useGetWeredaByIdQuery,
@@ -25,7 +25,9 @@ const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
 export const Updatewereda = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = location.state || {};
   useInitalValueworeda(id);
   const { data: woredadata, isFetching } = useGetWeredaByIdQuery(id);
   const { weredas, isLoadingWeredas } = useSelector((state) => state.wereda);
@@ -35,7 +37,11 @@ export const Updatewereda = () => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState(weredas); // Initialize formData as an empty object
-
+  useEffect(() => {
+    if (!id) {
+      navigate('/'); // Redirect if no ID is provided
+    }
+  }, [id, navigate]);
   // Use useEffect to update formData when woredadata is successfully fetched
   useEffect(() => {
     if (!isLoadingWeredas && weredas) {

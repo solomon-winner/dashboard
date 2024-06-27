@@ -10,6 +10,7 @@ import { deleteAccounts } from "../../redux/account/AccountState";
 import Avatars from "../Resource/Utility/Avatars";
 import { log } from "../Resource/Utility/Logger";
 import Pagination from "../Resource/Pagination/Pagination";
+import { id } from "date-fns/locale";
 const UserAccount = () => {
   const accounts = useSelector((state) => state.account.accounts);
   const isLoadingAccounts = useSelector(
@@ -212,7 +213,8 @@ const UserAccount = () => {
                         <div className="flex justify-end">
                           {all_permissions?.includes("edit_users") && (
                           <Link
-                            to={`/admin/update-account/${account.id}`}
+                            to={`/admin/update-account/update`}
+                            state={{id: account.id}}
                             className="text-blue-600 hover:text-blue-700 mr-2 transition duration-300"
                           >
                             <Edit className="w-5 h-5 inline-block" />

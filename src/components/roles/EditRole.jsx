@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import {
@@ -15,7 +15,9 @@ import { MainLoading } from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
 import { log } from "../Resource/Utility/Logger";
 const EditRole = () => {
-  const { id } = useParams(); // Assuming the role ID is passed as a URL parameter
+  const location = useLocation();
+  const { id } = location.state || {};
+
   const [editRole] = useEditRoleMutation();
   const {
     data: role,
@@ -30,6 +32,11 @@ const EditRole = () => {
     name: Yup.string().required("Role name is required"),
     // Add validation for other fields as necessary
   });
+  useEffect(() => {
+    if (!id) {
+      navigate('/'); // Redirect if no ID is provided
+    }
+  }, [id, navigate]);
   if (!roleSuccess || roleFetching) {
     return (
       <div className="flex justify-center items-center h-screen">

@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import { useSelector } from "react-redux";
 import Loadings from "../Resource/Loading/Loadings";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useGetWeredaByIdQuery } from "../../redux/wereda/WeredaApiSlice";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import BackButton from "../Resource/Utility/BackButton";
@@ -32,7 +32,9 @@ const validationSchema = Yup.object().shape({
   // ),
 });
 const UpdateKebeleForm = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = location.state || {};
   const { data: kebeles, isSuccess } = useGetKebeleByIdQuery(id);
   const [UpdateKebele] = useUpdateKebeleByIdMutation();
   const [selectedRegion, setSelectedRegion] = useState("");
@@ -61,7 +63,11 @@ const UpdateKebeleForm = () => {
     geojson: null,
     status: "active",
   });
-
+  useEffect(() => {
+    if (!id) {
+      navigate('/'); // Redirect if no ID is provided
+    }
+  }, [id, navigate]);
   useEffect(() => {
     if (isSuccess && kebeles) {
       const Kebele = kebeles.data;

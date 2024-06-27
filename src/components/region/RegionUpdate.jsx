@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BackButton from "../Resource/Utility/BackButton";
 import { useGetRegionByIdQuery, useUpdateRegionMutation } from "../../redux/region/RegionApiSlice";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import GeoJsonConverter from "../Resource/Convertion/GeoJsonConverter";
 import { log } from "../Resource/Utility/Logger";
 
@@ -17,7 +17,9 @@ const validationSchema = Yup.object().shape({
 });
 
 export const RegionUpdate = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = location.state || {};
   const [file, setFile] = useState(null);
   const [UpdateRegion] = useUpdateRegionMutation();
   const {data: RegionData , isSuccess, isFetching} = useGetRegionByIdQuery(id);
@@ -28,7 +30,11 @@ export const RegionUpdate = () => {
     male_population: "",
     female_population: "",
   });
-
+  useEffect(() => {
+    if (!id) {
+      navigate('/'); // Redirect if no ID is provided
+    }
+  }, [id, navigate]);
   useEffect(() => {
     if(isSuccess && RegionData){
         const region = RegionData.data;

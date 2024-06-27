@@ -14,7 +14,7 @@ import {
   useGetKebeleByIdQuery,
 } from "../../redux/kebele/KebeleApiSlice";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MainLoading } from "../Resource/Loading/Loadings";
 import { useInitialValueKebele } from "../../redux/InitialState/initalValueKebele";
 import { useSelector } from "react-redux";
@@ -29,7 +29,9 @@ const validationSchema = Yup.object().shape({
   // Define your validation schema here if needed
 });
 export const UpdateKebele = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = location.state || {};
   useInitialValueKebele(id);
   const { kebeleData, loading } = useSelector((state) => state.kebeleById);
   const [addResource] = useAddResourceMutation();
@@ -37,7 +39,11 @@ export const UpdateKebele = () => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState(kebeleData);
-
+  useEffect(() => {
+    if (!id) {
+      navigate('/'); // Redirect if no ID is provided
+    }
+  }, [id, navigate]);
   useEffect(() => {
     if (!loading && kebeleData) {
       setFormData(kebeleData);

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "./Table";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   useDeleteKebeleMutation,
   useGetKebeleByIdQuery,
@@ -22,14 +22,21 @@ import { log } from "../Resource/Utility/Logger";
 import EmptyComponent from "../Resource/Utility/EmptyComponent";
 
 export const Details = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = location.state || {};
+
   useInitialValueKebele(id);
   const { data, isSuccess, isFetching } = useGetKebeleByIdQuery(id);
   const { data: site } = useGetSiteByKebeleQuery(id);
   const { data: kebele } = useGetKebeleQuery({ all: true });
   const [deleteKebele] = useDeleteKebeleMutation(id);
   const all_permissions = useSelector((state) => state.auth.all_permissions);
-
+  useEffect(() => {
+    if (!id) {
+      navigate('/'); // Redirect if no ID is provided
+    }
+  }, [id, navigate]);
   if (!isSuccess || isFetching || !data || !kebele || !site) {
     return (
       <div className="flex justify-center items-center h-screen">

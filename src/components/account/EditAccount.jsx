@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field } from "formik";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,7 +13,8 @@ import ReactSelect from "react-select";
 import { log } from "../Resource/Utility/Logger";
 
 export const EditAccount = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const { id } = location.state || {};
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [UpdateUsers] = useUpdateUserMutation();
@@ -42,7 +43,11 @@ export const EditAccount = () => {
       roles: formData.roles,
     };
   };
-
+  useEffect(() => {
+    if (!id) {
+      navigate('/'); // Redirect if no ID is provided
+    }
+  }, [id, navigate]);
   if (!isSuccess || isFetching) {
     return (
       <div className="flex justify-center items-center h-screen">

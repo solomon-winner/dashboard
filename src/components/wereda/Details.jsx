@@ -1,5 +1,5 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import {
   useDeleteWeredaByIdMutation,
@@ -20,7 +20,9 @@ import { useSelector } from "react-redux";
 import EmptyComponent from "../Resource/Utility/EmptyComponent";
 
 export const WeredaDetails = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = location.state || {};
   useInitalValueworeda(id);
   const all_permissions = useSelector((state) => state.auth.all_permissions);
   const { data: weredadata, isSuccess, isFetching } = useGetWeredaByIdQuery(id);
@@ -30,7 +32,11 @@ export const WeredaDetails = () => {
   });
   const { data: wereda } = useGetWoredaQuery({ all: true });
   const [deleteWereda] = useDeleteWeredaByIdMutation();
-
+  useEffect(() => {
+    if (!id) {
+      navigate('/'); // Redirect if no ID is provided
+    }
+  }, [id, navigate]);
   if (!isSuccess || isFetching || !weredadata || !KebeleData || !wereda) {
     return (
       <div className="flex justify-center items-center h-screen">
