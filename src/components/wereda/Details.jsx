@@ -56,7 +56,8 @@ export const WeredaDetails = () => {
         label: wereda.woreda_name, // Assuming the name property exists
       }));
     const handleWeredaSelect = (selectedOption) => {
-      window.location.href = `/admin/wereda/${selectedOption.value}`;
+      navigate(`/admin/wereda/details`, { state: { id: selectedOption.value } });
+      window.location.reload();
     };
     const { woreda_name, woreda_data, region_name } = weredadata.data;
     return (

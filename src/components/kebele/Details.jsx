@@ -58,7 +58,8 @@ export const Details = () => {
         label: kebele.kebele_name, // Assuming the name property exists
       }));
     const handleWeredaSelect = (selectedOption) => {
-      window.location.href = `/admin/kebele/${selectedOption.value}`;
+      navigate(`/admin/kebele/details`, { state: { id: selectedOption.value } });
+      window.location.reload();
     };
     log(data.data.resources);
     return (

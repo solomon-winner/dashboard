@@ -63,7 +63,8 @@ export const SiteDetails = () => {
       label: site.site_name, // Assuming the name property exists
     }));
   const handleWeredaSelect = (selectedOption) => {
-    window.location.href = `/admin/site/${selectedOption.value}`;
+    navigate(`/admin/site/details`, { state: { id: selectedOption.value } });
+    window.location.reload();
   };
   return (
     <div>
