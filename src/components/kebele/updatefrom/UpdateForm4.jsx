@@ -75,7 +75,7 @@ export const UpdateForm4 = ({ handleChange, formData, setFormData }) => {
       initialValues={formData}
       placeholder={["Select Forage Type", "Area"]}
       type={["dropdown", "number"]}
-      label={["foragetype", "forgearea"]}
+      label={["foragetype", "foragearea"]}
       options={
         isLoadingForage
           ? [
@@ -95,7 +95,7 @@ export const UpdateForm4 = ({ handleChange, formData, setFormData }) => {
       }
       onValueChange={(id, name, value) => {
         const values = name === "foragetype" && typeof value === "object" ? value.value : value;
-        const keyToUpdate = name === "foragetype" ? `foragetype${id}` : `forgearea${id}`;
+        const keyToUpdate = name === "foragetype" ? `foragetype${id}` : `foragearea${id}`;
         setFormData((prevState) => ({
           ...prevState,
           [keyToUpdate]: values,
@@ -104,18 +104,18 @@ export const UpdateForm4 = ({ handleChange, formData, setFormData }) => {
       onremove={(id) => {
         const updatedFormData = { ...formData };
         delete updatedFormData[`foragetype${id}`];
-        delete updatedFormData[`forgearea${id}`];
+        delete updatedFormData[`foragearea${id}`];
         let newFormData = {};
         let foragetypeIndex = 1;
-        let forgeareaIndex = 1;
+        let forageareaIndex = 1;
 
         for (let key in updatedFormData) {
           if (key.startsWith("foragetype")) {
             newFormData[`foragetype${foragetypeIndex}`] = updatedFormData[key];
             foragetypeIndex++;
-          } else if (key.startsWith("forgearea")) {
-            newFormData[`forgearea${forgeareaIndex}`] = updatedFormData[key];
-            forgeareaIndex++;
+          } else if (key.startsWith("foragearea")) {
+            newFormData[`foragearea${forageareaIndex}`] = updatedFormData[key];
+            forageareaIndex++;
           } else {
             newFormData[key] = updatedFormData[key];
           }

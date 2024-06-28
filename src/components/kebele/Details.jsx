@@ -34,7 +34,7 @@ export const Details = () => {
   const all_permissions = useSelector((state) => state.auth.all_permissions);
   useEffect(() => {
     if (!id) {
-      navigate('/'); // Redirect if no ID is provided
+      navigate('/admin/kebele'); // Redirect if no ID is provided
     }
   }, [id, navigate]);
   if (!isSuccess || isFetching || !data || !kebele || !site) {
@@ -58,7 +58,8 @@ export const Details = () => {
         label: kebele.kebele_name, // Assuming the name property exists
       }));
     const handleWeredaSelect = (selectedOption) => {
-      window.location.href = `/admin/kebele/${selectedOption.value}`;
+      navigate(`/admin/kebele/details`, { state: { id: selectedOption.value } });
+      window.location.reload();
     };
     log(data.data.resources);
     return (

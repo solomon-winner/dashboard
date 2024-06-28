@@ -108,7 +108,7 @@ export const useInitialValueKebele  = (id) => {
               const causeofdeforestation = data.resources ? data.resources.find(resource => resource.hasOwnProperty('CAUSE_OF_DEFORESTATION')) : undefined;
               const causeofdeforestationResource = causeofdeforestation?.CAUSE_OF_DEFORESTATION ? causeofdeforestation.CAUSE_OF_DEFORESTATION.map(
                (item, index) => ({
-                  [`causeofdeforestiontype${index + 1}`]: item.id,
+                  [`causeofdeforestationtype${index + 1}`]: item.id,
                   [`causeofdeforestionname${index + 1}`]: item.value
                })
               ) : [];

@@ -31,7 +31,7 @@ export const SiteDetails = () => {
   const all_permissions = useSelector((state) => state.auth.all_permissions);
   useEffect(() => {
     if (!id) {
-      navigate('/'); // Redirect if no ID is provided
+      navigate('/admin/site'); // Redirect if no ID is provided
     }
   }, [id, navigate]);
   if (!isSuccess || isFetching || !data || !site) {
@@ -63,7 +63,8 @@ export const SiteDetails = () => {
       label: site.site_name, // Assuming the name property exists
     }));
   const handleWeredaSelect = (selectedOption) => {
-    window.location.href = `/admin/site/${selectedOption.value}`;
+    navigate(`/admin/site/details`, { state: { id: selectedOption.value } });
+    window.location.reload();
   };
   return (
     <div>
