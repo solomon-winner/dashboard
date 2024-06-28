@@ -33,7 +33,9 @@ const FieldComponent = ({
 }) => {
   const dynamicValues = parseInitialValues(initialValues, label);
   const [fields, setFields] = useState(dynamicValues);
-
+  useEffect(() => {
+    setFields(parseInitialValues(initialValues, label));
+  }, [initialValues, label]);
   const addField = () => {
     const highestId = fields.reduce(
       (highest, field) => Math.max(highest, field.id),
