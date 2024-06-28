@@ -318,7 +318,7 @@ export const UpdateKebele = () => {
       const typeKey = `nurserytype${b}`;
       const amountKey = `amount${b}`;
       const capacityKey = `capacity${b}`;
-      if (values[typeKey] || values[amountKey] || values[capacityKey]) {
+      if (values[typeKey]) {
         if (isNaN(values[typeKey])) {
           const response = await addResource({
             name: values[typeKey],
