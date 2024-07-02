@@ -22,6 +22,7 @@ export const View = () => {
           searchInput={searchInput}
           handleSearchInput={handleSearchInput}
           name={"Region"}
+          permisstion={"create_regions"}
         />
       </div>
     );

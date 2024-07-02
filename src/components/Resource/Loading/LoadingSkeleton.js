@@ -2,7 +2,8 @@ import React from "react";
 import { AddButton } from "../Utility/AddButton";
 import { AddDataButton } from "../Utility/AddDataButton";
 
-export const LoadingSkeleton = ({ searchInput, handleSearchInput, url, urlData , name }) => {
+export const LoadingSkeleton = ({ searchInput, handleSearchInput, url, urlData , name, permisstion, permisstion2 }) => {
+  const all_permissions = useSelector((state) => state.auth.all_permissions);
   return (
     <div className="flex flex-col gap-4 py-6 px-10 bg-dashbordColor h-screen overflow-hidden">
       <div className="flex justify-between items-center">
@@ -40,8 +41,12 @@ export const LoadingSkeleton = ({ searchInput, handleSearchInput, url, urlData ,
         </div>
         {name !== "Region" && (
           <div>
+              {all_permissions?.includes(permisstion) && (
             <AddButton name={name} url={url} />
+          )}
+          {all_permissions?.includes(permisstion2) && (
             <AddDataButton name={name} url={urlData} />
+          )}
           </div>
         )}
       </div>

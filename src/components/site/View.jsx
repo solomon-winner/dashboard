@@ -42,6 +42,8 @@ export const View = () => {
           name={"Site"}
           url={"add-sites"}
           urlData={"new-site"}
+          permisstion={"create_sites"}
+          permisstion2={"create_site_data"}
         />
       </div>
     );

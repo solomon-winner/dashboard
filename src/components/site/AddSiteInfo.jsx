@@ -55,6 +55,7 @@ export const AddSiteInfo = () => {
   });
   const [isSubmitting, setisSubmitting] = useState(false);
   const handleSubmit = async (values) => {
+    setIsSubmitting(true);
     // Parse the values to integers
     const updatedValues = {
       ...values,
@@ -79,6 +80,7 @@ export const AddSiteInfo = () => {
       log(geoJsonConverter);
       formData.append("geojson", geoJsonConverter);
     }
+    try {
     // Assuming addSite now accepts FormData instead of a plain object
     const site = await addSite(formData);
     log(site);
@@ -86,6 +88,12 @@ export const AddSiteInfo = () => {
       toast.success("Site added successfully!");
       window.location.href = "/admin/site";
     }
+  } catch (error) {
+    log.error(error);
+    // Handle error (e.g., show a notification)
+  } finally {
+    setIsSubmitting(false); // End submission
+  }
   };
   const weredaOptions = isFetching
     ? [
@@ -309,6 +317,7 @@ export const AddSiteInfo = () => {
                 </div>
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
                   // disabled={isSubmitting} // Use the isSubmitting state to disable the button
                   // onClick={() => {
