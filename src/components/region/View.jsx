@@ -119,5 +119,6 @@ export const View = () => {
   }
 };
 export function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const formatted = x.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return formatted;
 }
