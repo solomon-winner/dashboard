@@ -53,7 +53,7 @@ export const AddSiteInfo = () => {
     woreda_id: "",
     region_id: "",
   });
-  const [isSubmitting, setisSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleSubmit = async (values) => {
     setIsSubmitting(true);
     // Parse the values to integers

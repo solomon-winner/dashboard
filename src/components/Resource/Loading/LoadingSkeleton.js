@@ -1,6 +1,7 @@
 import React from "react";
 import { AddButton } from "../Utility/AddButton";
 import { AddDataButton } from "../Utility/AddDataButton";
+import { useSelector } from "react-redux";
 
 export const LoadingSkeleton = ({ searchInput, handleSearchInput, url, urlData , name, permisstion, permisstion2 }) => {
   const all_permissions = useSelector((state) => state.auth.all_permissions);
