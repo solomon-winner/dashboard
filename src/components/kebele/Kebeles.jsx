@@ -27,6 +27,7 @@ const Kebeles = () => {
     { skip: !selectedRegion }
   );
   const [addKebele] = useAddKebeleMutation();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     kebele_name: "",
     woreda_id: "",
@@ -35,6 +36,7 @@ const Kebeles = () => {
     status: "active",
   });
   const handleSubmit = async (values) => {
+    setIsSubmitting(true);
     // Parse the values to integers
     const updatedValues = {
       ...values,
@@ -59,13 +61,19 @@ const Kebeles = () => {
     }
 
     log(formData);
-
+try{
     const kebele = await addKebele(formData);
     log(kebele);
     if (kebele.data) {
       toast.success("Kebele added successfully!");
       window.location.href = `/admin/kebele`;
     }
+  } catch (error) {
+    log.error(error);
+    // Handle error (e.g., show a notification)
+  } finally {
+    setIsSubmitting(false); // End submission
+  }
   };
   const weredaOptions = isFetching
     ? [
@@ -223,6 +231,7 @@ const Kebeles = () => {
                 </div>
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
                 >
                   Submit

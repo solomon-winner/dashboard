@@ -23,6 +23,7 @@ export const Weredas = () => {
   const [selectedRegion, setSelectedRegion] = useState("");
   const { regions, isLoadingRegions } = useSelector((state) => state.region);
   const [AddWereda] = useAddWoredaMutation();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     woreda_name: "",
     status: "active",
@@ -30,6 +31,7 @@ export const Weredas = () => {
     geojson: null,
   });
   const handleSubmit = async (values) => {
+    setIsSubmitting(true);
     const updatedValues = {
       ...values,
       region_id: parseInt(values.region_id, 10),
@@ -51,13 +53,19 @@ export const Weredas = () => {
       formData.append("geojson", geoJsonConverter);
     }
     log(formData);
-
+try{
     const wereda = await AddWereda(formData);
     log(wereda);
     if (wereda.data) {
       toast.success("Wereda added successfully!");
       window.location.href = `/admin/wereda`;
     }
+  } catch (error) {
+    log.error(error);
+    // Handle error (e.g., show a notification)
+  } finally {
+    setIsSubmitting(false); // End submission
+  }
   };
   const handleChanges = (event) => {
     const selectedFile = event.target.files[0];
@@ -163,6 +171,7 @@ export const Weredas = () => {
                 </div>
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-darkMain"
                 >
                   Submit

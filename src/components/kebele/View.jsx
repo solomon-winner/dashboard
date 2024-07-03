@@ -42,6 +42,8 @@ export const View = () => {
           name={"Kebele"}
           url={"add-kebeles"}
           urlData={"new-kebele"}
+          permisstion={"create_kebeles"}
+          permisstion2={"create_kebele_data"}
         />
       </div>
     );

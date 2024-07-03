@@ -29,9 +29,9 @@ const validationSchema = Yup.object().shape({
   kebele_id: Yup.string().required("Kebele is required"),
   // watershed_name: Yup.string().required("MicroWaterShed name is required"),
   site_name: Yup.string().required("Site name is required"),
-  // size_ha: Yup.number()
-  //   .required("Size of Site is required")
-  //   .positive("Size must be a positive number"),
+  size_ha: Yup.number()
+    .required("Size of Site is required")
+    // .positive("Size must be a positive number"),
   // geojson: Yup.mixed().test(
   //   "fileSize",
   //   "File size is too large",

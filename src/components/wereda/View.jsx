@@ -41,6 +41,8 @@ export const View = () => {
           name={"Wereda"}
           url={"add-weredas"}
           urlData={"new-wereda"}
+          permisstion={"create_woredas"}
+          permisstion2={"create_woreda_data"}
         />
       </div>
     );
