@@ -77,7 +77,7 @@ export const Addwereda = () => {
             resource_type: "LAND",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
@@ -102,7 +102,7 @@ export const Addwereda = () => {
             resource_type: "ROAD",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }

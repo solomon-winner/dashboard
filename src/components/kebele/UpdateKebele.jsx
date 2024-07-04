@@ -72,7 +72,7 @@ export const UpdateKebele = () => {
             resource_type: "ENERGY_SOURCE",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
@@ -100,7 +100,7 @@ export const UpdateKebele = () => {
             resource_type: "LIVELIHOOD",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
           
@@ -128,7 +128,7 @@ export const UpdateKebele = () => {
             resource_type: "LAND",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
@@ -157,7 +157,7 @@ export const UpdateKebele = () => {
           });
           console.log(response)
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
@@ -184,7 +184,7 @@ export const UpdateKebele = () => {
             resource_type: "TREE",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
@@ -211,7 +211,7 @@ export const UpdateKebele = () => {
             resource_type: "TREE",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
@@ -240,7 +240,7 @@ export const UpdateKebele = () => {
             resource_type: "FORAGE",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
@@ -268,7 +268,7 @@ export const UpdateKebele = () => {
             resource_type: "CROP",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
@@ -296,7 +296,7 @@ export const UpdateKebele = () => {
             resource_type: "FRUIT",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
@@ -325,7 +325,7 @@ export const UpdateKebele = () => {
             resource_type: "NURSERY",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
@@ -352,7 +352,7 @@ export const UpdateKebele = () => {
             resource_type: "CAUSE_OF_DEFORESTATION",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }

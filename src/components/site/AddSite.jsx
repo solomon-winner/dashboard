@@ -110,7 +110,7 @@ export const AddSite = () => {
             resource_type: "TREE",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
@@ -134,7 +134,7 @@ export const AddSite = () => {
             resource_type: "TREE",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
@@ -158,7 +158,7 @@ export const AddSite = () => {
             resource_type: "LAND",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
@@ -182,7 +182,7 @@ export const AddSite = () => {
             resource_type: "FORAGE",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
@@ -206,7 +206,7 @@ export const AddSite = () => {
             resource_type: "LIVELIHOOD",
           });
           if (response.data) {
-            toast.success("Resource added successfully");
+           
             values[typeKey] = response.data.data.id;
           }
         }
