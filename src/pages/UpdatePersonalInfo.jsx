@@ -22,7 +22,6 @@ export const UpdatePersonalInfo = () => {
   const formatFormData = (formData) => {
     return {
       name: `${formData.FirstName} ${formData.LastName}`,
-      birthday: formData.birthday,
       mobile: formData.mobile,
       organization: formData.organization,
       position: formData.position,
@@ -37,7 +36,6 @@ export const UpdatePersonalInfo = () => {
           initialValues={{
             FirstName: UserData.name ? splitName(UserData.name).firstName : "",
             LastName: UserData.name ? splitName(UserData.name).lastName : "",
-            birthday: UserData.birthday,
             mobile: UserData.mobile,
             organization: UserData.organization,
             position: UserData.position,
@@ -102,22 +100,7 @@ export const UpdatePersonalInfo = () => {
                     className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                   />
                 </div>
-                <div className="w-full px-3 sm:w-1/2">
-                  <div className="mb-5">
-                    <label
-                      htmlFor="birthday"
-                      className="mb-3 block text-base font-medium text-[#07074D]"
-                    >
-                      Birth day?
-                    </label>
-                    <Field
-                      type="date"
-                      name="birthday"
-                      id="date"
-                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    />
-                  </div>
-                </div>
+
                 <div className="w-full px-3 sm:w-1/2">
                   <div className="mb-5">
                     <label
