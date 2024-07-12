@@ -26,7 +26,6 @@ const NewUser = () => {
       name: `${formData.FirstName} ${formData.LastName}`,
       password: formData.password,
       email: formData.email,
-      birthday: formData.birthday,
       mobile: formData.mobile,
       organization: formData.organization,
       position: formData.position,
@@ -141,20 +140,7 @@ const NewUser = () => {
                   </div>
                 </div>
                 <div className="space-y-5 col-span-1 sm:col-span-2">
-                  <div>
-                    <label
-                      htmlFor="birthday"
-                      className="mb-2 block text-sm font-medium text-gray-700"
-                    >
-                      Birth day
-                    </label>
-                    <Field
-                      type="date"
-                      name="birthday"
-                      id="date"
-                      className="w-full rounded-md border border-gray-300 bg-white py-2 px-4 text-base font-medium text-gray-700 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
-                    />
-                  </div>
+
                   <div>
                     <label
                       htmlFor="mobile"
