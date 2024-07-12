@@ -108,7 +108,7 @@ export const UpdatePersonalInfo = () => {
                       htmlFor="birthday"
                       className="mb-3 block text-base font-medium text-[#07074D]"
                     >
-                      Your Birth day?
+                      Birth day?
                     </label>
                     <Field
                       type="date"
