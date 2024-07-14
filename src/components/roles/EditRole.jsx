@@ -84,7 +84,8 @@ const EditRole = () => {
     if (response?.data) {
       toast.success("Role added successfully");
       refetch();
-      navigate("/admin/roles");
+      window.location.href = "/admin/roles";
+      // navigate("/admin/roles");
     }
   };
 

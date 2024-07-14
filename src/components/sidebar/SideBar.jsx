@@ -178,7 +178,7 @@ export const SideBar = () => {
                           >
                             <StreetviewIcon style={{ fontSize: "large" }} />
                             <span className="ml-3 flex-1 whitespace-nowrap">
-                              Wereda
+                              Woreda
                             </span>
                           </NavLink>
                         </li>
