@@ -102,6 +102,7 @@ const UserAccount = () => {
 
   const handleAccountsPerPageChange = (event) => {
     setAccountsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(1);
   };
 
   const handleSearchChange = (e) => {
